@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Staticor hungry</title>
+  <icon>https://www.gravatar.com/avatar/979aa65d3e571f0a842bcc5dbf560d05</icon>
+  <subtitle>努力， 努力， 努力</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://staticor.github.io/"/>
+  <updated>2019-02-25T21:35:18.695Z</updated>
+  <id>https://staticor.github.io/</id>
+  
+  <author>
+    <name>Jinyong Yang</name>
+    <email>staticor@aol.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>傅里叶变换(Fourier Transformation)</title>
+    <link href="https://staticor.github.io/2019/02/26/fourier/"/>
+    <id>https://staticor.github.io/2019/02/26/fourier/</id>
+    <published>2019-02-25T20:08:03.000Z</published>
+    <updated>2019-02-25T21:35:18.695Z</updated>
+    
+    <content type="html"><![CDATA[<img src="https://img1.doubanio.com/view/status/raw/public/008505daab1d3ba.jpg" class="[class names]" width="600" height="400" title="Hi! Doctor..."><h1 id="Def"><a href="#Def" class="headerlink" title="Def"></a>Def</h1><p>以下引自维基百科的解释： <a href="https://zh.wikipedia.org/wiki/傅里叶变换" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/傅里叶变换</a></p><blockquote><p>傅里叶变换(Fourier Transformation)是一种线性积分变换， 用于信号在时域（或空域）和频域之间的变换，在工程学、信号处理上有广泛应用。</p><p>由法国学者约瑟夫.傅里叶系统地提出， 故此以其名字来纪念。 傅里叶变换就像化学分析，确定物质的基本成分； 信号来自自然界， 也可以对其进行分析</p><p>， 确定信号的基本成本。</p></blockquote><p>从数学的角度来看，人们试图用数学公式来描述现实中的存在，即函数。而当现实出现周期性时，就有意思了，对周期性现象的数学描述就是本文要研究的傅里叶变换。</p><h1 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h1><p>基础知识： 三角函数 Sin Cos</p><p>傅里叶级数（Fourier Series）</p><h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><a href="https://open.163.com/movie/2008/2/6/6/M7Q4BLENR_M7QBP2N66.html" target="_blank" rel="noopener">网易公开课-傅里叶变换</a>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;img src=&quot;https://img1.doubanio.com/view/status/raw/public/008505daab1d3ba.jpg&quot; class=&quot;[class names]&quot; width=&quot;600&quot; height=&quot;400&quot; title=&quot;Hi! Do
+      
+    
+    </summary>
+    
+    
+      <category term="数学" scheme="https://staticor.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>爱的世界转圈圈</title>
+    <link href="https://staticor.github.io/2019/02/23/photo/"/>
+    <id>https://staticor.github.io/2019/02/23/photo/</id>
+    <published>2019-02-23T15:08:52.000Z</published>
+    <updated>2019-02-25T21:35:27.467Z</updated>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+
+      
+    
+    </summary>
+    
+    
+      <category term="Life" scheme="https://staticor.github.io/tags/Life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Flink2019</title>
+    <link href="https://staticor.github.io/2019/02/23/Flink2019/"/>
+    <id>https://staticor.github.io/2019/02/23/Flink2019/</id>
+    <published>2019-02-23T09:43:14.000Z</published>
+    <updated>2019-02-23T09:43:14.335Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>平凡之路</title>
+    <link href="https://staticor.github.io/2019/02/22/%E5%B9%B3%E5%87%A1%E4%B9%8B%E8%B7%AF/"/>
+    <id>https://staticor.github.io/2019/02/22/平凡之路/</id>
+    <published>2019-02-21T16:41:06.000Z</published>
+    <updated>2019-02-25T21:35:31.262Z</updated>
+    
+    <content type="html"><![CDATA[<p>斯坦福公开课</p><ul><li><p>机器学习Ng</p></li><li><p>傅里叶变换及应用 </p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;斯坦福公开课&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;机器学习Ng&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;傅里叶变换及应用 &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="杂谈" scheme="https://staticor.github.io/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>当自己老去， 你会拿出什么留给自己给后辈？</title>
+    <link href="https://staticor.github.io/2019/02/20/hello-world/"/>
+    <id>https://staticor.github.io/2019/02/20/hello-world/</id>
+    <published>2019-02-19T16:00:00.000Z</published>
+    <updated>2019-02-25T18:54:18.307Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="hello"><a href="#hello" class="headerlink" title="hello"></a>hello</h1><p>2019年2月22， 我受到了某blog触动 决定一边维护自己的Strikingly， 一边重新维护自己的staticor.github.io</p><p>使用hexo博客框架。 </p><p>我的生活站点是 staticor-io ， github-io则会作为自己今后的技术Note。 </p><h1 id="article-format"><a href="#article-format" class="headerlink" title="article format"></a>article format</h1><blockquote><p>Do not just seek happiness for yourself. Seek happiness for all. Through kindness. Through mercy.</p><footer><strong>David Levithan</strong><cite>Wide Awake</cite></footer></blockquote><blockquote><p>NEW: DevDocs now comes with syntax highlighting. <a href="http://devdocs.io" target="_blank" rel="noopener">http://devdocs.io</a></p><footer><strong>@DevDocs</strong><cite><a href="https://twitter.com/devdocs/status/356095192085962752" target="_blank" rel="noopener">twitter.com/devdocs/status/356095192085962752</a></cite></footer></blockquote><h1 id="code"><a href="#code" class="headerlink" title="code"></a>code</h1><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rectangle setX: <span class="number">10</span> y: <span class="number">10</span> width: <span class="number">20</span> height: <span class="number">20</span>];</span><br></pre></td></tr></table></figure><h1 id="举步维艰"><a href="#举步维艰" class="headerlink" title="举步维艰"></a>举步维艰</h1><p> 我不是一个技术专科出身的人， 如果非要给自己一个title， 我想还是用数据挖掘工程师更合适一些。<br> 不过一直隶属于过往公司的大数据部门， 因此对于Hadoop Hive Spark Flink 兴趣是一直都在的。</p><p> Java功底很差， 也还在学习。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ hexo server</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ hexo generate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;hello&quot;&gt;&lt;a href=&quot;#hello&quot; class=&quot;headerlink&quot; title=&quot;hello&quot;&gt;&lt;/a&gt;hello&lt;/h1&gt;&lt;p&gt;2019年2月22， 我受到了某blog触动 决定一边维护自己的Strikingly， 一边重新维护自己的stati
+      
+    
+    </summary>
+    
+      <category term="生活" scheme="https://staticor.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="杂谈" scheme="https://staticor.github.io/categories/%E7%94%9F%E6%B4%BB/%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="杂谈" scheme="https://staticor.github.io/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+</feed>
