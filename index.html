@@ -355,7 +355,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/03/machine-learning/" class="post-title-link" itemprop="url">machine-learning</a>
+                <a href="/2019/03/03/machine-learning/" class="post-title-link" itemprop="url">Machine Learning</a>
               
             
           </h1>
@@ -380,7 +380,7 @@
                 
               
 
-              <time title="Created: 2019-03-03 10:23:42 / Modified: 12:51:13" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
+              <time title="Created: 2019-03-03 10:23:42 / Modified: 21:07:23" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
             
 
             
@@ -431,7 +431,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.9k</span>
+                <span title="Symbols count in article">3.9k</span>
               
 
               
@@ -445,7 +445,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -494,7 +494,47 @@
 <script type="math/tex; mode=display">\sigma (t) =  \frac{1}{1 + exp(-t) }</script><p>Logistic Regression cost function (log loss)</p>
 <script type="math/tex; mode=display">J(\theta) = - \frac{1}{m} \sum_{i=1}^{m} [y^{(i)} log( { \hat p }^(i) )   +  (1-y^{(i)})log( 1-{\hat p}^i)  ]</script><p>Logistic cost function partial derivatives </p>
 <script type="math/tex; mode=display">\frac{\partial}{\partial \theta_j } J(\boldsymbol \theta) = \frac{1}{m} \sum_{i=1}^{m} ( \sigma ( \boldsymbol \theta^T x^i ) -y^i ) x_j^i</script><figure class="highlight python"><figcaption><span>sklearn-Logistic Regression</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">log_reg = LogisticRegression()</span><br><span class="line">log_reg.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><script type="math/tex; mode=display">\widehat p_k = \sigma ( \boldsymbol s(x))_k   = \frac{exp(s_k(\boldsymbol x))}{ \sum_{j=1}^K exp(s_j(\boldsymbol x))}</script>
+<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><script type="math/tex; mode=display">\widehat p_k = \sigma ( \boldsymbol s(x))_k   = \frac{exp(s_k(\boldsymbol x))}{ \sum_{j=1}^K exp(s_j(\boldsymbol x))}</script><h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h1><blockquote><p>Support Vector Machine</p>
+</blockquote>
+<ul>
+<li>Decision Functions and Predictions</li>
+</ul>
+<script type="math/tex; mode=display">\widehat{y} = 
+\begin{cases}
+0, &  {if \quad w^T x + b > 0 } \\
+1, &  {if \quad w^T x + b \leq 0 } \\
+\end{cases}</script><ul>
+<li>Hard Margin Classification</li>
+</ul>
+<script type="math/tex; mode=display">\min_{w, b} \frac{1}{2} w^T \cdot w</script><p>subject to</p>
+<script type="math/tex; mode=display">t^{(i)} (w^T x^{(i)} + b) \geq 1   ,\quad   for \quad i = 1,2, \cdots , m</script><ul>
+<li>Soft Margin Classification</li>
+</ul>
+<script type="math/tex; mode=display">\min_{w, b} \frac{1}{2} w^T \cdot w  + C \sum_{i=1}^m \xi^{(i)}</script><p>subject to</p>
+<script type="math/tex; mode=display">t^{(i)} (w^T x^{(i)} + b) \geq 1 - \xi^{(i)}  and \quad  \xi^{(i)} \geq 0 , \quad   for \quad i = 1,2, \cdots , m</script><ul>
+<li>Dual Problem</li>
+</ul>
+<script type="math/tex; mode=display">\min_{ \alpha }    \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha^{(i)} \alpha^{(j)} t^{(i)} t^{(j)} {x^{(i)}}^T \cdot x^{(j)}  - \sum_{i=1}^m \alpha^{(i)}</script><p>subject to</p>
+<script type="math/tex; mode=display">\alpha^{(i)} \geq 0   \quad  for \quad i = 1,2, \cdots , m</script><figure class="highlight python"><figcaption><span>LinearSVC</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris[<span class="string">"data"</span>][:, (<span class="number">2</span>, <span class="number">3</span>)]  <span class="comment"># petal length, petal width</span></span><br><span class="line">y = (iris[<span class="string">"target"</span>] == <span class="number">2</span>).astype(np.float64)  <span class="comment"># Iris-Virginica</span></span><br><span class="line"></span><br><span class="line">svm_clf = Pipeline([</span><br><span class="line">        (<span class="string">"scaler"</span>, StandardScaler()),</span><br><span class="line">        (<span class="string">"linear_svc"</span>, LinearSVC(C=<span class="number">1</span>, loss=<span class="string">"hinge"</span>)),</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">svm_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
+<h2 id="Comman-kernels"><a href="#Comman-kernels" class="headerlink" title="Comman kernels"></a>Comman kernels</h2><ul>
+<li>Linear</li>
+</ul>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  = \boldsymbol a^T \cdot \boldsymbol b</script><ul>
+<li>Polynomial</li>
+</ul>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  ( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)^d</script><ul>
+<li>Gaussian RBF</li>
+</ul>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  exp(- \gamma || \boldsymbol a - \boldsymbol b|| ^2 )</script><ul>
+<li>Sigmoid</li>
+</ul>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  tanh( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)</script><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em> </p>
+<h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><script type="math/tex; mode=display">precision = \frac{TP}{TP+FP}</script><script type="math/tex; mode=display">recall = \frac{TP}{TP+FN}</script><p>$F_1$ 是二者的调和平均</p>
+<script type="math/tex; mode=display">F_1 = \frac{2}{\frac{1}{precision} + \frac{1}{recall}}</script><figure class="highlight python"><figcaption><span>precision_score and recall_score</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> precision_score, recall_score</span><br></pre></td></tr></table></figure>
+<h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><ul>
+<li>MSE</li>
+</ul>
+<script type="math/tex; mode=display">MSE(x, h_{\theta}) =  \frac{1}{m} \sum_{i=1}^{m} ( \theta^T \cdot x^{(i)} - y^{(i)} )^2</script>
           
         
       
@@ -911,19 +951,19 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" rel="gallery_cjssfuwxv000oirfya7y27h9l" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" rel="gallery_cjssxnom3000br5fyuavmpt0z" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" itemprop="contentUrl">
               </a>
             
           
             
-              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" rel="gallery_cjssfuwxv000oirfya7y27h9l" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" rel="gallery_cjssxnom3000br5fyuavmpt0z" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" itemprop="contentUrl">
               </a>
             
           
             
-              <a class="post-gallery-img fancybox" href="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" rel="gallery_cjssfuwxv000oirfya7y27h9l" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" rel="gallery_cjssxnom3000br5fyuavmpt0z" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" itemprop="contentUrl">
               </a>
             </div>
@@ -1654,7 +1694,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -1665,9 +1705,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -1693,16 +1735,52 @@
             
           
           
+<div id="days"></div>
+
+<script language="javascript">
+
+
+
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("02/19/2019 15:00:00");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+
+
+</script>
+
+
+
 <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
 <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
 <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-机器学习/">算法,机器学习</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
+
 
 
         </div>
@@ -1734,7 +1812,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">4k</span>
+    <span title="Symbols count total">6k</span>
   
 
   
@@ -1743,7 +1821,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">4 mins.</span>
+    <span title="Reading time total">6 mins.</span>
   
 </div>
 
