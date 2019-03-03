@@ -335,6 +335,221 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/03/03/machine-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/03/machine-learning/" class="post-title-link" itemprop="url">machine-learning</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-03 10:23:42 / Modified: 12:51:13" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>假期找了几本关于机器学习的书，将一些比较重要的核心公式整体到这里。</p>
+<h1 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h1><h2 id="模型描述"><a href="#模型描述" class="headerlink" title="模型描述"></a>模型描述</h2><p>特征空间假设， 寻找线性系数 $ \theta $ 以希望用一个线性函数逼近目标向量。</p>
+<p>逼近的效果好坏叫做 <strong>Cost Function</strong>， 下面列出的MSE便是其中一种。</p>
+<blockquote><p>Linear Regression</p>
+</blockquote>
+<script type="math/tex; mode=display">\hat y = h_{\theta} (x) =  \theta \cdot x</script><script type="math/tex; mode=display">MSE(x, h_{\theta}) =  \frac{1}{m} \sum_{i=1}^{m} ( \theta^T \cdot x^{(i)} - y^{(i)} )^2</script><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><img src="/2019/03/03/machine-learning/sgd.png" title="sgd">
+<script type="math/tex; mode=display">\Theta^{(next step)} = \Theta - \eta \nabla_\theta MSE( \theta )</script><p>其中 </p>
+<script type="math/tex; mode=display">\nabla_\theta MSE( \theta ) = \begin{pmatrix}
+\frac{\partial}{\partial_{\theta_0}} MSE( \theta ) \\
+\frac{\partial}{\partial_{\theta_1}} MSE( \theta ) \\
+\cdots \\
+\frac{\partial}{\partial_{\theta_n}} MSE( \theta ) \\
+\end{pmatrix} = \frac{2}{m} X^T (X\Theta - Y)</script><h2 id="带有正则项"><a href="#带有正则项" class="headerlink" title="带有正则项"></a>带有正则项</h2><ul>
+<li>Ridge Regression</li>
+</ul>
+<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + \alpha \frac{1}{2} \sum_{i=1}^{n} \theta_i^2</script><img src="/2019/03/03/machine-learning/ridge.png" title="ridge">
+<ul>
+<li>LASSO</li>
+</ul>
+<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + \alpha \sum_{i=1}^{n} | \theta_i |</script><ul>
+<li>Elastic Net</li>
+</ul>
+<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + r \alpha \sum_{i=1}^{n} | \theta_i | + \frac{1-r}{2} \alpha  \sum_{i=1}^{n} \theta_i^2</script><figure class="highlight python"><figcaption><span>sklearn-线性回归</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line">lr = LinearRegression()</span><br><span class="line">lr.fit(X, y)</span><br><span class="line">lr.intercept_, lr.coef_</span><br><span class="line"></span><br><span class="line"><span class="comment">#mse</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># sgd</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDRegressor</span><br></pre></td></tr></table></figure>
+<h2 id="对数线性回归-Logistic-Regression"><a href="#对数线性回归-Logistic-Regression" class="headerlink" title="对数线性回归 - Logistic Regression"></a>对数线性回归 - Logistic Regression</h2><script type="math/tex; mode=display">\hat p = h_\theta (x) = \sigma (\theta^T x)</script><p>$ \sigma(t) $ 是Sigmoid函数</p>
+<script type="math/tex; mode=display">\sigma (t) =  \frac{1}{1 + exp(-t) }</script><p>Logistic Regression cost function (log loss)</p>
+<script type="math/tex; mode=display">J(\theta) = - \frac{1}{m} \sum_{i=1}^{m} [y^{(i)} log( { \hat p }^(i) )   +  (1-y^{(i)})log( 1-{\hat p}^i)  ]</script><p>Logistic cost function partial derivatives </p>
+<script type="math/tex; mode=display">\frac{\partial}{\partial \theta_j } J(\boldsymbol \theta) = \frac{1}{m} \sum_{i=1}^{m} ( \sigma ( \boldsymbol \theta^T x^i ) -y^i ) x_j^i</script><figure class="highlight python"><figcaption><span>sklearn-Logistic Regression</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">log_reg = LogisticRegression()</span><br><span class="line">log_reg.fit(X, y)</span><br></pre></td></tr></table></figure>
+<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><script type="math/tex; mode=display">\widehat p_k = \sigma ( \boldsymbol s(x))_k   = \frac{exp(s_k(\boldsymbol x))}{ \sum_{j=1}^K exp(s_j(\boldsymbol x))}</script>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/02/26/fourier/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -380,16 +595,46 @@
                 
               
 
-              <time title="Created: 2019-02-26 04:08:03 / Modified: 21:28:50" itemprop="dateCreated datePublished" datetime="2019-02-26T04:08:03+08:00">2019-02-26</time>
+              <time title="Created: 2019-02-26 04:08:03" itemprop="dateCreated datePublished" datetime="2019-02-26T04:08:03+08:00">2019-02-26</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-03 10:38:58" itemprop="dateModified" datetime="2019-03-03T10:38:58+08:00">2019-03-03</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -413,7 +658,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">354</span>
+                <span title="Symbols count in article">1k</span>
               
 
               
@@ -450,15 +695,40 @@
         
           
             <img src="/2019/02/26/fourier/dr-fourier-cat.jpg" title="Hi! Doctor...">
-<h1 id="Def"><a href="#Def" class="headerlink" title="Def"></a>Def</h1><p>以下引自维基百科的解释： <a href="https://zh.wikipedia.org/wiki/傅里叶变换" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/傅里叶变换</a></p>
+<h1 id="Def"><a href="#Def" class="headerlink" title="Def."></a>Def.</h1><p>以下引自维基百科的解释： <a href="https://zh.wikipedia.org/wiki/傅里叶变换" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/傅里叶变换</a></p>
 <blockquote><p>傅里叶变换(Fourier Transformation)是一种线性积分变换， 用于信号在时域（或空域）和频域之间的变换，在工程学、信号处理上有广泛应用。</p>
 <p>由法国学者约瑟夫.傅里叶系统地提出， 故此以其名字来纪念。 傅里叶变换就像化学分析，确定物质的基本成分； 信号来自自然界， 也可以对其进行分析</p>
 <p>， 确定信号的基本成本。</p>
 </blockquote>
 <p>从数学的角度来看，人们试图用数学公式来描述现实中的存在，即函数。而当现实出现周期性时，就有意思了，对周期性现象的数学描述就是本文要研究的傅里叶变换。</p>
-<h1 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h1><p>基础知识： 三角函数 Sin Cos</p>
-<p>傅里叶级数（Fourier Series）</p>
-<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><a href="https://open.163.com/movie/2008/2/6/6/M7Q4BLENR_M7QBP2N66.html" target="_blank" rel="noopener">网易公开课-傅里叶变换</a>
+<p>本人也将此文作为自己的第一篇数学博客， 同时也顺便学习Mathjax的语法。</p>
+<h1 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h1><p>如果让我给一些年轻人解释什么是FT，为什么要学习FT，怎么学习？</p>
+<p>我想梳理出来的主线是这样的：</p>
+<ul>
+<li><p>数学基础知识： 三角函数 $ \sin x \cos x $  欧拉公式</p>
+</li>
+<li><p>傅里叶级数 （Fourier Series）</p>
+</li>
+<li><p>傅里叶变换</p>
+</li>
+</ul>
+<h2 id="和式拆解"><a href="#和式拆解" class="headerlink" title="和式拆解"></a>和式拆解</h2><p>傅里叶级数要从纯粹的三角函数 $ \sin x \cos x $ 说起， 一段有界的现实过程也可以通过 $ \sin x $ 描述， 周期性就先引入频域为1作为引子。</p>
+<p>设定周期：</p>
+<p> $ \sin x $ 周期是 $ 2\pi $ ， 所以 $ \sin 2\pi x $ 就是周期为1， 类似可以推广到：</p>
+<p> $ \sin 4\pi x $ 是周期为 $ \frac{1}{2} $, 频率为 $ 2 $ ， 但是1也可以是它的周期</p>
+<p> $ \sin 6\pi x $ 是周期为 $ \frac{1}{3} $, 频率为 $ 3 $ ， 但是1也可以是它的周期</p>
+<p> 将他们叠加在一起，   $ \sin 2\pi x + \sin 4\pi x + \sin 6\pi x $， 图形如下： </p>
+<img src="/2019/02/26/fourier/sin3.jpg" title="三种正弦曲线叠加">
+<p>还可以改变它们的振幅和相位，这说明通过 $ \sin  $ 可以组成复杂的形式了。</p>
+<script type="math/tex; mode=display">\sum_{k=1}^n A_k \sin (2 \pi kt + \phi_k )</script><p>$ k = 1 $ 项被称为基波（fundamental wave), $ k \gt 1 $ 的项被称作 谐波 （harmonic)</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://open.163.com/movie/2008/2/6/6/M7Q4BLENR_M7QBP2N66.html" target="_blank" rel="noopener">网易公开课-傅里叶变换</a>
+</li>
+<li><a href="https://www.cnblogs.com/TaigaCon/p/4917553.html" target="_blank" rel="noopener">网易公开课-网友学习笔记</a>
+</li>
+<li><a href="http://blog.jobbole.com/70549/" target="_blank" rel="noopener">如果看了此文你还不懂傅里叶变换</a>
+</li>
+</ul>
 
           
         
@@ -641,19 +911,19 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" rel="gallery_cjslt69f00008rhfy3pjs318c" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" rel="gallery_cjssfuwxv000oirfya7y27h9l" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" itemprop="contentUrl">
               </a>
             
           
             
-              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" rel="gallery_cjslt69f00008rhfy3pjs318c" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" rel="gallery_cjssfuwxv000oirfya7y27h9l" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" itemprop="contentUrl">
               </a>
             
           
             
-              <a class="post-gallery-img fancybox" href="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" rel="gallery_cjslt69f00008rhfy3pjs318c" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" rel="gallery_cjssfuwxv000oirfya7y27h9l" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" itemprop="contentUrl">
               </a>
             </div>
@@ -1353,7 +1623,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1363,16 +1633,20 @@
                 
                 
                 <div class="site-state-item site-state-categories">
-                  
+                  <a href="/categories/index.html">
                     
                     
                       
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">categories</span>
-                  
+                  </a>
                 </div>
               
 
@@ -1389,7 +1663,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -1423,7 +1699,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-机器学习/">算法,机器学习</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -1458,7 +1734,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">2k</span>
+    <span title="Symbols count total">4k</span>
   
 
   
@@ -1467,7 +1743,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1 mins.</span>
+    <span title="Reading time total">4 mins.</span>
   
 </div>
 
@@ -1607,15 +1883,17 @@
   
     
       
-    
-      
-    
-      
-    
-      
-    
-      
         
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
       
     
   
