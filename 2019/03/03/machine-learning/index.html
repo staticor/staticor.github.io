@@ -105,16 +105,16 @@
   <meta name="description" content="假期找了几本关于机器学习的书，将一些比较重要的核心公式整体到这里。 线性回归模型描述特征空间假设， 寻找线性系数 $ \theta $ 以希望用一个线性函数逼近目标向量。 逼近的效果好坏叫做 Cost Function， 下面列出的MSE便是其中一种。 Linear Regression  \hat y = h_{\theta} (x) =  \theta \cdot xMSE(x, h_{\th">
 <meta name="keywords" content="算法,机器学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="machine-learning">
+<meta property="og:title" content="Machine Learning">
 <meta property="og:url" content="https://staticor.github.io/2019/03/03/machine-learning/index.html">
 <meta property="og:site_name" content="Staticor hungry">
 <meta property="og:description" content="假期找了几本关于机器学习的书，将一些比较重要的核心公式整体到这里。 线性回归模型描述特征空间假设， 寻找线性系数 $ \theta $ 以希望用一个线性函数逼近目标向量。 逼近的效果好坏叫做 Cost Function， 下面列出的MSE便是其中一种。 Linear Regression  \hat y = h_{\theta} (x) =  \theta \cdot xMSE(x, h_{\th">
 <meta property="og:locale" content="en-GB">
 <meta property="og:image" content="https://staticor.github.io/2019/03/03/machine-learning/sgd.png">
 <meta property="og:image" content="https://staticor.github.io/2019/03/03/machine-learning/ridge.png">
-<meta property="og:updated_time" content="2019-03-03T04:51:13.497Z">
+<meta property="og:updated_time" content="2019-03-03T13:07:23.801Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="machine-learning">
+<meta name="twitter:title" content="Machine Learning">
 <meta name="twitter:description" content="假期找了几本关于机器学习的书，将一些比较重要的核心公式整体到这里。 线性回归模型描述特征空间假设， 寻找线性系数 $ \theta $ 以希望用一个线性函数逼近目标向量。 逼近的效果好坏叫做 Cost Function， 下面列出的MSE便是其中一种。 Linear Regression  \hat y = h_{\theta} (x) =  \theta \cdot xMSE(x, h_{\th">
 <meta name="twitter:image" content="https://staticor.github.io/2019/03/03/machine-learning/sgd.png">
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>machine-learning | Staticor hungry</title>
+  <title>Machine Learning | Staticor hungry</title>
   
 
 
@@ -355,7 +355,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">machine-learning
+          <h1 class="post-title" itemprop="name headline">Machine Learning
 
               
             
@@ -381,7 +381,7 @@
                 
               
 
-              <time title="Created: 2019-03-03 10:23:42 / Modified: 12:51:13" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
+              <time title="Created: 2019-03-03 10:23:42 / Modified: 21:07:23" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
             
 
             
@@ -432,7 +432,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.9k</span>
+                <span title="Symbols count in article">3.9k</span>
               
 
               
@@ -446,7 +446,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -493,7 +493,47 @@
 <script type="math/tex; mode=display">\sigma (t) =  \frac{1}{1 + exp(-t) }</script><p>Logistic Regression cost function (log loss)</p>
 <script type="math/tex; mode=display">J(\theta) = - \frac{1}{m} \sum_{i=1}^{m} [y^{(i)} log( { \hat p }^(i) )   +  (1-y^{(i)})log( 1-{\hat p}^i)  ]</script><p>Logistic cost function partial derivatives </p>
 <script type="math/tex; mode=display">\frac{\partial}{\partial \theta_j } J(\boldsymbol \theta) = \frac{1}{m} \sum_{i=1}^{m} ( \sigma ( \boldsymbol \theta^T x^i ) -y^i ) x_j^i</script><figure class="highlight python"><figcaption><span>sklearn-Logistic Regression</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">log_reg = LogisticRegression()</span><br><span class="line">log_reg.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><script type="math/tex; mode=display">\widehat p_k = \sigma ( \boldsymbol s(x))_k   = \frac{exp(s_k(\boldsymbol x))}{ \sum_{j=1}^K exp(s_j(\boldsymbol x))}</script>
+<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><script type="math/tex; mode=display">\widehat p_k = \sigma ( \boldsymbol s(x))_k   = \frac{exp(s_k(\boldsymbol x))}{ \sum_{j=1}^K exp(s_j(\boldsymbol x))}</script><h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h1><blockquote><p>Support Vector Machine</p>
+</blockquote>
+<ul>
+<li>Decision Functions and Predictions</li>
+</ul>
+<script type="math/tex; mode=display">\widehat{y} = 
+\begin{cases}
+0, &  {if \quad w^T x + b > 0 } \\
+1, &  {if \quad w^T x + b \leq 0 } \\
+\end{cases}</script><ul>
+<li>Hard Margin Classification</li>
+</ul>
+<script type="math/tex; mode=display">\min_{w, b} \frac{1}{2} w^T \cdot w</script><p>subject to</p>
+<script type="math/tex; mode=display">t^{(i)} (w^T x^{(i)} + b) \geq 1   ,\quad   for \quad i = 1,2, \cdots , m</script><ul>
+<li>Soft Margin Classification</li>
+</ul>
+<script type="math/tex; mode=display">\min_{w, b} \frac{1}{2} w^T \cdot w  + C \sum_{i=1}^m \xi^{(i)}</script><p>subject to</p>
+<script type="math/tex; mode=display">t^{(i)} (w^T x^{(i)} + b) \geq 1 - \xi^{(i)}  and \quad  \xi^{(i)} \geq 0 , \quad   for \quad i = 1,2, \cdots , m</script><ul>
+<li>Dual Problem</li>
+</ul>
+<script type="math/tex; mode=display">\min_{ \alpha }    \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha^{(i)} \alpha^{(j)} t^{(i)} t^{(j)} {x^{(i)}}^T \cdot x^{(j)}  - \sum_{i=1}^m \alpha^{(i)}</script><p>subject to</p>
+<script type="math/tex; mode=display">\alpha^{(i)} \geq 0   \quad  for \quad i = 1,2, \cdots , m</script><figure class="highlight python"><figcaption><span>LinearSVC</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris[<span class="string">"data"</span>][:, (<span class="number">2</span>, <span class="number">3</span>)]  <span class="comment"># petal length, petal width</span></span><br><span class="line">y = (iris[<span class="string">"target"</span>] == <span class="number">2</span>).astype(np.float64)  <span class="comment"># Iris-Virginica</span></span><br><span class="line"></span><br><span class="line">svm_clf = Pipeline([</span><br><span class="line">        (<span class="string">"scaler"</span>, StandardScaler()),</span><br><span class="line">        (<span class="string">"linear_svc"</span>, LinearSVC(C=<span class="number">1</span>, loss=<span class="string">"hinge"</span>)),</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">svm_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
+<h2 id="Comman-kernels"><a href="#Comman-kernels" class="headerlink" title="Comman kernels"></a>Comman kernels</h2><ul>
+<li>Linear</li>
+</ul>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  = \boldsymbol a^T \cdot \boldsymbol b</script><ul>
+<li>Polynomial</li>
+</ul>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  ( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)^d</script><ul>
+<li>Gaussian RBF</li>
+</ul>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  exp(- \gamma || \boldsymbol a - \boldsymbol b|| ^2 )</script><ul>
+<li>Sigmoid</li>
+</ul>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  tanh( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)</script><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em> </p>
+<h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><script type="math/tex; mode=display">precision = \frac{TP}{TP+FP}</script><script type="math/tex; mode=display">recall = \frac{TP}{TP+FN}</script><p>$F_1$ 是二者的调和平均</p>
+<script type="math/tex; mode=display">F_1 = \frac{2}{\frac{1}{precision} + \frac{1}{recall}}</script><figure class="highlight python"><figcaption><span>precision_score and recall_score</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> precision_score, recall_score</span><br></pre></td></tr></table></figure>
+<h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><ul>
+<li>MSE</li>
+</ul>
+<script type="math/tex; mode=display">MSE(x, h_{\theta}) =  \frac{1}{m} \sum_{i=1}^{m} ( \theta^T \cdot x^{(i)} - y^{(i)} )^2</script>
       
     </div>
 
@@ -516,7 +556,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法-机器学习/" rel="tag"># 算法,机器学习</a>
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
         </div>
       
@@ -638,7 +680,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -649,9 +691,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -677,16 +721,52 @@
             
           
           
+<div id="days"></div>
+
+<script language="javascript">
+
+
+
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("02/19/2019 15:00:00");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+
+
+</script>
+
+
+
 <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
 <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
 <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-机器学习/">算法,机器学习</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
+
 
 
         </div>
@@ -703,7 +783,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性回归"><span class="nav-number">1.</span> <span class="nav-text">线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型描述"><span class="nav-number">1.1.</span> <span class="nav-text">模型描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降"><span class="nav-number">1.2.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带有正则项"><span class="nav-number">1.3.</span> <span class="nav-text">带有正则项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对数线性回归-Logistic-Regression"><span class="nav-number">1.4.</span> <span class="nav-text">对数线性回归 - Logistic Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Softmax-Regression"><span class="nav-number">1.5.</span> <span class="nav-text">Softmax Regression</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性回归"><span class="nav-number">1.</span> <span class="nav-text">线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型描述"><span class="nav-number">1.1.</span> <span class="nav-text">模型描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降"><span class="nav-number">1.2.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带有正则项"><span class="nav-number">1.3.</span> <span class="nav-text">带有正则项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对数线性回归-Logistic-Regression"><span class="nav-number">1.4.</span> <span class="nav-text">对数线性回归 - Logistic Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Softmax-Regression"><span class="nav-number">1.5.</span> <span class="nav-text">Softmax Regression</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持向量机"><span class="nav-number">2.</span> <span class="nav-text">支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Comman-kernels"><span class="nav-number">2.1.</span> <span class="nav-text">Comman kernels</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#效果指标"><span class="nav-number">3.</span> <span class="nav-text">效果指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Classification"><span class="nav-number">3.1.</span> <span class="nav-text">Classification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regression"><span class="nav-number">3.2.</span> <span class="nav-text">Regression</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -735,7 +815,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">4k</span>
+    <span title="Symbols count total">6k</span>
   
 
   
@@ -744,7 +824,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">4 mins.</span>
+    <span title="Reading time total">6 mins.</span>
   
 </div>
 

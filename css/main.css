@@ -1891,7 +1891,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #da1dff;
+  background: #dbcd95;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2858,4 +2858,10 @@ hr {
     width: auto;
     text-align: center;
   }
+}
+#days {
+  display: block;
+  color: #07b39b;
+  font-size: 13px;
+  margin-top: 15px;
 }
