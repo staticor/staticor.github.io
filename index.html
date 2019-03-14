@@ -335,6 +335,240 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/03/14/statistics-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/14/statistics-1/" class="post-title-link" itemprop="url">statistics-1</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-14 20:22:28 / Modified: 21:20:11" itemprop="dateCreated datePublished" datetime="2019-03-14T20:22:28+08:00">2019-03-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/统计学/" itemprop="url" rel="index"><span itemprop="name">统计学</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近刚无意发现一本书， 很是喜欢。 </p>
+<p>《商务与经济统计》 (Statistics For Business And Economics) - David R. Anderson</p>
+<h1 id="什么是数据"><a href="#什么是数据" class="headerlink" title="什么是数据"></a>什么是数据</h1><p>数据（data)是为描述和解释所搜集、分析、汇总的事实和数字。将用于研究而搜集的所有数据称为研究的数据集（data set)。 </p>
+<p>根据数值类型的不同分为 分类型数据（categorical data)和数量变量（quantitative variable)</p>
+<p>在商务世界，经常要用到各种各样的图形表达复杂的数据。 例如， 频数分布图、直方图、饼图（pie-chart)… </p>
+<p>而且， 为了更好的进行商业决策，数据组织者有必要呈现出有目标的数据仪表盘（data dashboard)，以给使用者一个直观且明了的“story”。</p>
+<p>这也是我对BI（business inteliggent)的理解。</p>
+<p>为了快速了解一群样本数据，人们约定了一些从样本可计算出来的统计特征（也叫做统计量）。 其中，最常用的就是</p>
+<ul>
+<li>算术均值（mean):</li>
+</ul>
+<script type="math/tex; mode=display">\bar x  = \frac{\sum x_i }{n}</script><ul>
+<li>中位数（median):</li>
+</ul>
+<p>将数据从小到大顺序排列，  (a) 样本个数为奇数， 中间的数就是中位数；<br>(b) 样本个数如为偶数， 则中间两个数的平均值就是中位数。</p>
+<ul>
+<li>几何平均数（geometric mean):</li>
+</ul>
+<script type="math/tex; mode=display">\overline x_g = \sqrt[n] { x_1 x_2 \cdot \cdot \cdot x_n }</script><ul>
+<li>众数（mode):</li>
+</ul>
+<p>众数是出现次数最多的数据。</p>
+<ul>
+<li>百分位数（percentile)：</li>
+</ul>
+<p>一般样本数量较多（个人认为超过1000）， 才应该用此次序统计量。大约有 p%的观测比第p百分位数小。</p>
+<p>百分位数中最为常用的是25%与75%。   二者的差是IQR  四分位数间距。</p>
+<ul>
+<li>总体方差（sample variance):</li>
+</ul>
+<script type="math/tex; mode=display">\sigma^2 = \frac{(x_i - \mu)^2}{N}</script><ul>
+<li>样本方差（sample variance):</li>
+</ul>
+<script type="math/tex; mode=display">s^2 = \frac{(x_i - \mu)^2}{ n - 1}</script><ul>
+<li>标准差（standard deviation)：</li>
+</ul>
+<p>方差的正平方根</p>
+<script type="math/tex; mode=display">\sigma = \sqrt \sigma^2</script><ul>
+<li>z-score：</li>
+</ul>
+<p>利用均值和方差能快速计算z分数， 也就是偏离中心的标准差倍数。</p>
+<script type="math/tex; mode=display">z_i = \frac{x_i - \bar x }{ s }</script><p>到这里， 我要特别的将 切比雪夫定理（Chebyshev’s theorem)列出来， 源自某次和同事讨论时自己出现了stuck的现象。</p>
+<blockquote><p>切比雪夫定理</p>
+<p>与平均数的距离在z个标准差之内的数据值所占比至少为  $ (1 - 1/z^2) $, 其中 $z $是大于1的任意实数。</p>
+<p>至少75%的数据值与平均数距离在2个标准差之内；<br>至少89%的数据值与平均数距离在3个标准差之内；<br>至少94%的数据值与平均数距离在4个标准差之内； </p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/03/03/machine-learning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -380,12 +614,24 @@
                 
               
 
-              <time title="Created: 2019-03-03 10:23:42 / Modified: 21:07:23" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
+              <time title="Created: 2019-03-03 10:23:42" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-05 21:17:35" itemprop="dateModified" datetime="2019-03-05T21:17:35+08:00">2019-03-05</time>
               
             
           </span>
@@ -431,7 +677,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3.9k</span>
+                <span title="Symbols count in article">5.3k</span>
               
 
               
@@ -445,7 +691,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -516,7 +762,7 @@
 </ul>
 <script type="math/tex; mode=display">\min_{ \alpha }    \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha^{(i)} \alpha^{(j)} t^{(i)} t^{(j)} {x^{(i)}}^T \cdot x^{(j)}  - \sum_{i=1}^m \alpha^{(i)}</script><p>subject to</p>
 <script type="math/tex; mode=display">\alpha^{(i)} \geq 0   \quad  for \quad i = 1,2, \cdots , m</script><figure class="highlight python"><figcaption><span>LinearSVC</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris[<span class="string">"data"</span>][:, (<span class="number">2</span>, <span class="number">3</span>)]  <span class="comment"># petal length, petal width</span></span><br><span class="line">y = (iris[<span class="string">"target"</span>] == <span class="number">2</span>).astype(np.float64)  <span class="comment"># Iris-Virginica</span></span><br><span class="line"></span><br><span class="line">svm_clf = Pipeline([</span><br><span class="line">        (<span class="string">"scaler"</span>, StandardScaler()),</span><br><span class="line">        (<span class="string">"linear_svc"</span>, LinearSVC(C=<span class="number">1</span>, loss=<span class="string">"hinge"</span>)),</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">svm_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Comman-kernels"><a href="#Comman-kernels" class="headerlink" title="Comman kernels"></a>Comman kernels</h2><ul>
+<h2 id="Common-kernels"><a href="#Common-kernels" class="headerlink" title="Common kernels"></a>Common kernels</h2><ul>
 <li>Linear</li>
 </ul>
 <script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  = \boldsymbol a^T \cdot \boldsymbol b</script><ul>
@@ -528,7 +774,29 @@
 <script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  exp(- \gamma || \boldsymbol a - \boldsymbol b|| ^2 )</script><ul>
 <li>Sigmoid</li>
 </ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  tanh( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)</script><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em> </p>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  tanh( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)</script><h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote><p>从树到森林。</p>
+<p>Decision Tree </p>
+</blockquote>
+<h2 id="Decision-Trees"><a href="#Decision-Trees" class="headerlink" title="Decision Trees"></a>Decision Trees</h2><ul>
+<li>Gini impurity</li>
+</ul>
+<script type="math/tex; mode=display">G_i = 1 - \sum_{k=1}^n p_{i,k}^2</script><ul>
+<li>Entropy</li>
+</ul>
+<script type="math/tex; mode=display">H_i = - \sum_{k=1,\\ p_{i,k} \ne 0}^n p_{i,k} log_2 (p_{i,k})</script><ul>
+<li>CART cost function for regression</li>
+</ul>
+<script type="math/tex; mode=display">J(k, t_k) = \frac{m_{left}}{m} MSE_{left}+ \frac{m_{right}}{m} MSE_{right}</script><p>where</p>
+<script type="math/tex; mode=display">\begin{cases}
+MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
+ \hat y_{node} = \frac{1}{m_{node}} \sum_{i \in node} y^{(i)}   \\
+\end{cases}</script><figure class="highlight python"><figcaption><span>DecisionTreeClassifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data[:, <span class="number">2</span>:] <span class="comment"># petal length and width</span></span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line">tree_clf = DecisionTreeClassifier(max_depth=<span class="number">2</span>)</span><br><span class="line">tree_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
+<h2 id="Random-Forests"><a href="#Random-Forests" class="headerlink" title="Random Forests"></a>Random Forests</h2><p>RF 在我看来是 Ensemble Learning (集成学习)的经典代表。</p>
+<p>以Classifiers举例，对待同样的数据， 不同分类器可能有不同的决策结果。 </p>
+<p><em>Logistic Regression classifier</em>, <em>Random Forest classifier</em>, <em>K-Nearest Neighbors classifier</em></p>
+<p>自然而然的， 可引入选举策略来作最终决策。</p>
+<figure class="highlight python"><figcaption><span>voting of classifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> VotingClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">log_clf = LogisticRegression()</span><br><span class="line">rnd_clf = RandomForestClassifier()</span><br><span class="line">svm_clf = SVC()</span><br><span class="line"></span><br><span class="line">voting_clf = VotingClassifier(</span><br><span class="line">    estimators=[(<span class="string">'lr'</span>, log_clf), (<span class="string">'rf'</span>, rnd_clf), (<span class="string">'svc'</span>, svm_clf)],</span><br><span class="line">    voting=<span class="string">'hard'</span>)</span><br><span class="line">voting_clf.fit(X_train, y_train)</span><br></pre></td></tr></table></figure>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><h3 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h3><h3 id="Gradient-Boosting"><a href="#Gradient-Boosting" class="headerlink" title="Gradient Boosting"></a>Gradient Boosting</h3><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em> </p>
 <h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><script type="math/tex; mode=display">precision = \frac{TP}{TP+FP}</script><script type="math/tex; mode=display">recall = \frac{TP}{TP+FN}</script><p>$F_1$ 是二者的调和平均</p>
 <script type="math/tex; mode=display">F_1 = \frac{2}{\frac{1}{precision} + \frac{1}{recall}}</script><figure class="highlight python"><figcaption><span>precision_score and recall_score</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> precision_score, recall_score</span><br></pre></td></tr></table></figure>
 <h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><ul>
@@ -652,7 +920,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-03 10:38:58" itemprop="dateModified" datetime="2019-03-03T10:38:58+08:00">2019-03-03</time>
+                <time title="Modified: 2019-03-09 08:31:16" itemprop="dateModified" datetime="2019-03-09T08:31:16+08:00">2019-03-09</time>
               
             
           </span>
@@ -734,7 +1002,10 @@
       
         
           
-            <img src="/2019/02/26/fourier/dr-fourier-cat.jpg" title="Hi! Doctor...">
+            <ul>
+<li>珍惜不在的边界感</li>
+</ul>
+<img src="/2019/02/26/fourier/dr-fourier-cat.jpg" title="Hi! Doctor...">
 <h1 id="Def"><a href="#Def" class="headerlink" title="Def."></a>Def.</h1><p>以下引自维基百科的解释： <a href="https://zh.wikipedia.org/wiki/傅里叶变换" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/傅里叶变换</a></p>
 <blockquote><p>傅里叶变换(Fourier Transformation)是一种线性积分变换， 用于信号在时域（或空域）和频域之间的变换，在工程学、信号处理上有广泛应用。</p>
 <p>由法国学者约瑟夫.傅里叶系统地提出， 故此以其名字来纪念。 傅里叶变换就像化学分析，确定物质的基本成分； 信号来自自然界， 也可以对其进行分析</p>
@@ -951,19 +1222,19 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" rel="gallery_cjssxnom3000br5fyuavmpt0z" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" rel="gallery_cjt8mr4nn000320fyo0jw616d" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" itemprop="contentUrl">
               </a>
             
           
             
-              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" rel="gallery_cjssxnom3000br5fyuavmpt0z" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" rel="gallery_cjt8mr4nn000320fyo0jw616d" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" itemprop="contentUrl">
               </a>
             
           
             
-              <a class="post-gallery-img fancybox" href="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" rel="gallery_cjssxnom3000br5fyuavmpt0z" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" rel="gallery_cjt8mr4nn000320fyo0jw616d" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" itemprop="contentUrl">
               </a>
             </div>
@@ -1663,7 +1934,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1684,7 +1955,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1707,7 +1980,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1776,7 +2051,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计学/">统计学</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -1812,7 +2087,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">6k</span>
+    <span title="Symbols count total">9k</span>
   
 
   
@@ -1821,7 +2096,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">6 mins.</span>
+    <span title="Reading time total">8 mins.</span>
   
 </div>
 
@@ -1962,6 +2237,8 @@ show_date_time();
     
       
         
+      
+    
       
     
       
