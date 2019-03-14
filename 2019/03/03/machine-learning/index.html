@@ -112,7 +112,7 @@
 <meta property="og:locale" content="en-GB">
 <meta property="og:image" content="https://staticor.github.io/2019/03/03/machine-learning/sgd.png">
 <meta property="og:image" content="https://staticor.github.io/2019/03/03/machine-learning/ridge.png">
-<meta property="og:updated_time" content="2019-03-03T13:07:23.801Z">
+<meta property="og:updated_time" content="2019-03-05T13:17:35.737Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning">
 <meta name="twitter:description" content="假期找了几本关于机器学习的书，将一些比较重要的核心公式整体到这里。 线性回归模型描述特征空间假设， 寻找线性系数 $ \theta $ 以希望用一个线性函数逼近目标向量。 逼近的效果好坏叫做 Cost Function， 下面列出的MSE便是其中一种。 Linear Regression  \hat y = h_{\theta} (x) =  \theta \cdot xMSE(x, h_{\th">
@@ -381,12 +381,24 @@
                 
               
 
-              <time title="Created: 2019-03-03 10:23:42 / Modified: 21:07:23" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
+              <time title="Created: 2019-03-03 10:23:42" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-05 21:17:35" itemprop="dateModified" datetime="2019-03-05T21:17:35+08:00">2019-03-05</time>
               
             
           </span>
@@ -432,7 +444,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3.9k</span>
+                <span title="Symbols count in article">5.3k</span>
               
 
               
@@ -446,7 +458,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -515,7 +527,7 @@
 </ul>
 <script type="math/tex; mode=display">\min_{ \alpha }    \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha^{(i)} \alpha^{(j)} t^{(i)} t^{(j)} {x^{(i)}}^T \cdot x^{(j)}  - \sum_{i=1}^m \alpha^{(i)}</script><p>subject to</p>
 <script type="math/tex; mode=display">\alpha^{(i)} \geq 0   \quad  for \quad i = 1,2, \cdots , m</script><figure class="highlight python"><figcaption><span>LinearSVC</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris[<span class="string">"data"</span>][:, (<span class="number">2</span>, <span class="number">3</span>)]  <span class="comment"># petal length, petal width</span></span><br><span class="line">y = (iris[<span class="string">"target"</span>] == <span class="number">2</span>).astype(np.float64)  <span class="comment"># Iris-Virginica</span></span><br><span class="line"></span><br><span class="line">svm_clf = Pipeline([</span><br><span class="line">        (<span class="string">"scaler"</span>, StandardScaler()),</span><br><span class="line">        (<span class="string">"linear_svc"</span>, LinearSVC(C=<span class="number">1</span>, loss=<span class="string">"hinge"</span>)),</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">svm_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Comman-kernels"><a href="#Comman-kernels" class="headerlink" title="Comman kernels"></a>Comman kernels</h2><ul>
+<h2 id="Common-kernels"><a href="#Common-kernels" class="headerlink" title="Common kernels"></a>Common kernels</h2><ul>
 <li>Linear</li>
 </ul>
 <script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  = \boldsymbol a^T \cdot \boldsymbol b</script><ul>
@@ -527,7 +539,29 @@
 <script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  exp(- \gamma || \boldsymbol a - \boldsymbol b|| ^2 )</script><ul>
 <li>Sigmoid</li>
 </ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  tanh( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)</script><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em> </p>
+<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  tanh( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)</script><h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote><p>从树到森林。</p>
+<p>Decision Tree </p>
+</blockquote>
+<h2 id="Decision-Trees"><a href="#Decision-Trees" class="headerlink" title="Decision Trees"></a>Decision Trees</h2><ul>
+<li>Gini impurity</li>
+</ul>
+<script type="math/tex; mode=display">G_i = 1 - \sum_{k=1}^n p_{i,k}^2</script><ul>
+<li>Entropy</li>
+</ul>
+<script type="math/tex; mode=display">H_i = - \sum_{k=1,\\ p_{i,k} \ne 0}^n p_{i,k} log_2 (p_{i,k})</script><ul>
+<li>CART cost function for regression</li>
+</ul>
+<script type="math/tex; mode=display">J(k, t_k) = \frac{m_{left}}{m} MSE_{left}+ \frac{m_{right}}{m} MSE_{right}</script><p>where</p>
+<script type="math/tex; mode=display">\begin{cases}
+MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
+ \hat y_{node} = \frac{1}{m_{node}} \sum_{i \in node} y^{(i)}   \\
+\end{cases}</script><figure class="highlight python"><figcaption><span>DecisionTreeClassifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data[:, <span class="number">2</span>:] <span class="comment"># petal length and width</span></span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line">tree_clf = DecisionTreeClassifier(max_depth=<span class="number">2</span>)</span><br><span class="line">tree_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
+<h2 id="Random-Forests"><a href="#Random-Forests" class="headerlink" title="Random Forests"></a>Random Forests</h2><p>RF 在我看来是 Ensemble Learning (集成学习)的经典代表。</p>
+<p>以Classifiers举例，对待同样的数据， 不同分类器可能有不同的决策结果。 </p>
+<p><em>Logistic Regression classifier</em>, <em>Random Forest classifier</em>, <em>K-Nearest Neighbors classifier</em></p>
+<p>自然而然的， 可引入选举策略来作最终决策。</p>
+<figure class="highlight python"><figcaption><span>voting of classifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> VotingClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">log_clf = LogisticRegression()</span><br><span class="line">rnd_clf = RandomForestClassifier()</span><br><span class="line">svm_clf = SVC()</span><br><span class="line"></span><br><span class="line">voting_clf = VotingClassifier(</span><br><span class="line">    estimators=[(<span class="string">'lr'</span>, log_clf), (<span class="string">'rf'</span>, rnd_clf), (<span class="string">'svc'</span>, svm_clf)],</span><br><span class="line">    voting=<span class="string">'hard'</span>)</span><br><span class="line">voting_clf.fit(X_train, y_train)</span><br></pre></td></tr></table></figure>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><h3 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h3><h3 id="Gradient-Boosting"><a href="#Gradient-Boosting" class="headerlink" title="Gradient Boosting"></a>Gradient Boosting</h3><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em> </p>
 <h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><script type="math/tex; mode=display">precision = \frac{TP}{TP+FP}</script><script type="math/tex; mode=display">recall = \frac{TP}{TP+FN}</script><p>$F_1$ 是二者的调和平均</p>
 <script type="math/tex; mode=display">F_1 = \frac{2}{\frac{1}{precision} + \frac{1}{recall}}</script><figure class="highlight python"><figcaption><span>precision_score and recall_score</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> precision_score, recall_score</span><br></pre></td></tr></table></figure>
 <h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><ul>
@@ -580,6 +614,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/14/statistics-1/" rel="prev" title="statistics-1">
+                statistics-1 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -649,7 +687,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -670,7 +708,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -693,7 +733,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -762,7 +804,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计学/">统计学</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -783,7 +825,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性回归"><span class="nav-number">1.</span> <span class="nav-text">线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型描述"><span class="nav-number">1.1.</span> <span class="nav-text">模型描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降"><span class="nav-number">1.2.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带有正则项"><span class="nav-number">1.3.</span> <span class="nav-text">带有正则项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对数线性回归-Logistic-Regression"><span class="nav-number">1.4.</span> <span class="nav-text">对数线性回归 - Logistic Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Softmax-Regression"><span class="nav-number">1.5.</span> <span class="nav-text">Softmax Regression</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持向量机"><span class="nav-number">2.</span> <span class="nav-text">支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Comman-kernels"><span class="nav-number">2.1.</span> <span class="nav-text">Comman kernels</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#效果指标"><span class="nav-number">3.</span> <span class="nav-text">效果指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Classification"><span class="nav-number">3.1.</span> <span class="nav-text">Classification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regression"><span class="nav-number">3.2.</span> <span class="nav-text">Regression</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性回归"><span class="nav-number">1.</span> <span class="nav-text">线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型描述"><span class="nav-number">1.1.</span> <span class="nav-text">模型描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降"><span class="nav-number">1.2.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带有正则项"><span class="nav-number">1.3.</span> <span class="nav-text">带有正则项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对数线性回归-Logistic-Regression"><span class="nav-number">1.4.</span> <span class="nav-text">对数线性回归 - Logistic Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Softmax-Regression"><span class="nav-number">1.5.</span> <span class="nav-text">Softmax Regression</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持向量机"><span class="nav-number">2.</span> <span class="nav-text">支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Common-kernels"><span class="nav-number">2.1.</span> <span class="nav-text">Common kernels</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树"><span class="nav-number">3.</span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Decision-Trees"><span class="nav-number">3.1.</span> <span class="nav-text">Decision Trees</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Random-Forests"><span class="nav-number">3.2.</span> <span class="nav-text">Random Forests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boosting"><span class="nav-number">3.3.</span> <span class="nav-text">Boosting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Adaboost"><span class="nav-number">3.3.1.</span> <span class="nav-text">Adaboost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradient-Boosting"><span class="nav-number">3.3.2.</span> <span class="nav-text">Gradient Boosting</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#效果指标"><span class="nav-number">4.</span> <span class="nav-text">效果指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Classification"><span class="nav-number">4.1.</span> <span class="nav-text">Classification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regression"><span class="nav-number">4.2.</span> <span class="nav-text">Regression</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -815,7 +857,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">6k</span>
+    <span title="Symbols count total">9k</span>
   
 
   
@@ -824,7 +866,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">6 mins.</span>
+    <span title="Reading time total">8 mins.</span>
   
 </div>
 
