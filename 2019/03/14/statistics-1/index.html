@@ -111,7 +111,7 @@
 <meta property="og:description" content="最近刚无意发现一本书， 很是喜欢。   《商务与经济统计》 (Statistics For Business And Economics) - David R. Anderson 什么是数据数据（data)是为描述和解释所搜集、分析、汇总的事实和数字。将用于研究而搜集的所有数据称为研究的数据集（data set)。  根据数值类型的不同分为 分类型数据（categorical data)和数量变量">
 <meta property="og:locale" content="en-GB">
 <meta property="og:image" content="https://staticor.github.io/images/cover.jpg">
-<meta property="og:updated_time" content="2019-03-17T17:12:56.934Z">
+<meta property="og:updated_time" content="2019-03-20T22:33:08.001Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="statistics-1">
 <meta name="twitter:description" content="最近刚无意发现一本书， 很是喜欢。   《商务与经济统计》 (Statistics For Business And Economics) - David R. Anderson 什么是数据数据（data)是为描述和解释所搜集、分析、汇总的事实和数字。将用于研究而搜集的所有数据称为研究的数据集（data set)。  根据数值类型的不同分为 分类型数据（categorical data)和数量变量">
@@ -397,7 +397,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-18 01:12:56" itemprop="dateModified" datetime="2019-03-18T01:12:56+08:00">2019-03-18</time>
+                <time title="Modified: 2019-03-21 06:33:08" itemprop="dateModified" datetime="2019-03-21T06:33:08+08:00">2019-03-21</time>
               
             
           </span>
@@ -443,7 +443,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3.9k</span>
+                <span title="Symbols count in article">5k</span>
               
 
               
@@ -457,7 +457,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -598,6 +598,50 @@
 <p>个体是描述数据现象的基本单位，平时我们想要了解总体的信息，但实际所能获得的只能是总体的子集—俗称样本集。 </p>
 <p>获得样本的方法叫做抽样， 总体若为有限个称为有限总体抽样，反之为无限总体抽样。</p>
 <p>每次抽样的个体是否能再放回总体，作为下次抽样的候选， 称为有放回/无放回抽样。 </p>
+<p>抽样方法：</p>
+<ul>
+<li><p>简单随机抽样</p>
+</li>
+<li><p>分层随机抽样  男女比例120:104， 则在抽取实验时也保持这个比例</p>
+</li>
+<li><p>cluster sample </p>
+</li>
+</ul>
+<p>个体首先被编入到某个cluster， 且只能属于唯一的cluster。理想情况下，每个小cluster就是总体的代表。</p>
+<p>在区域抽样中有广泛的应用。 </p>
+<ul>
+<li>方便抽样与判断抽样： 略。</li>
+</ul>
+<p>为了估计总体的分布参数，对样本进行数据处理以得到猜测点的方法叫做点估计。</p>
+<p>处理结果叫做样本统计量（sample statistic)</p>
+<p>以总体的重要参数 <strong>均值 （$\mu$)</strong> 和 <strong>方差 ($ \sigma^2$)</strong> 为例， 我们能够建立一组点估计统计量：</p>
+<ul>
+<li>样本均值</li>
+</ul>
+<script type="math/tex; mode=display">\bar x = \frac{\sum x_i}{n}</script><ul>
+<li>样本方差</li>
+</ul>
+<script type="math/tex; mode=display">s^2 = \sqrt \frac{\sum_{i=1} (x_i - \bar x)^2 }{n-1}</script><p>统计作为一种数据处理技术， 是用来做推断、验证（检验）现实结果的重要方式。<br>点估计是便是统计推断的常用手段。 因此，如果我们的抽样总体是偏的（严重偏离要分析的目标总体），<br>那么再好的统计方法也无法得到有效估计。</p>
+<p>例子：  分析地球上所有人的平均身高。    结果我们只在自己身边的幼儿园抽取了所有学龄前儿童作为样本。</p>
+<p>样本统计量 $\bar x$的抽样分布</p>
+<p>$ \bar x$ 作为一种统计量， 如果我们从总体的抽样重复进行M次， 那么我们会得到M个结果，<br>其也对应着某概率分布， 也有期望和方差。</p>
+<p>简单随机抽样的 $E(\bar x) = \mu $ </p>
+<p>而对于 $ \bar x $ 的方差($ sigma_x^2 $) 和总体方差（$ \sigma^2 $）的关系， 则要考虑抽样样本容量$n$和总体容量$N$的关系.</p>
+<script type="math/tex; mode=display">有限总体：\sigma_x = \sqrt \frac{N-n}{N-1} (\frac {\sigma}{\sqrt n})</script><script type="math/tex; mode=display">无限总体：\frac {\sigma}{\sqrt n}</script>
+<p>当 样本容量很大时， 一般会第二个公式表示， （前一项根式近似为1）。</p>
+<blockquote><p>当总体服从正态分布时， $\bar x$也服从正态分布。 （正态分布 Liniearity) </p>
+<p>当总体不服从正态分布， 中心极限定理表示， 当样本容量很大时，  $\bar x$近似服从正态分布。</p>
+</blockquote>
+<p>点估计的性质</p>
+<p>如果对同一总体参数进行种不同的点估计， 如何评价它们哪种策略更优？ 要牢记的三种性质为：  </p>
+<ul>
+<li><p>无偏性（期望与目标值相同）、</p>
+</li>
+<li><p>有效性 (标准误差更小者， 优) 、</p>
+</li>
+<li><p>一致性 （样本容量增大，估计效果越好，距离总体参数越接近）、</p>
+</li>
+</ul>
 
       
     </div>
@@ -646,8 +690,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/15/thoughts78/" rel="prev" title="thoughts78">
-                thoughts78 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/15/thoughts78/" rel="prev" title="我的思想世界有一匹小野马">
+                我的思想世界有一匹小野马 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -892,7 +936,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">14k</span>
+    <span title="Symbols count total">15k</span>
   
 
   
@@ -901,7 +945,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">12 mins.</span>
+    <span title="Reading time total">14 mins.</span>
   
 </div>
 
