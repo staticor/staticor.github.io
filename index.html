@@ -239,7 +239,7 @@
         
         
           
-          <li class="menu-item menu-item-archives">
+          <li class="menu-item menu-item-archive">
 
     
     
@@ -249,7 +249,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archive</a>
 
   </li>
         
@@ -397,7 +397,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-21 06:48:51" itemprop="dateModified" datetime="2019-03-21T06:48:51+08:00">2019-03-21</time>
+                <time title="Modified: 2019-03-23 05:25:09" itemprop="dateModified" datetime="2019-03-23T05:25:09+08:00">2019-03-23</time>
               
             
           </span>
@@ -443,7 +443,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.3k</span>
+                <span title="Symbols count in article">3.8k</span>
               
 
               
@@ -457,7 +457,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">3 mins.</span>
               
             </div>
           
@@ -544,11 +544,61 @@
 </ul>
 <p>如果 $h(x) = f(g(x)), 那么 h’(x) = f’(g(x)) g(x) $</p>
 <p>本书第七章及接下来几章是对函数求导的展开（三角函数的极限和导数、隐函数、<br>指数函数和对数函数的导数、反三角函数， 这里不再细讲。</p>
-<h3 id="导数图像、最（极）值问题"><a href="#导数图像、最（极）值问题" class="headerlink" title="导数图像、最（极）值问题"></a>导数图像、最（极）值问题</h3><p>从图像的角度， 对比原函数图像和导数图像， 首先容易想到的时原函数在最值处导数图像刚好经过横轴。</p>
+<h1 id="微分"><a href="#微分" class="headerlink" title="微分"></a>微分</h1><p>我始终认为微分和可导是关系极其紧密的, 但为了后面提高积分的重要性,<br>这里我将 微分作为Part 3 , 不过其在内容上是和 Part 2 一口气过来的.</p>
+<h2 id="导数图像、最（极）值问题"><a href="#导数图像、最（极）值问题" class="headerlink" title="导数图像、最（极）值问题"></a>导数图像、最（极）值问题</h2><p>从图像的角度， 对比原函数图像和导数图像， 首先容易想到的时原函数在最值处导数图像刚好经过横轴。</p>
 <p>以及从图像角度理解最值，  全局最值和局部最值。</p>
-<blockquote><p>极值定理<br>若$f(x) 在一段开区间(a,b)内存在一点c，$c为函数的局部最大值或最小值，那么c为该函数的临界点， 即<br>$f’(c) = 0 或 f’(c) 不存在$</p>
+<blockquote><p>一些重要定理介绍</p>
+<h2 id="极值定理"><a href="#极值定理" class="headerlink" title="极值定理"></a>极值定理</h2><p>若$f(x) 在一段开区间(a,b)内存在一点c，$c为函数的局部最大值或最小值，那么c为该函数的临界点， 即<br>$f’(c) = 0 或 f’(c) 不存在$</p>
 </blockquote>
-<h2 id="可积"><a href="#可积" class="headerlink" title="可积"></a>可积</h2>
+<p>因此用最值的必要性， 求解导数值为0的点， 便是寻找最值的方法（当然， 导数值为0， 该点未必是最值）， 例子</p>
+<script type="math/tex; mode=display">f(x) = x ^ 3</script><h2 id="罗尔定理"><a href="#罗尔定理" class="headerlink" title="罗尔定理"></a>罗尔定理</h2><blockquote><p>罗尔定理</p>
+<p>假设函数 $f$ 在闭区间[a,b]内连续， 在开区间 (a,b)可导。 如果 $ f(a) = f(b) $， 那么<br>在开区间（a,b)内至少存在一点$c$, 使得 $f’(c) = 0 $</p>
+</blockquote>
+<h2 id="中值定理"><a href="#中值定理" class="headerlink" title="中值定理"></a>中值定理</h2><p>中值定理是罗尔定理的推广形式，如果函数在区间上的图像理解成一辆车的位移变化， 右式可理解为这个区间上的平均速度<br>即， 如果位移是连续变化的，那么至少某一点上你的速度必与区间平均速度相等。</p>
+<blockquote><p>中值定理<br>假设函数 $f$ 在闭区间[a,b]内连续， 在开区间 (a,b)可导。 如果 $ f(a) = f(b) $， 那么<br>在开区间（a,b)内至少存在一点$c$, 使得</p>
+<script type="math/tex; mode=display">f'(c) = \frac {f(b)-f(a)}{b-a}</script></blockquote>
+<h2 id="导数图像"><a href="#导数图像" class="headerlink" title="导数图像"></a>导数图像</h2><ul>
+<li><p>尝试画出原函数的趋势图像；</p>
+</li>
+<li><p>尝试画出导函数的大致图像： x轴点、正负性</p>
+</li>
+<li><p>尝试画出二阶导数的大致图像</p>
+</li>
+</ul>
+<p>由图像这里引出二阶导数，以及二阶导数值为0的问题，  进而定义了拐点。 和上面的提到： </p>
+<p>导数值为0未必是最值点一样；   二阶导数值为0，也未必就是拐点。    必要条件非充分条件。</p>
+<h2 id="最值的应用"><a href="#最值的应用" class="headerlink" title="最值的应用"></a>最值的应用</h2><p>借助了以上掌握的工具， 导数的最广泛应用（在我看来）就是解决最优化问题。</p>
+<p>通过对已有的场景函数化定义， 然后对变量域求导， 再代入原来的场景确定root恰好是最值点，而非拐点。</p>
+<p>这里值得一说的是一些经典计算方法，《数值计算》的范畴。</p>
+<ul>
+<li>线性化方法</li>
+</ul>
+<p>比如要求解 $ \sqrt 11 $ 到底是多少的问题，我们如果要手算， 可以尝试用这种思路：</p>
+<p>我们首先知道 $\sqrt 9 = 3 $（初始条件）， 而且也是目标值最近的已知条件， 那么在函数 $ f(x) = \sqrt x$</p>
+<p>$ x = 9 = \sqrt 9 $ 处作切线， 然后切线方程 $ y = ax + b $ 在切线上计算 $x=11$得出的y值 即为原始问题的估计结果。</p>
+<p>因为这种方法是利用了导数与初始条件的线性逼近， 因此是线性模拟非线性的思路。</p>
+<p>微分的理解</p>
+<script type="math/tex; mode=display">f(a+ \triangle x ) \approx  f(a) + f'(a) \triangle x</script><ul>
+<li>牛顿法</li>
+</ul>
+<p>牛顿法是在求方程根的常用方法. 给定初始条件 $ x=a$ 作为 $f(x) = 0 $的近似 , 如果令</p>
+<script type="math/tex; mode=display">b = a - \frac {f(a)}{f'(a)}</script><p>则在很多情况下, b是个比a更好的近似.</p>
+<h2 id="洛必达法则和极限问题总结"><a href="#洛必达法则和极限问题总结" class="headerlink" title="洛必达法则和极限问题总结"></a>洛必达法则和极限问题总结</h2><p>在凯撒死后,其养子(甥孙屋大维)联同旧部安东尼和洛必达进一步了缩减了罗马贵族的权力, 称为后三头时代. </p>
+<p>(前三头时代是苏拉, 庞培, 凯撒, 如果我没记错的话.)</p>
+<p>当然这里的洛必达法则肯定不是那个人.</p>
+<blockquote><p>利用导数的知识求极限, 这种方法叫做洛必达法则.</p>
+</blockquote>
+<ul>
+<li>0/0型</li>
+</ul>
+<script type="math/tex; mode=display">如果 f(a) = g(a) = 0, 那么  \lim_{x \to a } \frac {f(x)}{g(x)} = \frac {f'(x)}{g'(x)}</script><ul>
+<li>$ \infty $ / 0   或 $ \infty $  / $ \infty $ </li>
+</ul>
+<p>可视作0型的倒数, 类比.</p>
+<ul>
+<li>$ 1^{ \infty  }  \quad  0^0  \quad \infty ^0 $  ,  </li>
+</ul>
+<h1 id="积分"><a href="#积分" class="headerlink" title="积分"></a>积分</h1>
           
         
       
@@ -819,7 +869,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/14/statistics-1/" class="post-title-link" itemprop="url">statistics-1</a>
+                <a href="/2019/03/14/statistics-1/" class="post-title-link" itemprop="url">statistics-商务与经济统计</a>
               
             
           </h1>
@@ -861,7 +911,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-21 06:33:08" itemprop="dateModified" datetime="2019-03-21T06:33:08+08:00">2019-03-21</time>
+                <time title="Modified: 2019-03-23 07:25:50" itemprop="dateModified" datetime="2019-03-23T07:25:50+08:00">2019-03-23</time>
               
             
           </span>
@@ -878,7 +928,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/统计学/" itemprop="url" rel="index"><span itemprop="name">统计学</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/统计/" itemprop="url" rel="index"><span itemprop="name">统计</span></a></span>
 
                 
                 
@@ -907,7 +957,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">5k</span>
+                <span title="Symbols count in article">6.1k</span>
               
 
               
@@ -921,7 +971,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">5 mins.</span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -1078,7 +1128,7 @@
 <ul>
 <li>方便抽样与判断抽样： 略。</li>
 </ul>
-<p>为了估计总体的分布参数，对样本进行数据处理以得到猜测点的方法叫做点估计。</p>
+<h2 id="点估计"><a href="#点估计" class="headerlink" title="点估计"></a>点估计</h2><p>为了估计总体的分布参数，对样本进行数据处理以得到猜测点的方法叫做点估计。</p>
 <p>处理结果叫做样本统计量（sample statistic)</p>
 <p>以总体的重要参数 <strong>均值 （$\mu$)</strong> 和 <strong>方差 ($ \sigma^2$)</strong> 为例， 我们能够建立一组点估计统计量：</p>
 <ul>
@@ -1108,6 +1158,33 @@
 <li><p>一致性 （样本容量增大，估计效果越好，距离总体参数越接近）、</p>
 </li>
 </ul>
+<h2 id="区间估计"><a href="#区间估计" class="headerlink" title="区间估计"></a>区间估计</h2><blockquote><p>我当时恰恰是在和同事聊区间估计的时候, 通过搜索, 才知道这样一本书.</p>
+<p>觉得是一本不错的统计读物, 于是就购入了.  在阅读的过程里, 也觉得回忆本科时的知识, 于是就有了此文.</p>
+</blockquote>
+<p>在点估计的同时, 对估计结果加减一个<strong>边际误差</strong> marginal of error 的值来计算区间估计(interval estimate) </p>
+<p>区间估计的表达形式如下:</p>
+<script type="math/tex; mode=display">点估计 \pm 边际误差</script><ul>
+<li>总体均值区间估计  $\sigma$ 已知</li>
+</ul>
+<script type="math/tex; mode=display">\bar x \pm z_{\alpha / 2} \frac {\sigma}{\sqrt n}</script><p>式中,  1 - $ \alpha $ 为置信系数;  $ z_{\alpha / 2} $ 表示标准正态概率分布上侧面积为 $\alpha /2 $ 时的z值.</p>
+<p>见表:</p>
+<hr>
+<p>置信水平 90% | $\alpha - 0.10$ | $\alpha/2 - 0.05$  |   1.645<br>置信水平 95% | $\alpha - 0.05$ | $\alpha/2 - 0.025$ |   1.960<br>置信水平 99% | $\alpha - 0.01$ | $\alpha/2 - 0.005$ |   2.576</p>
+<hr>
+<ul>
+<li>总体均值区间估计  $\sigma$ 未知</li>
+</ul>
+<script type="math/tex; mode=display">\bar x \pm t_{\alpha / 2} \frac {s}{\sqrt n}</script><p>式中, s为样本标准差, 1 - $ \alpha $ 为置信系数;  自由度为 n-1的t分布中,<br>$ t_{\alpha / 2} $ 上侧的面积恰好等于 {\alpha / 2}</p>
+<h1 id="假设检验"><a href="#假设检验" class="headerlink" title="假设检验"></a>假设检验</h1><p>尝试性假设叫做<strong>原假设</strong>(null hypothesis) , 常常记作 $H_0$,<br>与原假设相对的假设叫做备择假设(alternative hypothesis)  常常记作 $H_1$. </p>
+<p>以均值的假设检验为例</p>
+<script type="math/tex; mode=display">H_0:  \mu  \ge \mu_0</script><script type="math/tex; mode=display">H_1:  \mu  \lt \mu_0</script><p>这种单边判断的检验方法叫做 <strong>单侧检验</strong>.   还有一种叫做双侧检验:</p>
+<script type="math/tex; mode=display">H_0:  \mu  = \mu_0</script><script type="math/tex; mode=display">H_1:  \mu  \ne \mu_0</script><h2 id="两类错误"><a href="#两类错误" class="headerlink" title="两类错误"></a>两类错误</h2><ul>
+<li>拒真错误<pre><code>  H0为真的, 我们却在统计意义上拒绝了H0命题.  也叫TYPE I错误   第一类错误
+</code></pre></li>
+<li>受伪错误<pre><code>  H0为假, 我们却接受了原接受, 认为H0成立. 也叫TYPE II错误  第二类错误
+</code></pre></li>
+</ul>
+<p>显著水平: 当原假设为真时 并且以等式形式出现时犯第一类错误的概率水平.</p>
 
           
         
@@ -1817,19 +1894,19 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" rel="gallery_cjthtnn1w0002oefykjntgpsp" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" rel="gallery_cjtkj9fxr0001abfywebjcjmt" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://img3.doubanio.com/view/subject/m/public/s4689205.jpg" itemprop="contentUrl">
               </a>
             
           
             
-              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" rel="gallery_cjthtnn1w0002oefykjntgpsp" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" rel="gallery_cjtkj9fxr0001abfywebjcjmt" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://img3.doubanio.com/view/subject/m/public/s4527315.jpg" itemprop="contentUrl">
               </a>
             
           
             
-              <a class="post-gallery-img fancybox" href="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" rel="gallery_cjthtnn1w0002oefykjntgpsp" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" rel="gallery_cjtkj9fxr0001abfywebjcjmt" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg" itemprop="contentUrl">
               </a>
             </div>
@@ -2552,6 +2629,8 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                     
                       
                     
+                      
+                    
                     <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
@@ -2564,6 +2643,8 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
+                    
+                      
                     
                       
                     
@@ -2650,7 +2731,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计学/">统计学</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -2686,7 +2767,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">15k</span>
+    <span title="Symbols count total">18k</span>
   
 
   
@@ -2695,7 +2776,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">14 mins.</span>
+    <span title="Reading time total">16 mins.</span>
   
 </div>
 
