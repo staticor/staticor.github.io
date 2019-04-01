@@ -110,7 +110,7 @@
 <meta property="og:site_name" content="Staticor hungry">
 <meta property="og:description" content="book 《普林斯顿微积分读本》 引子： 为什么0.9999… 这个无限循环小数等于1？ 0.9999….  除以3， 即为 0.3333333….. (三分之一)而三分之一的三倍是1， 所以 0.9999…. = 1 函数定义与性质函数是将一个对象转化为另一个对象的规则， $ f(x) $ 是把这个变换规则应用于变量x后得到的结果， 因此 说 ” $ f(x) $ 是一个函数， 这是一种不正确的">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-03-25T23:44:53.626Z">
+<meta property="og:updated_time" content="2019-03-26T19:14:34.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="math-beautiful 微积分读本Note">
 <meta name="twitter:description" content="book 《普林斯顿微积分读本》 引子： 为什么0.9999… 这个无限循环小数等于1？ 0.9999….  除以3， 即为 0.3333333….. (三分之一)而三分之一的三倍是1， 所以 0.9999…. = 1 函数定义与性质函数是将一个对象转化为另一个对象的规则， $ f(x) $ 是把这个变换规则应用于变量x后得到的结果， 因此 说 ” $ f(x) $ 是一个函数， 这是一种不正确的">
@@ -395,7 +395,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-26 07:44:53" itemprop="dateModified" datetime="2019-03-26T07:44:53+08:00">2019-03-26</time>
+                <time title="Modified: 2019-03-27 03:14:34" itemprop="dateModified" datetime="2019-03-27T03:14:34+08:00">2019-03-27</time>
               
             
           </span>
@@ -441,7 +441,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">4.2k</span>
+                <span title="Symbols count in article">5k</span>
               
 
               
@@ -455,7 +455,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -614,6 +614,37 @@
 <p>如果函数f 在闭区间[a, b]上连续, 那么在开区间(a, b)上总存在一点c, 满足</p>
 <p>$f(c) = \frac {1}{b-a} \int_a^b f(x) dx$</p>
 </blockquote>
+<p>什么样的函数是不可积的? </p>
+<p>如果函数f为有界函数并在区间[a,b]上的不连续点是有限的,那么函数f是可积的.<br>举个不可积的例子, 例如在区间[a,b]上, 函数f在所有无理数点上值为1, 反则为0.<br>那么这个函数是不可积的.</p>
+<h2 id="微积分基本定理"><a href="#微积分基本定理" class="headerlink" title="微积分基本定理"></a>微积分基本定理</h2><ul>
+<li>第一基本定理</li>
+</ul>
+<blockquote><p>如果函数f在闭区间[a,b]上是连续的, 定义F为</p>
+<script type="math/tex; mode=display">F(x) = \int_a^x f(t) dt , \quad x \in [a,b]</script><p>则$F$在开区间(a,b)内是可导函数, 而且 $ F’(x) = f(x) $</p>
+</blockquote>
+<ul>
+<li>第二基本定理</li>
+</ul>
+<blockquote><p>如果函数f在闭区间[a,b]上是连续的, F为f的任意一个反导数(关于x), 那么有</p>
+<script type="math/tex; mode=display">\int_a^b f(x) dx = F(b) - F(a).</script></blockquote>
+<h2 id="计算积分的方法"><a href="#计算积分的方法" class="headerlink" title="计算积分的方法"></a>计算积分的方法</h2><ul>
+<li>换元法  — 逆用链式求导法则</li>
+</ul>
+<p>ex: </p>
+<script type="math/tex; mode=display">\int_a^b xe^{x^2}dx</script><ul>
+<li>分部积分法</li>
+</ul>
+<script type="math/tex; mode=display">\frac {d}{dx}(uv) =  v\frac{du}{dx} + u\frac{dv}{dx}</script><p>—&gt;</p>
+<script type="math/tex; mode=display">\int u \frac{dv}{dx} dx = \int  \frac{d}{dx} (uv) dx - \int v \frac{du}{dx} dx</script><p>—&gt; </p>
+<script type="math/tex; mode=display">\int udv = uv - \int vdu</script><p>ex:</p>
+<script type="math/tex; mode=display">\int x e^x dx =  xe^x - \int e^x dx</script><p>—&gt; $\int xe^x dx = xe^x - e^x + C $</p>
+<ul>
+<li>应用三角恒等式</li>
+</ul>
+<p>(三角换元法的变种)</p>
+<h1 id="数列和级数"><a href="#数列和级数" class="headerlink" title="数列和级数"></a>数列和级数</h1><p>数列是一项有序的数, 拥有无穷项的数列叫做无穷数列, 进而定义无穷级数:</p>
+<p>无穷数列: <script type="math/tex">{a_n} = a_1, a_2, a_3 ...</script></p>
+<p>无穷级数: <script type="math/tex">\sum_{n=1}^\infty {a_n} = a_1 + a_2 + a_3 +...</script></p>
 
       
     </div>
@@ -872,7 +903,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义与性质"><span class="nav-number">1.1.</span> <span class="nav-text">定义与性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性、二次函数"><span class="nav-number">1.2.</span> <span class="nav-text">线性、二次函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#极限"><span class="nav-number">2.</span> <span class="nav-text">极限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连续"><span class="nav-number">2.1.</span> <span class="nav-text">连续</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可导"><span class="nav-number">2.2.</span> <span class="nav-text">可导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#储备知识"><span class="nav-number">2.2.1.</span> <span class="nav-text">储备知识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#微分"><span class="nav-number">3.</span> <span class="nav-text">微分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导数图像、最（极）值问题"><span class="nav-number">3.1.</span> <span class="nav-text">导数图像、最（极）值问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极值定理"><span class="nav-number">3.2.</span> <span class="nav-text">极值定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#罗尔定理"><span class="nav-number">3.3.</span> <span class="nav-text">罗尔定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中值定理"><span class="nav-number">3.4.</span> <span class="nav-text">中值定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导数图像"><span class="nav-number">3.5.</span> <span class="nav-text">导数图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最值的应用"><span class="nav-number">3.6.</span> <span class="nav-text">最值的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛必达法则和极限问题总结"><span class="nav-number">3.7.</span> <span class="nav-text">洛必达法则和极限问题总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#积分"><span class="nav-number">4.</span> <span class="nav-text">积分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定积分"><span class="nav-number">4.1.</span> <span class="nav-text">定积分</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义与性质"><span class="nav-number">1.1.</span> <span class="nav-text">定义与性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性、二次函数"><span class="nav-number">1.2.</span> <span class="nav-text">线性、二次函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#极限"><span class="nav-number">2.</span> <span class="nav-text">极限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连续"><span class="nav-number">2.1.</span> <span class="nav-text">连续</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可导"><span class="nav-number">2.2.</span> <span class="nav-text">可导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#储备知识"><span class="nav-number">2.2.1.</span> <span class="nav-text">储备知识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#微分"><span class="nav-number">3.</span> <span class="nav-text">微分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导数图像、最（极）值问题"><span class="nav-number">3.1.</span> <span class="nav-text">导数图像、最（极）值问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极值定理"><span class="nav-number">3.2.</span> <span class="nav-text">极值定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#罗尔定理"><span class="nav-number">3.3.</span> <span class="nav-text">罗尔定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中值定理"><span class="nav-number">3.4.</span> <span class="nav-text">中值定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导数图像"><span class="nav-number">3.5.</span> <span class="nav-text">导数图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最值的应用"><span class="nav-number">3.6.</span> <span class="nav-text">最值的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛必达法则和极限问题总结"><span class="nav-number">3.7.</span> <span class="nav-text">洛必达法则和极限问题总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#积分"><span class="nav-number">4.</span> <span class="nav-text">积分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定积分"><span class="nav-number">4.1.</span> <span class="nav-text">定积分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微积分基本定理"><span class="nav-number">4.2.</span> <span class="nav-text">微积分基本定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算积分的方法"><span class="nav-number">4.3.</span> <span class="nav-text">计算积分的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数列和级数"><span class="nav-number">5.</span> <span class="nav-text">数列和级数</span></a></li></ol></div>
             
 
           </div>
@@ -904,7 +935,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">19k</span>
+    <span title="Symbols count total">20k</span>
   
 
   
@@ -913,7 +944,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">17 mins.</span>
+    <span title="Reading time total">18 mins.</span>
   
 </div>
 
