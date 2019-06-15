@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://staticor.github.io/"/>
-  <updated>2019-05-21T21:37:54.798Z</updated>
+  <updated>2019-06-15T04:25:48.360Z</updated>
   <id>https://staticor.github.io/</id>
   
   <author>
@@ -15,6 +15,105 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>baseStone-la-1， 向量与矩阵</title>
+    <link href="https://staticor.github.io/2019/06/15/baseStone-la-1/"/>
+    <id>https://staticor.github.io/2019/06/15/baseStone-la-1/</id>
+    <published>2019-06-15T03:54:03.000Z</published>
+    <updated>2019-06-15T04:25:48.360Z</updated>
+    
+    <content type="html"><![CDATA[<p>BaseStone-数学部分-线性代数</p><p>本篇介绍欧氏空间（Euclidean Space)中的向量（Vector）与矩阵（Matrix）</p><h1 id="向量（Vector）"><a href="#向量（Vector）" class="headerlink" title="向量（Vector）"></a>向量（Vector）</h1><p>向量的定期是基于N维空间的。 先介绍一维空间，就是初中所学的数轴。<br>在一条无限延长的直线上， 比如规定了零点（大O）之后，再约定一个单位长度（例如 1cm = ‘1’), 那么通过向左和向右的无限延长， 就得到了一个描述所有有理数的数轴了， 无理数我们只能近似的在图中标注（但不会准确）， 例如圆周率pi， 是介于3.1415926与3.1415927之间的无理数， 它没有办法用区间套或者从实数完备性的角度准确的定位。</p><p>但总体来说，我们能把一条数轴对应成实数域大R上。<br>在实数上我们能定义两个数的加法， 一个数的倍数（数乘）的运算， 称之为线性运算。</p><p>两条数轴呢？ 以我们最熟悉的二维笛卡尔坐标为例， 就是在平面上由垂直的一对线组成， 水平线通常记为x轴， 竖直线记为y轴。 这样我们就有了二维向量的概念。</p><p>二者相交的点记为零点（大O）它的坐标是 （0，0）， 向右、向上分别一个单位长就得到了坐标（1，1）。<br>这个点与零点的连线就是这个点对应的向量，和它的坐标值相同（1，1）。</p><p>那么和数轴运算类似地，也能定义两个向量的加法和一个向量的数乘：</p><script type="math/tex; mode=display">\vec v = (x_1, y_1),  \vec u = (x_2, y_2)</script><p>则有</p><script type="math/tex; mode=display">\vec v  + \vec u =  (x_1 + x_2, y_1 + y_2)</script><script type="math/tex; mode=display">k * \vec v = (k * x_1， k * y_2)</script><p>* 表示两个数的普通乘法， 在一个数与一个向量的中间的* 表示数乘，也可以理解对一个向量进行了倍长（延长k倍 or 缩小为原来的若干）</p><p>两个向量运算中我认为最重要的就是点积（也叫内积）。</p><p>dot product (inner product):</p><script type="math/tex; mode=display">\vec v = (x_1, y_1),  \vec u = (x_2, y_2)</script><script type="math/tex; mode=display">{\vec v} · {\vec u} = (x_1 * x_2 + y_1 * y_2)</script><p>所以最后的结果就是一个数了。 点积满足交换和线性的特点， 还有半正定性。</p><h1 id="矩阵（Matrix）"><a href="#矩阵（Matrix）" class="headerlink" title="矩阵（Matrix）"></a>矩阵（Matrix）</h1><p>多个相同维度的向量按行或按列排在一起的形式就是矩阵。<br>矩阵的加法和数乘与前面类似， 这里不赘述了。</p><p>在介绍矩阵的课程通常是从线性方程组出发</p><script type="math/tex; mode=display">齐次: A \vec x = \vec 0</script><script type="math/tex; mode=display">非齐次: A \vec x = \vec b</script><p>但我个人更喜欢在介绍A之前，先讲解向量组。 并深刻理解向量组之间的线性相关性和相关无关性。</p><p>进而再将向量组按行或按列的形式组织矩阵。</p><p>于是就有了秩（Rank）、行秩与列秩的概念。</p><p>特别一提的就是矩阵的乘积 AB 能够乘在一起的条件是明确要求的，虽然你也能定义自己的乘法，不过数学领域中有些约定俗成的事情，容不得变通。<br>标准矩阵乘法</p><script type="math/tex; mode=display">A · B = C  ， c_{ij} = a_i · b_j</script><p>其中$a_i$是矩阵A的行 $b_j$ 是矩阵B的列。</p><p>有了乘法之后才有的逆矩阵。</p><h2 id="矩阵的行列式"><a href="#矩阵的行列式" class="headerlink" title="矩阵的行列式"></a>矩阵的行列式</h2><p>物理角度来说行列式就是矩阵对应多维平行超六面体的体积（带符号）。</p><p>所以想到行列式的性质我们能列出：</p><p>有一行为0则det为0；<br>有两行一样则det为0 ；<br>一大可拆成2小；<br>。。。 。。。</p><h2 id="矩阵的逆"><a href="#矩阵的逆" class="headerlink" title="矩阵的逆"></a>矩阵的逆</h2><p>可逆矩阵是数学家喜欢看到的， 但对矩阵的要求也就高了一些。</p><h2 id="矩阵的分解"><a href="#矩阵的分解" class="headerlink" title="矩阵的分解"></a>矩阵的分解</h2><p>说到分解， 首先对可逆矩阵来说，最著名的是高斯LU分解。</p><p>通过一系列初等变换矩阵， 我们将原来的矩阵A变换为上三角型U。 左侧的系列矩阵乘积记为L。</p><p>另一种是对对称矩阵的对角化分解，叫做</p><script type="math/tex; mode=display">A = S \Gamma S^{-1}</script><p>更进一步地对所有矩阵，则有SVD分解。</p><p>关于矩阵， 其实如果要系统展开的话得介绍40讲以上的线性代数课程。</p><p>我特别喜欢的课程 B站 搜索 Gilbert Strang， 喜欢线性代数的同学， 去看吧。</p><p>（版权归个人所有， 请勿用于商业。）</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;BaseStone-数学部分-线性代数&lt;/p&gt;
+&lt;p&gt;本篇介绍欧氏空间（Euclidean Space)中的向量（Vector）与矩阵（Matrix）&lt;/p&gt;
+&lt;h1 id=&quot;向量（Vector）&quot;&gt;&lt;a href=&quot;#向量（Vector）&quot; class=&quot;headerli
+      
+    
+    </summary>
+    
+    
+      <category term="math, baseStone" scheme="https://staticor.github.io/tags/math-baseStone/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>binary</title>
+    <link href="https://staticor.github.io/2019/06/02/binary/"/>
+    <id>https://staticor.github.io/2019/06/02/binary/</id>
+    <published>2019-06-02T15:46:20.000Z</published>
+    <updated>2019-06-02T16:10:41.748Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="二进制的产生"><a href="#二进制的产生" class="headerlink" title="二进制的产生"></a>二进制的产生</h1><p>现代二进制记数是由 莱布尼茨于1679年设计，《论只使用符号0和1的二进制算法，兼论其用途及它賦予伏羲所使用的古老圖形的意義》最初发表于1705年。<br>这篇论文文包含了萊布尼茨关于二进制算法的表达方式、規律特点、優勢與用途的論述以及他對於中國伏羲文化的思考。</p><p>我认为影响他的有这些内容：</p><p>古埃及有个叫“荷鲁斯之眼”分数的系统，是以</p><script type="math/tex; mode=display">\frac{1}{2} \frac{1}{4} \frac{1}{8} \frac{1}{16} \frac{1}{32} 和 \frac{1}{64}</script><p>等二进制分数的和。</p><p>1605年，弗朗西斯·培根提出一套系统，可以把26个字母化为二进制数。</p><h1 id="计算机为什么使用二进制"><a href="#计算机为什么使用二进制" class="headerlink" title="计算机为什么使用二进制"></a>计算机为什么使用二进制</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;二进制的产生&quot;&gt;&lt;a href=&quot;#二进制的产生&quot; class=&quot;headerlink&quot; title=&quot;二进制的产生&quot;&gt;&lt;/a&gt;二进制的产生&lt;/h1&gt;&lt;p&gt;现代二进制记数是由 莱布尼茨于1679年设计，《论只使用符号0和1的二进制算法，兼论其用途及它賦予伏羲所使用
+      
+    
+    </summary>
+    
+    
+      <category term="计算机" scheme="https://staticor.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>dynamic-programming</title>
+    <link href="https://staticor.github.io/2019/06/01/dynamic-programming/"/>
+    <id>https://staticor.github.io/2019/06/01/dynamic-programming/</id>
+    <published>2019-06-01T09:06:38.000Z</published>
+    <updated>2019-06-02T15:45:51.187Z</updated>
+    
+    <content type="html"><![CDATA[<p>动态规则 Dynamic Programming</p><h1 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h1><p>美国数学家 R·Bellman</p><p>线性规划是一种解决单一阶段单目标决策问题的定量分析方法；<br>那么相对来说，动态规划就是针对于更复杂的场景—多阶段单目标决定的定量分析方法。<br>所谓“动态”是指某问题需要逐个阶段（时间或空间的转移）这一特点。</p><p>解决这类问题时，可按照下面的基本思想进行工作。<br>首先，把较复杂的决策问题视作多阶段决策问题， 按时间或者空间的关系将问题分解为几个相互联系的阶段。</p><p>举个例子，</p><ul><li><p>按时间划分 - 工程队施工问题</p></li><li><p>按空间划分 - 背包问题</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;动态规则 Dynamic Programming&lt;/p&gt;
+&lt;h1 id=&quot;起源&quot;&gt;&lt;a href=&quot;#起源&quot; class=&quot;headerlink&quot; title=&quot;起源&quot;&gt;&lt;/a&gt;起源&lt;/h1&gt;&lt;p&gt;美国数学家 R·Bellman&lt;/p&gt;
+&lt;p&gt;线性规划是一种解决单一阶段单目
+      
+    
+    </summary>
+    
+    
+      <category term="数学, 信息" scheme="https://staticor.github.io/tags/%E6%95%B0%E5%AD%A6-%E4%BF%A1%E6%81%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>fibonacci numbers (斐波那切数)</title>
+    <link href="https://staticor.github.io/2019/05/31/fibonacci/"/>
+    <id>https://staticor.github.io/2019/05/31/fibonacci/</id>
+    <published>2019-05-30T21:56:01.000Z</published>
+    <updated>2019-06-06T06:55:07.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>数列:</p><script type="math/tex; mode=display">0, 1, 1, 2, 3, 5, 8, 13, 21 ......</script><p>描述: 从第三项开始,每个数都是前两个数之和.</p><p>数学定义:</p><script type="math/tex; mode=display">F_0 = 0;   F_1 = 1;  F_{n+2} = F_{n+1} , n \ge 0</script><p>这个著名数列是1202年为人所知的,发明者叫 <strong>Fibonaaci</strong>, 在他的著作《珠算篇》(Liber Abaci)有一道有意思的“兔子序列”问题──从一对兔子开始，每对兔子每个月能繁殖一对幼兔，幼兔一个月之后进入生育期，所有兔子不会死亡。 所以刚开始有一对兔子，一个月后有两对兔子；两个月之后将有三对兔子；依次类推。</p><p>意大利人Fibonaaci是继花拉子密之后，欧洲中世纪那个时代最杰出的数学家。他提出的兔子问题只是为了向大家表示这种加法“可以按顺序的无限期进行下去”。</p><p>19世纪70年代， 数学家卢卡斯对Fibonacci Numbers进行了深入的研究和证明，特别是他向人证明了 $2^{127} - 1 $这个39位的数是素数， 他是数列〈$F_{n}$〉命名者， 该习惯一直沿用至今。</p><script type="math/tex; mode=display">若令 \delta x = x - x_0</script><script type="math/tex; mode=display">结论： f(x) 在 x_0 处连接</script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;数列:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;0, 1, 1, 2, 3, 5, 8, 13, 21 ......&lt;/script&gt;&lt;p&gt;描述: 从第三项开始,每个数都是前两个数之和.&lt;/p&gt;
+&lt;p&gt;数学定义:&lt;/p&gt;
+&lt;scr
+      
+    
+    </summary>
+    
+    
+      <category term="数学" scheme="https://staticor.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>巴贝奇与爱达</title>
