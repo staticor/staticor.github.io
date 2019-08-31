@@ -335,6 +335,585 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/08/31/machinelearning01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/31/machinelearning01/" class="post-title-link" itemprop="url">machinelearning01--Linear Regression</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-31 09:10:26 / Modified: 10:29:34" itemprop="dateCreated datePublished" datetime="2019-08-31T09:10:26+08:00">2019-08-31</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>线性回归是统计学习的基础核心，最简单的机器学习模型。<br>几乎所有的机器学习基础入门都用它作来入门导论的知识。</p>
+</blockquote>
+<p>与之相关的关键词有：最小二乘法、梯度下降、正则化、高斯分布</p>
+<p>下面我们来一步步的理解并学习线性回归。</p>
+<h1 id="数据约定"><a href="#数据约定" class="headerlink" title="数据约定"></a>数据约定</h1><p>假设样本观测来自于p维空间的向量， 目标值y是标量。<br>符号约定如下：</p>
+<script type="math/tex; mode=display">X = (x_1, x_2, ... , x_N )^T</script><script type="math/tex; mode=display">Y = (y_1, y_2,  ..., y_p)^T</script><script type="math/tex; mode=display">完整数据D = {(x_i, y_i)}_i^{N}</script><script type="math/tex; mode=display">w = (w_1, w,2, ..., w_p)^T</script><p>所以对每个输入样本 $x_i$ 通过参数w 都可以得到一个预测值： $ w^T \dot x_i $<br>(注： 这里为了提醒自己， 我用了特殊的点标记二者之间是向量的内积关系)</p>
+<p>损失函数（loss function)定义为回归预测值与目标值的2范数之和, 每个参数w向量都会对应着一个损失值， 因此可以写成损失函数：</p>
+<script type="math/tex; mode=display">L(w) = \Sigma_{i=1}^N || w^T \dot x_i - y_i ||^2</script><h1 id="如何求出解析解"><a href="#如何求出解析解" class="headerlink" title="如何求出解析解"></a>如何求出解析解</h1><p>思路：对损失函数的Sigma符号转化对矩阵的乘积， 对w向量求偏导。<br>转化方式： 一个标量可以写成一个行向量和列向量的内积<br>提醒： $ ||x||^2 = x x^T $</p>
+<p>所以得到：</p>
+<script type="math/tex; mode=display">L(w) = (w_1 \dot x_1 - y_1 , w_2 \dot x_2 - y_2 , ... ) (w_1 \dot x_1 - y_1 , w_2 \dot x_2 - y_2 , ... )^T</script><script type="math/tex; mode=display">L(w) = (w^T X^T - Y) ( XW - Y ) = w^TX^T X W - 2W^T X^T Y + Y Y ^T</script><p>最优的w是使得损失函数达到最小的向量</p>
+<script type="math/tex; mode=display">\hat w = \underset{w}{\mathrm{argmin}} \quad  L(w)</script><p>对L(w)求偏导：</p>
+<script type="math/tex; mode=display">\frac {\partial L(w)} {\partial w} = 2 X^T X W - 2 X^T Y = 0</script><p>化简后得到 w的解析解：</p>
+<script type="math/tex; mode=display">\hat w =  (X^TX)^{-1} X^T Y</script><p>注： 这里 Y左侧的矩阵形式也称为X的伪逆。</p>
+<h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><script type="math/tex; mode=display">w^{t+1} \leftarrow w^t - \eta \frac {\partial L(w)} {\partial w}</script><p>这里学习率是超参数。</p>
+<h1 id="几何视角"><a href="#几何视角" class="headerlink" title="几何视角"></a>几何视角</h1><p>在Gilbert的线性代数课程上曾经提到过， 线性回归口最小二乘的理解就是用投影来拟合原来的向量。</p>
+<script type="math/tex; mode=display">f(w) = X w</script><p>在X超平面上的法向量写成 $  (Y - X w) $, 法向量和原始超平面垂直：</p>
+<script type="math/tex; mode=display">X^T ( Y - X w) = 0</script><p>-&gt;  <script type="math/tex">X^T Y = X^T X w</script></p>
+<script type="math/tex; mode=display">w = (X^T X)^{-1} X^T Y</script><p>也能得到相同的结果。 </p>
+<p>解释: 损失函数的构造是来自于每个样本的误差定义为L2之后， 相误差加起来得到的L函数尽量小。<br>而几何解释是出于整个维度的理解。</p>
+<h1 id="概率视角"><a href="#概率视角" class="headerlink" title="概率视角"></a>概率视角</h1><script type="math/tex; mode=display">y = w^T x + \epsilon</script><p>称样本与目标值之间的差异称为残差，且残差服从高斯分布。 那么根据高斯分布的pdf（概率密度函数）</p>
+<p>(高斯概率密函数)</p>
+<script type="math/tex; mode=display">P(\epsilon) = \frac {1} { \sqrt {2\pi} \sigma} exp (-\frac {(\epsilon)} { 2\sigma^2})</script><p>假设残差服从的高斯分布是$ N(0; \sigma^2) $<br>所以每个y服从高斯分布， 写成：</p>
+<script type="math/tex; mode=display">y|x_i w ~ N(w^T x_i; \sigma^2 )</script><script type="math/tex; mode=display">P(y|x_i w) = \frac {1} { \sqrt {2\pi} \sigma} exp (-\frac {(y_i - w^T x_i)} { 2\sigma^2})</script><p>然后写出N个y的联合概率密度函数， 对数化， 得到对数似然函数。 </p>
+<p>这时的问题就转变为 <strong>求对数似然函数最大时的w</strong>. </p>
+<p>在求解过程中发现和最小二乘的估计也是一样的， 都是在求解：</p>
+<script type="math/tex; mode=display">\hat w = \underset{w}{\mathrm{argmin}} \quad  \Sigma (y_i - w^T x_i)^2</script><h1 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h1><ul>
+<li>L1范数正则  LASSO</li>
+<li>L2范数正则 Ridge（岭回归）</li>
+</ul>
+<p>考虑到维度与样本数量的问题，避免过拟合现象，因此在损失函数上增加惩罚项。</p>
+<p>另外， 从另一个角度也可以去延伸过来： 在解析解中体现的 对某方阵求逆， 那么这个矩阵可逆吗？ </p>
+<p>以岭回归为例， 它的损失函数形式是：</p>
+<script type="math/tex; mode=display">\hat w = \underset{w}{\mathrm{argmin}} \quad  \Sigma (y_i - w^T x_i)^2  + \lambda \Sigma ||w_i||^2</script><p>解析解求得：</p>
+<script type="math/tex; mode=display">\hat w = (X^T X + \lambda I)^{-1} X^T Y</script>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/07/17/formula/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/17/formula/" class="post-title-link" itemprop="url">formula</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-17 23:21:30" itemprop="dateCreated datePublished" datetime="2019-07-17T23:21:30+08:00">2019-07-17</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">0</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/07/04/什么是数学-md/2019-07-04-什么是数学-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/04/什么是数学-md/2019-07-04-什么是数学-md/" class="post-title-link" itemprop="url">统计知识</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-04 16:41:57" itemprop="dateCreated datePublished" datetime="2019-07-04T16:41:57+08:00">2019-07-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-19 06:36:27" itemprop="dateModified" datetime="2019-07-19T06:36:27+08:00">2019-07-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">341</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="概率论"><a href="#概率论" class="headerlink" title="概率论"></a>概率论</h1><h2 id="探索性数据分析"><a href="#探索性数据分析" class="headerlink" title="探索性数据分析"></a>探索性数据分析</h2><ul>
+<li>均值</li>
+</ul>
+<script type="math/tex; mode=display">\bar x = \frac {(x_1 + x_2 + ... + x_n)}  {N}</script><script type="math/tex; mode=display">\bar x_{truncated} = \frac {(x_{10} + x_{11} + ... + x_{90})}  {N_{80\%}}</script><script type="math/tex; mode=display">{(x_{1} , x_{2} , ... x_{ \frac {N} {2}}  .. , , x_{N})}</script><script type="math/tex; mode=display">\sigma^2  = \frac {  (x_1 - \bar x)^2 + (x_2 - \bar x)^2 ... + + (x_N - \bar x)^2 }  {N}</script><h2 id="经典的数据分布"><a href="#经典的数据分布" class="headerlink" title="经典的数据分布"></a>经典的数据分布</h2><ul>
+<li>泊松分布</li>
+</ul>
+<script type="math/tex; mode=display">P(X=k) = \frac {e^{- \lambda} * \lambda^k} {k!}</script><script type="math/tex; mode=display">P(X<=k) = e^{- \lambda} * \Sigma_{i=0}^k \frac {\lambda^i} {i!}</script><ul>
+<li>指数分布</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/06/15/baseStone-la-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -598,7 +1177,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-03 00:10:41" itemprop="dateModified" datetime="2019-06-03T00:10:41+08:00">2019-06-03</time>
+                <time title="Modified: 2019-06-03 00:10:38" itemprop="dateModified" datetime="2019-06-03T00:10:38+08:00">2019-06-03</time>
               
             
           </span>
@@ -768,24 +1347,12 @@
                 
               
 
-              <time title="Created: 2019-06-01 17:06:38" itemprop="dateCreated datePublished" datetime="2019-06-01T17:06:38+08:00">2019-06-01</time>
+              <time title="Created: 2019-06-01 17:06:38 / Modified: 17:34:00" itemprop="dateCreated datePublished" datetime="2019-06-01T17:06:38+08:00">2019-06-01</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-02 23:45:51" itemprop="dateModified" datetime="2019-06-02T23:45:51+08:00">2019-06-02</time>
               
             
           </span>
@@ -1985,899 +2552,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/03/15/thoughts78/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/15/thoughts78/" class="post-title-link" itemprop="url">我的思想世界有一匹小野马</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-03-15 07:31:42" itemprop="dateCreated datePublished" datetime="2019-03-15T07:31:42+08:00">2019-03-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-26 07:46:22" itemprop="dateModified" datetime="2019-03-26T07:46:22+08:00">2019-03-26</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">572</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="我的天空"><a href="#我的天空" class="headerlink" title="我的天空"></a>我的天空</h1><h2 id="Judy是好人吗"><a href="#Judy是好人吗" class="headerlink" title="Judy是好人吗"></a>Judy是好人吗</h2><p>齐国 管鲍之交中的鲍 是来自齐恒公竞争国君之位的敌人公子纠， 在公子纠死时，他的一位谋尘为之赴死。</p>
-<p>而鲍叔牙活了下来， 帮助齐恒公完成了齐国霸业。</p>
-<p>孔子的学生问孔子， 如何看待“鲍在旧主之死后，辅佐敌人”的问题。</p>
-<p>孔子对于鲍叔牙还是持肯定态度的。 </p>
-<p>那我于此就有了问题， 明成祖朱棣是篡夺了侄子的帝位，之后创立了不世伟业， 如果孔子在天有灵，会如何感知呢？</p>
-<h1 id="生活逸事"><a href="#生活逸事" class="headerlink" title="生活逸事"></a>生活逸事</h1><h2 id="泰式安检"><a href="#泰式安检" class="headerlink" title="泰式安检"></a>泰式安检</h2><blockquote><p>前日与妻子进地铁安检，被工作人员的不认真而扫了兴。 不觉和她表示对这项工作的存在必要性和服务态度进行了讨论。</p>
-<p>妻子回道： 怎么， 你还要个moontree ??</p>
-<p>我笑到无语。</p>
-</blockquote>
-<p>备注， moontree是之前我们去泰国旅游时一起做的按摩店名称。 </p>
-<h2 id="爸爸也要赢"><a href="#爸爸也要赢" class="headerlink" title="爸爸也要赢"></a>爸爸也要赢</h2><p>和James搞了一次词汇大测试， 就是轮流说”把你变成xxxx“， 而xxxx只能是我们见过的名词实体。</p>
-<p>最终以James词尽说出地球失败， 我也因为名正言顺击败了一名六岁学龄前儿童产生了微不足道的满足感。</p>
-<p>（以及在比赛进入中段时，自己分心险些输给他而捏了一把汗。）</p>
-<h1 id="育儿态度"><a href="#育儿态度" class="headerlink" title="育儿态度"></a>育儿态度</h1><p>随着孩子每天的变化, 我感觉到自己在家的地位每况愈下了.</p>
-<p>我乐于看到James的内心将自己放在一个独立个体上, 并且能在我面前不掩饰的表达自己 — 这是我特别心安的.</p>
-<p>父亲这个词并不等于威严, 而是陪伴和指引.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/03/14/statistics-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/14/statistics-1/" class="post-title-link" itemprop="url">statistics-商务与经济统计</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-03-14 20:22:28" itemprop="dateCreated datePublished" datetime="2019-03-14T20:22:28+08:00">2019-03-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-26 07:16:11" itemprop="dateModified" datetime="2019-03-26T07:16:11+08:00">2019-03-26</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/统计/" itemprop="url" rel="index"><span itemprop="name">统计</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">6.5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">6 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近刚无意发现一本书， 很是喜欢。 </p>
-<p><img src="/images/cover.jpg" alt></p>
-<p>《商务与经济统计》 (Statistics For Business And Economics) - David R. Anderson</p>
-<h1 id="什么是数据"><a href="#什么是数据" class="headerlink" title="什么是数据"></a>什么是数据</h1><p>数据（data)是为描述和解释所搜集、分析、汇总的事实和数字。将用于研究而搜集的所有数据称为研究的数据集（data set)。 </p>
-<p>根据数值类型的不同分为 分类型数据（categorical data)和数量变量（quantitative variable)</p>
-<p>在商务世界，经常要用到各种各样的图形表达复杂的数据。 例如， 频数分布图、直方图、饼图（pie-chart)… </p>
-<p>而且， 为了更好的进行商业决策，数据组织者有必要呈现出有目标的数据仪表盘（data dashboard)，以给使用者一个直观且明了的“story”。</p>
-<p>这也是我对BI（business inteliggent)的理解。</p>
-<p>为了快速了解一群样本数据，人们约定了一些从样本可计算出来的统计特征（也叫做统计量）。 其中，最常用的就是</p>
-<ul>
-<li>算术均值（mean):</li>
-</ul>
-<script type="math/tex; mode=display">\bar x  = \frac{\sum x_i }{n}</script><ul>
-<li>中位数（median):</li>
-</ul>
-<p>将数据从小到大顺序排列，  (a) 样本个数为奇数， 中间的数就是中位数；<br>(b) 样本个数如为偶数， 则中间两个数的平均值就是中位数。</p>
-<ul>
-<li>几何平均数（geometric mean):</li>
-</ul>
-<script type="math/tex; mode=display">\overline x_g = \sqrt[n] { x_1 x_2 \cdot \cdot \cdot x_n }</script><ul>
-<li>众数（mode):</li>
-</ul>
-<p>众数是出现次数最多的数据。</p>
-<ul>
-<li>百分位数（percentile)：</li>
-</ul>
-<p>一般样本数量较多（个人认为超过1000）， 才应该用此次序统计量。大约有 p%的观测比第p百分位数小。</p>
-<p>百分位数中最为常用的是25%与75%。   二者的差是IQR  四分位数间距。</p>
-<ul>
-<li>总体方差（sample variance):</li>
-</ul>
-<script type="math/tex; mode=display">\sigma^2 = \frac{(x_i - \mu)^2}{N}</script><ul>
-<li>样本方差（sample variance):</li>
-</ul>
-<script type="math/tex; mode=display">s^2 = \frac{(x_i - \mu)^2}{ n - 1}</script><ul>
-<li>标准差（standard deviation)：</li>
-</ul>
-<p>方差的正平方根</p>
-<script type="math/tex; mode=display">\sigma = \sqrt \sigma^2</script><ul>
-<li>z-score：</li>
-</ul>
-<p>利用均值和方差能快速计算z分数， 也就是偏离中心的标准差倍数。</p>
-<script type="math/tex; mode=display">z_i = \frac{x_i - \bar x }{ s }</script><p>到这里， 我要特别的将 切比雪夫定理（Chebyshev’s theorem)列出来， 源自某次和同事讨论时自己出现了stuck的现象。</p>
-<blockquote><p>切比雪夫定理</p>
-<p>与平均数的距离在z个标准差之内的数据值所占比至少为  $ (1 - 1/z^2) $, 其中 $z $是大于1的任意实数。</p>
-<p>至少75%的数据值与平均数距离在2个标准差之内；<br>至少89%的数据值与平均数距离在3个标准差之内；<br>至少94%的数据值与平均数距离在4个标准差之内； </p>
-</blockquote>
-<p>异常值： 数值异常大或异常小的观测。</p>
-<p>一般建议是将z分数大于3或者小于-3的视为异常值。</p>
-<h2 id="数值分析工具"><a href="#数值分析工具" class="headerlink" title="数值分析工具"></a>数值分析工具</h2><ul>
-<li>boxplot：<br>（1）最小值<br>（2）最大值<br>（3）三个四分位数 Q1， Q2， Q3</li>
-</ul>
-<ul>
-<li>相关系数</li>
-</ul>
-<p>相关系数是描述两变量之间相关程度的常用特征。</p>
-<p>Pearson相关系数的计算公式为</p>
-<script type="math/tex; mode=display">r_{xy} = \frac{s_{xy}} {s_x s_y}</script><p>$s_{xy}$ 是x，y的样本协方差：</p>
-<script type="math/tex; mode=display">s_{xy} = \frac {\sum (x_i - \bar x) (y_i - \bar y)} {n-1}</script><p>如果 r 的绝对值越接近1， 表明 x-y的相关性越强，  当 $ |r| = 1$ 时说明具有完全正（负）线性关系。<br>如果 r 的绝对值越接近0， 表明 x-y的相关性越弱，  当 $ |r| = 0$ 时说明无线性关系。</p>
-<h1 id="概率"><a href="#概率" class="headerlink" title="概率"></a>概率</h1><p>我以为包括我在内的所有人，都曾经想过拥有一切并掌控一切的。</p>
-<p>不过，有那么多位先贤，证明过这个世界充满了不确定性 — 比如我现在还掌握不了明天我能否正点到达那个🏨。</p>
-<p>概率是用来描述可能性的。复杂事物是由若干简单事件用逻辑运算组合成的。</p>
-<p>样本空间、随机试验：</p>
-<p>随机试验： 任意一次试验或者重复过程中， 每次有且只有一种结果发生， 而且哪种试验结果是由偶然性决定的。<br>确定了试验的所有可能结果，就确定了随机试验的样本空间 （sample space)</p>
-<p>事件则是样本点的一个集合。 例子： 2枚骰子其投掷之和为8。 </p>
-<p>事件的概率等于事件中所有样本点的概率之和。  </p>
-<p>互斥事件：如果两个事件无公共的样本点。</p>
-<p>对随机变量的数值描述， 我们称为随机变量， 根据其取值域的不同， 分成连续型和离散型。</p>
-<h2 id="离散型经典概率分布"><a href="#离散型经典概率分布" class="headerlink" title="离散型经典概率分布"></a>离散型经典概率分布</h2><p>(Discrete Probability Distribution)</p>
-<p>比如一枚硬币投掷的结果是离散分布,而且是二分『0, 1』分布。</p>
-<ul>
-<li>Bernoulli 试验</li>
-</ul>
-<p>一次试验事件发生的概率为 p， 不发生的概率为  1-p， 无声明时也可记q = 1-p。</p>
-<ul>
-<li>Binomial 二项分布</li>
-</ul>
-<p>如果试验由一系列相同的n个Bernoulli试验组成， 每次试验有两种结果（发生、不发生）， 试验间是相互独立的。<br>则称其为二项试验。</p>
-<p>n次试验里事件发生的总次数k便服从二项分布， 记作 $   B(n, p) $</p>
-<script type="math/tex; mode=display">p(N=k) = \binom{n}{k} p^k (1-p)^{n-k}</script><p>二项分布的期望是 np， 方差是  npq<br>计算公式来自于期望之和、方差之和。 （tips:每次B试验的期望是 p 方差是 pq）</p>
-<ul>
-<li>Poisson 泊松概率分布</li>
-</ul>
-<p>泊松分布表示区间上事件发生的次数， 分布于 0，1，2， … …</p>
-<p>当取值次数很大时，概率值会趋近0，可忽略其发生的可能。</p>
-<p>泊松概率分布函数为</p>
-<script type="math/tex; mode=display">p(k) = \frac{\lambda ^k e^{-\lambda}}{\lambda !}</script><p>泊松分布的期望为 $\lambda$<br>例子： 15分钟的时间段上到达的汽车数量。</p>
-<ul>
-<li>hypergeometric 超几何概率分布</li>
-</ul>
-<p>对于超几何概率分布， 记N表示总体容量，r表示总体中成功标记的个数， N-r表示非成功标志。 超几何分布用来描述一次不放回的抽样：</p>
-<p>从总体中抽取n个元素， 恰好有x个具有成功标记，n-x个元素是非成功标记。 </p>
-<p>超几何分布的概率函数</p>
-<script type="math/tex; mode=display">p(x) = \frac {\binom{r}{x} \binom{N-r}{n-x} }{\binom{N}{n}}</script><h2 id="连续型经典概率分布"><a href="#连续型经典概率分布" class="headerlink" title="连续型经典概率分布"></a>连续型经典概率分布</h2><p>(Continuous Probability Distribution)</p>
-<p>确定到底是不是连续分布的方法也不难： 画一条线段，如果这条线段上任意一个点都有可能是随机变量的可能值，那么就是连续随机变量。</p>
-<ul>
-<li>uniform 均匀概率分布</li>
-</ul>
-<p>在区间[a, b]上所有点的发生概率均相等， 即</p>
-<script type="math/tex; mode=display">f(x) = \frac{1}{b-a} , for a \le x \le b</script><ul>
-<li>normal 正态概率分布</li>
-</ul>
-<p>正态分布是描述连续随机变量最重要的一种分布。 试着回答一个问题， 你见过的公式之中， 哪个同时出现了两个最重要无理数 $ \pi,  e $ ?</p>
-<p>一般正态概率分布需要先给出其分布的期望与方差， 概率密度函数：</p>
-<script type="math/tex; mode=display">f(x) = \frac{1}{\sqrt {2\pi \sigma}} e^{- \frac{(x-\mu)^2}{2\sigma^2}}</script><p>其中 均值$ \mu $ 是分布的集中趋势量， 标准差 $ \sigma$ 是钟形曲线宽度的表达（值越大，曲线越宽）</p>
-<p>当二者取 $(0,1)$ 时， 得到的分布称作 标准正态分布   $N(0; 1)$</p>
-<script type="math/tex; mode=display">f(x) = \frac{1}{\sqrt {2\pi }} e^{- \frac{x^2}{2}}</script><p>一般概率分布通过z变换可以转换为标准正态分布，  $z = \frac{x-\mu}{\sigma}$</p>
-<p>tips: 当二项分布的试验次数n很大时， 可用正态分布来拟合二项分布。   均值为 $np$ 标准差为 $npq$</p>
-<p>建议满足：  $np \ge 5  , npq \ge 5$</p>
-<ul>
-<li>指数分布<br>概率密度函数(pdf)：<script type="math/tex; mode=display">f(x) = \frac {1}{\mu} e^{- \frac{x}{\mu}},    x \ge 0</script></li>
-</ul>
-<p>累积概率分布函数(cdf):</p>
-<script type="math/tex; mode=display">P(x\le x_0) = 1 - e^{- \frac{x}{\mu}}</script><p>通过外表不难看出，指数分布和泊松分布长得相似，二者有何关系呢？</p>
-<p>泊松分布是指某一区间上事件发生的次数描述。指数分布则像是它的对偶描述， 下面举例加以说明。</p>
-<p>假定一小时内我们在公交车站上能等到的公交巴士数量 （泊松分布） ， 设定均值为5:</p>
-<script type="math/tex; mode=display">f(x) = \frac{5^x e^{-5}}{x!}</script><p>每小时5辆， 则两车到达的时间间隔均值是 0.2 小时/辆 ， 于是描述两车到达间隔的对应分类是指数分布， 均值 $ \mu = 0.2$<br>指数概率密度函数为</p>
-<script type="math/tex; mode=display">f(x) = \frac{1}{0.2}e^{-x / 0.2}</script><h1 id="抽样"><a href="#抽样" class="headerlink" title="抽样"></a>抽样</h1><p>前面的内容均算是储备知识，从这里开始渐渐深入到统计学的实操环节。 </p>
-<p>个体是描述数据现象的基本单位，平时我们想要了解总体的信息，但实际所能获得的只能是总体的子集—俗称样本集。 </p>
-<p>获得样本的方法叫做抽样， 总体若为有限个称为有限总体抽样，反之为无限总体抽样。</p>
-<p>每次抽样的个体是否能再放回总体，作为下次抽样的候选， 称为有放回/无放回抽样。 </p>
-<p>抽样方法：</p>
-<ul>
-<li><p>简单随机抽样</p>
-</li>
-<li><p>分层随机抽样  男女比例120:104， 则在抽取实验时也保持这个比例</p>
-</li>
-<li><p>cluster sample </p>
-</li>
-</ul>
-<p>个体首先被编入到某个cluster， 且只能属于唯一的cluster。理想情况下，每个小cluster就是总体的代表。</p>
-<p>在区域抽样中有广泛的应用。 </p>
-<ul>
-<li>方便抽样与判断抽样： 略。</li>
-</ul>
-<h2 id="点估计"><a href="#点估计" class="headerlink" title="点估计"></a>点估计</h2><p>为了估计总体的分布参数，对样本进行数据处理以得到猜测点的方法叫做点估计。</p>
-<p>处理结果叫做样本统计量（sample statistic)</p>
-<p>以总体的重要参数 <strong>均值 （$\mu$)</strong> 和 <strong>方差 ($ \sigma^2$)</strong> 为例， 我们能够建立一组点估计统计量：</p>
-<ul>
-<li>样本均值</li>
-</ul>
-<script type="math/tex; mode=display">\bar x = \frac{\sum x_i}{n}</script><ul>
-<li>样本方差</li>
-</ul>
-<script type="math/tex; mode=display">s^2 = \sqrt \frac{\sum_{i=1} (x_i - \bar x)^2 }{n-1}</script><p>统计作为一种数据处理技术， 是用来做推断、验证（检验）现实结果的重要方式。<br>点估计是便是统计推断的常用手段。 因此，如果我们的抽样总体是偏的（严重偏离要分析的目标总体），<br>那么再好的统计方法也无法得到有效估计。</p>
-<p>例子：  分析地球上所有人的平均身高。    结果我们只在自己身边的幼儿园抽取了所有学龄前儿童作为样本。</p>
-<p>样本统计量 $\bar x$的抽样分布</p>
-<p>$ \bar x$ 作为一种统计量， 如果我们从总体的抽样重复进行M次， 那么我们会得到M个结果，<br>其也对应着某概率分布， 也有期望和方差。</p>
-<p>简单随机抽样的 $E(\bar x) = \mu $ </p>
-<p>而对于 $ \bar x $ 的方差($ sigma_x^2 $) 和总体方差（$ \sigma^2 $）的关系， 则要考虑抽样样本容量$n$和总体容量$N$的关系.</p>
-<script type="math/tex; mode=display">有限总体：\sigma_x = \sqrt \frac{N-n}{N-1} (\frac {\sigma}{\sqrt n})</script><script type="math/tex; mode=display">无限总体：\frac {\sigma}{\sqrt n}</script>
-<p>当 样本容量很大时， 一般会第二个公式表示， （前一项根式近似为1）。</p>
-<blockquote><p>当总体服从正态分布时， $\bar x$也服从正态分布。 （正态分布 Liniearity) </p>
-<p>当总体不服从正态分布， 中心极限定理表示， 当样本容量很大时，  $\bar x$近似服从正态分布。</p>
-</blockquote>
-<p>点估计的性质</p>
-<p>如果对同一总体参数进行种不同的点估计， 如何评价它们哪种策略更优？ 要牢记的三种性质为：  </p>
-<ul>
-<li><p>无偏性（期望与目标值相同）、</p>
-</li>
-<li><p>有效性 (标准误差更小者， 优) 、</p>
-</li>
-<li><p>一致性 （样本容量增大，估计效果越好，距离总体参数越接近）、</p>
-</li>
-</ul>
-<h2 id="区间估计"><a href="#区间估计" class="headerlink" title="区间估计"></a>区间估计</h2><blockquote><p>我当时恰恰是在和同事聊区间估计的时候, 通过搜索, 才知道这样一本书.</p>
-<p>觉得是一本不错的统计读物, 于是就购入了.  在阅读的过程里, 也觉得回忆本科时的知识, 于是就有了此文.</p>
-</blockquote>
-<p>在点估计的同时, 对估计结果加减一个<strong>边际误差</strong> marginal of error 的值来计算区间估计(interval estimate) </p>
-<p>区间估计的表达形式如下:</p>
-<script type="math/tex; mode=display">点估计 \pm 边际误差</script><ul>
-<li>总体均值区间估计  $\sigma$ 已知</li>
-</ul>
-<script type="math/tex; mode=display">\bar x \pm z_{\alpha / 2} \frac {\sigma}{\sqrt n}</script><p>式中,  1 - $ \alpha $ 为置信系数;  $ z_{\alpha / 2} $ 表示标准正态概率分布上侧面积为 $\alpha /2 $ 时的z值.</p>
-<p>见表:</p>
-<hr>
-<p>置信水平 90% | $\alpha - 0.10$ | $\alpha/2 - 0.05$  |   1.645<br>置信水平 95% | $\alpha - 0.05$ | $\alpha/2 - 0.025$ |   1.960<br>置信水平 99% | $\alpha - 0.01$ | $\alpha/2 - 0.005$ |   2.576</p>
-<hr>
-<ul>
-<li>总体均值区间估计  $\sigma$ 未知</li>
-</ul>
-<script type="math/tex; mode=display">\bar x \pm t_{\alpha / 2} \frac {s}{\sqrt n}</script><p>式中, s为样本标准差, 1 - $ \alpha $ 为置信系数;  自由度为 n-1的t分布中,<br>$ t_{\alpha / 2} $ 上侧的面积恰好等于 {\alpha / 2}</p>
-<h1 id="假设检验"><a href="#假设检验" class="headerlink" title="假设检验"></a>假设检验</h1><p>尝试性假设叫做<strong>原假设</strong>(null hypothesis) , 常常记作 $H_0$,<br>与原假设相对的假设叫做备择假设(alternative hypothesis)  常常记作 $H_1$. </p>
-<p>以均值的假设检验为例</p>
-<script type="math/tex; mode=display">H_0:  \mu  \ge \mu_0</script><script type="math/tex; mode=display">H_1:  \mu  \lt \mu_0</script><p>这种单边判断的检验方法叫做 <strong>单侧检验</strong>.   还有一种叫做双侧检验:</p>
-<script type="math/tex; mode=display">H_0:  \mu  = \mu_0</script><script type="math/tex; mode=display">H_1:  \mu  \ne \mu_0</script><h2 id="两类错误"><a href="#两类错误" class="headerlink" title="两类错误"></a>两类错误</h2><ul>
-<li>拒真错误<pre><code>  H0为真的, 我们却在统计意义上拒绝了H0命题.  也叫TYPE I错误   第一类错误
-</code></pre></li>
-<li>受伪错误<pre><code>  H0为假, 我们却接受了原接受, 认为H0成立. 也叫TYPE II错误  第二类错误
-</code></pre></li>
-</ul>
-<p>显著水平: 当原假设为真时 并且以等式形式出现时犯第一类错误的概率水平.</p>
-<blockquote><p>Walter Wiiliams 指出在决定中第一类错误或第二类错误的发生可能性经常存在. </p>
-<p>他认为美国食品和药品管理管理局(FDA)在药品准入程序中具有犯这些错误的风险.  对某种药物, FDA必须确定是否准许其用于诊疗.</p>
-<p>第一类错误意味着, FDA准许一种并非安全有效的药物被公众使用.<br>而第二类错误意味着,FDA不允许一种安全有效的药物用于诊疗.</p>
-<p>无论做出何种决策, 发生重大损失的可能性都是不能忽视的. </p>
-</blockquote>
-<h2 id="总体均值的假设检验"><a href="#总体均值的假设检验" class="headerlink" title="总体均值的假设检验"></a>总体均值的假设检验</h2><ul>
-<li><p>$\sigma$已知, 此时构造检验统计量</p>
-<script type="math/tex; mode=display">z = \frac {\bar x - \mu_0}{ \sigma / \sqrt n}</script><p>计算对应的p值 ( p值是一个概率值, 它度量样本所提供的证据对原假设的支持程度<br>p越小说明越拒绝原假设的证据越多. ) </p>
-<p>如果p值小于 $\alpha$, 则拒绝 $H_0$.</p>
-</li>
-</ul>
-<ul>
-<li>$\sigma$ 未知, 此时构造检验统计量</li>
-</ul>
-<script type="math/tex; mode=display">t = \frac {\bar x - \mu_0}{ s / \sqrt n}</script><h2 id="两总体均值和比例的检验"><a href="#两总体均值和比例的检验" class="headerlink" title="两总体均值和比例的检验"></a>两总体均值和比例的检验</h2><h2 id="总体方差的统计推断"><a href="#总体方差的统计推断" class="headerlink" title="总体方差的统计推断"></a>总体方差的统计推断</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/03/03/machine-learning/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/03/machine-learning/" class="post-title-link" itemprop="url">Machine Learning</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-03-03 10:23:42" itemprop="dateCreated datePublished" datetime="2019-03-03T10:23:42+08:00">2019-03-03</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-05 21:17:35" itemprop="dateModified" datetime="2019-03-05T21:17:35+08:00">2019-03-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">5.3k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">5 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>假期找了几本关于机器学习的书，将一些比较重要的核心公式整体到这里。</p>
-<h1 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h1><h2 id="模型描述"><a href="#模型描述" class="headerlink" title="模型描述"></a>模型描述</h2><p>特征空间假设， 寻找线性系数 $ \theta $ 以希望用一个线性函数逼近目标向量。</p>
-<p>逼近的效果好坏叫做 <strong>Cost Function</strong>， 下面列出的MSE便是其中一种。</p>
-<blockquote><p>Linear Regression</p>
-</blockquote>
-<script type="math/tex; mode=display">\hat y = h_{\theta} (x) =  \theta \cdot x</script><script type="math/tex; mode=display">MSE(x, h_{\theta}) =  \frac{1}{m} \sum_{i=1}^{m} ( \theta^T \cdot x^{(i)} - y^{(i)} )^2</script><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><img src="/2019/03/03/machine-learning/sgd.png" title="sgd">
-<script type="math/tex; mode=display">\Theta^{(next step)} = \Theta - \eta \nabla_\theta MSE( \theta )</script><p>其中 </p>
-<script type="math/tex; mode=display">\nabla_\theta MSE( \theta ) = \begin{pmatrix}
-\frac{\partial}{\partial_{\theta_0}} MSE( \theta ) \\
-\frac{\partial}{\partial_{\theta_1}} MSE( \theta ) \\
-\cdots \\
-\frac{\partial}{\partial_{\theta_n}} MSE( \theta ) \\
-\end{pmatrix} = \frac{2}{m} X^T (X\Theta - Y)</script><h2 id="带有正则项"><a href="#带有正则项" class="headerlink" title="带有正则项"></a>带有正则项</h2><ul>
-<li>Ridge Regression</li>
-</ul>
-<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + \alpha \frac{1}{2} \sum_{i=1}^{n} \theta_i^2</script><img src="/2019/03/03/machine-learning/ridge.png" title="ridge">
-<ul>
-<li>LASSO</li>
-</ul>
-<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + \alpha \sum_{i=1}^{n} | \theta_i |</script><ul>
-<li>Elastic Net</li>
-</ul>
-<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + r \alpha \sum_{i=1}^{n} | \theta_i | + \frac{1-r}{2} \alpha  \sum_{i=1}^{n} \theta_i^2</script><figure class="highlight python"><figcaption><span>sklearn-线性回归</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line">lr = LinearRegression()</span><br><span class="line">lr.fit(X, y)</span><br><span class="line">lr.intercept_, lr.coef_</span><br><span class="line"></span><br><span class="line"><span class="comment">#mse</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># sgd</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDRegressor</span><br></pre></td></tr></table></figure>
-<h2 id="对数线性回归-Logistic-Regression"><a href="#对数线性回归-Logistic-Regression" class="headerlink" title="对数线性回归 - Logistic Regression"></a>对数线性回归 - Logistic Regression</h2><script type="math/tex; mode=display">\hat p = h_\theta (x) = \sigma (\theta^T x)</script><p>$ \sigma(t) $ 是Sigmoid函数</p>
-<script type="math/tex; mode=display">\sigma (t) =  \frac{1}{1 + exp(-t) }</script><p>Logistic Regression cost function (log loss)</p>
-<script type="math/tex; mode=display">J(\theta) = - \frac{1}{m} \sum_{i=1}^{m} [y^{(i)} log( { \hat p }^(i) )   +  (1-y^{(i)})log( 1-{\hat p}^i)  ]</script><p>Logistic cost function partial derivatives </p>
-<script type="math/tex; mode=display">\frac{\partial}{\partial \theta_j } J(\boldsymbol \theta) = \frac{1}{m} \sum_{i=1}^{m} ( \sigma ( \boldsymbol \theta^T x^i ) -y^i ) x_j^i</script><figure class="highlight python"><figcaption><span>sklearn-Logistic Regression</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">log_reg = LogisticRegression()</span><br><span class="line">log_reg.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><script type="math/tex; mode=display">\widehat p_k = \sigma ( \boldsymbol s(x))_k   = \frac{exp(s_k(\boldsymbol x))}{ \sum_{j=1}^K exp(s_j(\boldsymbol x))}</script><h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h1><blockquote><p>Support Vector Machine</p>
-</blockquote>
-<ul>
-<li>Decision Functions and Predictions</li>
-</ul>
-<script type="math/tex; mode=display">\widehat{y} = 
-\begin{cases}
-0, &  {if \quad w^T x + b > 0 } \\
-1, &  {if \quad w^T x + b \leq 0 } \\
-\end{cases}</script><ul>
-<li>Hard Margin Classification</li>
-</ul>
-<script type="math/tex; mode=display">\min_{w, b} \frac{1}{2} w^T \cdot w</script><p>subject to</p>
-<script type="math/tex; mode=display">t^{(i)} (w^T x^{(i)} + b) \geq 1   ,\quad   for \quad i = 1,2, \cdots , m</script><ul>
-<li>Soft Margin Classification</li>
-</ul>
-<script type="math/tex; mode=display">\min_{w, b} \frac{1}{2} w^T \cdot w  + C \sum_{i=1}^m \xi^{(i)}</script><p>subject to</p>
-<script type="math/tex; mode=display">t^{(i)} (w^T x^{(i)} + b) \geq 1 - \xi^{(i)}  and \quad  \xi^{(i)} \geq 0 , \quad   for \quad i = 1,2, \cdots , m</script><ul>
-<li>Dual Problem</li>
-</ul>
-<script type="math/tex; mode=display">\min_{ \alpha }    \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha^{(i)} \alpha^{(j)} t^{(i)} t^{(j)} {x^{(i)}}^T \cdot x^{(j)}  - \sum_{i=1}^m \alpha^{(i)}</script><p>subject to</p>
-<script type="math/tex; mode=display">\alpha^{(i)} \geq 0   \quad  for \quad i = 1,2, \cdots , m</script><figure class="highlight python"><figcaption><span>LinearSVC</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris[<span class="string">"data"</span>][:, (<span class="number">2</span>, <span class="number">3</span>)]  <span class="comment"># petal length, petal width</span></span><br><span class="line">y = (iris[<span class="string">"target"</span>] == <span class="number">2</span>).astype(np.float64)  <span class="comment"># Iris-Virginica</span></span><br><span class="line"></span><br><span class="line">svm_clf = Pipeline([</span><br><span class="line">        (<span class="string">"scaler"</span>, StandardScaler()),</span><br><span class="line">        (<span class="string">"linear_svc"</span>, LinearSVC(C=<span class="number">1</span>, loss=<span class="string">"hinge"</span>)),</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">svm_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Common-kernels"><a href="#Common-kernels" class="headerlink" title="Common kernels"></a>Common kernels</h2><ul>
-<li>Linear</li>
-</ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  = \boldsymbol a^T \cdot \boldsymbol b</script><ul>
-<li>Polynomial</li>
-</ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  ( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)^d</script><ul>
-<li>Gaussian RBF</li>
-</ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  exp(- \gamma || \boldsymbol a - \boldsymbol b|| ^2 )</script><ul>
-<li>Sigmoid</li>
-</ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  tanh( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)</script><h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote><p>从树到森林。</p>
-<p>Decision Tree </p>
-</blockquote>
-<h2 id="Decision-Trees"><a href="#Decision-Trees" class="headerlink" title="Decision Trees"></a>Decision Trees</h2><ul>
-<li>Gini impurity</li>
-</ul>
-<script type="math/tex; mode=display">G_i = 1 - \sum_{k=1}^n p_{i,k}^2</script><ul>
-<li>Entropy</li>
-</ul>
-<script type="math/tex; mode=display">H_i = - \sum_{k=1,\\ p_{i,k} \ne 0}^n p_{i,k} log_2 (p_{i,k})</script><ul>
-<li>CART cost function for regression</li>
-</ul>
-<script type="math/tex; mode=display">J(k, t_k) = \frac{m_{left}}{m} MSE_{left}+ \frac{m_{right}}{m} MSE_{right}</script><p>where</p>
-<script type="math/tex; mode=display">\begin{cases}
-MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
- \hat y_{node} = \frac{1}{m_{node}} \sum_{i \in node} y^{(i)}   \\
-\end{cases}</script><figure class="highlight python"><figcaption><span>DecisionTreeClassifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data[:, <span class="number">2</span>:] <span class="comment"># petal length and width</span></span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line">tree_clf = DecisionTreeClassifier(max_depth=<span class="number">2</span>)</span><br><span class="line">tree_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Random-Forests"><a href="#Random-Forests" class="headerlink" title="Random Forests"></a>Random Forests</h2><p>RF 在我看来是 Ensemble Learning (集成学习)的经典代表。</p>
-<p>以Classifiers举例，对待同样的数据， 不同分类器可能有不同的决策结果。 </p>
-<p><em>Logistic Regression classifier</em>, <em>Random Forest classifier</em>, <em>K-Nearest Neighbors classifier</em></p>
-<p>自然而然的， 可引入选举策略来作最终决策。</p>
-<figure class="highlight python"><figcaption><span>voting of classifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> VotingClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">log_clf = LogisticRegression()</span><br><span class="line">rnd_clf = RandomForestClassifier()</span><br><span class="line">svm_clf = SVC()</span><br><span class="line"></span><br><span class="line">voting_clf = VotingClassifier(</span><br><span class="line">    estimators=[(<span class="string">'lr'</span>, log_clf), (<span class="string">'rf'</span>, rnd_clf), (<span class="string">'svc'</span>, svm_clf)],</span><br><span class="line">    voting=<span class="string">'hard'</span>)</span><br><span class="line">voting_clf.fit(X_train, y_train)</span><br></pre></td></tr></table></figure>
-<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><h3 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h3><h3 id="Gradient-Boosting"><a href="#Gradient-Boosting" class="headerlink" title="Gradient Boosting"></a>Gradient Boosting</h3><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em> </p>
-<h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><script type="math/tex; mode=display">precision = \frac{TP}{TP+FP}</script><script type="math/tex; mode=display">recall = \frac{TP}{TP+FN}</script><p>$F_1$ 是二者的调和平均</p>
-<script type="math/tex; mode=display">F_1 = \frac{2}{\frac{1}{precision} + \frac{1}{recall}}</script><figure class="highlight python"><figcaption><span>precision_score and recall_score</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> precision_score, recall_score</span><br></pre></td></tr></table></figure>
-<h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><ul>
-<li>MSE</li>
-</ul>
-<script type="math/tex; mode=display">MSE(x, h_{\theta}) =  \frac{1}{m} \sum_{i=1}^{m} ( \theta^T \cdot x^{(i)} - y^{(i)} )^2</script>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2925,7 +2599,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2985,7 +2659,9 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -3054,7 +2730,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -3090,7 +2766,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">27k</span>
+    <span title="Symbols count total">30k</span>
   
 
   
@@ -3099,7 +2775,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">25 mins.</span>
+    <span title="Reading time total">27 mins.</span>
   
 </div>
 
