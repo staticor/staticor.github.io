@@ -102,17 +102,20 @@
 
 
 
-  <meta name="description" content="big data, data mining, machine learning">
-<meta name="keywords" content="big data, data mining, machine learning">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Staticor hungry">
-<meta property="og:url" content="https://staticor.github.io/archives/page/2/index.html">
+  <meta name="description" content="今天复习支持向量机（SVM），是一种凸优化问题。在机器学习上经常用于作为经典分类器。 想要讨论的内容包括以下部分：  Hard-Margin SVM （硬间隔SVM） Soft-Margin SVM （软间隔SVM） KKT Condition （KKT条件）   Hard-Margin SVM凭借着对李航老师《统计学习方法》SVM这一章内容的回忆，首先要面对的问题是线性可分的数据集（linear">
+<meta name="keywords" content="数学,机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="machinelearning03--Support Vector Machine">
+<meta property="og:url" content="https://staticor.github.io/2019/09/08/machinelearning03/index.html">
 <meta property="og:site_name" content="Staticor hungry">
-<meta property="og:description" content="big data, data mining, machine learning">
+<meta property="og:description" content="今天复习支持向量机（SVM），是一种凸优化问题。在机器学习上经常用于作为经典分类器。 想要讨论的内容包括以下部分：  Hard-Margin SVM （硬间隔SVM） Soft-Margin SVM （软间隔SVM） KKT Condition （KKT条件）   Hard-Margin SVM凭借着对李航老师《统计学习方法》SVM这一章内容的回忆，首先要面对的问题是线性可分的数据集（linear">
 <meta property="og:locale" content="en-GB">
+<meta property="og:image" content="https://staticor.github.io/images/svm.png">
+<meta property="og:updated_time" content="2019-09-17T14:44:09.693Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Staticor hungry">
-<meta name="twitter:description" content="big data, data mining, machine learning">
+<meta name="twitter:title" content="machinelearning03--Support Vector Machine">
+<meta name="twitter:description" content="今天复习支持向量机（SVM），是一种凸优化问题。在机器学习上经常用于作为经典分类器。 想要讨论的内容包括以下部分：  Hard-Margin SVM （硬间隔SVM） Soft-Margin SVM （软间隔SVM） KKT Condition （KKT条件）   Hard-Margin SVM凭借着对李航老师《统计学习方法》SVM这一章内容的回忆，首先要面对的问题是线性可分的数据集（linear">
+<meta name="twitter:image" content="https://staticor.github.io/images/svm.png">
 
 
 
@@ -121,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="https://staticor.github.io/archives/page/2/">
+  <link rel="canonical" href="https://staticor.github.io/2019/09/08/machinelearning03/">
 
 
 
@@ -131,7 +134,7 @@
   };
 </script>
 
-  <title>Archive | Staticor hungry</title>
+  <title>machinelearning03--Support Vector Machine | Staticor hungry</title>
   
 
 
@@ -179,7 +182,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-archive">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -238,7 +241,7 @@
         
         
           
-          <li class="menu-item menu-item-archive menu-item-active">
+          <li class="menu-item menu-item-archive">
 
     
     
@@ -294,25 +297,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -337,397 +321,288 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/08/machinelearning03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">machinelearning03--Support Vector Machine
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-08 23:06:08" itemprop="dateCreated datePublished" datetime="2019-09-08T23:06:08+08:00">2019-09-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-17 22:44:09" itemprop="dateModified" datetime="2019-09-17T22:44:09+08:00">2019-09-17</time>
+              
+            
+          </span>
+
           
-        
-        Um..! 20 posts in total. Keep on posting.
-      </span>
-      
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/28/matrix/" itemprop="url">
+          
             
-              <span itemprop="name">Review系列~关于矩阵,我知道的以及我想知道的</span>
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-28T05:15:07+08:00" content="2019-03-28">
-          03-28
-        </time>
-      </div>
+          
+          
 
-    </header>
-  </article>
+          
 
+          
+            <div class="post-symbolscount">
+              
 
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/16/math-1/" itemprop="url">
-            
-              <span itemprop="name">Review系列~ 微积分读本Note</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-16T15:01:31+08:00" content="2019-03-16">
-          03-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/15/thoughts78/" itemprop="url">
-            
-              <span itemprop="name">我的思想世界有一匹小野马</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-15T07:31:42+08:00" content="2019-03-15">
-          03-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/14/statistics-1/" itemprop="url">
-            
-              <span itemprop="name">statistics-商务与经济统计</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T20:22:28+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        <p>今天复习支持向量机（SVM），是一种凸优化问题。在机器学习上经常用于作为经典分类器。 想要讨论的内容包括以下部分：</p>
+<ul>
+<li>Hard-Margin SVM （硬间隔SVM）</li>
+<li>Soft-Margin SVM （软间隔SVM）</li>
+<li>KKT Condition （KKT条件）</li>
+</ul>
+<p><img src="/images/svm.png" alt></p>
+<h1 id="Hard-Margin-SVM"><a href="#Hard-Margin-SVM" class="headerlink" title="Hard-Margin SVM"></a>Hard-Margin SVM</h1><p>凭借着对李航老师《统计学习方法》SVM这一章内容的回忆，首先要面对的问题是线性可分的数据集（linear separatable dataset), 然后寻找一条能将正负样本分开的超平面在。 并且让样本离超平面的最近距离要最远。 描述成这样的目标函数：</p>
+<script type="math/tex; mode=display">\underset{w,b}{\mathrm{max}}    \underset{i}{\mathrm{min}} \quad distance(x_i)</script><script type="math/tex; mode=display">s.t. \quad 所有样本点分类正确</script><p>这里对原生的优化问题进行了变形处理, 首先定义了函数间隔(Functional margin)</p>
+<script type="math/tex; mode=display">\hat \gamma_i = y_i(w\cdot x_i + b)</script><p>N个样本点， 令最近的函数间隔为 $ \hat \gamma $</p>
+<script type="math/tex; mode=display">\hat \gamma = \underset{i}{\mathrm{min}} \quad \hat \gamma_i, \quad i = 1,2, ...N</script><p>接下来引出几何间隔， $  \gamma_i $</p>
+<p>因为超平面的参数w, b可以同时放大缩小，不影响超平面的位置。<br>因此借用点到直线的距离公式：</p>
+<script type="math/tex; mode=display">\gamma_i = \frac {y_i (w\cdot x_i +b )} {||w||} = \frac {\hat \gamma_i} {||w||}</script><p>若w的二范数固定为1， 此时函数间隔与几何间隔相等。所以上面提到距离distance就换成刚刚定义的几何间隔最大问题（前提，满足所有的样本分类正确）。</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  max \quad \gamma 
+ \newline
+ &  s.t. \quad \frac {y_i (w\cdot x_i +b )} {||w||} \ge \gamma, \quad i = 1,2, ... N 
+\end{align*}</script><p>将上面的目标函数替换成函数间隔（带有w项）则为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  max \quad  \frac {\hat \gamma } {||w||}
+ \newline
+ &  s.t. \quad y_i (w\cdot x_i +b )  \ge \hat \gamma, \quad i = 1,2, ... N 
+\end{align*}</script><p>又因为函数间隔可以通过放缩， 我们只关心超平面的参数项， 因此这里取函数间隔都为1， 得到更简化的形式：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  max \quad  \frac {1} {||w||}
+ \newline
+ &  s.t. \quad y_i (w\cdot x_i +b )  \ge 1, \quad i = 1,2, ... N 
+\end{align*}</script><p>最后，将最大问题转为最小问题 （约束优化通常表达为最小化问题）</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  \underset{w}{ {min}} \quad \frac {1} {2} {w^T \cdot w}
+ \newline
+ &  s.t. \quad 1 - y_i(w^T \cdot x_i +b ) \le 0 , \quad i = 1,2,. ... N 
+\end{align*}</script><p>这是一个凸二次规划问题（Convex QP Problem)，求解思路是借助拉格朗日乘数法。 将原问题转变为对偶问题再求解。</p>
+<p>拉格朗日函数 $ L = L(w, b, \lambda) $后， 问题变成了</p>
+<script type="math/tex; mode=display">L = \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><script type="math/tex; mode=display">s.t. \quad \lambda_i \ge 0, \quad i = 1,2, ... N</script><p>原来要求 $ \frac {1} {2} {w^T \cdot w}$ 的最小值问题变为 $ min_w max_{\lambda} L $</p>
+<p>如果问题满足强对偶， 则可知原问题的最小最大的解 $ p^* $ 与对偶问题（最大最小）的解 $ d^*$ 是相等的。等式为：</p>
+<script type="math/tex; mode=display">\underset{w,b}{\mathrm{min}}    \underset{\lambda}{\mathrm{max}} \quad \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b )) 
+ =      \underset{\lambda}{\mathrm{max}} \underset{w,b}{\mathrm{min}}  \quad   \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><p>对L求 $ w 和 b$的偏导：</p>
+<script type="math/tex; mode=display">\frac {\partial L} {\partial w} = 0</script><script type="math/tex; mode=display">\frac {\partial L} {\partial b} = 0</script><p>分别得出： </p>
+<script type="math/tex; mode=display">w = \sum_i^N \lambda_i y_i x_i</script><script type="math/tex; mode=display">0 = \sum_i^N \lambda_i y_i</script><p>将以上参数代入， 得到对偶问题的最优化问题：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  \underset{\lambda}{ {min}} \quad \frac {1} {2} \sum_i^N \sum_j^N \lambda_i \lambda_j y_i y_j (x_i \cdot x_j) - \sum_i^N \lambda_i
+ \newline
+ &  s.t.  \sum_i^N \lambda_i y_i = 0
+ \newline
+ & \quad \lambda_i \ge 0,  \quad i = 1,2,. ... N 
+\end{align*}</script><blockquote>
+<p>松弛互补条件<br><strong>支持向量</strong> ， 最终达到最优问题边界条件的个别样本称为支持向量。<br>支持向量满足边界距离条件（等号），对应的 $\lambda_i$系数为正， 而不在间隔线上的样本， 它们对应的 $\lambda_i$ 系数均为0 。 </p>
+</blockquote>
+<h1 id="KKT-Condition"><a href="#KKT-Condition" class="headerlink" title="KKT Condition"></a>KKT Condition</h1><h2 id="约束最优化问题"><a href="#约束最优化问题" class="headerlink" title="约束最优化问题"></a>约束最优化问题</h2><p>凸优化问题是指这样的最小化问题， 具有若干个不等值约束与若干个等值约束：</p>
+<script type="math/tex; mode=display">\underset{w}{\mathrm{min}} \quad f(w)</script><script type="math/tex; mode=display">s.t. \quad g_i(w) \le 0, \quad i = 1, 2, ... k</script><script type="math/tex; mode=display">\quad h_j(w) = 0, \quad j = 1,2, ... l</script>
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/03/machine-learning/" itemprop="url">
-            
-              <span itemprop="name">Machine Learning</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-03T10:23:42+08:00" content="2019-03-03">
-          03-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/02/26/fourier/" itemprop="url">
-            
-              <span itemprop="name">傅里叶变换与信号处理</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-26T04:08:03+08:00" content="2019-02-26">
-          02-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/02/23/photo/" itemprop="url">
-            
-              <span itemprop="name">Gallery Yang</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-23T23:08:52+08:00" content="2019-02-23">
-          02-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/02/23/Flink2019/" itemprop="url">
-            
-              <span itemprop="name">Flink2019</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-23T17:43:14+08:00" content="2019-02-23">
-          02-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/02/22/平凡之路/" itemprop="url">
-            
-              <span itemprop="name">平凡之路</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-22T00:41:06+08:00" content="2019-02-22">
-          02-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/02/20/hello-world/" itemprop="url">
-            
-              <span itemprop="name">当自己老去， 你会拿出什么留给自己给后辈？</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-20T00:00:00+08:00" content="2019-02-20">
-          02-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/31/machinelearning02/" rel="next" title="machinelearning02--Linear Classification">
+                <i class="fa fa-chevron-left"></i> machinelearning02--Linear Classification
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-  </nav>
+  </article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -748,8 +623,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -919,6 +803,23 @@ show_date_time();
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hard-Margin-SVM"><span class="nav-number">1.</span> <span class="nav-text">Hard-Margin SVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#KKT-Condition"><span class="nav-number">2.</span> <span class="nav-text">KKT Condition</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#约束最优化问题"><span class="nav-number">2.1.</span> <span class="nav-text">约束最优化问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -1065,6 +966,10 @@ show_date_time();
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
 
   
 
@@ -1076,6 +981,8 @@ show_date_time();
   
 
 
+  
+
 
   
 
@@ -1092,6 +999,43 @@ show_date_time();
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
   
 
 
