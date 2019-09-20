@@ -397,7 +397,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-19 08:47:32" itemprop="dateModified" datetime="2019-09-19T08:47:32+08:00">2019-09-19</time>
+                <time title="Modified: 2019-09-20 08:54:09" itemprop="dateModified" datetime="2019-09-20T08:54:09+08:00">2019-09-20</time>
               
             
           </span>
@@ -443,7 +443,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">4.5k</span>
+                <span title="Symbols count in article">5k</span>
               
 
               
@@ -457,7 +457,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -573,6 +573,10 @@
 \newline
 & \xi \ge 0, \quad i = 1,2, ...N
 \end{align*}</script><p>这里的C是超参数$(C &gt; 0)$， 表示我们对误分类样本的重视程度： 如果C越大，表示误分类的影响较大，我们应该避免； 反之C越小，表示越对outliers容错。</p>
+<h1 id="Kernel-Method"><a href="#Kernel-Method" class="headerlink" title="Kernel Method"></a>Kernel Method</h1><p>前面硬间隔与软间隔都针对的是线性空间分类问题， 是不能直接处理非线性场景的。<br>因此有人提出了将低维空间转换为高维空间，在高维空间里再借助软硬间隔分类器。</p>
+<p>核方法（核函数）就是遵循了这种思路， 找到某个映射函数： $ \Phi: \mathcal{X}  \rightarrow \mathscr{Z}$ 使得原来空间的内积运算能够映射到高维空间中。 即，能找到这样一个函数 $\mathscr{K}(x_i, x_j) = &lt;\Phi(x_i), \Phi(x_j)&gt; $<br>我们称这个函数K为核函数。<br>通过观察发现在原来的软硬间隔优化问题当中， 其实对原始样本的计算只涉及到内积计算。因此我们没有必要去找到这个具体的映射， 而是 直接去用这个核函数的计算结果而非去寻找中间的映射函数$\Phi$，这种技巧称为核技巧（Kernel Trick） 。</p>
+<p>正定核： 对原样本组成的Gram矩阵如果是半正定的， 就称这样的核为正定核。 </p>
+<p>以上内容基本把SVM支持向量机比较核心且重要的部分复习完了。</p>
 
           
         
