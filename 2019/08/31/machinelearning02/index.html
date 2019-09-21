@@ -102,18 +102,18 @@
 
 
 
-  <meta name="description" content="接着上一讲线性回归的内容，分类与回归模型是监督机器学习中最重要的。 感知机Perception 假设样本是线性可分的（Linear Seperable)。通过一条直线将样本分成{-1, 1} 两类。 它是上世纪50年代提出的简单模型， 人们在此基础上改进，进而产生了神经网络，深度学习。 数据约定假设样本观测来自于p维空间的向量， 目标值y是标量。符号约定如下： X = (x_1, x_2, ...">
+  <meta name="description" content="前面一篇博客介绍的是感知机， 本篇介绍Fisher判别分析（线性判别分析， LDA）。 Fisher判别分析Fisher判别分析也称为线性判别分析（Linear Discriminant Analysis, LDA). 它的缩写与隐语义Dirichlit分析相同，都是LDA。 它的应用场景是用来确定投影平面，通过类内方差和类间方差的分析，将组与组的差异尽可能极大化，体现出了“类内紧、类间松”的思想">
 <meta name="keywords" content="数学,机器学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="machinelearning02--Linear Classification">
+<meta property="og:title" content="machinelearning02--Linear Classification-Fisher判别">
 <meta property="og:url" content="https://staticor.github.io/2019/08/31/machinelearning02/index.html">
 <meta property="og:site_name" content="Staticor hungry">
-<meta property="og:description" content="接着上一讲线性回归的内容，分类与回归模型是监督机器学习中最重要的。 感知机Perception 假设样本是线性可分的（Linear Seperable)。通过一条直线将样本分成{-1, 1} 两类。 它是上世纪50年代提出的简单模型， 人们在此基础上改进，进而产生了神经网络，深度学习。 数据约定假设样本观测来自于p维空间的向量， 目标值y是标量。符号约定如下： X = (x_1, x_2, ...">
+<meta property="og:description" content="前面一篇博客介绍的是感知机， 本篇介绍Fisher判别分析（线性判别分析， LDA）。 Fisher判别分析Fisher判别分析也称为线性判别分析（Linear Discriminant Analysis, LDA). 它的缩写与隐语义Dirichlit分析相同，都是LDA。 它的应用场景是用来确定投影平面，通过类内方差和类间方差的分析，将组与组的差异尽可能极大化，体现出了“类内紧、类间松”的思想">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-09-08T15:07:08.440Z">
+<meta property="og:updated_time" content="2019-09-21T07:36:01.350Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="machinelearning02--Linear Classification">
-<meta name="twitter:description" content="接着上一讲线性回归的内容，分类与回归模型是监督机器学习中最重要的。 感知机Perception 假设样本是线性可分的（Linear Seperable)。通过一条直线将样本分成{-1, 1} 两类。 它是上世纪50年代提出的简单模型， 人们在此基础上改进，进而产生了神经网络，深度学习。 数据约定假设样本观测来自于p维空间的向量， 目标值y是标量。符号约定如下： X = (x_1, x_2, ...">
+<meta name="twitter:title" content="machinelearning02--Linear Classification-Fisher判别">
+<meta name="twitter:description" content="前面一篇博客介绍的是感知机， 本篇介绍Fisher判别分析（线性判别分析， LDA）。 Fisher判别分析Fisher判别分析也称为线性判别分析（Linear Discriminant Analysis, LDA). 它的缩写与隐语义Dirichlit分析相同，都是LDA。 它的应用场景是用来确定投影平面，通过类内方差和类间方差的分析，将组与组的差异尽可能极大化，体现出了“类内紧、类间松”的思想">
 
 
 
@@ -132,7 +132,7 @@
   };
 </script>
 
-  <title>machinelearning02--Linear Classification | Staticor hungry</title>
+  <title>machinelearning02--Linear Classification-Fisher判别 | Staticor hungry</title>
   
 
 
@@ -352,7 +352,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">machinelearning02--Linear Classification
+          <h1 class="post-title" itemprop="name headline">machinelearning02--Linear Classification-Fisher判别
 
               
             
@@ -395,7 +395,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-08 23:07:08" itemprop="dateModified" datetime="2019-09-08T23:07:08+08:00">2019-09-08</time>
+                <time title="Modified: 2019-09-21 15:36:01" itemprop="dateModified" datetime="2019-09-21T15:36:01+08:00">2019-09-21</time>
               
             
           </span>
@@ -441,7 +441,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3.7k</span>
+                <span title="Symbols count in article">2.6k</span>
               
 
               
@@ -455,7 +455,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">3 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -475,23 +475,7 @@
       
 
       
-        <p>接着上一讲线性回归的内容，分类与回归模型是监督机器学习中最重要的。</p>
-<h1 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h1><p>Perception 假设样本是线性可分的（Linear Seperable)。通过一条直线将样本分成{-1, 1} 两类。</p>
-<p>它是上世纪50年代提出的简单模型， 人们在此基础上改进，进而产生了神经网络，深度学习。</p>
-<h2 id="数据约定"><a href="#数据约定" class="headerlink" title="数据约定"></a>数据约定</h2><p>假设样本观测来自于p维空间的向量， 目标值y是标量。<br>符号约定如下：</p>
-<script type="math/tex; mode=display">X = (x_1, x_2, ... , x_N )^T</script><script type="math/tex; mode=display">硬输出是 Y = 『0, 1』 , 如果是软输出则是输出 [0,1]的概率值。</script><script type="math/tex; mode=display">完整数据D = {(x_i, y_i)}_i^{N}</script><script type="math/tex; mode=display">w = (w_1, w,2, ..., w_p)^T</script><p>所以对每个输入样本 $x_i$ 通过参数w 都可以得到一个预测值： $ w^T \dot x_i $</p>
-<p>感知机：应用的分类函数是 </p>
-<script type="math/tex; mode=display">f(x) = sign(w^T x)</script><p>(注： 这里为了方便省略了bias b项）</p>
-<p>损失函数（loss function)定义为分类错误的样本个数， 越小越好。<br>先引入一个指标函数(Index function) : </p>
-<script type="math/tex; mode=display">I\{condition\}=\begin{cases}1,&\text{if condition is true}\\0,&\text{otherwise}\end{cases}</script><p>因此可以写成损失函数：</p>
-<script type="math/tex; mode=display">L(w) = \Sigma_{i=1}^N I\{ f(x) != y_i \}</script><p>感知机考虑的问题是硬性二分类， 所以考虑到：</p>
-<p>当分类正确时： </p>
-<script type="math/tex; mode=display">f(x) \times y_i \gt 0</script><p>当分类错误时： </p>
-<script type="math/tex; mode=display">f(x) \times y_i \lt 0</script><p>所以损失函数的新形式是：</p>
-<script type="math/tex; mode=display">L(w) = \Sigma_{i=1}^N I\{ w^T x_i \times y_i \lt 0 \}</script><p>若只考虑误分类的点的集合， 称为M， 则可以去掉指示函数， 写成：</p>
-<script type="math/tex; mode=display">L(w) = \underset{ x_i \in M }{\mathrm{ \Sigma }} - w^T x_i \times y_i</script><p>对L(w)求偏导：</p>
-<script type="math/tex; mode=display">\frac {\partial L(w)} {\partial w} = - \underset{ x_i \in M }{\mathrm{ \Sigma }} y_i x_i 0</script><p>如何确定最优的 $ \hat w $, 可以通过梯度下降法求解。</p>
-<script type="math/tex; mode=display">w^{t+1} \leftarrow w^t - \eta \frac {\partial L(w)} {\partial w}  = w^{t} + \eta x_i y_i</script><p>(使用SGD， 所以上面的表达中没有求和Sigma符号)</p>
+        <p>前面一篇博客介绍的是感知机， 本篇介绍Fisher判别分析（线性判别分析， LDA）。</p>
 <h1 id="Fisher判别分析"><a href="#Fisher判别分析" class="headerlink" title="Fisher判别分析"></a>Fisher判别分析</h1><p>Fisher判别分析也称为线性判别分析（Linear Discriminant Analysis, LDA). 它的缩写与隐语义Dirichlit分析相同，都是LDA。</p>
 <p>它的应用场景是用来确定投影平面，通过类内方差和类间方差的分析，将组与组的差异尽可能极大化，体现出了“类内紧、类间松”的思想。</p>
 <p>构造出来的统计量是类间方差与类内方差之比， 目标函数是求得最优的w, 极大化 </p>
@@ -561,8 +545,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/31/machinelearning01/" rel="next" title="machinelearning01--绪论与线性回归">
-                <i class="fa fa-chevron-left"></i> machinelearning01--绪论与线性回归
+              <a href="/2019/08/31/machinelearning01/" rel="next" title="machinelearning01--绪论与感知机算法（PLA）">
+                <i class="fa fa-chevron-left"></i> machinelearning01--绪论与感知机算法（PLA）
               </a>
             
           </div>
@@ -571,8 +555,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/08/machinelearning03/" rel="prev" title="machinelearning03--Support Vector Machine">
-                machinelearning03--Support Vector Machine <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/31/线性回归/" rel="prev" title="machinelearning--线性回归Linear Regression">
+                machinelearning--线性回归Linear Regression <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -722,7 +706,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感知机算法/">感知机算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -789,7 +773,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感知机算法/">感知机算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -810,7 +794,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#感知机"><span class="nav-number">1.</span> <span class="nav-text">感知机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据约定"><span class="nav-number">1.1.</span> <span class="nav-text">数据约定</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fisher判别分析"><span class="nav-number">2.</span> <span class="nav-text">Fisher判别分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方差分析"><span class="nav-number">2.1.</span> <span class="nav-text">方差分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logistic-Regression"><span class="nav-number">3.</span> <span class="nav-text">Logistic Regression</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Fisher判别分析"><span class="nav-number">1.</span> <span class="nav-text">Fisher判别分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方差分析"><span class="nav-number">1.1.</span> <span class="nav-text">方差分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logistic-Regression"><span class="nav-number">2.</span> <span class="nav-text">Logistic Regression</span></a></li></ol></div>
             
 
           </div>
@@ -842,7 +826,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">39k</span>
+    <span title="Symbols count total">41k</span>
   
 
   
@@ -851,7 +835,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">36 mins.</span>
+    <span title="Reading time total">38 mins.</span>
   
 </div>
 
