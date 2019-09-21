@@ -321,6 +321,7 @@
   <section id="posts" class="posts-expand">
     
       
+        
 
   
 
@@ -397,7 +398,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-19 08:47:32" itemprop="dateModified" datetime="2019-09-19T08:47:32+08:00">2019-09-19</time>
+                <time title="Modified: 2019-09-20 08:57:02" itemprop="dateModified" datetime="2019-09-20T08:57:02+08:00">2019-09-20</time>
               
             
           </span>
@@ -443,7 +444,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">4.5k</span>
+                <span title="Symbols count in article">5k</span>
               
 
               
@@ -457,7 +458,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -573,6 +574,10 @@
 \newline
 & \xi \ge 0, \quad i = 1,2, ...N
 \end{align*}</script><p>这里的C是超参数$(C &gt; 0)$， 表示我们对误分类样本的重视程度： 如果C越大，表示误分类的影响较大，我们应该避免； 反之C越小，表示越对outliers容错。</p>
+<h1 id="Kernel-Method"><a href="#Kernel-Method" class="headerlink" title="Kernel Method"></a>Kernel Method</h1><p>前面硬间隔与软间隔都针对的是线性空间分类问题， 是不能直接处理非线性场景的。<br>因此有人提出了将低维空间转换为高维空间，在高维空间里再借助软硬间隔分类器。</p>
+<p>核方法（核函数）就是遵循了这种思路， 找到某个映射函数： $ \Phi: \mathcal{X}  \rightarrow \mathscr{Z}$ 使得原来空间的内积运算能够映射到高维空间中。 即，能找到这样一个函数 $\mathscr{K}(x_i, x_j) = &lt;\Phi(x_i), \Phi(x_j)&gt; $<br>我们称这个函数K为核函数。<br>通过观察发现在原来的软硬间隔优化问题当中， 其实对原始样本的计算只涉及到内积计算。因此我们没有必要去找到这个具体的映射， 而是 直接去用这个核函数的计算结果而非去寻找中间的映射函数$\Phi$，这种技巧称为核技巧（Kernel Trick） 。</p>
+<p>正定核： 对原样本组成的Gram矩阵如果是半正定的， 就称这样的核为正定核。 </p>
+<p>以上内容基本把SVM支持向量机比较核心且重要的部分复习完了。</p>
 
           
         
@@ -613,8 +618,11 @@
   </article>
 
 
+      
+      }
     
       
+        
 
   
 
@@ -861,8 +869,11 @@
   </article>
 
 
+      
+      }
     
       
+        
 
   
 
@@ -897,7 +908,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/31/machinelearning01/" class="post-title-link" itemprop="url">machinelearning01--Linear Regression</a>
+                <a href="/2019/08/31/machinelearning01/" class="post-title-link" itemprop="url">machinelearning01--绪论与线性回归</a>
               
             
           </h1>
@@ -939,7 +950,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-01 10:06:10" itemprop="dateModified" datetime="2019-09-01T10:06:10+08:00">2019-09-01</time>
+                <time title="Modified: 2019-09-21 09:16:42" itemprop="dateModified" datetime="2019-09-21T09:16:42+08:00">2019-09-21</time>
               
             
           </span>
@@ -985,7 +996,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2k</span>
+                <span title="Symbols count in article">2.9k</span>
               
 
               
@@ -999,7 +1010,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">3 mins.</span>
               
             </div>
           
@@ -1021,7 +1032,18 @@
       
         
           
-            <blockquote>
+            <h1 id="绪论与学习资料"><a href="#绪论与学习资料" class="headerlink" title="绪论与学习资料"></a>绪论与学习资料</h1><p>2019年9月发现了B站上一个出色机器学习资料，  搜索《白板机器学习》   UP主老师的深刻和广度给我留下了印象。<br>于是将一部分视频资料记录下来。 </p>
+<h2 id="两大视角"><a href="#两大视角" class="headerlink" title="两大视角"></a>两大视角</h2><ul>
+<li>频率派视角</li>
+<li>贝叶斯派视角</li>
+</ul>
+<p>频率派是认为生成观测数据（Observed Data）的参数是常量，因此使用最大似然方法去求解这个参数。<br>或者是引入 loss function， 将问题转变为优化问题；<br>使用梯度下降或者牛顿方法去求解这个参数。 </p>
+<p>有代表性的方法是线性回归、支持向量机。</p>
+<p>贝叶斯派是认为未知参数 $\theta$ 也是服从某未知分布的随机变量（random variable),<br>所以对其计算就需要求大最大后验了。  而后验则需要借助贝叶斯定理，有代表性的大模型就是概率图。<br>知名的算法有MCMC、条件随机场等。</p>
+<h2 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h2><h3 id="书籍资料"><a href="#书籍资料" class="headerlink" title="书籍资料"></a>书籍资料</h3><p>= 李航 - 《统计学习方法》      以第一版来看， 各章节一共组成10个算法：<br>            感 K 朴 决 逻，  支 提 E 隐 条<br>= 周志华 - 《机器学习》    西瓜书（封面有西瓜🍉）    比较全面， 每类算法谈得较浅。<br>= 模式识别与机器学习PRML  （2006年）  以贝叶斯角度来看。<br>               回 分  神  核  稀 ， 图  混（混合） 近（近似算法） 采（采样） 连（连续变量）<br>             顺（顺序数据） 组（组合模型）<br>= MLAPP 以概率视角看Machine Learning<br>ESL Elements of Statistics Learning<br>Deep Learning   “圣经”  Goodfellow<br>   中译版  张志华团队</p>
+<h3 id="视频资料"><a href="#视频资料" class="headerlink" title="视频资料"></a>视频资料</h3><p>台大  林轩田 （基石， 技法）       线性模型  SVM  神经网络等<br>张志化 （  机器学习导论）       统计机器学习<br>吴恩达 CS229 （斯坦福的资料） 不是Coursera上的<br>徐亦达  概率模型  （2005年）  以及Github上的notes资料</p>
+<p>关于神经网络与深度学习的资料<br>台大  李宏毅 （ML    MLDS）</p>
+<blockquote>
 <p>线性回归是统计学习的基础核心，最简单的机器学习模型。<br>几乎所有的机器学习基础入门都用它作来入门导论的知识。</p>
 </blockquote>
 <p>与之相关的关键词有：最小二乘法、梯度下降、正则化、高斯分布</p>
@@ -1095,8 +1117,11 @@
   </article>
 
 
+      
+      }
     
       
+        
 
   
 
@@ -1261,8 +1286,11 @@
   </article>
 
 
+      
+      }
     
       
+        
 
   
 
@@ -1452,8 +1480,11 @@
   </article>
 
 
+      
+      }
     
       
+        
 
   
 
@@ -1653,8 +1684,11 @@
   </article>
 
 
+      
+      }
     
       
+        
 
   
 
@@ -1840,8 +1874,11 @@
   </article>
 
 
+      
+      }
     
       
+        
 
   
 
@@ -2021,8 +2058,11 @@
   </article>
 
 
+      
+      }
     
       
+        
 
   
 
@@ -2209,8 +2249,11 @@
   </article>
 
 
+      
+      }
     
       
+        
 
   
 
@@ -2431,6 +2474,8 @@
   </article>
 
 
+      
+      }
     
   </section>
 
@@ -2661,7 +2706,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">38k</span>
+    <span title="Symbols count total">39k</span>
   
 
   
@@ -2670,7 +2715,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">35 mins.</span>
+    <span title="Reading time total">36 mins.</span>
   
 </div>
 

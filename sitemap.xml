@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://staticor.github.io/2019/08/31/machinelearning01/</loc>
+    
+    <lastmod>2019-09-21T01:16:42.837Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://staticor.github.io/2019/03/03/machine-learning/</loc>
+    
+    <lastmod>2019-09-21T01:10:52.163Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://staticor.github.io/2019/09/08/machinelearning03/</loc>
     
-    <lastmod>2019-09-19T00:47:32.570Z</lastmod>
+    <lastmod>2019-09-20T00:57:02.892Z</lastmod>
     
   </url>
   
@@ -12,13 +26,6 @@
     <loc>https://staticor.github.io/2019/08/31/machinelearning02/</loc>
     
     <lastmod>2019-09-08T15:07:08.440Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://staticor.github.io/2019/08/31/machinelearning01/</loc>
-    
-    <lastmod>2019-09-01T02:06:10.135Z</lastmod>
     
   </url>
   
@@ -138,13 +145,6 @@
     <loc>https://staticor.github.io/math/index.html</loc>
     
     <lastmod>2019-03-16T06:56:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://staticor.github.io/2019/03/03/machine-learning/</loc>
-    
-    <lastmod>2019-03-05T13:17:35.000Z</lastmod>
     
   </url>
   
