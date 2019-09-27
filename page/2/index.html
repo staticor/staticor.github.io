@@ -336,210 +336,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/06/15/baseStone-la-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/15/baseStone-la-1/" class="post-title-link" itemprop="url">baseStone-la-1， 向量与矩阵</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-15 11:54:03 / Modified: 12:25:48" itemprop="dateCreated datePublished" datetime="2019-06-15T11:54:03+08:00">2019-06-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.6k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>BaseStone-数学部分-线性代数</p>
-<p>本篇介绍欧氏空间（Euclidean Space)中的向量（Vector）与矩阵（Matrix）</p>
-<h1 id="向量（Vector）"><a href="#向量（Vector）" class="headerlink" title="向量（Vector）"></a>向量（Vector）</h1><p>向量的定期是基于N维空间的。 先介绍一维空间，就是初中所学的数轴。<br>在一条无限延长的直线上， 比如规定了零点（大O）之后，再约定一个单位长度（例如 1cm = ‘1’), 那么通过向左和向右的无限延长， 就得到了一个描述所有有理数的数轴了， 无理数我们只能近似的在图中标注（但不会准确）， 例如圆周率pi， 是介于3.1415926与3.1415927之间的无理数， 它没有办法用区间套或者从实数完备性的角度准确的定位。</p>
-<p>但总体来说，我们能把一条数轴对应成实数域大R上。<br>在实数上我们能定义两个数的加法， 一个数的倍数（数乘）的运算， 称之为线性运算。</p>
-<p>两条数轴呢？ 以我们最熟悉的二维笛卡尔坐标为例， 就是在平面上由垂直的一对线组成， 水平线通常记为x轴， 竖直线记为y轴。 这样我们就有了二维向量的概念。</p>
-<p>二者相交的点记为零点（大O）它的坐标是 （0，0）， 向右、向上分别一个单位长就得到了坐标（1，1）。<br>这个点与零点的连线就是这个点对应的向量，和它的坐标值相同（1，1）。</p>
-<p>那么和数轴运算类似地，也能定义两个向量的加法和一个向量的数乘：</p>
-<script type="math/tex; mode=display">\vec v = (x_1, y_1),  \vec u = (x_2, y_2)</script><p>则有</p>
-<script type="math/tex; mode=display">\vec v  + \vec u =  (x_1 + x_2, y_1 + y_2)</script><script type="math/tex; mode=display">k * \vec v = (k * x_1， k * y_2)</script><p>* 表示两个数的普通乘法， 在一个数与一个向量的中间的* 表示数乘，也可以理解对一个向量进行了倍长（延长k倍 or 缩小为原来的若干）</p>
-<p>两个向量运算中我认为最重要的就是点积（也叫内积）。</p>
-<p>dot product (inner product):</p>
-<script type="math/tex; mode=display">\vec v = (x_1, y_1),  \vec u = (x_2, y_2)</script><script type="math/tex; mode=display">{\vec v} · {\vec u} = (x_1 * x_2 + y_1 * y_2)</script><p>所以最后的结果就是一个数了。 点积满足交换和线性的特点， 还有半正定性。</p>
-<h1 id="矩阵（Matrix）"><a href="#矩阵（Matrix）" class="headerlink" title="矩阵（Matrix）"></a>矩阵（Matrix）</h1><p>多个相同维度的向量按行或按列排在一起的形式就是矩阵。<br>矩阵的加法和数乘与前面类似， 这里不赘述了。</p>
-<p>在介绍矩阵的课程通常是从线性方程组出发</p>
-<script type="math/tex; mode=display">齐次: A \vec x = \vec 0</script><script type="math/tex; mode=display">非齐次: A \vec x = \vec b</script><p>但我个人更喜欢在介绍A之前，先讲解向量组。 并深刻理解向量组之间的线性相关性和相关无关性。</p>
-<p>进而再将向量组按行或按列的形式组织矩阵。</p>
-<p>于是就有了秩（Rank）、行秩与列秩的概念。</p>
-<p>特别一提的就是矩阵的乘积 AB 能够乘在一起的条件是明确要求的，虽然你也能定义自己的乘法，不过数学领域中有些约定俗成的事情，容不得变通。<br>标准矩阵乘法</p>
-<script type="math/tex; mode=display">A · B = C  ， c_{ij} = a_i · b_j</script><p>其中$a_i$是矩阵A的行 $b_j$ 是矩阵B的列。</p>
-<p>有了乘法之后才有的逆矩阵。</p>
-<h2 id="矩阵的行列式"><a href="#矩阵的行列式" class="headerlink" title="矩阵的行列式"></a>矩阵的行列式</h2><p>物理角度来说行列式就是矩阵对应多维平行超六面体的体积（带符号）。</p>
-<p>所以想到行列式的性质我们能列出：</p>
-<p>有一行为0则det为0；<br>有两行一样则det为0 ；<br>一大可拆成2小；<br>。。。 。。。</p>
-<h2 id="矩阵的逆"><a href="#矩阵的逆" class="headerlink" title="矩阵的逆"></a>矩阵的逆</h2><p>可逆矩阵是数学家喜欢看到的， 但对矩阵的要求也就高了一些。</p>
-<h2 id="矩阵的分解"><a href="#矩阵的分解" class="headerlink" title="矩阵的分解"></a>矩阵的分解</h2><p>说到分解， 首先对可逆矩阵来说，最著名的是高斯LU分解。</p>
-<p>通过一系列初等变换矩阵， 我们将原来的矩阵A变换为上三角型U。 左侧的系列矩阵乘积记为L。</p>
-<p>另一种是对对称矩阵的对角化分解，叫做</p>
-<script type="math/tex; mode=display">A = S \Gamma S^{-1}</script><p>更进一步地对所有矩阵，则有SVD分解。</p>
-<p>关于矩阵， 其实如果要系统展开的话得介绍40讲以上的线性代数课程。</p>
-<p>我特别喜欢的课程 B站 搜索 Gilbert Strang， 喜欢线性代数的同学， 去看吧。</p>
-<p>（版权归个人所有， 请勿用于商业。）</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-      
-      }
-    
-      
-        
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/06/02/binary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2990,6 +2786,247 @@
       
       }
     
+      
+        
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/02/26/fourier/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/02/26/fourier/" class="post-title-link" itemprop="url">傅里叶变换与信号处理</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-26 04:08:03" itemprop="dateCreated datePublished" datetime="2019-02-26T04:08:03+08:00">2019-02-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-21 06:34:42" itemprop="dateModified" datetime="2019-03-21T06:34:42+08:00">2019-03-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>珍惜不在的边界感</li>
+</ul>
+<img src="/2019/02/26/fourier/dr-fourier-cat.jpg" title="Hi! Doctor...">
+<h1 id="Def"><a href="#Def" class="headerlink" title="Def."></a>Def.</h1><p>以下引自维基百科的解释： <a href="https://zh.wikipedia.org/wiki/傅里叶变换" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/傅里叶变换</a></p>
+<blockquote><p>傅里叶变换(Fourier Transformation)是一种线性积分变换， 用于信号在时域（或空域）和频域之间的变换，在工程学、信号处理上有广泛应用。</p>
+<p>由法国学者约瑟夫.傅里叶系统地提出， 故此以其名字来纪念。 傅里叶变换就像化学分析，确定物质的基本成分； 信号来自自然界， 也可以对其进行分析</p>
+<p>， 确定信号的基本成本。</p>
+</blockquote>
+<p>从数学的角度来看，人们试图用数学公式来描述现实中的存在，即函数。而当现实出现周期性时，就有意思了，对周期性现象的数学描述就是本文要研究的傅里叶变换。</p>
+<p>本人也将此文作为自己的第一篇数学博客， 同时也顺便学习Mathjax的语法。</p>
+<h1 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h1><p>如果让我给一些年轻人解释什么是FT，为什么要学习FT，怎么学习？</p>
+<p>我想梳理出来的主线是这样的：</p>
+<ul>
+<li><p>数学基础知识： 三角函数 $ \sin x \cos x $  欧拉公式</p>
+</li>
+<li><p>傅里叶级数 （Fourier Series）</p>
+</li>
+<li><p>傅里叶变换</p>
+</li>
+</ul>
+<h2 id="和式拆解"><a href="#和式拆解" class="headerlink" title="和式拆解"></a>和式拆解</h2><p>傅里叶级数要从纯粹的三角函数 $ \sin x \cos x $ 说起， 一段有界的现实过程也可以通过 $ \sin x $ 描述， 周期性就先引入频域为1作为引子。</p>
+<p>设定周期：</p>
+<p> $ \sin x $ 周期是 $ 2\pi $ ， 所以 $ \sin 2\pi x $ 就是周期为1， 类似可以推广到：</p>
+<p> $ \sin 4\pi x $ 是周期为 $ \frac{1}{2} $, 频率为 $ 2 $ ， 但是1也可以是它的周期</p>
+<p> $ \sin 6\pi x $ 是周期为 $ \frac{1}{3} $, 频率为 $ 3 $ ， 但是1也可以是它的周期</p>
+<p> 将他们叠加在一起，   $ \sin 2\pi x + \sin 4\pi x + \sin 6\pi x $， 图形如下： </p>
+<img src="/2019/02/26/fourier/sin3.jpg" title="三种正弦曲线叠加">
+<p>还可以改变它们的振幅和相位，这说明通过 $ \sin  $ 可以组成复杂的形式了。</p>
+<script type="math/tex; mode=display">\sum_{k=1}^n A_k \sin (2 \pi kt + \phi_k )</script><p>$ k = 1 $ 项被称为基波（fundamental wave), $ k \gt 1 $ 的项被称作 谐波 （harmonic)</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://open.163.com/movie/2008/2/6/6/M7Q4BLENR_M7QBP2N66.html" target="_blank" rel="noopener">网易公开课-傅里叶变换</a>
+</li>
+<li><a href="https://www.cnblogs.com/TaigaCon/p/4917553.html" target="_blank" rel="noopener">网易公开课-网友学习笔记</a>
+</li>
+<li><a href="http://blog.jobbole.com/70549/" target="_blank" rel="noopener">如果看了此文你还不懂傅里叶变换</a>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+      }
+    
   </section>
 
   
@@ -3037,7 +3074,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3103,7 +3140,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -3118,7 +3157,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -3185,7 +3224,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -3221,7 +3260,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">60k</span>
+    <span title="Symbols count total">50k</span>
   
 
   
@@ -3230,7 +3269,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">55 mins.</span>
+    <span title="Reading time total">45 mins.</span>
   
 </div>
 
@@ -3370,9 +3409,9 @@ show_date_time();
   
     
       
-        
-      
     
+      
+        
       
     
       

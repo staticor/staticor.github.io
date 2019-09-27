@@ -2,16 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://staticor.github.io/2019/09/30/machinelearning02/</loc>
+    <loc>https://staticor.github.io/2019/09/18/machinelearning04/</loc>
     
-    <lastmod>2019-09-27T22:22:23.790Z</lastmod>
+    <lastmod>2019-09-27T22:40:26.249Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://staticor.github.io/2019/09/08/machinelearning03/</loc>
+    <loc>https://staticor.github.io/2019/09/18/sklearn-route01/</loc>
     
-    <lastmod>2019-09-27T22:13:43.695Z</lastmod>
+    <lastmod>2019-09-27T22:40:07.414Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://staticor.github.io/2019/09/12/machinelearning03%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB/</loc>
+    
+    <lastmod>2019-09-27T22:39:50.865Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://staticor.github.io/2019/09/01/machinelearning02%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</loc>
+    
+    <lastmod>2019-09-27T22:39:23.859Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://staticor.github.io/2019/08/31/machinelearning01PLA/</loc>
+    
+    <lastmod>2019-09-27T22:38:30.938Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://staticor.github.io/2019/12/18/gaussian/</loc>
+    
+    <lastmod>2019-09-27T22:35:09.392Z</lastmod>
     
   </url>
   
@@ -30,44 +58,9 @@
   </url>
   
   <url>
-    <loc>https://staticor.github.io/2019/09/18/machine-learning-LinearRegression/</loc>
-    
-    <lastmod>2019-09-25T00:31:13.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://staticor.github.io/2019/09/18/machine-learning/</loc>
-    
-    <lastmod>2019-09-25T00:29:04.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://staticor.github.io/2019/09/18/machinelearning04/</loc>
-    
-    <lastmod>2019-09-25T00:26:52.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://staticor.github.io/2019/09/22/math-career-suggest/</loc>
     
     <lastmod>2019-09-25T00:25:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://staticor.github.io/2019/08/31/machinelearning01/</loc>
-    
-    <lastmod>2019-09-21T08:24:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://staticor.github.io/2019/08/31/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</loc>
-    
-    <lastmod>2019-09-21T07:33:38.000Z</lastmod>
     
   </url>
   

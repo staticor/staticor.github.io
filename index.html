@@ -336,7 +336,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/30/machinelearning02/">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/12/18/gaussian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jinyong Yang">
@@ -356,7 +356,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/30/machinelearning02/" class="post-title-link" itemprop="url">machinelearning02--Linear Classification-Fisher判别与LogisticRegression</a>
+                <a href="/2019/12/18/gaussian/" class="post-title-link" itemprop="url">machinelearning05--高斯判别分析与混合高斯模型GMM</a>
               
             
           </h1>
@@ -381,7 +381,7 @@
                 
               
 
-              <time title="Created: 2019-09-30 15:39:12" itemprop="dateCreated datePublished" datetime="2019-09-30T15:39:12+08:00">2019-09-30</time>
+              <time title="Created: 2019-12-18 23:06:08" itemprop="dateCreated datePublished" datetime="2019-12-18T23:06:08+08:00">2019-12-18</time>
             
 
             
@@ -398,7 +398,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-28 06:22:23" itemprop="dateModified" datetime="2019-09-28T06:22:23+08:00">2019-09-28</time>
+                <time title="Modified: 2019-09-28 06:35:09" itemprop="dateModified" datetime="2019-09-28T06:35:09+08:00">2019-09-28</time>
               
             
           </span>
@@ -444,7 +444,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.9k</span>
+                <span title="Symbols count in article">0</span>
               
 
               
@@ -458,7 +458,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">3 mins.</span>
+                <span title="Reading time">1 mins.</span>
               
             </div>
           
@@ -480,41 +480,7 @@
       
         
           
-            <p>前面一篇博客介绍的是感知机， 本篇介绍Fisher判别分析（线性判别分析与LR分类算法）。</p>
-<p><img src="/images/线性分类.png" alt></p>
-<h1 id="Fisher判别分析"><a href="#Fisher判别分析" class="headerlink" title="Fisher判别分析"></a>Fisher判别分析</h1><p>Fisher判别分析也称为线性判别分析（Linear Discriminant Analysis, LDA). 它的缩写与隐语义Dirichlit分析相同，都是LDA。</p>
-<p>它的应用场景是用来确定投影平面，通过类内方差和类间方差的分析，将组与组的差异尽可能极大化，体现出了“类内紧、类间松”的思想。</p>
-<p>构造出来的统计量是类间方差与类内方差之比， 目标函数是求得最优的w, 极大化</p>
-<script type="math/tex; mode=display">\frac {类间方差} {类内方差}</script><p>从几何的角度来看， 要找到一条投影直线，这样原来的高维样本被降维到了低维上。</p>
-<p>假设事先限定 $ ||w|| = 1$,投影前样本是 $ x_i $, 经过投影后， 变换为 $ z_i $</p>
-<script type="math/tex; mode=display">z_i = w^T x_i</script><p>若投影前的总体均值和类内均值分别是：</p>
-<script type="math/tex; mode=display">\bar x = \Sigma x_i</script><script type="math/tex; mode=display">\bar x_{c_1} =  \underset{ x_i \in C1 }{\mathrm{ \Sigma }}  x_i</script><script type="math/tex; mode=display">\bar x_{c_2} = \underset{ x_i \in C2 }{\mathrm{ \Sigma }}  x_i</script><p>投影后的总体均值和类内均值分别是：</p>
-<script type="math/tex; mode=display">\bar z = \Sigma z_i  = \frac {1} {N}  \Sigma w^T x_i</script><script type="math/tex; mode=display">\bar z_{c_1} =  \underset{ x_i \in C1 }{\mathrm{ \Sigma }} w^T x_i</script><script type="math/tex; mode=display">\bar z_{c_2} = \underset{ x_i \in C2 }{\mathrm{ \Sigma }}  w^T x_i</script><p>投影前的总体协方差矩阵和类内协方差矩阵是 $ S, S_{c_1}, S_{c_2} $</p>
-<p>投影后总体的协方差矩阵和类内协方差矩阵分别是：</p>
-<script type="math/tex; mode=display">S_z = \frac {1} {N} \Sigma ( w^T x_i - \bar z)( w^T x_i - \bar z)^T</script><script type="math/tex; mode=display">S_1 = \frac {1} {N_1} \underset{ x_i \in C1 }{\mathrm{ \Sigma }} (w^T x_i - \bar z_1 )(w^T x_i - \bar z_1)^T</script><script type="math/tex; mode=display">S_2 = \frac {1} {N_2} \underset{ x_i \in C2 }{\mathrm{ \Sigma }} (w^T x_i - \bar z_2 )(w^T x_i - \bar z_2)^T</script><p>类内方差的度量： $ S_1 + S_2 $</p>
-<p>类间方差的度量： $ (\bar z_1 - \bar z_2)^2 $</p>
-<p>所以延续之前的极大化目标函数的思想,就得到了</p>
-<script type="math/tex; mode=display">J(w) =  \frac {(\bar z_1 - \bar z_2)^2} {S_1 + S_2 }</script><script type="math/tex; mode=display">\hat w = \underset{ w }{\mathrm{ argmax }} \quad J(w)</script><p>下面是一些数学式的变形,</p>
-<p>$ J(w) =  \frac { w^T ( \bar x_{c_1} - \bar x_{c_2} ) (\bar x_{c_1} - \bar x_{c_2} )^T w } {S_1 + S_2 } $</p>
-<p>$  \quad =  \frac { w^T (\bar x_{c_1} - \bar x_{c_2} ) (\bar x_{c_1} - \bar x_{c_2} )^T w } { w^T (S_{c_1} + S_{c_2}) w } $</p>
-<h2 id="方差分析"><a href="#方差分析" class="headerlink" title="方差分析"></a>方差分析</h2><p>一般我们称 $ S_b $ 为 类间方差(b: between),  $ S_w $ 为类内方差(w: within-class).</p>
-<p>所以引入这2个记号之后, 目标函数还可以写成</p>
-<script type="math/tex; mode=display">J(w) = \frac { w^T S_b w} {w^T S_w w}</script><p>对这个函数尝试进行解析求解, 直接求w的偏导.</p>
-<script type="math/tex; mode=display">S_w w = \frac {w^T S_w w} {w^T S_b w} S_b w</script><p>在Fisher判别分析中更关系的是w向量的方向,而非大小.</p>
-<p>最终最优解时的 w的方向取决于</p>
-<script type="math/tex; mode=display">S_w^{-1} (\bar x_{c_1} - \bar x_{c_2} )</script><p>如果原来的假设满足各项同性, 则说明 $ S_w $就是只有主对角线上有值<br>上式可以进一步简写为</p>
-<script type="math/tex; mode=display">(\bar x_{c_1} - \bar x_{c_2} )</script><h1 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h1><p>逻辑回归虽然名字带有回归二字,但在实际应用上基本上作为二分类的入门工具.<br>而且在神经网络中更是必须会提到的问题—将连续实数域映射到[0,1]区间上的Sigmoid函数, 便是来自Logistic Regression.</p>
-<p>$ P_w(C_1|x) \ge 0.5, output C_1 $<br>$ \quad \quad otherwise,  output C_2 $<br>这里还是假设能找到一个线性函数,</p>
-<script type="math/tex; mode=display">z = \Sigma w_i x_i</script><p>令 $ z =  P_w(C_1|x) = \sigma(z) = \sigma(\Sigma_i w_i x_i)$</p>
-<p>定义了样本 $x_i$ 是属于 $C_1$类后, 样本属于另一类的概率就是 $ 1-\sigma(z)$</p>
-<p>为了方便这里还是省去了bias b项.</p>
-<p>记单个样本的概率函数是</p>
-<script type="math/tex; mode=display">y_i P(y_i =1 | x_i) + (1 -y_i) P(y_i = 0 | x_i)</script><p>其中<script type="math/tex">\hat y: 1 for class 1, 0 for class 2</script></p>
-<p>似然函数:</p>
-<script type="math/tex; mode=display">L(w) = \Sigma_i log [ y_i P(y_i =1 | x_i) + (1 -y_i) P(y_i = 0 | x_i)]</script><script type="math/tex; mode=display">L(w) = \Sigma_i log [ y_i \sigma(z) + (1 -y_i) (1-\sigma(z)) ]</script><p>Logistic Regression 使用的是交叉熵作为损失函数, 而Linear Regression使用的MSE(Mean Square Error)作为误差函数.</p>
-<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><p>事实上， 当处理问题推广到多分类(Multiple-Classification)时， 对应的回归模型是Softmax Regression.  Logistic Regression 是Softmax Regression在两分类时的特例, softmax在神经网络当中经常被用于作最后输出前的激活函数。</p>
-<p>比如神经网络知名的MNIST手写数字训练数据，所面对的问题是让机器识别人类写的数字0，1，2，3，4，5，6，7，8，9. 这是一个十分类问题。 在TensorFlow的官方网站中还提供了一个MNIST的变体，叫做<em>Fashion MNIST</em>, 你如果感兴趣可以到这里看看。 <a href="https://www.tensorflow.org/beta/tutorials/keras/basic_classification" target="_blank" rel="noopener">https://www.tensorflow.org/beta/tutorials/keras/basic_classification</a></p>
-
+            
           
         
       
@@ -812,7 +778,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/18/machine-learning/">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/18/sklearn-route01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jinyong Yang">
@@ -832,7 +798,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/18/machine-learning/" class="post-title-link" itemprop="url">machinelearning02--线性回归</a>
+                <a href="/2019/09/18/sklearn-route01/" class="post-title-link" itemprop="url">sklearn学习--常规模型的用法及Sample</a>
               
             
           </h1>
@@ -874,7 +840,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-25 08:29:04" itemprop="dateModified" datetime="2019-09-25T08:29:04+08:00">2019-09-25</time>
+                <time title="Modified: 2019-09-28 06:40:07" itemprop="dateModified" datetime="2019-09-28T06:40:07+08:00">2019-09-28</time>
               
             
           </span>
@@ -920,7 +886,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">5.3k</span>
+                <span title="Symbols count in article">5.7k</span>
               
 
               
@@ -956,13 +922,22 @@
       
         
           
-            <p>十一假期又把线性回归的相关资料从头再过了一次，将原来的解析矩阵推导与几何理解，正则化与概率、MAP的关系也在脑子里对照着记忆了，整理出这篇文章。 </p>
-<h1 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h1><h2 id="模型描述"><a href="#模型描述" class="headerlink" title="模型描述"></a>模型描述</h2><p>特征空间假设， 寻找线性系数 $ \theta $ 以希望用一个线性函数逼近目标向量。</p>
+            <p>十一假期又把线性回归的相关资料从头再过了一次，将原来的解析矩阵推导与几何理解，正则化与概率、MAP的关系也在脑子里对照着记忆了，整理出这篇文章。</p>
+<p>结合自己最常用的Python机器学习库 - sklearn 将之前用到的一些机器学习理论再过一次。</p>
+<h1 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h1><p>假设样本观测来自于p维空间的实数向量: $ x \in mathcal{X} = \mathcal{R}^p $， 目标值y是标量，属于一维实数空间： $ y \in mathcal{Y} = mathcal{R} $ 二分类问题约定y只会取+1 或 -1表示正负样本， 符号约定如下：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  \mathcal{X} = (x_1, x_2, ... , x_N )^T, \quad, x_i \in \mathcal{R}^p
+ \newline
+ & y_i \in \mathcal{Y} = {-1, +1}, \quad i = 1,2, ... N
+ \newline
+ & 完整数据 \mathcal{D} = {(x_i, y_i)}_i^{N}
+\end{align*}</script><h2 id="模型描述"><a href="#模型描述" class="headerlink" title="模型描述"></a>模型描述</h2><p>特征空间假设， 寻找线性系数 $ \theta $ 以希望用一个线性函数逼近目标向量。</p>
 <p>逼近的效果好坏叫做 <strong>Cost Function</strong>， 下面列出的MSE便是其中一种。</p>
 <blockquote><p>Linear Regression</p>
 </blockquote>
-<script type="math/tex; mode=display">\hat y = h_{\theta} (x) =  \theta \cdot x</script><script type="math/tex; mode=display">MSE(x, h_{\theta}) =  \frac{1}{m} \sum_{i=1}^{m} ( \theta^T \cdot x^{(i)} - y^{(i)} )^2</script><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><img src="/2019/09/18/machine-learning/sgd.png" title="sgd">
-<script type="math/tex; mode=display">\Theta^{(next step)} = \Theta - \eta \nabla_\theta MSE( \theta )</script><p>其中 </p>
+<script type="math/tex; mode=display">\hat y = h_{\theta} (x) =  \theta \cdot x</script><script type="math/tex; mode=display">MSE(x, h_{\theta}) =  \frac{1}{m} \sum_{i=1}^{m} ( \theta^T \cdot x^{(i)} - y^{(i)} )^2</script><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2>
+<script type="math/tex; mode=display">\Theta^{(next step)} = \Theta - \eta \nabla_\theta MSE( \theta )</script><p>其中</p>
 <script type="math/tex; mode=display">\nabla_\theta MSE( \theta ) = \begin{pmatrix}
 \frac{\partial}{\partial_{\theta_0}} MSE( \theta ) \\
 \frac{\partial}{\partial_{\theta_1}} MSE( \theta ) \\
@@ -971,7 +946,7 @@
 \end{pmatrix} = \frac{2}{m} X^T (X\Theta - Y)</script><h2 id="带有正则项"><a href="#带有正则项" class="headerlink" title="带有正则项"></a>带有正则项</h2><ul>
 <li>Ridge Regression</li>
 </ul>
-<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + \alpha \frac{1}{2} \sum_{i=1}^{n} \theta_i^2</script><img src="/2019/09/18/machine-learning/ridge.png" title="ridge">
+<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + \alpha \frac{1}{2} \sum_{i=1}^{n} \theta_i^2</script>
 <ul>
 <li>LASSO</li>
 </ul>
@@ -981,14 +956,14 @@
 <script type="math/tex; mode=display">J(\theta) = MSE(\theta) + r \alpha \sum_{i=1}^{n} | \theta_i | + \frac{1-r}{2} \alpha  \sum_{i=1}^{n} \theta_i^2</script><figure class="highlight python"><figcaption><span>sklearn-线性回归</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line">lr = LinearRegression()</span><br><span class="line">lr.fit(X, y)</span><br><span class="line">lr.intercept_, lr.coef_</span><br><span class="line"></span><br><span class="line"><span class="comment">#mse</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># sgd</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDRegressor</span><br></pre></td></tr></table></figure>
 <h2 id="对数线性回归-Logistic-Regression"><a href="#对数线性回归-Logistic-Regression" class="headerlink" title="对数线性回归 - Logistic Regression"></a>对数线性回归 - Logistic Regression</h2><script type="math/tex; mode=display">\hat p = h_\theta (x) = \sigma (\theta^T x)</script><p>$ \sigma(t) $ 是Sigmoid函数</p>
 <script type="math/tex; mode=display">\sigma (t) =  \frac{1}{1 + exp(-t) }</script><p>Logistic Regression cost function (log loss)</p>
-<script type="math/tex; mode=display">J(\theta) = - \frac{1}{m} \sum_{i=1}^{m} [y^{(i)} log( { \hat p }^(i) )   +  (1-y^{(i)})log( 1-{\hat p}^i)  ]</script><p>Logistic cost function partial derivatives </p>
+<script type="math/tex; mode=display">J(\theta) = - \frac{1}{m} \sum_{i=1}^{m} [y^{(i)} log( { \hat p }^(i) )   +  (1-y^{(i)})log( 1-{\hat p}^i)  ]</script><p>Logistic cost function partial derivatives</p>
 <script type="math/tex; mode=display">\frac{\partial}{\partial \theta_j } J(\boldsymbol \theta) = \frac{1}{m} \sum_{i=1}^{m} ( \sigma ( \boldsymbol \theta^T x^i ) -y^i ) x_j^i</script><figure class="highlight python"><figcaption><span>sklearn-Logistic Regression</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">log_reg = LogisticRegression()</span><br><span class="line">log_reg.fit(X, y)</span><br></pre></td></tr></table></figure>
 <h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><script type="math/tex; mode=display">\widehat p_k = \sigma ( \boldsymbol s(x))_k   = \frac{exp(s_k(\boldsymbol x))}{ \sum_{j=1}^K exp(s_j(\boldsymbol x))}</script><h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h1><blockquote><p>Support Vector Machine</p>
 </blockquote>
 <ul>
 <li>Decision Functions and Predictions</li>
 </ul>
-<script type="math/tex; mode=display">\widehat{y} = 
+<script type="math/tex; mode=display">\widehat{y} =
 \begin{cases}
 0, &  {if \quad w^T x + b > 0 } \\
 1, &  {if \quad w^T x + b \leq 0 } \\
@@ -1018,7 +993,7 @@
 <li>Sigmoid</li>
 </ul>
 <script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  tanh( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)</script><h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote><p>从树到森林。</p>
-<p>Decision Tree </p>
+<p>Decision Tree</p>
 </blockquote>
 <h2 id="Decision-Trees"><a href="#Decision-Trees" class="headerlink" title="Decision Trees"></a>Decision Trees</h2><ul>
 <li>Gini impurity</li>
@@ -1035,11 +1010,11 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
  \hat y_{node} = \frac{1}{m_{node}} \sum_{i \in node} y^{(i)}   \\
 \end{cases}</script><figure class="highlight python"><figcaption><span>DecisionTreeClassifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data[:, <span class="number">2</span>:] <span class="comment"># petal length and width</span></span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line">tree_clf = DecisionTreeClassifier(max_depth=<span class="number">2</span>)</span><br><span class="line">tree_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
 <h2 id="Random-Forests"><a href="#Random-Forests" class="headerlink" title="Random Forests"></a>Random Forests</h2><p>RF 在我看来是 Ensemble Learning (集成学习)的经典代表。</p>
-<p>以Classifiers举例，对待同样的数据， 不同分类器可能有不同的决策结果。 </p>
+<p>以Classifiers举例，对待同样的数据， 不同分类器可能有不同的决策结果。</p>
 <p><em>Logistic Regression classifier</em>, <em>Random Forest classifier</em>, <em>K-Nearest Neighbors classifier</em></p>
 <p>自然而然的， 可引入选举策略来作最终决策。</p>
 <figure class="highlight python"><figcaption><span>voting of classifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> VotingClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">log_clf = LogisticRegression()</span><br><span class="line">rnd_clf = RandomForestClassifier()</span><br><span class="line">svm_clf = SVC()</span><br><span class="line"></span><br><span class="line">voting_clf = VotingClassifier(</span><br><span class="line">    estimators=[(<span class="string">'lr'</span>, log_clf), (<span class="string">'rf'</span>, rnd_clf), (<span class="string">'svc'</span>, svm_clf)],</span><br><span class="line">    voting=<span class="string">'hard'</span>)</span><br><span class="line">voting_clf.fit(X_train, y_train)</span><br></pre></td></tr></table></figure>
-<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><h3 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h3><h3 id="Gradient-Boosting"><a href="#Gradient-Boosting" class="headerlink" title="Gradient Boosting"></a>Gradient Boosting</h3><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em> </p>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><h3 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h3><h3 id="Gradient-Boosting"><a href="#Gradient-Boosting" class="headerlink" title="Gradient Boosting"></a>Gradient Boosting</h3><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em></p>
 <h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><script type="math/tex; mode=display">precision = \frac{TP}{TP+FP}</script><script type="math/tex; mode=display">recall = \frac{TP}{TP+FN}</script><p>$F_1$ 是二者的调和平均</p>
 <script type="math/tex; mode=display">F_1 = \frac{2}{\frac{1}{precision} + \frac{1}{recall}}</script><figure class="highlight python"><figcaption><span>precision_score and recall_score</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> precision_score, recall_score</span><br></pre></td></tr></table></figure>
 <h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><ul>
@@ -1124,7 +1099,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/18/machinelearning04/" class="post-title-link" itemprop="url">machinelearning--Support Vector Machine</a>
+                <a href="/2019/09/18/machinelearning04/" class="post-title-link" itemprop="url">machinelearning04--Support Vector Machine</a>
               
             
           </h1>
@@ -1166,608 +1141,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-25 08:26:52" itemprop="dateModified" datetime="2019-09-25T08:26:52+08:00">2019-09-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">5 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天复习支持向量机（SVM），是一种凸优化问题，也是一个非常经典的线性分类器。<br>由于涉及的概念和要学习的问题太过细致，因此在第二篇文章之后单独开一篇介绍。<br>李航老师和周志华老师的书都对其做了单独成单的介绍，建议大家阅读。<br>想要讨论的内容包括以下部分：</p>
-<ul>
-<li>Hard-Margin SVM （硬间隔SVM）</li>
-<li>Soft-Margin SVM （软间隔SVM）</li>
-<li>KKT Condition （KKT条件）</li>
-</ul>
-<p><img src="/images/svm.png" alt></p>
-<h1 id="Hard-Margin-SVM"><a href="#Hard-Margin-SVM" class="headerlink" title="Hard-Margin SVM"></a>Hard-Margin SVM</h1><p>凭借着对李航老师《统计学习方法》SVM这一章内容的回忆，首先要面对的问题是线性可分的数据集（linear separatable dataset), 然后寻找一条能将正负样本分开的超平面在。 并且让样本离超平面的最近距离要最远。 描述成这样的目标函数：</p>
-<script type="math/tex; mode=display">\underset{w,b}{\mathrm{max}}    \underset{i}{\mathrm{min}} \quad distance(x_i)</script><script type="math/tex; mode=display">s.t. \quad 所有样本点分类正确</script><p>这里对原生的优化问题进行了变形处理, 首先定义了函数间隔(Functional margin)</p>
-<script type="math/tex; mode=display">\hat \gamma_i = y_i(w\cdot x_i + b)</script><p>N个样本点， 令最近的函数间隔为 $ \hat \gamma $</p>
-<script type="math/tex; mode=display">\hat \gamma = \underset{i}{\mathrm{min}} \quad \hat \gamma_i, \quad i = 1,2, ...N</script><p>接下来引出几何间隔， $  \gamma_i $</p>
-<p>因为超平面的参数w, b可以同时放大缩小，不影响超平面的位置。<br>因此借用点到直线的距离公式：</p>
-<script type="math/tex; mode=display">\gamma_i = \frac {y_i (w\cdot x_i +b )} {||w||} = \frac {\hat \gamma_i} {||w||}</script><p>若w的二范数固定为1， 此时函数间隔与几何间隔相等。所以上面提到距离distance就换成刚刚定义的几何间隔最大问题（前提，满足所有的样本分类正确）。</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  max \quad \gamma 
- \newline
- &  s.t. \quad \frac {y_i (w\cdot x_i +b )} {||w||} \ge \gamma, \quad i = 1,2, ... N 
-\end{align*}</script><p>将上面的目标函数替换成函数间隔（带有w项）则为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  max \quad  \frac {\hat \gamma } {||w||}
- \newline
- &  s.t. \quad y_i (w\cdot x_i +b )  \ge \hat \gamma, \quad i = 1,2, ... N 
-\end{align*}</script><p>又因为函数间隔可以通过放缩， 我们只关心超平面的参数项， 因此这里取函数间隔都为1， 得到更简化的形式：</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  max \quad  \frac {1} {||w||}
- \newline
- &  s.t. \quad y_i (w\cdot x_i +b )  \ge 1, \quad i = 1,2, ... N 
-\end{align*}</script><p>最后，将最大问题转为最小问题 （约束优化通常表达为最小化问题）</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  \underset{w}{ {min}} \quad \frac {1} {2} {w^T \cdot w}
- \newline
- &  s.t. \quad 1 - y_i(w^T \cdot x_i +b ) \le 0 , \quad i = 1,2,. ... N 
-\end{align*}</script><p>这是一个凸二次规划问题（Convex QP Problem)，求解思路是借助拉格朗日乘数法。 将原问题转变为对偶问题再求解。</p>
-<p>拉格朗日函数 $ L = L(w, b, \lambda) $后， 问题变成了</p>
-<script type="math/tex; mode=display">L = \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><script type="math/tex; mode=display">s.t. \quad \lambda_i \ge 0, \quad i = 1,2, ... N</script><p>原来要求 $ \frac {1} {2} {w^T \cdot w}$ 的最小值问题变为 $ min_w max_{\lambda} L $</p>
-<p>如果问题满足强对偶， 则可知原问题的最小最大的解 $ p^* $ 与对偶问题（最大最小）的解 $ d^*$ 是相等的。等式为：</p>
-<script type="math/tex; mode=display">\underset{w,b}{\mathrm{min}}    \underset{\lambda}{\mathrm{max}} \quad \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b )) 
- =      \underset{\lambda}{\mathrm{max}} \underset{w,b}{\mathrm{min}}  \quad   \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><p>对L求 $ w 和 b$的偏导：</p>
-<script type="math/tex; mode=display">\frac {\partial L} {\partial w} = 0</script><script type="math/tex; mode=display">\frac {\partial L} {\partial b} = 0</script><p>分别得出： </p>
-<script type="math/tex; mode=display">w = \sum_i^N \lambda_i y_i x_i</script><script type="math/tex; mode=display">0 = \sum_i^N \lambda_i y_i</script><p>将以上参数代入， 得到对偶问题的最优化问题：</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  \underset{\lambda}{ {min}} \quad \frac {1} {2} \sum_i^N \sum_j^N \lambda_i \lambda_j y_i y_j (x_i \cdot x_j) - \sum_i^N \lambda_i
- \newline
- &  s.t.  \sum_i^N \lambda_i y_i = 0
- \newline
- & \quad \lambda_i \ge 0,  \quad i = 1,2,. ... N 
-\end{align*}</script><blockquote>
-<p>松弛互补条件<br><strong>支持向量</strong> ， 最终达到最优问题边界条件的个别样本称为支持向量。<br>支持向量满足边界距离条件（等号），对应的 $\lambda_i$系数为正， 而不在间隔线上的样本， 它们对应的 $\lambda_i$ 系数均为0 。 </p>
-</blockquote>
-<p>关于支持向量的定义做了如下的补充， 以及延伸了KKT条件。</p>
-<h2 id="约束最优化问题"><a href="#约束最优化问题" class="headerlink" title="约束最优化问题"></a>约束最优化问题</h2><p>凸优化问题是指这样的最小化问题， 具有若干个不等值约束与若干个等值约束，<br>假设具有k个不等约束、l个等值约束。写成</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-& \underset{x}{\mathrm{min}} \quad f(x) 
-\newline
-& s.t. \quad g_i(x) \le 0, \quad i = 1, 2, ... k 
-\newline
-& \quad \quad h_j(x) = 0, \quad j = 1,2, ... l 
-\end{align*}</script><p>引入Lagrange函数：</p>
-<script type="math/tex; mode=display">L(x, \lambda, \eta) = f(x) + \sum_{i=1}^k \lambda_i g_i(x) + \sum_{j=1}^l \eta_j h_j(x)</script><p>其中 $\lambda_i \ge 0, 对所有i$</p>
-<p>通过求导，令导数为0得到最优解， 而且最优解必须满足KKT条件。<br>那么下面介绍什么是KKT条件。</p>
-<h2 id="KKT条件-Karush-Kuhn-Tucker-Condition"><a href="#KKT条件-Karush-Kuhn-Tucker-Condition" class="headerlink" title="KKT条件(Karush-Kuhn-Tucker Condition)"></a>KKT条件(Karush-Kuhn-Tucker Condition)</h2><blockquote>
-<p>1） 满足 L 函数的导数为0；<br>2)  满足 所有不等约束取等号的条件；<br>3)  满足 $\lambda_i g_i(x) = 0 $, 又称KKT松弛互补条件。</p>
-</blockquote>
-<p>在支持向量机中， 利用第三个条件能快速得到：</p>
-<ul>
-<li>如果是不在分类边界上的点， 它们一定满足 $ h_i(x) &lt; 0 $ 则对应的 $\lambda_i$ 系数为0； </li>
-<li>如果在分类边界上的点， 它们一定满足 $ h_i(x) = 0 $ 则对应的 $\lambda_i$ 系数为正数； 这些点就称为 <em>支持向量</em></li>
-</ul>
-<p>在支持向量的场景下，我再把KKT条件写的具体一些。</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-\nabla_w L(w^*, b^*, \lambda) = 0
-\\\nabla_b L(w^*, b^*, \lambda) = 0
-\\ \lambda_i \ge 0 , \quad i = 1,2, ... N
-\\ 1 - y_i( (w^*)^T \cdot x_i + b^* ) \le 0, \quad i = 1,2, ... N
-\\ \lambda_i (1 - y_i( (w^*)^T \cdot x_i + b^* )) = 0, \quad i = 1,2, ... N
-\end{cases}</script><h1 id="Soft-Margin-SVM"><a href="#Soft-Margin-SVM" class="headerlink" title="Soft-Margin SVM"></a>Soft-Margin SVM</h1><p>软间隔SVM是指对<strong>训练集样本均满足线性可分</strong>这一约束条件进行放松， 允许有一些样本是误分类的。<br>回顾之前提到的线性均可分是指所有样本的函数间隔都大于等于1:</p>
-<script type="math/tex; mode=display">对于所有 i = 1, 2... N, 都有 y_i (w\cdot x_i +b) \ge 1</script><p>那么，如果说有些异常样本(outliers)不满足这个条件， 它们属于误分类（说明它们的函数间隔小于1）， 我们就令超出部分的间隔距离为参数 $\xi_i （\xi \ge 0, i = 1,2 … N ）$</p>
-<p>这里如果$\xi_i = 0 $ 即说明样本是正确分类， 反之误分类.<br>此时所有样本的约束条件就是$ y_i(w\cdot x_i +b) \ge 1 - \xi , i = 1, 2, … N$</p>
-<p>目标函数由原来的$\frac {1} {2} ||w||^2$ 变成</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-& \underset{w,b,\xi}{\mathrm{min}} \frac {1} {2} ||w||^2 + C \sum_{i=1}^N \xi_i 
-\newline
-& y_i(w\cdot x_i +b) \ge 1 - \xi , i = 1, 2, ... N
-\newline
-& \xi \ge 0, \quad i = 1,2, ...N
-\end{align*}</script><p>这里的C是超参数$(C &gt; 0)$， 表示我们对误分类样本的重视程度： 如果C越大，表示误分类的影响较大，我们应该避免； 反之C越小，表示越对outliers容错。</p>
-<h1 id="Kernel-Method"><a href="#Kernel-Method" class="headerlink" title="Kernel Method"></a>Kernel Method</h1><p>前面硬间隔与软间隔都针对的是线性空间分类问题， 是不能直接处理非线性场景的。<br>因此有人提出了将低维空间转换为高维空间，在高维空间里再借助软硬间隔分类器。</p>
-<p>核方法（核函数）就是遵循了这种思路， 找到某个映射函数： $ \Phi: \mathcal{X}  \rightarrow \mathscr{Z}$ 使得原来空间的内积运算能够映射到高维空间中。 即，能找到这样一个函数 $\mathscr{K}(x_i, x_j) = &lt;\Phi(x_i), \Phi(x_j)&gt; $<br>我们称这个函数K为核函数。<br>通过观察发现在原来的软硬间隔优化问题当中， 其实对原始样本的计算只涉及到内积计算。因此我们没有必要去找到这个具体的映射， 而是 直接去用这个核函数的计算结果而非去寻找中间的映射函数$\Phi$，这种技巧称为核技巧（Kernel Trick） 。</p>
-<p>正定核： 对原样本组成的Gram矩阵如果是半正定的， 就称这样的核为正定核。 </p>
-<p>以上内容基本把SVM支持向量机比较核心且重要的部分复习完了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-      
-      }
-    
-      
-        
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/18/machine-learning-LinearRegression/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/18/machine-learning-LinearRegression/" class="post-title-link" itemprop="url">machinelearning02--线性回归</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-18 23:06:08" itemprop="dateCreated datePublished" datetime="2019-09-18T23:06:08+08:00">2019-09-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-25 08:31:13" itemprop="dateModified" datetime="2019-09-25T08:31:13+08:00">2019-09-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">5.7k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">5 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>十一假期又把线性回归的相关资料从头再过了一次，将原来的解析矩阵推导与几何理解，正则化与概率、MAP的关系也在脑子里对照着记忆了，整理出这篇文章。 </p>
-<h1 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h1><p>假设样本观测来自于p维空间的实数向量: $ x \in mathcal{X} = \mathcal{R}^p $， 目标值y是标量，属于一维实数空间： $ y \in mathcal{Y} = mathcal{R} $ 二分类问题约定y只会取+1 或 -1表示正负样本， 符号约定如下：</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  \mathcal{X} = (x_1, x_2, ... , x_N )^T, \quad, x_i \in \mathcal{R}^p
- \newline
- & y_i \in \mathcal{Y} = {-1, +1}, \quad i = 1,2, ... N 
- \newline
- & 完整数据 \mathcal{D} = {(x_i, y_i)}_i^{N} 
-\end{align*}</script><h2 id="模型描述"><a href="#模型描述" class="headerlink" title="模型描述"></a>模型描述</h2><p>特征空间假设， 寻找线性系数 $ \theta $ 以希望用一个线性函数逼近目标向量。</p>
-<p>逼近的效果好坏叫做 <strong>Cost Function</strong>， 下面列出的MSE便是其中一种。</p>
-<blockquote><p>Linear Regression</p>
-</blockquote>
-<script type="math/tex; mode=display">\hat y = h_{\theta} (x) =  \theta \cdot x</script><script type="math/tex; mode=display">MSE(x, h_{\theta}) =  \frac{1}{m} \sum_{i=1}^{m} ( \theta^T \cdot x^{(i)} - y^{(i)} )^2</script><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2>
-<script type="math/tex; mode=display">\Theta^{(next step)} = \Theta - \eta \nabla_\theta MSE( \theta )</script><p>其中 </p>
-<script type="math/tex; mode=display">\nabla_\theta MSE( \theta ) = \begin{pmatrix}
-\frac{\partial}{\partial_{\theta_0}} MSE( \theta ) \\
-\frac{\partial}{\partial_{\theta_1}} MSE( \theta ) \\
-\cdots \\
-\frac{\partial}{\partial_{\theta_n}} MSE( \theta ) \\
-\end{pmatrix} = \frac{2}{m} X^T (X\Theta - Y)</script><h2 id="带有正则项"><a href="#带有正则项" class="headerlink" title="带有正则项"></a>带有正则项</h2><ul>
-<li>Ridge Regression</li>
-</ul>
-<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + \alpha \frac{1}{2} \sum_{i=1}^{n} \theta_i^2</script>
-<ul>
-<li>LASSO</li>
-</ul>
-<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + \alpha \sum_{i=1}^{n} | \theta_i |</script><ul>
-<li>Elastic Net</li>
-</ul>
-<script type="math/tex; mode=display">J(\theta) = MSE(\theta) + r \alpha \sum_{i=1}^{n} | \theta_i | + \frac{1-r}{2} \alpha  \sum_{i=1}^{n} \theta_i^2</script><figure class="highlight python"><figcaption><span>sklearn-线性回归</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line">lr = LinearRegression()</span><br><span class="line">lr.fit(X, y)</span><br><span class="line">lr.intercept_, lr.coef_</span><br><span class="line"></span><br><span class="line"><span class="comment">#mse</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># sgd</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDRegressor</span><br></pre></td></tr></table></figure>
-<h2 id="对数线性回归-Logistic-Regression"><a href="#对数线性回归-Logistic-Regression" class="headerlink" title="对数线性回归 - Logistic Regression"></a>对数线性回归 - Logistic Regression</h2><script type="math/tex; mode=display">\hat p = h_\theta (x) = \sigma (\theta^T x)</script><p>$ \sigma(t) $ 是Sigmoid函数</p>
-<script type="math/tex; mode=display">\sigma (t) =  \frac{1}{1 + exp(-t) }</script><p>Logistic Regression cost function (log loss)</p>
-<script type="math/tex; mode=display">J(\theta) = - \frac{1}{m} \sum_{i=1}^{m} [y^{(i)} log( { \hat p }^(i) )   +  (1-y^{(i)})log( 1-{\hat p}^i)  ]</script><p>Logistic cost function partial derivatives </p>
-<script type="math/tex; mode=display">\frac{\partial}{\partial \theta_j } J(\boldsymbol \theta) = \frac{1}{m} \sum_{i=1}^{m} ( \sigma ( \boldsymbol \theta^T x^i ) -y^i ) x_j^i</script><figure class="highlight python"><figcaption><span>sklearn-Logistic Regression</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">log_reg = LogisticRegression()</span><br><span class="line">log_reg.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><script type="math/tex; mode=display">\widehat p_k = \sigma ( \boldsymbol s(x))_k   = \frac{exp(s_k(\boldsymbol x))}{ \sum_{j=1}^K exp(s_j(\boldsymbol x))}</script><h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h1><blockquote><p>Support Vector Machine</p>
-</blockquote>
-<ul>
-<li>Decision Functions and Predictions</li>
-</ul>
-<script type="math/tex; mode=display">\widehat{y} = 
-\begin{cases}
-0, &  {if \quad w^T x + b > 0 } \\
-1, &  {if \quad w^T x + b \leq 0 } \\
-\end{cases}</script><ul>
-<li>Hard Margin Classification</li>
-</ul>
-<script type="math/tex; mode=display">\min_{w, b} \frac{1}{2} w^T \cdot w</script><p>subject to</p>
-<script type="math/tex; mode=display">t^{(i)} (w^T x^{(i)} + b) \geq 1   ,\quad   for \quad i = 1,2, \cdots , m</script><ul>
-<li>Soft Margin Classification</li>
-</ul>
-<script type="math/tex; mode=display">\min_{w, b} \frac{1}{2} w^T \cdot w  + C \sum_{i=1}^m \xi^{(i)}</script><p>subject to</p>
-<script type="math/tex; mode=display">t^{(i)} (w^T x^{(i)} + b) \geq 1 - \xi^{(i)}  and \quad  \xi^{(i)} \geq 0 , \quad   for \quad i = 1,2, \cdots , m</script><ul>
-<li>Dual Problem</li>
-</ul>
-<script type="math/tex; mode=display">\min_{ \alpha }    \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha^{(i)} \alpha^{(j)} t^{(i)} t^{(j)} {x^{(i)}}^T \cdot x^{(j)}  - \sum_{i=1}^m \alpha^{(i)}</script><p>subject to</p>
-<script type="math/tex; mode=display">\alpha^{(i)} \geq 0   \quad  for \quad i = 1,2, \cdots , m</script><figure class="highlight python"><figcaption><span>LinearSVC</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris[<span class="string">"data"</span>][:, (<span class="number">2</span>, <span class="number">3</span>)]  <span class="comment"># petal length, petal width</span></span><br><span class="line">y = (iris[<span class="string">"target"</span>] == <span class="number">2</span>).astype(np.float64)  <span class="comment"># Iris-Virginica</span></span><br><span class="line"></span><br><span class="line">svm_clf = Pipeline([</span><br><span class="line">        (<span class="string">"scaler"</span>, StandardScaler()),</span><br><span class="line">        (<span class="string">"linear_svc"</span>, LinearSVC(C=<span class="number">1</span>, loss=<span class="string">"hinge"</span>)),</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">svm_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Common-kernels"><a href="#Common-kernels" class="headerlink" title="Common kernels"></a>Common kernels</h2><ul>
-<li>Linear</li>
-</ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  = \boldsymbol a^T \cdot \boldsymbol b</script><ul>
-<li>Polynomial</li>
-</ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  ( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)^d</script><ul>
-<li>Gaussian RBF</li>
-</ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  exp(- \gamma || \boldsymbol a - \boldsymbol b|| ^2 )</script><ul>
-<li>Sigmoid</li>
-</ul>
-<script type="math/tex; mode=display">K(\boldsymbol a, \boldsymbol b)  =  tanh( \gamma \boldsymbol a^T \cdot \boldsymbol b + r)</script><h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote><p>从树到森林。</p>
-<p>Decision Tree </p>
-</blockquote>
-<h2 id="Decision-Trees"><a href="#Decision-Trees" class="headerlink" title="Decision Trees"></a>Decision Trees</h2><ul>
-<li>Gini impurity</li>
-</ul>
-<script type="math/tex; mode=display">G_i = 1 - \sum_{k=1}^n p_{i,k}^2</script><ul>
-<li>Entropy</li>
-</ul>
-<script type="math/tex; mode=display">H_i = - \sum_{k=1,\\ p_{i,k} \ne 0}^n p_{i,k} log_2 (p_{i,k})</script><ul>
-<li>CART cost function for regression</li>
-</ul>
-<script type="math/tex; mode=display">J(k, t_k) = \frac{m_{left}}{m} MSE_{left}+ \frac{m_{right}}{m} MSE_{right}</script><p>where</p>
-<script type="math/tex; mode=display">\begin{cases}
-MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
- \hat y_{node} = \frac{1}{m_{node}} \sum_{i \in node} y^{(i)}   \\
-\end{cases}</script><figure class="highlight python"><figcaption><span>DecisionTreeClassifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data[:, <span class="number">2</span>:] <span class="comment"># petal length and width</span></span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line">tree_clf = DecisionTreeClassifier(max_depth=<span class="number">2</span>)</span><br><span class="line">tree_clf.fit(X, y)</span><br></pre></td></tr></table></figure>
-<h2 id="Random-Forests"><a href="#Random-Forests" class="headerlink" title="Random Forests"></a>Random Forests</h2><p>RF 在我看来是 Ensemble Learning (集成学习)的经典代表。</p>
-<p>以Classifiers举例，对待同样的数据， 不同分类器可能有不同的决策结果。 </p>
-<p><em>Logistic Regression classifier</em>, <em>Random Forest classifier</em>, <em>K-Nearest Neighbors classifier</em></p>
-<p>自然而然的， 可引入选举策略来作最终决策。</p>
-<figure class="highlight python"><figcaption><span>voting of classifier</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> VotingClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">log_clf = LogisticRegression()</span><br><span class="line">rnd_clf = RandomForestClassifier()</span><br><span class="line">svm_clf = SVC()</span><br><span class="line"></span><br><span class="line">voting_clf = VotingClassifier(</span><br><span class="line">    estimators=[(<span class="string">'lr'</span>, log_clf), (<span class="string">'rf'</span>, rnd_clf), (<span class="string">'svc'</span>, svm_clf)],</span><br><span class="line">    voting=<span class="string">'hard'</span>)</span><br><span class="line">voting_clf.fit(X_train, y_train)</span><br></pre></td></tr></table></figure>
-<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><h3 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h3><h3 id="Gradient-Boosting"><a href="#Gradient-Boosting" class="headerlink" title="Gradient Boosting"></a>Gradient Boosting</h3><h1 id="效果指标"><a href="#效果指标" class="headerlink" title="效果指标"></a>效果指标</h1><p>确定Model收敛的方向， 对连续和离散模型都有若干种<em>Metrics</em> </p>
-<h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><script type="math/tex; mode=display">precision = \frac{TP}{TP+FP}</script><script type="math/tex; mode=display">recall = \frac{TP}{TP+FN}</script><p>$F_1$ 是二者的调和平均</p>
-<script type="math/tex; mode=display">F_1 = \frac{2}{\frac{1}{precision} + \frac{1}{recall}}</script><figure class="highlight python"><figcaption><span>precision_score and recall_score</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> precision_score, recall_score</span><br></pre></td></tr></table></figure>
-<h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><ul>
-<li>MSE</li>
-</ul>
-<script type="math/tex; mode=display">MSE(x, h_{\theta}) =  \frac{1}{m} \sum_{i=1}^{m} ( \theta^T \cdot x^{(i)} - y^{(i)} )^2</script>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-      
-      }
-    
-      
-        
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/08/machinelearning03/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/08/machinelearning03/" class="post-title-link" itemprop="url">machinelearning--Support Vector Machine</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-08 23:06:08" itemprop="dateCreated datePublished" datetime="2019-09-08T23:06:08+08:00">2019-09-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-28 06:13:43" itemprop="dateModified" datetime="2019-09-28T06:13:43+08:00">2019-09-28</time>
+                <time title="Modified: 2019-09-28 06:40:26" itemprop="dateModified" datetime="2019-09-28T06:40:26+08:00">2019-09-28</time>
               
             
           </span>
@@ -2006,7 +1380,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/08/31/线性回归/">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/12/machinelearning03线性分类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jinyong Yang">
@@ -2026,7 +1400,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/31/线性回归/" class="post-title-link" itemprop="url">machinelearning--线性回归Linear Regression</a>
+                <a href="/2019/09/12/machinelearning03线性分类/" class="post-title-link" itemprop="url">machinelearning03--Linear Classification-Fisher判别与LogisticRegression</a>
               
             
           </h1>
@@ -2051,7 +1425,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
               
 
-              <time title="Created: 2019-08-31 15:39:12" itemprop="dateCreated datePublished" datetime="2019-08-31T15:39:12+08:00">2019-08-31</time>
+              <time title="Created: 2019-09-12 15:39:12" itemprop="dateCreated datePublished" datetime="2019-09-12T15:39:12+08:00">2019-09-12</time>
             
 
             
@@ -2068,7 +1442,244 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-21 15:33:38" itemprop="dateModified" datetime="2019-09-21T15:33:38+08:00">2019-09-21</time>
+                <time title="Modified: 2019-09-28 06:39:50" itemprop="dateModified" datetime="2019-09-28T06:39:50+08:00">2019-09-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前面一篇博客介绍的是感知机， 本篇介绍Fisher判别分析（线性判别分析与LR分类算法）。</p>
+<p><img src="/images/线性分类.png" alt></p>
+<h1 id="Fisher判别分析"><a href="#Fisher判别分析" class="headerlink" title="Fisher判别分析"></a>Fisher判别分析</h1><p>Fisher判别分析也称为线性判别分析（Linear Discriminant Analysis, LDA). 它的缩写与隐语义Dirichlit分析相同，都是LDA。</p>
+<p>它的应用场景是用来确定投影平面，通过类内方差和类间方差的分析，将组与组的差异尽可能极大化，体现出了“类内紧、类间松”的思想。</p>
+<p>构造出来的统计量是类间方差与类内方差之比， 目标函数是求得最优的w, 极大化</p>
+<script type="math/tex; mode=display">\frac {类间方差} {类内方差}</script><p>从几何的角度来看， 要找到一条投影直线，这样原来的高维样本被降维到了低维上。</p>
+<p>假设事先限定 $ ||w|| = 1$,投影前样本是 $ x_i $, 经过投影后， 变换为 $ z_i $</p>
+<script type="math/tex; mode=display">z_i = w^T x_i</script><p>若投影前的总体均值和类内均值分别是：</p>
+<script type="math/tex; mode=display">\bar x = \Sigma x_i</script><script type="math/tex; mode=display">\bar x_{c_1} =  \underset{ x_i \in C1 }{\mathrm{ \Sigma }}  x_i</script><script type="math/tex; mode=display">\bar x_{c_2} = \underset{ x_i \in C2 }{\mathrm{ \Sigma }}  x_i</script><p>投影后的总体均值和类内均值分别是：</p>
+<script type="math/tex; mode=display">\bar z = \Sigma z_i  = \frac {1} {N}  \Sigma w^T x_i</script><script type="math/tex; mode=display">\bar z_{c_1} =  \underset{ x_i \in C1 }{\mathrm{ \Sigma }} w^T x_i</script><script type="math/tex; mode=display">\bar z_{c_2} = \underset{ x_i \in C2 }{\mathrm{ \Sigma }}  w^T x_i</script><p>投影前的总体协方差矩阵和类内协方差矩阵是 $ S, S_{c_1}, S_{c_2} $</p>
+<p>投影后总体的协方差矩阵和类内协方差矩阵分别是：</p>
+<script type="math/tex; mode=display">S_z = \frac {1} {N} \Sigma ( w^T x_i - \bar z)( w^T x_i - \bar z)^T</script><script type="math/tex; mode=display">S_1 = \frac {1} {N_1} \underset{ x_i \in C1 }{\mathrm{ \Sigma }} (w^T x_i - \bar z_1 )(w^T x_i - \bar z_1)^T</script><script type="math/tex; mode=display">S_2 = \frac {1} {N_2} \underset{ x_i \in C2 }{\mathrm{ \Sigma }} (w^T x_i - \bar z_2 )(w^T x_i - \bar z_2)^T</script><p>类内方差的度量： $ S_1 + S_2 $</p>
+<p>类间方差的度量： $ (\bar z_1 - \bar z_2)^2 $</p>
+<p>所以延续之前的极大化目标函数的思想,就得到了</p>
+<script type="math/tex; mode=display">J(w) =  \frac {(\bar z_1 - \bar z_2)^2} {S_1 + S_2 }</script><script type="math/tex; mode=display">\hat w = \underset{ w }{\mathrm{ argmax }} \quad J(w)</script><p>下面是一些数学式的变形,</p>
+<p>$ J(w) =  \frac { w^T ( \bar x_{c_1} - \bar x_{c_2} ) (\bar x_{c_1} - \bar x_{c_2} )^T w } {S_1 + S_2 } $</p>
+<p>$  \quad =  \frac { w^T (\bar x_{c_1} - \bar x_{c_2} ) (\bar x_{c_1} - \bar x_{c_2} )^T w } { w^T (S_{c_1} + S_{c_2}) w } $</p>
+<h2 id="方差分析"><a href="#方差分析" class="headerlink" title="方差分析"></a>方差分析</h2><p>一般我们称 $ S_b $ 为 类间方差(b: between),  $ S_w $ 为类内方差(w: within-class).</p>
+<p>所以引入这2个记号之后, 目标函数还可以写成</p>
+<script type="math/tex; mode=display">J(w) = \frac { w^T S_b w} {w^T S_w w}</script><p>对这个函数尝试进行解析求解, 直接求w的偏导.</p>
+<script type="math/tex; mode=display">S_w w = \frac {w^T S_w w} {w^T S_b w} S_b w</script><p>在Fisher判别分析中更关系的是w向量的方向,而非大小.</p>
+<p>最终最优解时的 w的方向取决于</p>
+<script type="math/tex; mode=display">S_w^{-1} (\bar x_{c_1} - \bar x_{c_2} )</script><p>如果原来的假设满足各项同性, 则说明 $ S_w $就是只有主对角线上有值<br>上式可以进一步简写为</p>
+<script type="math/tex; mode=display">(\bar x_{c_1} - \bar x_{c_2} )</script><h1 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h1><p>逻辑回归虽然名字带有回归二字,但在实际应用上基本上作为二分类的入门工具.<br>而且在神经网络中更是必须会提到的问题—将连续实数域映射到[0,1]区间上的Sigmoid函数, 便是来自Logistic Regression.</p>
+<p>$ P_w(C_1|x) \ge 0.5, output C_1 $<br>$ \quad \quad otherwise,  output C_2 $<br>这里还是假设能找到一个线性函数,</p>
+<script type="math/tex; mode=display">z = \Sigma w_i x_i</script><p>令 $ z =  P_w(C_1|x) = \sigma(z) = \sigma(\Sigma_i w_i x_i)$</p>
+<p>定义了样本 $x_i$ 是属于 $C_1$类后, 样本属于另一类的概率就是 $ 1-\sigma(z)$</p>
+<p>为了方便这里还是省去了bias b项.</p>
+<p>记单个样本的概率函数是</p>
+<script type="math/tex; mode=display">y_i P(y_i =1 | x_i) + (1 -y_i) P(y_i = 0 | x_i)</script><p>其中<script type="math/tex">\hat y: 1 for class 1, 0 for class 2</script></p>
+<p>似然函数:</p>
+<script type="math/tex; mode=display">L(w) = \Sigma_i log [ y_i P(y_i =1 | x_i) + (1 -y_i) P(y_i = 0 | x_i)]</script><script type="math/tex; mode=display">L(w) = \Sigma_i log [ y_i \sigma(z) + (1 -y_i) (1-\sigma(z)) ]</script><p>Logistic Regression 使用的是交叉熵作为损失函数, 而Linear Regression使用的MSE(Mean Square Error)作为误差函数.</p>
+<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><p>事实上， 当处理问题推广到多分类(Multiple-Classification)时， 对应的回归模型是Softmax Regression.  Logistic Regression 是Softmax Regression在两分类时的特例, softmax在神经网络当中经常被用于作最后输出前的激活函数。</p>
+<p>比如神经网络知名的MNIST手写数字训练数据，所面对的问题是让机器识别人类写的数字0，1，2，3，4，5，6，7，8，9. 这是一个十分类问题。 在TensorFlow的官方网站中还提供了一个MNIST的变体，叫做<em>Fashion MNIST</em>, 你如果感兴趣可以到这里看看。 <a href="https://www.tensorflow.org/beta/tutorials/keras/basic_classification" target="_blank" rel="noopener">https://www.tensorflow.org/beta/tutorials/keras/basic_classification</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+      }
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/01/machinelearning02线性回归/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/01/machinelearning02线性回归/" class="post-title-link" itemprop="url">machinelearning02--线性回归Linear Regression</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-01 15:39:12" itemprop="dateCreated datePublished" datetime="2019-09-01T15:39:12+08:00">2019-09-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-28 06:39:23" itemprop="dateModified" datetime="2019-09-28T06:39:23+08:00">2019-09-28</time>
               
             
           </span>
@@ -2168,20 +1779,20 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
 <h1 id="几何视角"><a href="#几何视角" class="headerlink" title="几何视角"></a>几何视角</h1><p>在Gilbert的线性代数课程上曾经提到过， 线性回归口最小二乘的理解就是用投影来拟合原来的向量。</p>
 <script type="math/tex; mode=display">f(w) = X w</script><p>在X超平面上的法向量写成 $  (Y - X w) $, 法向量和原始超平面垂直：</p>
 <script type="math/tex; mode=display">X^T ( Y - X w) = 0</script><p>-&gt;  <script type="math/tex">X^T Y = X^T X w</script></p>
-<script type="math/tex; mode=display">w = (X^T X)^{-1} X^T Y</script><p>也能得到相同的结果。 </p>
+<script type="math/tex; mode=display">w = (X^T X)^{-1} X^T Y</script><p>也能得到相同的结果。</p>
 <p>解释: 损失函数的构造是来自于每个样本的误差定义为L2之后， 相误差加起来得到的L函数尽量小。<br>而几何解释是出于整个维度的理解。</p>
 <h1 id="概率视角"><a href="#概率视角" class="headerlink" title="概率视角"></a>概率视角</h1><script type="math/tex; mode=display">y = w^T x + \epsilon</script><p>称样本与目标值之间的差异称为残差，且残差服从高斯分布。 那么根据高斯分布的pdf（概率密度函数）</p>
 <p>(高斯概率密函数)</p>
 <script type="math/tex; mode=display">P(\epsilon) = \frac {1} { \sqrt {2\pi} \sigma} exp (-\frac {(\epsilon)} { 2\sigma^2})</script><p>假设残差服从的高斯分布是$ N(0; \sigma^2) $<br>所以每个y服从高斯分布， 写成：</p>
-<script type="math/tex; mode=display">y|x_i w ~ N(w^T x_i; \sigma^2 )</script><script type="math/tex; mode=display">P(y|x_i w) = \frac {1} { \sqrt {2\pi} \sigma} exp (-\frac {(y_i - w^T x_i)} { 2\sigma^2})</script><p>然后写出N个y的联合概率密度函数， 对数化， 得到对数似然函数。 </p>
-<p>这时的问题就转变为 <strong>求对数似然函数最大时的w</strong>. </p>
+<script type="math/tex; mode=display">y|x_i w ~ N(w^T x_i; \sigma^2 )</script><script type="math/tex; mode=display">P(y|x_i w) = \frac {1} { \sqrt {2\pi} \sigma} exp (-\frac {(y_i - w^T x_i)} { 2\sigma^2})</script><p>然后写出N个y的联合概率密度函数， 对数化， 得到对数似然函数。</p>
+<p>这时的问题就转变为 <strong>求对数似然函数最大时的w</strong>.</p>
 <p>在求解过程中发现和最小二乘的估计也是一样的， 都是在求解：</p>
 <script type="math/tex; mode=display">\hat w = \underset{w}{\mathrm{argmin}} \quad  \Sigma (y_i - w^T x_i)^2</script><h1 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h1><ul>
 <li>L1范数正则  LASSO</li>
 <li>L2范数正则 Ridge（岭回归）</li>
 </ul>
 <p>考虑到维度与样本数量的问题，避免过拟合现象，因此在损失函数上增加惩罚项。</p>
-<p>另外， 从另一个角度也可以去延伸过来： 在解析解中体现的 对某方阵求逆， 那么这个矩阵可逆吗？ </p>
+<p>另外， 从另一个角度也可以去延伸过来： 在解析解中体现的 对某方阵求逆， 那么这个矩阵可逆吗？</p>
 <p>以岭回归为例， 它的损失函数形式是：</p>
 <script type="math/tex; mode=display">\hat w = \underset{w}{\mathrm{argmin}} \quad  \Sigma (y_i - w^T x_i)^2  + \lambda \Sigma ||w_i||^2</script><p>解析解求得：</p>
 <script type="math/tex; mode=display">\hat w = (X^T X + \lambda I)^{-1} X^T Y</script>
@@ -2243,7 +1854,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/08/31/machinelearning01/">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/08/31/machinelearning01PLA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jinyong Yang">
@@ -2263,7 +1874,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/31/machinelearning01/" class="post-title-link" itemprop="url">machinelearning01--绪论与感知机算法（PLA）</a>
+                <a href="/2019/08/31/machinelearning01PLA/" class="post-title-link" itemprop="url">machinelearning01--绪论与感知机算法（PLA）</a>
               
             
           </h1>
@@ -2305,7 +1916,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-21 16:24:08" itemprop="dateModified" datetime="2019-09-21T16:24:08+08:00">2019-09-21</time>
+                <time title="Modified: 2019-09-28 06:38:30" itemprop="dateModified" datetime="2019-09-28T06:38:30+08:00">2019-09-28</time>
               
             
           </span>
@@ -2387,42 +1998,42 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
       
         
           
-            <h1 id="绪论与学习资料"><a href="#绪论与学习资料" class="headerlink" title="绪论与学习资料"></a>绪论与学习资料</h1><p>2019年9月发现了B站上一个出色机器学习资料，  搜索《白板机器学习》   UP主老师的深刻和广度给我留下了印象。<br>于是将一部分视频资料记录下来。 </p>
+            <h1 id="绪论与学习资料"><a href="#绪论与学习资料" class="headerlink" title="绪论与学习资料"></a>绪论与学习资料</h1><p>2019年9月发现了B站上一个出色机器学习资料，  搜索《白板机器学习》   UP主老师的深刻和广度给我留下了印象。<br>于是将一部分视频资料记录下来。</p>
 <h2 id="两大视角"><a href="#两大视角" class="headerlink" title="两大视角"></a>两大视角</h2><ul>
 <li>频率派视角</li>
 <li>贝叶斯派视角</li>
 </ul>
-<p>频率派是认为生成观测数据（Observed Data）的参数是常量，因此使用最大似然方法去求解这个参数。<br>或者是引入 loss function， 将问题转变为优化问题；<br>使用梯度下降或者牛顿方法去求解这个参数。 </p>
+<p>频率派是认为生成观测数据（Observed Data）的参数是常量，因此使用最大似然方法去求解这个参数。<br>或者是引入 loss function， 将问题转变为优化问题；<br>使用梯度下降或者牛顿方法去求解这个参数。</p>
 <p>有代表性的方法是线性回归、支持向量机。</p>
 <p>贝叶斯派是认为未知参数 $\theta$ 也是服从某未知分布的随机变量（random variable),<br>所以对其计算就需要求大最大后验了。  而后验则需要借助贝叶斯定理，有代表性的大模型就是概率图。<br>知名的算法有MCMC、条件随机场等。</p>
 <h2 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h2><h3 id="书籍资料"><a href="#书籍资料" class="headerlink" title="书籍资料"></a>书籍资料</h3><p>= 李航 - 《统计学习方法》      以第一版来看， 各章节一共组成10个算法：<br>            感 K 朴 决 逻，  支 提 E 隐 条<br>= 周志华 - 《机器学习》    西瓜书（封面有西瓜🍉）    比较全面， 每类算法谈得较浅。<br>= 模式识别与机器学习PRML  （2006年）  以贝叶斯角度来看。<br>               回 分  神  核  稀 ， 图  混（混合） 近（近似算法） 采（采样） 连（连续变量）<br>             顺（顺序数据） 组（组合模型）<br>= MLAPP 以概率视角看Machine Learning<br>ESL Elements of Statistics Learning<br>Deep Learning   “圣经”  Goodfellow<br>   中译版  张志华团队</p>
 <h3 id="视频资料"><a href="#视频资料" class="headerlink" title="视频资料"></a>视频资料</h3><p>台大  林轩田 （基石， 技法）       线性模型  SVM  神经网络等<br>张志化 （  机器学习导论）       统计机器学习<br>吴恩达 CS229 （斯坦福的资料） 不是Coursera上的<br>徐亦达  概率模型  （2005年）  以及Github上的notes资料</p>
 <p>关于神经网络与深度学习的资料<br>台大  李宏毅 （ML    MLDS）</p>
-<h1 id="Perception（感知机）"><a href="#Perception（感知机）" class="headerlink" title="Perception（感知机）"></a>Perception（感知机）</h1><p>假设我们拥有若干个观测样本是来自两个分类总体，并且在空间中存在一个超平面，将这些样本像象棋一样，一条“楚河汉界”就将原来的样本分成正负两类， 我们称这个样本满足线性可分数据集条件（Linear Seperable Dataset). </p>
+<h1 id="Perception（感知机）"><a href="#Perception（感知机）" class="headerlink" title="Perception（感知机）"></a>Perception（感知机）</h1><p>假设我们拥有若干个观测样本是来自两个分类总体，并且在空间中存在一个超平面，将这些样本像象棋一样，一条“楚河汉界”就将原来的样本分成正负两类， 我们称这个样本满足线性可分数据集条件（Linear Seperable Dataset).</p>
 <p>上世纪1957年Rosenblatt提出了Percentron感知机模型，后来人们在此基础上改进，感知机可以算是神经网络与支持向量机的上一代模型。</p>
 <p>感知机模型是一个线性分类器，能够处理一些简单的二分类问题。 虽然它并不复杂， 但是通过学习它的模型、策略、算法， 能够让我对机器学习的整体形成一个快速框架感。</p>
-<p>是我非常喜欢的一类模型。  大家可以在李航老师的《统计学习方法》一书第二章中找到更详尽的资料。 </p>
+<p>是我非常喜欢的一类模型。  大家可以在李航老师的《统计学习方法》一书第二章中找到更详尽的资料。</p>
 <h1 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h1><p>假设样本观测来自于p维空间的实数向量， 目标值y是标量，二分类问题约定y只会取+1 或 -1表示正负样本， 符号约定如下：</p>
 <script type="math/tex; mode=display">
 \begin{align*}
  &  \mathcal{X} = (x_1, x_2, ... , x_N )^T, \quad, x_i \in \mathcal{R}^p
  \newline
- & y_i \in \mathcal{Y} = {-1, +1}, \quad i = 1,2, ... N 
+ & y_i \in \mathcal{Y} = {-1, +1}, \quad i = 1,2, ... N
  \newline
- & 完整数据 \mathcal{D} = {(x_i, y_i)}_i^{N} 
+ & 完整数据 \mathcal{D} = {(x_i, y_i)}_i^{N}
 \end{align*}</script><p>记感知机预设的能够满足分类需求的超平面为$\mathcal{S}$, 在p维空间能可以表示成：</p>
 <script type="math/tex; mode=display">w^T \cdot x + b = 0</script><p>每个输入样本 $x_i$ 代入上面的左式， 根据符号的正负判别。 这就是感知机模型的思路。</p>
-<p>感知机模型分类函数是 </p>
+<p>感知机模型分类函数是</p>
 <script type="math/tex; mode=display">f(x) = sign(w^T \cdot x + b)</script><p>注：这里 $w$ 是超平面的权重向量(weight vector)， $b$是偏置项(bias).</p>
-<p>注：符号函数 $ sign(x) $ ， 对于一维实数x， 非负数返回正1， 否则返回-1. </p>
+<p>注：符号函数 $ sign(x) $ ， 对于一维实数x， 非负数返回正1， 否则返回-1.</p>
 <h1 id="感知机策略"><a href="#感知机策略" class="headerlink" title="感知机策略"></a>感知机策略</h1><p>既然定义的是一个超平面，输出的是一个符号函数。 那么我们就能先写出感知机模型的假设空间是分布在p维空间上所有的线性分类器。</p>
 <script type="math/tex; mode=display">\mathcal{H} = \{f| f = w^T \cdot x + b \}</script><p>在这个集合中又该如何寻找最优的结果呢？</p>
 <p>自然地， 我们想到可以使用<strong>误分类样本个数</strong>作为损失函数（loss function)。 如果分类错误的样本个数越小， 说明分类越准确。 虽然这个思路容易写出来。</p>
-<p>先引入一个指标函数(Index function) : </p>
+<p>先引入一个指标函数(Index function) :</p>
 <script type="math/tex; mode=display">I\{condition\}=\begin{cases}1,&\text{if condition is true}\\0,&\text{otherwise}\end{cases}</script><p>因此可以写成损失函数：</p>
 <script type="math/tex; mode=display">L(w) = \sum_{i=1}^N I\{ f(x) != y_i \}</script><p>感知机考虑的问题是硬性二分类， 所以考虑到：</p>
-<p>当分类正确时： </p>
-<script type="math/tex; mode=display">f(x) \times y_i \gt 0</script><p>当分类错误时： </p>
+<p>当分类正确时：</p>
+<script type="math/tex; mode=display">f(x) \times y_i \gt 0</script><p>当分类错误时：</p>
 <script type="math/tex; mode=display">f(x) \times y_i \lt 0</script><p>所以损失函数的新形式是：</p>
 <script type="math/tex; mode=display">L(w) = \sum_{i=1}^N I\{ w^T x_i \times y_i \lt 0 \}</script><p>但是由于这种损失函数是对参数w与b的不连续可导函数。 因此我们需要换一个思路：</p>
 <p><strong>将样本个数转变为误分类样本到超平面的距离</strong></p>
@@ -2438,17 +2049,17 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
 <h1 id="感知机算法的收敛性证明"><a href="#感知机算法的收敛性证明" class="headerlink" title="感知机算法的收敛性证明"></a>感知机算法的收敛性证明</h1><p>前面我们已知的条件只有线性可分数据集和误分类条件（有限）， 那么上面的算法缺少必要的收敛说明， 即这个算法会不会一直震荡下去，一直没有停止条件呢？</p>
 <p>书中Novikoff定理给出了答案。</p>
 <p>假设最终的目标参数找到了， 就是最优值 ：  $ w^{opt}, b^{opt} $<br>首先因为数据集是线性可分数据集，那么所有样本到最优平面的距离都可以写出来, (这里为了方便只考虑分子函数间隔， 后面讲支持向量机时会再提到)：</p>
-<script type="math/tex; mode=display">y_1 (w^{opt} \cdot x_1 + b^{opt})</script><script type="math/tex; mode=display">y_2 (w^{opt} \cdot x_2 + b^{opt})</script><script type="math/tex; mode=display">.......</script><script type="math/tex; mode=display">y_N (w^{opt} \cdot x_N + b^{opt})</script><p>这N个数一定都是正值， （它们分类正确）， 有限个正数则必须最小值， 假设这个最小值记作 $\gamma$, 它就是所有样本距离超平面最近的距离。 </p>
+<script type="math/tex; mode=display">y_1 (w^{opt} \cdot x_1 + b^{opt})</script><script type="math/tex; mode=display">y_2 (w^{opt} \cdot x_2 + b^{opt})</script><script type="math/tex; mode=display">.......</script><script type="math/tex; mode=display">y_N (w^{opt} \cdot x_N + b^{opt})</script><p>这N个数一定都是正值， （它们分类正确）， 有限个正数则必须最小值， 假设这个最小值记作 $\gamma$, 它就是所有样本距离超平面最近的距离。</p>
 <p>下面证明定理中的迭代轮次 k有上界：</p>
 <script type="math/tex; mode=display">k \le \frac {R^2} {\gamma^2}</script><p>其中R表示所有样本中输入空间最大的二范数： R =  $\underset{  所有样本 }{\mathrm{ max  }} ||x_i||^2 $</p>
 <p>这个证明有些难度， 使用了放大缩小的思想。</p>
 <p>先证明 $ w_k \cdot w^{opt} \ ge k \eta \gamma $</p>
 <p>再证明 $ w_k \cdot w^{opt} \ \le k \eta^2 R^2 $</p>
-<p>证明也不难， 主要是借助于上面的权重更新公式代入内积与二范数的计算中， 然后因为k轮， 所以就有k个递推不等式。 </p>
+<p>证明也不难， 主要是借助于上面的权重更新公式代入内积与二范数的计算中， 然后因为k轮， 所以就有k个递推不等式。</p>
 <p>以上两个式子成立之后绪论也自然得到了。</p>
 <p>说明误分类次数k有上界，经过有限次参数更新就能求得最优的分类超平面 \mathcal{S}</p>
 <p>以上就是我对感知机的复习笔记， 希望对你也有所启发。</p>
-<p>金勇-Steve  </p>
+<p>金勇-Steve</p>
 <p>2019-0924</p>
 
           
@@ -2856,6 +2467,210 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
       
       }
     
+      
+        
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/06/15/baseStone-la-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/15/baseStone-la-1/" class="post-title-link" itemprop="url">baseStone-la-1， 向量与矩阵</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-15 11:54:03 / Modified: 12:25:48" itemprop="dateCreated datePublished" datetime="2019-06-15T11:54:03+08:00">2019-06-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>BaseStone-数学部分-线性代数</p>
+<p>本篇介绍欧氏空间（Euclidean Space)中的向量（Vector）与矩阵（Matrix）</p>
+<h1 id="向量（Vector）"><a href="#向量（Vector）" class="headerlink" title="向量（Vector）"></a>向量（Vector）</h1><p>向量的定期是基于N维空间的。 先介绍一维空间，就是初中所学的数轴。<br>在一条无限延长的直线上， 比如规定了零点（大O）之后，再约定一个单位长度（例如 1cm = ‘1’), 那么通过向左和向右的无限延长， 就得到了一个描述所有有理数的数轴了， 无理数我们只能近似的在图中标注（但不会准确）， 例如圆周率pi， 是介于3.1415926与3.1415927之间的无理数， 它没有办法用区间套或者从实数完备性的角度准确的定位。</p>
+<p>但总体来说，我们能把一条数轴对应成实数域大R上。<br>在实数上我们能定义两个数的加法， 一个数的倍数（数乘）的运算， 称之为线性运算。</p>
+<p>两条数轴呢？ 以我们最熟悉的二维笛卡尔坐标为例， 就是在平面上由垂直的一对线组成， 水平线通常记为x轴， 竖直线记为y轴。 这样我们就有了二维向量的概念。</p>
+<p>二者相交的点记为零点（大O）它的坐标是 （0，0）， 向右、向上分别一个单位长就得到了坐标（1，1）。<br>这个点与零点的连线就是这个点对应的向量，和它的坐标值相同（1，1）。</p>
+<p>那么和数轴运算类似地，也能定义两个向量的加法和一个向量的数乘：</p>
+<script type="math/tex; mode=display">\vec v = (x_1, y_1),  \vec u = (x_2, y_2)</script><p>则有</p>
+<script type="math/tex; mode=display">\vec v  + \vec u =  (x_1 + x_2, y_1 + y_2)</script><script type="math/tex; mode=display">k * \vec v = (k * x_1， k * y_2)</script><p>* 表示两个数的普通乘法， 在一个数与一个向量的中间的* 表示数乘，也可以理解对一个向量进行了倍长（延长k倍 or 缩小为原来的若干）</p>
+<p>两个向量运算中我认为最重要的就是点积（也叫内积）。</p>
+<p>dot product (inner product):</p>
+<script type="math/tex; mode=display">\vec v = (x_1, y_1),  \vec u = (x_2, y_2)</script><script type="math/tex; mode=display">{\vec v} · {\vec u} = (x_1 * x_2 + y_1 * y_2)</script><p>所以最后的结果就是一个数了。 点积满足交换和线性的特点， 还有半正定性。</p>
+<h1 id="矩阵（Matrix）"><a href="#矩阵（Matrix）" class="headerlink" title="矩阵（Matrix）"></a>矩阵（Matrix）</h1><p>多个相同维度的向量按行或按列排在一起的形式就是矩阵。<br>矩阵的加法和数乘与前面类似， 这里不赘述了。</p>
+<p>在介绍矩阵的课程通常是从线性方程组出发</p>
+<script type="math/tex; mode=display">齐次: A \vec x = \vec 0</script><script type="math/tex; mode=display">非齐次: A \vec x = \vec b</script><p>但我个人更喜欢在介绍A之前，先讲解向量组。 并深刻理解向量组之间的线性相关性和相关无关性。</p>
+<p>进而再将向量组按行或按列的形式组织矩阵。</p>
+<p>于是就有了秩（Rank）、行秩与列秩的概念。</p>
+<p>特别一提的就是矩阵的乘积 AB 能够乘在一起的条件是明确要求的，虽然你也能定义自己的乘法，不过数学领域中有些约定俗成的事情，容不得变通。<br>标准矩阵乘法</p>
+<script type="math/tex; mode=display">A · B = C  ， c_{ij} = a_i · b_j</script><p>其中$a_i$是矩阵A的行 $b_j$ 是矩阵B的列。</p>
+<p>有了乘法之后才有的逆矩阵。</p>
+<h2 id="矩阵的行列式"><a href="#矩阵的行列式" class="headerlink" title="矩阵的行列式"></a>矩阵的行列式</h2><p>物理角度来说行列式就是矩阵对应多维平行超六面体的体积（带符号）。</p>
+<p>所以想到行列式的性质我们能列出：</p>
+<p>有一行为0则det为0；<br>有两行一样则det为0 ；<br>一大可拆成2小；<br>。。。 。。。</p>
+<h2 id="矩阵的逆"><a href="#矩阵的逆" class="headerlink" title="矩阵的逆"></a>矩阵的逆</h2><p>可逆矩阵是数学家喜欢看到的， 但对矩阵的要求也就高了一些。</p>
+<h2 id="矩阵的分解"><a href="#矩阵的分解" class="headerlink" title="矩阵的分解"></a>矩阵的分解</h2><p>说到分解， 首先对可逆矩阵来说，最著名的是高斯LU分解。</p>
+<p>通过一系列初等变换矩阵， 我们将原来的矩阵A变换为上三角型U。 左侧的系列矩阵乘积记为L。</p>
+<p>另一种是对对称矩阵的对角化分解，叫做</p>
+<script type="math/tex; mode=display">A = S \Gamma S^{-1}</script><p>更进一步地对所有矩阵，则有SVD分解。</p>
+<p>关于矩阵， 其实如果要系统展开的话得介绍40讲以上的线性代数课程。</p>
+<p>我特别喜欢的课程 B站 搜索 Gilbert Strang， 喜欢线性代数的同学， 去看吧。</p>
+<p>（版权归个人所有， 请勿用于商业。）</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+      }
+    
   </section>
 
   
@@ -2903,7 +2718,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2969,7 +2784,9 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2984,7 +2801,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -3051,7 +2868,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -3087,7 +2904,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">60k</span>
+    <span title="Symbols count total">50k</span>
   
 
   
@@ -3096,7 +2913,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">55 mins.</span>
+    <span title="Reading time total">45 mins.</span>
   
 </div>
 
