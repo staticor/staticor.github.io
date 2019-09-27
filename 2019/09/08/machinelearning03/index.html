@@ -111,7 +111,7 @@
 <meta property="og:description" content="今天复习支持向量机（SVM），是一种凸优化问题，也是一个非常经典的线性分类器。由于涉及的概念和要学习的问题太过细致，因此在第二篇文章之后单独开一篇介绍。李航老师和周志华老师的书都对其做了单独成单的介绍，建议大家阅读。想要讨论的内容包括以下部分：  Hard-Margin SVM （硬间隔SVM） Soft-Margin SVM （软间隔SVM） KKT Condition （KKT条件）   Ha">
 <meta property="og:locale" content="en-GB">
 <meta property="og:image" content="https://staticor.github.io/images/svm.png">
-<meta property="og:updated_time" content="2019-09-21T07:37:05.107Z">
+<meta property="og:updated_time" content="2019-09-27T22:13:43.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="machinelearning--Support Vector Machine">
 <meta name="twitter:description" content="今天复习支持向量机（SVM），是一种凸优化问题，也是一个非常经典的线性分类器。由于涉及的概念和要学习的问题太过细致，因此在第二篇文章之后单独开一篇介绍。李航老师和周志华老师的书都对其做了单独成单的介绍，建议大家阅读。想要讨论的内容包括以下部分：  Hard-Margin SVM （硬间隔SVM） Soft-Margin SVM （软间隔SVM） KKT Condition （KKT条件）   Ha">
@@ -397,7 +397,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-21 15:37:05" itemprop="dateModified" datetime="2019-09-21T15:37:05+08:00">2019-09-21</time>
+                <time title="Modified: 2019-09-28 06:13:43" itemprop="dateModified" datetime="2019-09-28T06:13:43+08:00">2019-09-28</time>
               
             
           </span>
@@ -492,34 +492,34 @@
 <script type="math/tex; mode=display">\gamma_i = \frac {y_i (w\cdot x_i +b )} {||w||} = \frac {\hat \gamma_i} {||w||}</script><p>若w的二范数固定为1， 此时函数间隔与几何间隔相等。所以上面提到距离distance就换成刚刚定义的几何间隔最大问题（前提，满足所有的样本分类正确）。</p>
 <script type="math/tex; mode=display">
 \begin{align*}
- &  max \quad \gamma 
+ &  max \quad \gamma
  \newline
- &  s.t. \quad \frac {y_i (w\cdot x_i +b )} {||w||} \ge \gamma, \quad i = 1,2, ... N 
+ &  s.t. \quad \frac {y_i (w\cdot x_i +b )} {||w||} \ge \gamma, \quad i = 1,2, ... N
 \end{align*}</script><p>将上面的目标函数替换成函数间隔（带有w项）则为</p>
 <script type="math/tex; mode=display">
 \begin{align*}
  &  max \quad  \frac {\hat \gamma } {||w||}
  \newline
- &  s.t. \quad y_i (w\cdot x_i +b )  \ge \hat \gamma, \quad i = 1,2, ... N 
+ &  s.t. \quad y_i (w\cdot x_i +b )  \ge \hat \gamma, \quad i = 1,2, ... N
 \end{align*}</script><p>又因为函数间隔可以通过放缩， 我们只关心超平面的参数项， 因此这里取函数间隔都为1， 得到更简化的形式：</p>
 <script type="math/tex; mode=display">
 \begin{align*}
  &  max \quad  \frac {1} {||w||}
  \newline
- &  s.t. \quad y_i (w\cdot x_i +b )  \ge 1, \quad i = 1,2, ... N 
+ &  s.t. \quad y_i (w\cdot x_i +b )  \ge 1, \quad i = 1,2, ... N
 \end{align*}</script><p>最后，将最大问题转为最小问题 （约束优化通常表达为最小化问题）</p>
 <script type="math/tex; mode=display">
 \begin{align*}
  &  \underset{w}{ {min}} \quad \frac {1} {2} {w^T \cdot w}
  \newline
- &  s.t. \quad 1 - y_i(w^T \cdot x_i +b ) \le 0 , \quad i = 1,2,. ... N 
+ &  s.t. \quad 1 - y_i(w^T \cdot x_i +b ) \le 0 , \quad i = 1,2,. ... N
 \end{align*}</script><p>这是一个凸二次规划问题（Convex QP Problem)，求解思路是借助拉格朗日乘数法。 将原问题转变为对偶问题再求解。</p>
 <p>拉格朗日函数 $ L = L(w, b, \lambda) $后， 问题变成了</p>
 <script type="math/tex; mode=display">L = \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><script type="math/tex; mode=display">s.t. \quad \lambda_i \ge 0, \quad i = 1,2, ... N</script><p>原来要求 $ \frac {1} {2} {w^T \cdot w}$ 的最小值问题变为 $ min_w max_{\lambda} L $</p>
 <p>如果问题满足强对偶， 则可知原问题的最小最大的解 $ p^* $ 与对偶问题（最大最小）的解 $ d^*$ 是相等的。等式为：</p>
-<script type="math/tex; mode=display">\underset{w,b}{\mathrm{min}}    \underset{\lambda}{\mathrm{max}} \quad \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b )) 
+<script type="math/tex; mode=display">\underset{w,b}{\mathrm{min}}    \underset{\lambda}{\mathrm{max}} \quad \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))
  =      \underset{\lambda}{\mathrm{max}} \underset{w,b}{\mathrm{min}}  \quad   \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><p>对L求 $ w 和 b$的偏导：</p>
-<script type="math/tex; mode=display">\frac {\partial L} {\partial w} = 0</script><script type="math/tex; mode=display">\frac {\partial L} {\partial b} = 0</script><p>分别得出： </p>
+<script type="math/tex; mode=display">\frac {\partial L} {\partial w} = 0</script><script type="math/tex; mode=display">\frac {\partial L} {\partial b} = 0</script><p>分别得出：</p>
 <script type="math/tex; mode=display">w = \sum_i^N \lambda_i y_i x_i</script><script type="math/tex; mode=display">0 = \sum_i^N \lambda_i y_i</script><p>将以上参数代入， 得到对偶问题的最优化问题：</p>
 <script type="math/tex; mode=display">
 \begin{align*}
@@ -527,19 +527,19 @@
  \newline
  &  s.t.  \sum_i^N \lambda_i y_i = 0
  \newline
- & \quad \lambda_i \ge 0,  \quad i = 1,2,. ... N 
+ & \quad \lambda_i \ge 0,  \quad i = 1,2,. ... N
 \end{align*}</script><blockquote>
-<p>松弛互补条件<br><strong>支持向量</strong> ， 最终达到最优问题边界条件的个别样本称为支持向量。<br>支持向量满足边界距离条件（等号），对应的 $\lambda_i$系数为正， 而不在间隔线上的样本， 它们对应的 $\lambda_i$ 系数均为0 。 </p>
+<p>松弛互补条件<br><strong>支持向量</strong> ， 最终达到最优问题边界条件的个别样本称为支持向量。<br>支持向量满足边界距离条件（等号），对应的 $\lambda_i$系数为正， 而不在间隔线上的样本， 它们对应的 $\lambda_i$ 系数均为0 。</p>
 </blockquote>
 <p>关于支持向量的定义做了如下的补充， 以及延伸了KKT条件。</p>
 <h2 id="约束最优化问题"><a href="#约束最优化问题" class="headerlink" title="约束最优化问题"></a>约束最优化问题</h2><p>凸优化问题是指这样的最小化问题， 具有若干个不等值约束与若干个等值约束，<br>假设具有k个不等约束、l个等值约束。写成</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-& \underset{x}{\mathrm{min}} \quad f(x) 
+& \underset{x}{\mathrm{min}} \quad f(x)
 \newline
-& s.t. \quad g_i(x) \le 0, \quad i = 1, 2, ... k 
+& s.t. \quad g_i(x) \le 0, \quad i = 1, 2, ... k
 \newline
-& \quad \quad h_j(x) = 0, \quad j = 1,2, ... l 
+& \quad \quad h_j(x) = 0, \quad j = 1,2, ... l
 \end{align*}</script><p>引入Lagrange函数：</p>
 <script type="math/tex; mode=display">L(x, \lambda, \eta) = f(x) + \sum_{i=1}^k \lambda_i g_i(x) + \sum_{j=1}^l \eta_j h_j(x)</script><p>其中 $\lambda_i \ge 0, 对所有i$</p>
 <p>通过求导，令导数为0得到最优解， 而且最优解必须满足KKT条件。<br>那么下面介绍什么是KKT条件。</p>
@@ -548,7 +548,7 @@
 </blockquote>
 <p>在支持向量机中， 利用第三个条件能快速得到：</p>
 <ul>
-<li>如果是不在分类边界上的点， 它们一定满足 $ h_i(x) &lt; 0 $ 则对应的 $\lambda_i$ 系数为0； </li>
+<li>如果是不在分类边界上的点， 它们一定满足 $ h_i(x) &lt; 0 $ 则对应的 $\lambda_i$ 系数为0；</li>
 <li>如果在分类边界上的点， 它们一定满足 $ h_i(x) = 0 $ 则对应的 $\lambda_i$ 系数为正数； 这些点就称为 <em>支持向量</em></li>
 </ul>
 <p>在支持向量的场景下，我再把KKT条件写的具体一些。</p>
@@ -565,7 +565,7 @@
 <p>目标函数由原来的$\frac {1} {2} ||w||^2$ 变成</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-& \underset{w,b,\xi}{\mathrm{min}} \frac {1} {2} ||w||^2 + C \sum_{i=1}^N \xi_i 
+& \underset{w,b,\xi}{\mathrm{min}} \frac {1} {2} ||w||^2 + C \sum_{i=1}^N \xi_i
 \newline
 & y_i(w\cdot x_i +b) \ge 1 - \xi , i = 1, 2, ... N
 \newline
@@ -573,7 +573,7 @@
 \end{align*}</script><p>这里的C是超参数$(C &gt; 0)$， 表示我们对误分类样本的重视程度： 如果C越大，表示误分类的影响较大，我们应该避免； 反之C越小，表示越对outliers容错。</p>
 <h1 id="Kernel-Method"><a href="#Kernel-Method" class="headerlink" title="Kernel Method"></a>Kernel Method</h1><p>前面硬间隔与软间隔都针对的是线性空间分类问题， 是不能直接处理非线性场景的。<br>因此有人提出了将低维空间转换为高维空间，在高维空间里再借助软硬间隔分类器。</p>
 <p>核方法（核函数）就是遵循了这种思路， 找到某个映射函数： $ \Phi: \mathcal{X}  \rightarrow \mathscr{Z}$ 使得原来空间的内积运算能够映射到高维空间中。 即，能找到这样一个函数 $\mathscr{K}(x_i, x_j) = &lt;\Phi(x_i), \Phi(x_j)&gt; $<br>我们称这个函数K为核函数。<br>通过观察发现在原来的软硬间隔优化问题当中， 其实对原始样本的计算只涉及到内积计算。因此我们没有必要去找到这个具体的映射， 而是 直接去用这个核函数的计算结果而非去寻找中间的映射函数$\Phi$，这种技巧称为核技巧（Kernel Trick） 。</p>
-<p>正定核： 对原样本组成的Gram矩阵如果是半正定的， 就称这样的核为正定核。 </p>
+<p>正定核： 对原样本组成的Gram矩阵如果是半正定的， 就称这样的核为正定核。</p>
 <p>以上内容基本把SVM支持向量机比较核心且重要的部分复习完了。</p>
 
       
@@ -624,6 +624,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/18/machine-learning-LinearRegression/" rel="prev" title="machinelearning02--线性回归">
+                machinelearning02--线性回归 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -693,7 +697,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -716,7 +720,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -772,7 +778,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感知机算法/">感知机算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -839,7 +845,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感知机算法/">感知机算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -892,7 +898,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">41k</span>
+    <span title="Symbols count total">60k</span>
   
 
   
@@ -901,7 +907,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">38 mins.</span>
+    <span title="Reading time total">55 mins.</span>
   
 </div>
 
