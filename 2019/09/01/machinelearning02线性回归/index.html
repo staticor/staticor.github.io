@@ -110,7 +110,7 @@
 <meta property="og:site_name" content="Staticor hungry">
 <meta property="og:description" content="线性回归是统计学习的基础核心，最简单的机器学习模型。几乎所有的机器学习基础入门都用它作来入门导论的知识。  与之相关的关键词有：最小二乘法、梯度下降、正则化、高斯分布 下面我们来一步步的理解并学习线性回归。 数据约定假设样本观测来自于p维空间的向量， 目标值y是标量。符号约定如下： X = (x_1, x_2, ... , x_N )^TY = (y_1, y_2,  ..., y_p)^T完整">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-09-27T22:39:23.859Z">
+<meta property="og:updated_time" content="2019-09-28T12:43:08.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="machinelearning02--线性回归Linear Regression">
 <meta name="twitter:description" content="线性回归是统计学习的基础核心，最简单的机器学习模型。几乎所有的机器学习基础入门都用它作来入门导论的知识。  与之相关的关键词有：最小二乘法、梯度下降、正则化、高斯分布 下面我们来一步步的理解并学习线性回归。 数据约定假设样本观测来自于p维空间的向量， 目标值y是标量。符号约定如下： X = (x_1, x_2, ... , x_N )^TY = (y_1, y_2,  ..., y_p)^T完整">
@@ -395,7 +395,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-28 06:39:23" itemprop="dateModified" datetime="2019-09-28T06:39:23+08:00">2019-09-28</time>
+                <time title="Modified: 2019-09-28 20:43:08" itemprop="dateModified" datetime="2019-09-28T20:43:08+08:00">2019-09-28</time>
               
             
           </span>
@@ -441,7 +441,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2k</span>
+                <span title="Symbols count in article">2.1k</span>
               
 
               
@@ -509,7 +509,11 @@
 <p>另外， 从另一个角度也可以去延伸过来： 在解析解中体现的 对某方阵求逆， 那么这个矩阵可逆吗？</p>
 <p>以岭回归为例， 它的损失函数形式是：</p>
 <script type="math/tex; mode=display">\hat w = \underset{w}{\mathrm{argmin}} \quad  \Sigma (y_i - w^T x_i)^2  + \lambda \Sigma ||w_i||^2</script><p>解析解求得：</p>
-<script type="math/tex; mode=display">\hat w = (X^T X + \lambda I)^{-1} X^T Y</script>
+<script type="math/tex; mode=display">\hat w = (X^T X + \lambda I)^{-1} X^T Y</script><h1 id="Scikit-Learn-样例代码"><a href="#Scikit-Learn-样例代码" class="headerlink" title="Scikit-Learn 样例代码"></a>Scikit-Learn 样例代码</h1><p>OLS  普通最小二乘回归的代码</p>
+<ul>
+<li><a href="https://github.com/staticor/sklearn-examples/tree/master/02OLS" target="_blank" rel="noopener">https://github.com/staticor/sklearn-examples/tree/master/02OLS</a></li>
+</ul>
+
       
     </div>
 
@@ -629,7 +633,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -695,9 +699,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -712,7 +714,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学公式/">数学公式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -779,7 +781,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学公式/">数学公式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -800,7 +802,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据约定"><span class="nav-number">1.</span> <span class="nav-text">数据约定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何求出解析解"><span class="nav-number">2.</span> <span class="nav-text">如何求出解析解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降"><span class="nav-number">2.1.</span> <span class="nav-text">梯度下降</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几何视角"><span class="nav-number">3.</span> <span class="nav-text">几何视角</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概率视角"><span class="nav-number">4.</span> <span class="nav-text">概率视角</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则化"><span class="nav-number">5.</span> <span class="nav-text">正则化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据约定"><span class="nav-number">1.</span> <span class="nav-text">数据约定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何求出解析解"><span class="nav-number">2.</span> <span class="nav-text">如何求出解析解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降"><span class="nav-number">2.1.</span> <span class="nav-text">梯度下降</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几何视角"><span class="nav-number">3.</span> <span class="nav-text">几何视角</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概率视角"><span class="nav-number">4.</span> <span class="nav-text">概率视角</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则化"><span class="nav-number">5.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scikit-Learn-样例代码"><span class="nav-number">6.</span> <span class="nav-text">Scikit-Learn 样例代码</span></a></li></ol></div>
             
 
           </div>
@@ -832,7 +834,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">50k</span>
+    <span title="Symbols count total">59k</span>
   
 
   
@@ -841,7 +843,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">45 mins.</span>
+    <span title="Reading time total">54 mins.</span>
   
 </div>
 

@@ -321,6 +321,15 @@
   <section id="posts" class="posts-expand">
     
       
+      }
+    
+      
+      }
+    
+      
+      }
+    
+      
         
 
   
@@ -336,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/12/18/gaussian/">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/10/18/machinelearning06朴素贝叶斯/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jinyong Yang">
@@ -356,7 +365,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/18/gaussian/" class="post-title-link" itemprop="url">machinelearning05--高斯判别分析与混合高斯模型GMM</a>
+                <a href="/2019/10/18/machinelearning06朴素贝叶斯/" class="post-title-link" itemprop="url">machinelearning06--朴素贝叶斯Naive Bayes</a>
               
             
           </h1>
@@ -381,7 +390,7 @@
                 
               
 
-              <time title="Created: 2019-12-18 23:06:08" itemprop="dateCreated datePublished" datetime="2019-12-18T23:06:08+08:00">2019-12-18</time>
+              <time title="Created: 2019-10-18 23:06:08" itemprop="dateCreated datePublished" datetime="2019-10-18T23:06:08+08:00">2019-10-18</time>
             
 
             
@@ -398,7 +407,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-28 06:35:09" itemprop="dateModified" datetime="2019-09-28T06:35:09+08:00">2019-09-28</time>
+                <time title="Modified: 2019-10-11 19:28:01" itemprop="dateModified" datetime="2019-10-11T19:28:01+08:00">2019-10-11</time>
               
             
           </span>
@@ -444,7 +453,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">0</span>
+                <span title="Symbols count in article">1.1k</span>
               
 
               
@@ -480,7 +489,30 @@
       
         
           
-            
+            <h1 id="朴素贝叶斯简介"><a href="#朴素贝叶斯简介" class="headerlink" title="朴素贝叶斯简介"></a>朴素贝叶斯简介</h1><p>贝叶斯经常用在二分类场景下，作为一种分类器(classifier), 比如我们经常能搜索到的一个场景就是spam-email-filter。 下面结合Sklearn的文档，谈谈我对Naive Bayes的理解， 也是笔者打算的最后一次关于NB的博客。</p>
+<p>每个观测数据是(X, Y)其中X是n维向量， Y是目标变量，一般情况下多是categorical分布。</p>
+<p>基本的条件假设-贝叶斯条件式：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ & P(y| x_1, ... , x_n ) = \frac {P(y) P(x_1, ... , x_n |y)} { P(x_1, ... , x_n)}
+\end{align*}</script><p>模型的<strong>Naive</strong>是指在N个特征之间，两两条件独立，所以上面公式的右侧分子部分可以简化为若干个分量之积， 即：</p>
+<script type="math/tex; mode=display">
+
+  P(x_1, ... , x_n |y) =  P(x_1|y) P(x_2|y) ... P( x_n|y)</script><p>将上式代入贝叶斯条件式</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ & P(y| x_1, ... , x_n ) = \frac {P(y) \prod_{i=1}^n P(x_i|y)} { P(x_1, ... , x_n)}
+\end{align*}</script><p>从似然估计的角度来说，我们希望让似然函数达到最大值，而上式的分母是模型参数无关项，因此就可以写出一个正比的结果：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ & P(y| x_1, ... , x_n ) \propto  P(y) \prod_{i=1}^n P(x_i|y)
+ \newline
+ & \hat y =  \underset{y}{argmax} P(y)\prod_{i=1}^n P(x_i|y)
+\end{align*}</script><p>前面一项 $P(y)$即为$ y=0 \quad y=1$的频数分布， 所以下面的问题就可以使用MAP（最大后验， Maximum A Posteriori)来求解。</p>
+<p>虽然Naive Bayes的假设条件过强，很多情况下数据并不能满足这个条件，但是因为它的易实现（相较于其它方法，可算是容易很多了），而且在文档分类上得到了大量的实践，所以NB整体上来看还是一种基线级的工具。</p>
+<h1 id="不同分布下的Naive-Bayes"><a href="#不同分布下的Naive-Bayes" class="headerlink" title="不同分布下的Naive Bayes"></a>不同分布下的Naive Bayes</h1><h2 id="Gaussian-Naive-Bayes"><a href="#Gaussian-Naive-Bayes" class="headerlink" title="Gaussian Naive Bayes"></a>Gaussian Naive Bayes</h2><p>高斯NB（GNB）模型认为，每个维度下的x，都条件服从于某个高斯分布， 写出它的概率密度函数为：</p>
+<script type="math/tex; mode=display">
+P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\sigma_y^2})  }</script>
           
         
       
@@ -719,6 +751,307 @@
 <p>我觉得本科数学+研究生统计，也是不错的组合。 这个组合我认为能适合前面的“小数据”+ “中数据。</p>
 <h1 id="个人经历简介"><a href="#个人经历简介" class="headerlink" title="个人经历简介"></a>个人经历简介</h1><p>2007-2011， 应用数学本科<br>2011-2914， 数据挖掘硕士<br>2015: 数据分析<br>2016-2019： 数据挖掘，数据仓库</p>
 <p>我的理想职业是成为一名数据科学家， 未来Focus：机器学习与增长策略</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+      }
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/18/machinelearning04支持向量机/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/18/machinelearning04支持向量机/" class="post-title-link" itemprop="url">machinelearning04--Support Vector Machine</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-18 23:06:08" itemprop="dateCreated datePublished" datetime="2019-09-18T23:06:08+08:00">2019-09-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-30 09:30:16" itemprop="dateModified" datetime="2019-09-30T09:30:16+08:00">2019-09-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">5 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天复习支持向量机（SVM），是一种凸优化问题，也是一个非常经典的线性分类器。<br>由于涉及的概念和要学习的问题太过细致，因此在第二篇文章之后单独开一篇介绍。<br>李航老师和周志华老师的书都对其做了单独成单的介绍，建议大家阅读。<br>想要讨论的内容包括以下部分：</p>
+<ul>
+<li>Hard-Margin SVM （硬间隔SVM）</li>
+<li>Soft-Margin SVM （软间隔SVM）</li>
+<li>KKT Condition （KKT条件）</li>
+</ul>
+<p><img src="/images/svm.png" alt></p>
+<h1 id="Hard-Margin-SVM"><a href="#Hard-Margin-SVM" class="headerlink" title="Hard-Margin SVM"></a>Hard-Margin SVM</h1><p>凭借着对李航老师《统计学习方法》SVM这一章内容的回忆，首先要面对的问题是线性可分的数据集（linear separatable dataset), 然后寻找一条能将正负样本分开的超平面在。 并且让样本离超平面的最近距离要最远。 描述成这样的目标函数：</p>
+<script type="math/tex; mode=display">\underset{w,b}{\mathrm{max}}    \underset{i}{\mathrm{min}} \quad distance(x_i)</script><script type="math/tex; mode=display">s.t. \quad 所有样本点分类正确</script><p>这里对原生的优化问题进行了变形处理, 首先定义了函数间隔(Functional margin)</p>
+<script type="math/tex; mode=display">\hat \gamma_i = y_i(w\cdot x_i + b)</script><p>N个样本点， 令最近的函数间隔为 $ \hat \gamma $</p>
+<script type="math/tex; mode=display">\hat \gamma = \underset{i}{\mathrm{min}} \quad \hat \gamma_i, \quad i = 1,2, ...N</script><p>接下来引出几何间隔， $  \gamma_i $</p>
+<p>因为超平面的参数w, b可以同时放大缩小，不影响超平面的位置。<br>因此借用点到直线的距离公式：</p>
+<script type="math/tex; mode=display">\gamma_i = \frac {y_i (w\cdot x_i +b )} {||w||} = \frac {\hat \gamma_i} {||w||}</script><p>若w的二范数固定为1， 此时函数间隔与几何间隔相等。所以上面提到距离distance就换成刚刚定义的几何间隔最大问题（前提，满足所有的样本分类正确）。</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  max \quad \gamma
+ \newline
+ &  s.t. \quad \frac {y_i (w\cdot x_i +b )} {||w||} \ge \gamma, \quad i = 1,2, ... N
+\end{align*}</script><p>将上面的目标函数替换成函数间隔（带有w项）则为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  max \quad  \frac {\hat \gamma } {||w||}
+ \newline
+ &  s.t. \quad y_i (w\cdot x_i +b )  \ge \hat \gamma, \quad i = 1,2, ... N
+\end{align*}</script><p>又因为函数间隔可以通过放缩， 我们只关心超平面的参数项， 因此这里取函数间隔都为1， 得到更简化的形式：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  max \quad  \frac {1} {||w||}
+ \newline
+ &  s.t. \quad y_i (w\cdot x_i +b )  \ge 1, \quad i = 1,2, ... N
+\end{align*}</script><p>最后，将最大问题转为最小问题 （约束优化通常表达为最小化问题）</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  \underset{w}{ {min}} \quad \frac {1} {2} {w^T \cdot w}
+ \newline
+ &  s.t. \quad 1 - y_i(w^T \cdot x_i +b ) \le 0 , \quad i = 1,2,. ... N
+\end{align*}</script><p>这是一个凸二次规划问题（Convex QP Problem)，求解思路是借助拉格朗日乘数法。 将原问题转变为对偶问题再求解。</p>
+<p>拉格朗日函数 $ L = L(w, b, \lambda) $后， 问题变成了</p>
+<script type="math/tex; mode=display">L = \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><script type="math/tex; mode=display">s.t. \quad \lambda_i \ge 0, \quad i = 1,2, ... N</script><p>原来要求 $ \frac {1} {2} {w^T \cdot w}$ 的最小值问题变为 $ min_w max_{\lambda} L $</p>
+<p>如果问题满足强对偶， 则可知原问题的最小最大的解 $ p^* $ 与对偶问题（最大最小）的解 $ d^*$ 是相等的。等式为：</p>
+<script type="math/tex; mode=display">\underset{w,b}{\mathrm{min}}    \underset{\lambda}{\mathrm{max}} \quad \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))
+ =      \underset{\lambda}{\mathrm{max}} \underset{w,b}{\mathrm{min}}  \quad   \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><p>对L求 $ w 和 b$的偏导：</p>
+<script type="math/tex; mode=display">\frac {\partial L} {\partial w} = 0</script><script type="math/tex; mode=display">\frac {\partial L} {\partial b} = 0</script><p>分别得出：</p>
+<script type="math/tex; mode=display">w = \sum_i^N \lambda_i y_i x_i</script><script type="math/tex; mode=display">0 = \sum_i^N \lambda_i y_i</script><p>将以上参数代入， 得到对偶问题的最优化问题：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ &  \underset{\lambda}{ {min}} \quad \frac {1} {2} \sum_i^N \sum_j^N \lambda_i \lambda_j y_i y_j (x_i \cdot x_j) - \sum_i^N \lambda_i
+ \newline
+ &  s.t.  \sum_i^N \lambda_i y_i = 0
+ \newline
+ & \quad \lambda_i \ge 0,  \quad i = 1,2,. ... N
+\end{align*}</script><blockquote>
+<p>松弛互补条件<br><strong>支持向量</strong> ， 最终达到最优问题边界条件的个别样本称为支持向量。<br>支持向量满足边界距离条件（等号），对应的 $\lambda_i$系数为正， 而不在间隔线上的样本， 它们对应的 $\lambda_i$ 系数均为0 。</p>
+</blockquote>
+<p>关于支持向量的定义做了如下的补充， 以及延伸了KKT条件。</p>
+<h2 id="约束最优化问题"><a href="#约束最优化问题" class="headerlink" title="约束最优化问题"></a>约束最优化问题</h2><p>凸优化问题是指这样的最小化问题， 具有若干个不等值约束与若干个等值约束，<br>假设具有k个不等约束、l个等值约束。写成</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+& \underset{x}{\mathrm{min}} \quad f(x)
+\newline
+& s.t. \quad g_i(x) \le 0, \quad i = 1, 2, ... k
+\newline
+& \quad \quad h_j(x) = 0, \quad j = 1,2, ... l
+\end{align*}</script><p>引入Lagrange函数：</p>
+<script type="math/tex; mode=display">L(x, \lambda, \eta) = f(x) + \sum_{i=1}^k \lambda_i g_i(x) + \sum_{j=1}^l \eta_j h_j(x)</script><p>其中 $\lambda_i \ge 0, 对所有i$</p>
+<p>通过求导，令导数为0得到最优解， 而且最优解必须满足KKT条件。<br>那么下面介绍什么是KKT条件。</p>
+<h2 id="KKT条件-Karush-Kuhn-Tucker-Condition"><a href="#KKT条件-Karush-Kuhn-Tucker-Condition" class="headerlink" title="KKT条件(Karush-Kuhn-Tucker Condition)"></a>KKT条件(Karush-Kuhn-Tucker Condition)</h2><blockquote>
+<p>1） 满足 L 函数的导数为0；<br>2)  满足 所有不等约束取等号的条件；<br>3)  满足 $\lambda_i g_i(x) = 0 $, 又称KKT松弛互补条件。</p>
+</blockquote>
+<p>在支持向量机中， 利用第三个条件能快速得到：</p>
+<ul>
+<li>如果是不在分类边界上的点， 它们一定满足 $ h_i(x) &lt; 0 $ 则对应的 $\lambda_i$ 系数为0；</li>
+<li>如果在分类边界上的点， 它们一定满足 $ h_i(x) = 0 $ 则对应的 $\lambda_i$ 系数为正数； 这些点就称为 <em>支持向量</em></li>
+</ul>
+<p>在支持向量的场景下，我再把KKT条件写的具体一些。</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+\nabla_w L(w^*, b^*, \lambda) = 0
+\\\nabla_b L(w^*, b^*, \lambda) = 0
+\\ \lambda_i \ge 0 , \quad i = 1,2, ... N
+\\ 1 - y_i( (w^*)^T \cdot x_i + b^* ) \le 0, \quad i = 1,2, ... N
+\\ \lambda_i (1 - y_i( (w^*)^T \cdot x_i + b^* )) = 0, \quad i = 1,2, ... N
+\end{cases}</script><h1 id="Soft-Margin-SVM"><a href="#Soft-Margin-SVM" class="headerlink" title="Soft-Margin SVM"></a>Soft-Margin SVM</h1><p>软间隔SVM是指对<strong>训练集样本均满足线性可分</strong>这一约束条件进行放松， 允许有一些样本是误分类的。<br>回顾之前提到的线性均可分是指所有样本的函数间隔都大于等于1:</p>
+<script type="math/tex; mode=display">对于所有 i = 1, 2... N, 都有 y_i (w\cdot x_i +b) \ge 1</script><p>那么，如果说有些异常样本(outliers)不满足这个条件， 它们属于误分类（说明它们的函数间隔小于1）， 我们就令超出部分的间隔距离为参数 $\xi_i （\xi \ge 0, i = 1,2 … N ）$</p>
+<p>这里如果$\xi_i = 0 $ 即说明样本是正确分类， 反之误分类.<br>此时所有样本的约束条件就是$ y_i(w\cdot x_i +b) \ge 1 - \xi , i = 1, 2, … N$</p>
+<p>目标函数由原来的$\frac {1} {2} ||w||^2$ 变成</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+& \underset{w,b,\xi}{\mathrm{min}} \frac {1} {2} ||w||^2 + C \sum_{i=1}^N \xi_i
+\newline
+& y_i(w\cdot x_i +b) \ge 1 - \xi , i = 1, 2, ... N
+\newline
+& \xi \ge 0, \quad i = 1,2, ...N
+\end{align*}</script><p>这里的C是超参数$(C &gt; 0)$， 表示我们对误分类样本的重视程度： 如果C越大，表示误分类的影响较大，我们应该避免； 反之C越小，表示越对outliers容错。</p>
+<h1 id="Kernel-Method"><a href="#Kernel-Method" class="headerlink" title="Kernel Method"></a>Kernel Method</h1><p>前面硬间隔与软间隔都针对的是线性空间分类问题， 是不能直接处理非线性场景的。<br>因此有人提出了将低维空间转换为高维空间，在高维空间里再借助软硬间隔分类器。</p>
+<p>核方法（核函数）就是遵循了这种思路， 找到某个映射函数： $ \Phi: \mathcal{X}  \rightarrow \mathscr{Z}$ 使得原来空间的内积运算能够映射到高维空间中。 即，能找到这样一个函数 $\mathscr{K}(x_i, x_j) = &lt;\Phi(x_i), \Phi(x_j)&gt; $<br>我们称这个函数K为核函数。<br>通过观察发现在原来的软硬间隔优化问题当中， 其实对原始样本的计算只涉及到内积计算。因此我们没有必要去找到这个具体的映射， 而是 直接去用这个核函数的计算结果而非去寻找中间的映射函数$\Phi$，这种技巧称为核技巧（Kernel Trick） 。</p>
+<p>正定核： 对原样本组成的Gram矩阵如果是半正定的， 就称这样的核为正定核。</p>
+<p>以上内容基本把SVM支持向量机比较核心且重要的部分复习完了。</p>
 
           
         
@@ -1079,307 +1412,6 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/18/machinelearning04/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/18/machinelearning04/" class="post-title-link" itemprop="url">machinelearning04--Support Vector Machine</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-18 23:06:08" itemprop="dateCreated datePublished" datetime="2019-09-18T23:06:08+08:00">2019-09-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-28 06:40:26" itemprop="dateModified" datetime="2019-09-28T06:40:26+08:00">2019-09-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">5 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天复习支持向量机（SVM），是一种凸优化问题，也是一个非常经典的线性分类器。<br>由于涉及的概念和要学习的问题太过细致，因此在第二篇文章之后单独开一篇介绍。<br>李航老师和周志华老师的书都对其做了单独成单的介绍，建议大家阅读。<br>想要讨论的内容包括以下部分：</p>
-<ul>
-<li>Hard-Margin SVM （硬间隔SVM）</li>
-<li>Soft-Margin SVM （软间隔SVM）</li>
-<li>KKT Condition （KKT条件）</li>
-</ul>
-<p><img src="/images/svm.png" alt></p>
-<h1 id="Hard-Margin-SVM"><a href="#Hard-Margin-SVM" class="headerlink" title="Hard-Margin SVM"></a>Hard-Margin SVM</h1><p>凭借着对李航老师《统计学习方法》SVM这一章内容的回忆，首先要面对的问题是线性可分的数据集（linear separatable dataset), 然后寻找一条能将正负样本分开的超平面在。 并且让样本离超平面的最近距离要最远。 描述成这样的目标函数：</p>
-<script type="math/tex; mode=display">\underset{w,b}{\mathrm{max}}    \underset{i}{\mathrm{min}} \quad distance(x_i)</script><script type="math/tex; mode=display">s.t. \quad 所有样本点分类正确</script><p>这里对原生的优化问题进行了变形处理, 首先定义了函数间隔(Functional margin)</p>
-<script type="math/tex; mode=display">\hat \gamma_i = y_i(w\cdot x_i + b)</script><p>N个样本点， 令最近的函数间隔为 $ \hat \gamma $</p>
-<script type="math/tex; mode=display">\hat \gamma = \underset{i}{\mathrm{min}} \quad \hat \gamma_i, \quad i = 1,2, ...N</script><p>接下来引出几何间隔， $  \gamma_i $</p>
-<p>因为超平面的参数w, b可以同时放大缩小，不影响超平面的位置。<br>因此借用点到直线的距离公式：</p>
-<script type="math/tex; mode=display">\gamma_i = \frac {y_i (w\cdot x_i +b )} {||w||} = \frac {\hat \gamma_i} {||w||}</script><p>若w的二范数固定为1， 此时函数间隔与几何间隔相等。所以上面提到距离distance就换成刚刚定义的几何间隔最大问题（前提，满足所有的样本分类正确）。</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  max \quad \gamma
- \newline
- &  s.t. \quad \frac {y_i (w\cdot x_i +b )} {||w||} \ge \gamma, \quad i = 1,2, ... N
-\end{align*}</script><p>将上面的目标函数替换成函数间隔（带有w项）则为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  max \quad  \frac {\hat \gamma } {||w||}
- \newline
- &  s.t. \quad y_i (w\cdot x_i +b )  \ge \hat \gamma, \quad i = 1,2, ... N
-\end{align*}</script><p>又因为函数间隔可以通过放缩， 我们只关心超平面的参数项， 因此这里取函数间隔都为1， 得到更简化的形式：</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  max \quad  \frac {1} {||w||}
- \newline
- &  s.t. \quad y_i (w\cdot x_i +b )  \ge 1, \quad i = 1,2, ... N
-\end{align*}</script><p>最后，将最大问题转为最小问题 （约束优化通常表达为最小化问题）</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  \underset{w}{ {min}} \quad \frac {1} {2} {w^T \cdot w}
- \newline
- &  s.t. \quad 1 - y_i(w^T \cdot x_i +b ) \le 0 , \quad i = 1,2,. ... N
-\end{align*}</script><p>这是一个凸二次规划问题（Convex QP Problem)，求解思路是借助拉格朗日乘数法。 将原问题转变为对偶问题再求解。</p>
-<p>拉格朗日函数 $ L = L(w, b, \lambda) $后， 问题变成了</p>
-<script type="math/tex; mode=display">L = \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><script type="math/tex; mode=display">s.t. \quad \lambda_i \ge 0, \quad i = 1,2, ... N</script><p>原来要求 $ \frac {1} {2} {w^T \cdot w}$ 的最小值问题变为 $ min_w max_{\lambda} L $</p>
-<p>如果问题满足强对偶， 则可知原问题的最小最大的解 $ p^* $ 与对偶问题（最大最小）的解 $ d^*$ 是相等的。等式为：</p>
-<script type="math/tex; mode=display">\underset{w,b}{\mathrm{min}}    \underset{\lambda}{\mathrm{max}} \quad \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))
- =      \underset{\lambda}{\mathrm{max}} \underset{w,b}{\mathrm{min}}  \quad   \frac {1} {2} {w^T \cdot w}  + \sum_{i=1}^N \lambda_i (1 - y_i(w^T \cdot x_i +b ))</script><p>对L求 $ w 和 b$的偏导：</p>
-<script type="math/tex; mode=display">\frac {\partial L} {\partial w} = 0</script><script type="math/tex; mode=display">\frac {\partial L} {\partial b} = 0</script><p>分别得出：</p>
-<script type="math/tex; mode=display">w = \sum_i^N \lambda_i y_i x_i</script><script type="math/tex; mode=display">0 = \sum_i^N \lambda_i y_i</script><p>将以上参数代入， 得到对偶问题的最优化问题：</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- &  \underset{\lambda}{ {min}} \quad \frac {1} {2} \sum_i^N \sum_j^N \lambda_i \lambda_j y_i y_j (x_i \cdot x_j) - \sum_i^N \lambda_i
- \newline
- &  s.t.  \sum_i^N \lambda_i y_i = 0
- \newline
- & \quad \lambda_i \ge 0,  \quad i = 1,2,. ... N
-\end{align*}</script><blockquote>
-<p>松弛互补条件<br><strong>支持向量</strong> ， 最终达到最优问题边界条件的个别样本称为支持向量。<br>支持向量满足边界距离条件（等号），对应的 $\lambda_i$系数为正， 而不在间隔线上的样本， 它们对应的 $\lambda_i$ 系数均为0 。</p>
-</blockquote>
-<p>关于支持向量的定义做了如下的补充， 以及延伸了KKT条件。</p>
-<h2 id="约束最优化问题"><a href="#约束最优化问题" class="headerlink" title="约束最优化问题"></a>约束最优化问题</h2><p>凸优化问题是指这样的最小化问题， 具有若干个不等值约束与若干个等值约束，<br>假设具有k个不等约束、l个等值约束。写成</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-& \underset{x}{\mathrm{min}} \quad f(x)
-\newline
-& s.t. \quad g_i(x) \le 0, \quad i = 1, 2, ... k
-\newline
-& \quad \quad h_j(x) = 0, \quad j = 1,2, ... l
-\end{align*}</script><p>引入Lagrange函数：</p>
-<script type="math/tex; mode=display">L(x, \lambda, \eta) = f(x) + \sum_{i=1}^k \lambda_i g_i(x) + \sum_{j=1}^l \eta_j h_j(x)</script><p>其中 $\lambda_i \ge 0, 对所有i$</p>
-<p>通过求导，令导数为0得到最优解， 而且最优解必须满足KKT条件。<br>那么下面介绍什么是KKT条件。</p>
-<h2 id="KKT条件-Karush-Kuhn-Tucker-Condition"><a href="#KKT条件-Karush-Kuhn-Tucker-Condition" class="headerlink" title="KKT条件(Karush-Kuhn-Tucker Condition)"></a>KKT条件(Karush-Kuhn-Tucker Condition)</h2><blockquote>
-<p>1） 满足 L 函数的导数为0；<br>2)  满足 所有不等约束取等号的条件；<br>3)  满足 $\lambda_i g_i(x) = 0 $, 又称KKT松弛互补条件。</p>
-</blockquote>
-<p>在支持向量机中， 利用第三个条件能快速得到：</p>
-<ul>
-<li>如果是不在分类边界上的点， 它们一定满足 $ h_i(x) &lt; 0 $ 则对应的 $\lambda_i$ 系数为0；</li>
-<li>如果在分类边界上的点， 它们一定满足 $ h_i(x) = 0 $ 则对应的 $\lambda_i$ 系数为正数； 这些点就称为 <em>支持向量</em></li>
-</ul>
-<p>在支持向量的场景下，我再把KKT条件写的具体一些。</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-\nabla_w L(w^*, b^*, \lambda) = 0
-\\\nabla_b L(w^*, b^*, \lambda) = 0
-\\ \lambda_i \ge 0 , \quad i = 1,2, ... N
-\\ 1 - y_i( (w^*)^T \cdot x_i + b^* ) \le 0, \quad i = 1,2, ... N
-\\ \lambda_i (1 - y_i( (w^*)^T \cdot x_i + b^* )) = 0, \quad i = 1,2, ... N
-\end{cases}</script><h1 id="Soft-Margin-SVM"><a href="#Soft-Margin-SVM" class="headerlink" title="Soft-Margin SVM"></a>Soft-Margin SVM</h1><p>软间隔SVM是指对<strong>训练集样本均满足线性可分</strong>这一约束条件进行放松， 允许有一些样本是误分类的。<br>回顾之前提到的线性均可分是指所有样本的函数间隔都大于等于1:</p>
-<script type="math/tex; mode=display">对于所有 i = 1, 2... N, 都有 y_i (w\cdot x_i +b) \ge 1</script><p>那么，如果说有些异常样本(outliers)不满足这个条件， 它们属于误分类（说明它们的函数间隔小于1）， 我们就令超出部分的间隔距离为参数 $\xi_i （\xi \ge 0, i = 1,2 … N ）$</p>
-<p>这里如果$\xi_i = 0 $ 即说明样本是正确分类， 反之误分类.<br>此时所有样本的约束条件就是$ y_i(w\cdot x_i +b) \ge 1 - \xi , i = 1, 2, … N$</p>
-<p>目标函数由原来的$\frac {1} {2} ||w||^2$ 变成</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-& \underset{w,b,\xi}{\mathrm{min}} \frac {1} {2} ||w||^2 + C \sum_{i=1}^N \xi_i
-\newline
-& y_i(w\cdot x_i +b) \ge 1 - \xi , i = 1, 2, ... N
-\newline
-& \xi \ge 0, \quad i = 1,2, ...N
-\end{align*}</script><p>这里的C是超参数$(C &gt; 0)$， 表示我们对误分类样本的重视程度： 如果C越大，表示误分类的影响较大，我们应该避免； 反之C越小，表示越对outliers容错。</p>
-<h1 id="Kernel-Method"><a href="#Kernel-Method" class="headerlink" title="Kernel Method"></a>Kernel Method</h1><p>前面硬间隔与软间隔都针对的是线性空间分类问题， 是不能直接处理非线性场景的。<br>因此有人提出了将低维空间转换为高维空间，在高维空间里再借助软硬间隔分类器。</p>
-<p>核方法（核函数）就是遵循了这种思路， 找到某个映射函数： $ \Phi: \mathcal{X}  \rightarrow \mathscr{Z}$ 使得原来空间的内积运算能够映射到高维空间中。 即，能找到这样一个函数 $\mathscr{K}(x_i, x_j) = &lt;\Phi(x_i), \Phi(x_j)&gt; $<br>我们称这个函数K为核函数。<br>通过观察发现在原来的软硬间隔优化问题当中， 其实对原始样本的计算只涉及到内积计算。因此我们没有必要去找到这个具体的映射， 而是 直接去用这个核函数的计算结果而非去寻找中间的映射函数$\Phi$，这种技巧称为核技巧（Kernel Trick） 。</p>
-<p>正定核： 对原样本组成的Gram矩阵如果是半正定的， 就称这样的核为正定核。</p>
-<p>以上内容基本把SVM支持向量机比较核心且重要的部分复习完了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-      
-      }
-    
-      
-        
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/12/machinelearning03线性分类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1442,7 +1474,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-28 06:39:50" itemprop="dateModified" datetime="2019-09-28T06:39:50+08:00">2019-09-28</time>
+                <time title="Modified: 2019-09-30 09:29:24" itemprop="dateModified" datetime="2019-09-30T09:29:24+08:00">2019-09-30</time>
               
             
           </span>
@@ -1679,7 +1711,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-28 06:39:23" itemprop="dateModified" datetime="2019-09-28T06:39:23+08:00">2019-09-28</time>
+                <time title="Modified: 2019-09-28 20:43:08" itemprop="dateModified" datetime="2019-09-28T20:43:08+08:00">2019-09-28</time>
               
             
           </span>
@@ -1725,7 +1757,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2k</span>
+                <span title="Symbols count in article">2.1k</span>
               
 
               
@@ -1795,7 +1827,11 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
 <p>另外， 从另一个角度也可以去延伸过来： 在解析解中体现的 对某方阵求逆， 那么这个矩阵可逆吗？</p>
 <p>以岭回归为例， 它的损失函数形式是：</p>
 <script type="math/tex; mode=display">\hat w = \underset{w}{\mathrm{argmin}} \quad  \Sigma (y_i - w^T x_i)^2  + \lambda \Sigma ||w_i||^2</script><p>解析解求得：</p>
-<script type="math/tex; mode=display">\hat w = (X^T X + \lambda I)^{-1} X^T Y</script>
+<script type="math/tex; mode=display">\hat w = (X^T X + \lambda I)^{-1} X^T Y</script><h1 id="Scikit-Learn-样例代码"><a href="#Scikit-Learn-样例代码" class="headerlink" title="Scikit-Learn 样例代码"></a>Scikit-Learn 样例代码</h1><p>OLS  普通最小二乘回归的代码</p>
+<ul>
+<li><a href="https://github.com/staticor/sklearn-examples/tree/master/02OLS" target="_blank" rel="noopener">https://github.com/staticor/sklearn-examples/tree/master/02OLS</a></li>
+</ul>
+
           
         
       
@@ -1916,7 +1952,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-28 06:38:30" itemprop="dateModified" datetime="2019-09-28T06:38:30+08:00">2019-09-28</time>
+                <time title="Modified: 2019-10-13 12:12:42" itemprop="dateModified" datetime="2019-10-13T12:12:42+08:00">2019-10-13</time>
               
             
           </span>
@@ -2104,573 +2140,6 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
       
       }
     
-      
-        
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/07/17/formula/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/17/formula/" class="post-title-link" itemprop="url">formula</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-07-17 23:21:30" itemprop="dateCreated datePublished" datetime="2019-07-17T23:21:30+08:00">2019-07-17</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">0</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-      
-      }
-    
-      
-        
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/07/04/什么是数学-md/2019-07-04-什么是数学-md/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/04/什么是数学-md/2019-07-04-什么是数学-md/" class="post-title-link" itemprop="url">统计知识</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-07-04 16:41:57" itemprop="dateCreated datePublished" datetime="2019-07-04T16:41:57+08:00">2019-07-04</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-07-19 06:36:27" itemprop="dateModified" datetime="2019-07-19T06:36:27+08:00">2019-07-19</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">341</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="概率论"><a href="#概率论" class="headerlink" title="概率论"></a>概率论</h1><h2 id="探索性数据分析"><a href="#探索性数据分析" class="headerlink" title="探索性数据分析"></a>探索性数据分析</h2><ul>
-<li>均值</li>
-</ul>
-<script type="math/tex; mode=display">\bar x = \frac {(x_1 + x_2 + ... + x_n)}  {N}</script><script type="math/tex; mode=display">\bar x_{truncated} = \frac {(x_{10} + x_{11} + ... + x_{90})}  {N_{80\%}}</script><script type="math/tex; mode=display">{(x_{1} , x_{2} , ... x_{ \frac {N} {2}}  .. , , x_{N})}</script><script type="math/tex; mode=display">\sigma^2  = \frac {  (x_1 - \bar x)^2 + (x_2 - \bar x)^2 ... + + (x_N - \bar x)^2 }  {N}</script><h2 id="经典的数据分布"><a href="#经典的数据分布" class="headerlink" title="经典的数据分布"></a>经典的数据分布</h2><ul>
-<li>泊松分布</li>
-</ul>
-<script type="math/tex; mode=display">P(X=k) = \frac {e^{- \lambda} * \lambda^k} {k!}</script><script type="math/tex; mode=display">P(X<=k) = e^{- \lambda} * \Sigma_{i=0}^k \frac {\lambda^i} {i!}</script><ul>
-<li>指数分布</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-      
-      }
-    
-      
-        
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/06/15/baseStone-la-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/15/baseStone-la-1/" class="post-title-link" itemprop="url">baseStone-la-1， 向量与矩阵</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-15 11:54:03 / Modified: 12:25:48" itemprop="dateCreated datePublished" datetime="2019-06-15T11:54:03+08:00">2019-06-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.6k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>BaseStone-数学部分-线性代数</p>
-<p>本篇介绍欧氏空间（Euclidean Space)中的向量（Vector）与矩阵（Matrix）</p>
-<h1 id="向量（Vector）"><a href="#向量（Vector）" class="headerlink" title="向量（Vector）"></a>向量（Vector）</h1><p>向量的定期是基于N维空间的。 先介绍一维空间，就是初中所学的数轴。<br>在一条无限延长的直线上， 比如规定了零点（大O）之后，再约定一个单位长度（例如 1cm = ‘1’), 那么通过向左和向右的无限延长， 就得到了一个描述所有有理数的数轴了， 无理数我们只能近似的在图中标注（但不会准确）， 例如圆周率pi， 是介于3.1415926与3.1415927之间的无理数， 它没有办法用区间套或者从实数完备性的角度准确的定位。</p>
-<p>但总体来说，我们能把一条数轴对应成实数域大R上。<br>在实数上我们能定义两个数的加法， 一个数的倍数（数乘）的运算， 称之为线性运算。</p>
-<p>两条数轴呢？ 以我们最熟悉的二维笛卡尔坐标为例， 就是在平面上由垂直的一对线组成， 水平线通常记为x轴， 竖直线记为y轴。 这样我们就有了二维向量的概念。</p>
-<p>二者相交的点记为零点（大O）它的坐标是 （0，0）， 向右、向上分别一个单位长就得到了坐标（1，1）。<br>这个点与零点的连线就是这个点对应的向量，和它的坐标值相同（1，1）。</p>
-<p>那么和数轴运算类似地，也能定义两个向量的加法和一个向量的数乘：</p>
-<script type="math/tex; mode=display">\vec v = (x_1, y_1),  \vec u = (x_2, y_2)</script><p>则有</p>
-<script type="math/tex; mode=display">\vec v  + \vec u =  (x_1 + x_2, y_1 + y_2)</script><script type="math/tex; mode=display">k * \vec v = (k * x_1， k * y_2)</script><p>* 表示两个数的普通乘法， 在一个数与一个向量的中间的* 表示数乘，也可以理解对一个向量进行了倍长（延长k倍 or 缩小为原来的若干）</p>
-<p>两个向量运算中我认为最重要的就是点积（也叫内积）。</p>
-<p>dot product (inner product):</p>
-<script type="math/tex; mode=display">\vec v = (x_1, y_1),  \vec u = (x_2, y_2)</script><script type="math/tex; mode=display">{\vec v} · {\vec u} = (x_1 * x_2 + y_1 * y_2)</script><p>所以最后的结果就是一个数了。 点积满足交换和线性的特点， 还有半正定性。</p>
-<h1 id="矩阵（Matrix）"><a href="#矩阵（Matrix）" class="headerlink" title="矩阵（Matrix）"></a>矩阵（Matrix）</h1><p>多个相同维度的向量按行或按列排在一起的形式就是矩阵。<br>矩阵的加法和数乘与前面类似， 这里不赘述了。</p>
-<p>在介绍矩阵的课程通常是从线性方程组出发</p>
-<script type="math/tex; mode=display">齐次: A \vec x = \vec 0</script><script type="math/tex; mode=display">非齐次: A \vec x = \vec b</script><p>但我个人更喜欢在介绍A之前，先讲解向量组。 并深刻理解向量组之间的线性相关性和相关无关性。</p>
-<p>进而再将向量组按行或按列的形式组织矩阵。</p>
-<p>于是就有了秩（Rank）、行秩与列秩的概念。</p>
-<p>特别一提的就是矩阵的乘积 AB 能够乘在一起的条件是明确要求的，虽然你也能定义自己的乘法，不过数学领域中有些约定俗成的事情，容不得变通。<br>标准矩阵乘法</p>
-<script type="math/tex; mode=display">A · B = C  ， c_{ij} = a_i · b_j</script><p>其中$a_i$是矩阵A的行 $b_j$ 是矩阵B的列。</p>
-<p>有了乘法之后才有的逆矩阵。</p>
-<h2 id="矩阵的行列式"><a href="#矩阵的行列式" class="headerlink" title="矩阵的行列式"></a>矩阵的行列式</h2><p>物理角度来说行列式就是矩阵对应多维平行超六面体的体积（带符号）。</p>
-<p>所以想到行列式的性质我们能列出：</p>
-<p>有一行为0则det为0；<br>有两行一样则det为0 ；<br>一大可拆成2小；<br>。。。 。。。</p>
-<h2 id="矩阵的逆"><a href="#矩阵的逆" class="headerlink" title="矩阵的逆"></a>矩阵的逆</h2><p>可逆矩阵是数学家喜欢看到的， 但对矩阵的要求也就高了一些。</p>
-<h2 id="矩阵的分解"><a href="#矩阵的分解" class="headerlink" title="矩阵的分解"></a>矩阵的分解</h2><p>说到分解， 首先对可逆矩阵来说，最著名的是高斯LU分解。</p>
-<p>通过一系列初等变换矩阵， 我们将原来的矩阵A变换为上三角型U。 左侧的系列矩阵乘积记为L。</p>
-<p>另一种是对对称矩阵的对角化分解，叫做</p>
-<script type="math/tex; mode=display">A = S \Gamma S^{-1}</script><p>更进一步地对所有矩阵，则有SVD分解。</p>
-<p>关于矩阵， 其实如果要系统展开的话得介绍40讲以上的线性代数课程。</p>
-<p>我特别喜欢的课程 B站 搜索 Gilbert Strang， 喜欢线性代数的同学， 去看吧。</p>
-<p>（版权归个人所有， 请勿用于商业。）</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-      
-      }
-    
   </section>
 
   
@@ -2718,7 +2187,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2784,9 +2253,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2801,7 +2268,7 @@ MSE_{node} = \sum_{i \in node} ( \hat y_{node} - y^{(i)} )^2 \\
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学公式/">数学公式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -2868,7 +2335,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学公式/">数学公式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -2904,7 +2371,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">50k</span>
+    <span title="Symbols count total">59k</span>
   
 
   
@@ -2913,7 +2380,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">45 mins.</span>
+    <span title="Reading time total">54 mins.</span>
   
 </div>
 
