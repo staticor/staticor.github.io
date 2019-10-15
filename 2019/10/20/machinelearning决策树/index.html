@@ -102,18 +102,18 @@
 
 
 
-  <meta name="description" content="二进制的产生现代二进制记数是由 莱布尼茨于1679年设计，《论只使用符号0和1的二进制算法，兼论其用途及它賦予伏羲所使用的古老圖形的意義》最初发表于1705年。这篇论文文包含了萊布尼茨关于二进制算法的表达方式、規律特点、優勢與用途的論述以及他對於中國伏羲文化的思考。 我认为影响他的有这些内容： 古埃及有个叫“荷鲁斯之眼”分数的系统，是以 \frac{1}{2} \frac{1}{4} \frac{">
-<meta name="keywords" content="计算机">
+  <meta name="description" content="今天介绍一个我最钟爱的模型之一， 决策树模型。">
+<meta name="keywords" content="数学,机器学习,监督学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="binary">
-<meta property="og:url" content="https://staticor.github.io/2019/06/02/binary/index.html">
+<meta property="og:title" content="machinelearning05--决策树模型以及GDBT">
+<meta property="og:url" content="https://staticor.github.io/2019/10/20/machinelearning决策树/index.html">
 <meta property="og:site_name" content="Staticor hungry">
-<meta property="og:description" content="二进制的产生现代二进制记数是由 莱布尼茨于1679年设计，《论只使用符号0和1的二进制算法，兼论其用途及它賦予伏羲所使用的古老圖形的意義》最初发表于1705年。这篇论文文包含了萊布尼茨关于二进制算法的表达方式、規律特点、優勢與用途的論述以及他對於中國伏羲文化的思考。 我认为影响他的有这些内容： 古埃及有个叫“荷鲁斯之眼”分数的系统，是以 \frac{1}{2} \frac{1}{4} \frac{">
+<meta property="og:description" content="今天介绍一个我最钟爱的模型之一， 决策树模型。">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-06-02T16:10:41.748Z">
+<meta property="og:updated_time" content="2019-10-14T14:43:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="binary">
-<meta name="twitter:description" content="二进制的产生现代二进制记数是由 莱布尼茨于1679年设计，《论只使用符号0和1的二进制算法，兼论其用途及它賦予伏羲所使用的古老圖形的意義》最初发表于1705年。这篇论文文包含了萊布尼茨关于二进制算法的表达方式、規律特点、優勢與用途的論述以及他對於中國伏羲文化的思考。 我认为影响他的有这些内容： 古埃及有个叫“荷鲁斯之眼”分数的系统，是以 \frac{1}{2} \frac{1}{4} \frac{">
+<meta name="twitter:title" content="machinelearning05--决策树模型以及GDBT">
+<meta name="twitter:description" content="今天介绍一个我最钟爱的模型之一， 决策树模型。">
 
 
 
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="https://staticor.github.io/2019/06/02/binary/">
+  <link rel="canonical" href="https://staticor.github.io/2019/10/20/machinelearning决策树/">
 
 
 
@@ -132,7 +132,7 @@
   };
 </script>
 
-  <title>binary | Staticor hungry</title>
+  <title>machinelearning05--决策树模型以及GDBT | Staticor hungry</title>
   
 
 
@@ -289,6 +289,14 @@
 
       
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
     </ul>
   
 
@@ -297,6 +305,33 @@
 
   
 
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
   
 </nav>
 
@@ -335,7 +370,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/06/02/binary/">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/10/20/machinelearning决策树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jinyong Yang">
@@ -352,7 +387,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">binary
+          <h1 class="post-title" itemprop="name headline">machinelearning05--决策树模型以及GDBT
 
               
             
@@ -378,7 +413,7 @@
                 
               
 
-              <time title="Created: 2019-06-02 23:46:20" itemprop="dateCreated datePublished" datetime="2019-06-02T23:46:20+08:00">2019-06-02</time>
+              <time title="Created: 2019-10-20 23:06:08" itemprop="dateCreated datePublished" datetime="2019-10-20T23:06:08+08:00">2019-10-20</time>
             
 
             
@@ -395,12 +430,30 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-03 00:10:41" itemprop="dateModified" datetime="2019-06-03T00:10:41+08:00">2019-06-03</time>
+                <time title="Modified: 2019-10-14 22:43:00" itemprop="dateModified" datetime="2019-10-14T22:43:00+08:00">2019-10-14</time>
               
             
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -410,6 +463,13 @@
           
           
 
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
           
 
           
@@ -423,7 +483,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">303</span>
+                <span title="Symbols count in article">24</span>
               
 
               
@@ -457,12 +517,8 @@
       
 
       
-        <h1 id="二进制的产生"><a href="#二进制的产生" class="headerlink" title="二进制的产生"></a>二进制的产生</h1><p>现代二进制记数是由 莱布尼茨于1679年设计，《论只使用符号0和1的二进制算法，兼论其用途及它賦予伏羲所使用的古老圖形的意義》最初发表于1705年。<br>这篇论文文包含了萊布尼茨关于二进制算法的表达方式、規律特点、優勢與用途的論述以及他對於中國伏羲文化的思考。</p>
-<p>我认为影响他的有这些内容：</p>
-<p>古埃及有个叫“荷鲁斯之眼”分数的系统，是以</p>
-<script type="math/tex; mode=display">\frac{1}{2} \frac{1}{4} \frac{1}{8} \frac{1}{16} \frac{1}{32} 和 \frac{1}{64}</script><p>等二进制分数的和。</p>
-<p>1605年，弗朗西斯·培根提出一套系统，可以把26个字母化为二进制数。</p>
-<h1 id="计算机为什么使用二进制"><a href="#计算机为什么使用二进制" class="headerlink" title="计算机为什么使用二进制"></a>计算机为什么使用二进制</h1>
+        <p>今天介绍一个我最钟爱的模型之一， 决策树模型。</p>
+
       
     </div>
 
@@ -485,7 +541,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/计算机/" rel="tag"># 计算机</a>
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/监督学习/" rel="tag"># 监督学习</a>
           
         </div>
       
@@ -498,8 +558,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/01/dynamic-programming/" rel="next" title="dynamic-programming">
-                <i class="fa fa-chevron-left"></i> dynamic-programming
+              <a href="/2019/10/18/machinelearning06朴素贝叶斯/" rel="next" title="machinelearning06--朴素贝叶斯Naive Bayes">
+                <i class="fa fa-chevron-left"></i> machinelearning06--朴素贝叶斯Naive Bayes
               </a>
             
           </div>
@@ -508,8 +568,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/15/baseStone-la-1/" rel="prev" title="baseStone-la-1， 向量与矩阵">
-                baseStone-la-1， 向量与矩阵 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/11/01/machinelearning07EM/" rel="prev" title="machinelearning07-GMM与EM算法">
+                machinelearning07-GMM与EM算法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -555,17 +615,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -580,7 +631,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">26</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -648,7 +699,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -663,7 +716,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学公式/">数学公式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -683,6 +736,24 @@
           
 
           
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://terror-lm.github.io/" title="https://terror-lm.github.io/" rel="noopener" target="_blank">LM[蒙]</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kiseayoung.com" title="https://kiseayoung.com" rel="noopener" target="_blank">HJ[海君]</a>
+                  </li>
+                
+              </ul>
+            </div>
           
 
           
@@ -730,7 +801,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机/">计算机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学公式/">数学公式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -740,23 +811,6 @@ show_date_time();
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二进制的产生"><span class="nav-number">1.</span> <span class="nav-text">二进制的产生</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机为什么使用二进制"><span class="nav-number">2.</span> <span class="nav-text">计算机为什么使用二进制</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
@@ -783,7 +837,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">50k</span>
+    <span title="Symbols count total">63k</span>
   
 
   
@@ -792,7 +846,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">45 mins.</span>
+    <span title="Reading time total">57 mins.</span>
   
 </div>
 
@@ -811,6 +865,32 @@ show_date_time();
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
 
 
 
@@ -926,6 +1006,19 @@ show_date_time();
 
 
 
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.0"></script>
+
+
 
   
 
@@ -938,6 +1031,57 @@ show_date_time();
   
 
   
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
   
@@ -953,10 +1097,15 @@ show_date_time();
   
 
   
-
   
-
   
+  <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
+  <script>
+  
+    bookmark.scrollToMark('auto', "#more");
+  
+  </script>
+
 
   
 
