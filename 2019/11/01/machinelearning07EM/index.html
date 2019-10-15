@@ -102,17 +102,18 @@
 
 
 
-  <meta name="description" content="big data, data mining, machine learning">
-<meta name="keywords" content="big data, data mining, machine learning">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Staticor hungry">
-<meta property="og:url" content="https://staticor.github.io/archives/2019/09/index.html">
+  <meta name="description" content="老实来说， EM算法按道理讲并不是那么难。 但我看过几次书中的介绍后，都是感觉少了一些东西，以至于合起书之后，对着一张白纸，发着“自以为懂了的呆”，无地自容。 不过最近受到一些启示，在B站、Y站上看到不少机器学习的视频，通过横纵比较，交叉学习，我渐渐抛弃了之前“尽信书，不知思”的囧境。 EM算法是在学习未知参数时用到的迭代型学习算法， 和优化逼近的思路不同（以梯度下降为代表），它的出发点是概率优化">
+<meta name="keywords" content="数学,机器学习,GMM,EM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="machinelearning07-GMM与EM算法">
+<meta property="og:url" content="https://staticor.github.io/2019/11/01/machinelearning07EM/index.html">
 <meta property="og:site_name" content="Staticor hungry">
-<meta property="og:description" content="big data, data mining, machine learning">
+<meta property="og:description" content="老实来说， EM算法按道理讲并不是那么难。 但我看过几次书中的介绍后，都是感觉少了一些东西，以至于合起书之后，对着一张白纸，发着“自以为懂了的呆”，无地自容。 不过最近受到一些启示，在B站、Y站上看到不少机器学习的视频，通过横纵比较，交叉学习，我渐渐抛弃了之前“尽信书，不知思”的囧境。 EM算法是在学习未知参数时用到的迭代型学习算法， 和优化逼近的思路不同（以梯度下降为代表），它的出发点是概率优化">
 <meta property="og:locale" content="en-GB">
+<meta property="og:updated_time" content="2019-10-15T05:36:47.098Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Staticor hungry">
-<meta name="twitter:description" content="big data, data mining, machine learning">
+<meta name="twitter:title" content="machinelearning07-GMM与EM算法">
+<meta name="twitter:description" content="老实来说， EM算法按道理讲并不是那么难。 但我看过几次书中的介绍后，都是感觉少了一些东西，以至于合起书之后，对着一张白纸，发着“自以为懂了的呆”，无地自容。 不过最近受到一些启示，在B站、Y站上看到不少机器学习的视频，通过横纵比较，交叉学习，我渐渐抛弃了之前“尽信书，不知思”的囧境。 EM算法是在学习未知参数时用到的迭代型学习算法， 和优化逼近的思路不同（以梯度下降为代表），它的出发点是概率优化">
 
 
 
@@ -121,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="https://staticor.github.io/archives/2019/09/">
+  <link rel="canonical" href="https://staticor.github.io/2019/11/01/machinelearning07EM/">
 
 
 
@@ -131,7 +132,7 @@
   };
 </script>
 
-  <title>Archive | Staticor hungry</title>
+  <title>machinelearning07-GMM与EM算法 | Staticor hungry</title>
   
 
 
@@ -179,7 +180,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-archive">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -238,7 +239,7 @@
         
         
           
-          <li class="menu-item menu-item-archive menu-item-active">
+          <li class="menu-item menu-item-archive">
 
     
     
@@ -302,25 +303,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -372,218 +354,311 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/11/01/machinelearning07EM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Staticor hungry">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">machinelearning07-GMM与EM算法
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-01 21:53:24" itemprop="dateCreated datePublished" datetime="2019-11-01T21:53:24+08:00">2019-11-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-15 13:36:47" itemprop="dateModified" datetime="2019-10-15T13:36:47+08:00">2019-10-15</time>
+              
+            
+          </span>
+
           
-        
-        Um..! 26 posts in total. Keep on posting.
-      </span>
-      
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/22/math-career-suggest/" itemprop="url">
+          
             
-              <span itemprop="name">math-career-suggest</span>
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-22T10:58:06+08:00" content="2019-09-22">
-          09-22
-        </time>
-      </div>
+          
+          
 
-    </header>
-  </article>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
 
+          
+            <div class="post-symbolscount">
+              
 
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">3.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">4 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/18/machinelearning04支持向量机/" itemprop="url">
-            
-              <span itemprop="name">machinelearning04--Support Vector Machine</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-18T23:06:08+08:00" content="2019-09-18">
-          09-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/18/sklearn-route01/" itemprop="url">
-            
-              <span itemprop="name">sklearn学习--常规模型的用法及Sample</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-18T23:06:08+08:00" content="2019-09-18">
-          09-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
+        <p>老实来说， EM算法按道理讲并不是那么难。 但我看过几次书中的介绍后，都是感觉少了一些东西，以至于合起书之后，对着一张白纸，发着“自以为懂了的呆”，无地自容。</p>
+<p>不过最近受到一些启示，在B站、Y站上看到不少机器学习的视频，通过横纵比较，交叉学习，我渐渐抛弃了之前“尽信书，不知思”的囧境。</p>
+<p>EM算法是在学习未知参数时用到的迭代型学习算法， 和优化逼近的思路不同（以梯度下降为代表），它的出发点是概率优化。 优化的是基础核心： 极大化似然函数（MLE, Maximize Likelihood Estimation）或者是最大后验（Maximize A Posteriori)。 因此不管在何时何地，都有必要写下这个式子:</p>
+<script type="math/tex; mode=display">P( \theta | X ) \propto P( X | \theta ) P(\theta)</script><p>$ P( \theta | X ) 表示后验$<br>$ P( X | \theta ) 表示似然函数 $<br>$ P(\theta) $ 表示的是先验分布；</p>
+<h1 id="极大似然估计小引—-以一维Gauss分布为例"><a href="#极大似然估计小引—-以一维Gauss分布为例" class="headerlink" title="极大似然估计小引— 以一维Gauss分布为例"></a>极大似然估计小引— 以一维Gauss分布为例</h1><blockquote>
+<p>一维Gauss分布的概率密度函数为</p>
+<script type="math/tex; mode=display">P(x | \theta ) = \frac {1} {\sqrt {2\pi} \sigma} exp\{ \frac {-1}{2} (x-\mu)^2 \}</script><p>另外我们还要有一些数据独立性假设： 我们得到的原始数据集是满足<em>独立同分布</em>的， 即<br>$ x_i (i.i.d) ~~ N(\mu, \sigma^2) $ 对所有 $ x_i \in X $ 成立</p>
+</blockquote>
+<p>假设拥有数据的容量是$N$，下面我们要做的事情是从0开始推导此场景下的参数估计。 先写出对数似然函数:</p>
+<script type="math/tex; mode=display">log P(X | \theta)</script><p>前面加上对数符号的作用是为了后面要使用iid条件， 将连乘问题转为连加问题。 而且又因为对数函数不改变原函数单调性， 概率也分布于区间[0, 1] 上, 不考虑极端0点的情况下， 这个引入是一种自然想法， 特别是你看到下列连乘式写出：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+& log P(X | \theta) = log P(x_1, x_2, ..., x_N | \theta )
+ \newline
+ &  = log [P(x_1| \theta ) P(x_2| \theta) ... P(x_N| \theta)]
+ \newline
+ & =  log \prod_{i=1}^N P(x_i | \theta)
+ \newline
+ & = \sum_{i=1}^N log P(x_i | \theta)
+\end{align*}</script><blockquote>
+<p>不要怕麻烦， 将Gauss分布的密度函数代入上面的结果，写出完整对数似然函数，记$L$</p>
+</blockquote>
+<p>tips: 要做的事情就是求一个多元函数极值问题, 即写成这个样式：</p>
+<script type="math/tex; mode=display">(\mu_{mle}, \sigma^2_{mle}) = \underset {\mu, \sigma^2} {argmax} \quad L(\mu, \sigma^2)</script><script type="math/tex; mode=display">
+\begin{align*}
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/12/machinelearning03线性分类/" itemprop="url">
-            
-              <span itemprop="name">machinelearning03--Linear Classification-Fisher判别与LogisticRegression</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-12T15:39:12+08:00" content="2019-09-12">
-          09-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+ \newline
+ &  L(\mu, \sigma^2) = \sum_{i=1}^N  log [\frac {1} {\sqrt {2\pi} \sigma} - \frac {1}{2\sigma^2} (x_i -\mu)^2 \} ]
+ \newline
+ & L(\mu, \sigma^2) = \sum_{i=1}^N  [ \frac {-1} {2} log (2\pi\sigma^2) - \frac {1}{2\sigma^2} (x_i -\mu)^2 \} ]
+\end{align*}</script><blockquote>
+<p>(在此场景下， 牢记 $sigma^2$ 是我们关心的， 而非 $\sigma$) = , -<br>大学基本技能，求微分</p>
+</blockquote>
+<p>上面的函数看成 $\theta = (\mu, \sigma^2)$ 的二元函数， 求该函数极值就自然想到了对各自求偏导：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ & \frac {\partial L(\mu, \sigma^2) } {\partial \mu} = \sum_{i=1}^N (\mu - x_i) \rightarrowtail 0
+ \newline
+ & \Rightarrow  \mu_{mle} = \frac {1} {N} \sum_i^N x_i
+\end{align*}</script><script type="math/tex; mode=display">
+\begin{align*}
+ & \frac {\partial L(\mu, \sigma^2) } {\partial \sigma^2} = \sum_{i=1}^N [ \frac {-1} {2\sigma^2} + \frac{1}{2 \sigma^4} (x_i - \mu)^2 ]\rightarrowtail 0
+ \newline
+ & \Rightarrow  \sigma^2_{mle} = \frac {1} {N} \sum_i^N (x_i - \mu)^2
+\end{align*}</script><p>tips: 这里本科统计学还有印象的人可能会有印象，要注意的是极大似然估计得出的 $\sigma^2_{mle}$并非无偏估计，而是有偏估计量。</p>
+<h1 id="GMM"><a href="#GMM" class="headerlink" title="GMM"></a>GMM</h1><p>我们将问题复杂一点， 一方面将问题推广至正常的多维空间，而是正常Gauss分布。另外也把样本的出处搞得复杂一些：<br>上面估计问题的假设是单Gauss分布，并且各样本间服从iid假设，那么要是原样本来自k个不同的Gauss分布又会如何呢？</p>
+<script type="math/tex; mode=display">\theta_1 = (\mu_1, \Sigma_1)</script><script type="math/tex; mode=display">\theta_2 = (\mu_2, \Sigma_2)</script><script type="math/tex; mode=display">\cdot \cdot \cdot</script><script type="math/tex; mode=display">\theta_k = (\mu_k, \Sigma_k)</script><p>此时模型参数不再是单纯估计一组 $$ \theta = (\mu, \Sigma) $什么样的呢？<br>至少来说有k个Gauss分布，那么至少参数空间应该有这些未知量：</p>
+<script type="math/tex; mode=display">\Theta = \{ \theta_1, \theta_2, ..., \theta_k \}</script><p>但如果光写成这个样子，并不好，原因是我们没有考虑到各个Gauss分布出现的权重问题， 即假设权重向量为 $\alpha = ( \alpha_1, \alpha_2, …, \alpha_k ) $<br>因此此时参数空间就考虑周全了：</p>
+<script type="math/tex; mode=display">\Theta = \{ \theta_1, \theta_2, ..., \theta_k， \alpha_1, \alpha_2, ..., \alpha_k \}</script><script type="math/tex; mode=display">s.t.  \sum_i^k \alpha_i = 1 \quad</script><p>此时该模型定义为GMM（Gaussian Mixture Model， 高斯混合模型）。</p>
+<p>定义完模型之后，我们的问题就转变为，如何学习它的参数呢？</p>
+<p>如果还是仿照着前面单高斯场景下， 我们来写出它的对数似然函数（希望不要被吓唬住）：</p>
+<script type="math/tex; mode=display">\Theta_{mle} = \underset{\Theta} {argmax} \quad \{ \sum_{i=1}^N  log [ \sum_{l=1}^k \alpha_l N(\mu_l, \Sigma_l)  ] \}</script><p>tips: 这里为了让式子不吓人已经将Gauss分布密度函数简写为N-形式。<br>为什么不能继续求出偏导然后完事了解呢， 这是因为在上面的情况下，问题复杂大大增加，上面的式子中 对数函数 log内的真值部分是一个求和形式，我们知道Log只能对求积形式有化简，而非求和，在此情此境下，解决原来问题的偏微分方程组变得不太现实，所以得尝试借助一些巧妙技巧。</p>
+<p>后来终于有伟大的数学家站了出来，1977年由Dempster等人提出一种名为EM的迭代优化算法。对于含有隐变量(latent variable)的概率模型的极大似然估计， 或者MAP-极大后验估计的算法。 EM算法分成两步，也就是它字面意义上的E步（求期望-Expectation)与M步（极大化-Maximization）。</p>
+<h1 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h1><h2 id="EM算法怎么来的？"><a href="#EM算法怎么来的？" class="headerlink" title="EM算法怎么来的？"></a>EM算法怎么来的？</h2><p>作为机器学习与深度学习的爱好者， 我特别迷恋的事情就是这些优秀的算法是怎么来的，而非仅仅知道它们的应用场景、适用范围、程序开发…</p>
+<p>EM算法是一个让我感受到<strong>数学之美</strong>的算法，下面我来从零开始说说我对EM产生的理解。</p>
+<blockquote>
+<p>起点是似然函数</p>
+</blockquote>
+<p>因为EM算法诞生于包含隐变量，即完整数据不再是单纯的$Y$序列，而是 $(Y,Z)$<br>似然函数： $P(Y|\theta)$ ; 对数似然函数: $ log P(Y | \theta)$</p>
+<script type="math/tex; mode=display">\Rightarrow</script><p>似然函数： $P(Y, Z |\theta)$ ; 对数似然函数: $ log P(Y,Z | \theta)$</p>
+<p>于是我们可以得到</p>
+<script type="math/tex; mode=display">log P (Y|\theta) =  log P(Y, Z)| \theta) - log P(Z|Y, \theta )</script><p>等号两侧同时对隐状态求和（期望, 而且是上一轮迭代结果的隐参数）， 得到EM算法的核心引出公式:</p>
+<script type="math/tex; mode=display">\sum_Z log P (Y|\theta) P(Z|Y, \theta_{(i)}) = \sum_Z logP(Y, Z| \theta) P(Z|Y, \theta_{(i)}) - \sum_Z log P(Z | Y, \theta) P(Z|Y, \theta_{(i)})</script><p>tips: </p>
+<h1 id="EM算法收敛性"><a href="#EM算法收敛性" class="headerlink" title="EM算法收敛性"></a>EM算法收敛性</h1>
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/01/machinelearning02线性回归/" itemprop="url">
-            
-              <span itemprop="name">machinelearning02--线性回归Linear Regression</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-01T15:39:12+08:00" content="2019-09-01">
-          09-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/GMM/" rel="tag"># GMM</a>
+          
+            <a href="/tags/EM/" rel="tag"># EM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/20/machinelearning决策树/" rel="next" title="machinelearning05--决策树模型以及GDBT">
+                <i class="fa fa-chevron-left"></i> machinelearning05--决策树模型以及GDBT
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/15/machinelearning08隐马尔可夫模型/" rel="prev" title="machinelearning08隐马尔可夫模型">
+                machinelearning08隐马尔可夫模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -604,8 +679,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -801,6 +885,23 @@ show_date_time();
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#极大似然估计小引—-以一维Gauss分布为例"><span class="nav-number">1.</span> <span class="nav-text">极大似然估计小引— 以一维Gauss分布为例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GMM"><span class="nav-number">2.</span> <span class="nav-text">GMM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EM算法"><span class="nav-number">3.</span> <span class="nav-text">EM算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EM算法怎么来的？"><span class="nav-number">3.1.</span> <span class="nav-text">EM算法怎么来的？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EM算法收敛性"><span class="nav-number">4.</span> <span class="nav-text">EM算法收敛性</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -973,6 +1074,10 @@ show_date_time();
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
 
   
 
@@ -983,6 +1088,8 @@ show_date_time();
 
   
 
+
+  
 
 
   
@@ -1013,6 +1120,43 @@ show_date_time();
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
   
 
 
@@ -1048,7 +1192,7 @@ show_date_time();
   <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
   <script>
   
-    bookmark.loadBookmark();
+    bookmark.scrollToMark('auto', "#more");
   
   </script>
 
