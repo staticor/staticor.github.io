@@ -1892,7 +1892,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #0af4d5;
+  background: #0486ac;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3011,4 +3011,20 @@ hr {
   color: #07b39b;
   font-size: 13px;
   margin-top: 15px;
+}
+.ImageGrid {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  text-align: center;
+}
+.card {
+  overflow: hidden;
+  transition: 0.3s ease-in-out;
+  border-radius: 8px;
+  background-color: #ddd;
+}
+.ImageInCard img {
+  padding: 0 0 0 0;
+  border-radius: 8px;
 }
