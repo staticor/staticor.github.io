@@ -103,21 +103,21 @@
 
 
   <meta name="description" content="朴素贝叶斯简介贝叶斯经常用在二分类场景下，作为一种分类器(classifier), 比如我们经常能搜索到的一个场景就是spam-email-filter。 下面结合Sklearn的文档，谈谈我对Naive Bayes的理解， 也是笔者打算的最后一次关于NB的博客。 每个观测数据是(X, Y)其中X是n维向量， Y是目标变量，一般情况下多是categorical分布。 基本的条件假设-贝叶斯条件式：">
-<meta name="keywords" content="数学,机器学习,监督学习">
+<meta name="keywords" content="数学,机器学习,概率">
 <meta property="og:type" content="article">
 <meta property="og:title" content="machinelearning06--朴素贝叶斯Naive Bayes">
 <meta property="og:url" content="https://staticor.github.io/2019/10/18/machinelearning06朴素贝叶斯/index.html">
-<meta property="og:site_name" content="Staticor hungry">
+<meta property="og:site_name" content="金勇-Steve的数学天地">
 <meta property="og:description" content="朴素贝叶斯简介贝叶斯经常用在二分类场景下，作为一种分类器(classifier), 比如我们经常能搜索到的一个场景就是spam-email-filter。 下面结合Sklearn的文档，谈谈我对Naive Bayes的理解， 也是笔者打算的最后一次关于NB的博客。 每个观测数据是(X, Y)其中X是n维向量， Y是目标变量，一般情况下多是categorical分布。 基本的条件假设-贝叶斯条件式：">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-10-11T11:28:30.393Z">
+<meta property="og:updated_time" content="2019-10-16T08:13:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="machinelearning06--朴素贝叶斯Naive Bayes">
 <meta name="twitter:description" content="朴素贝叶斯简介贝叶斯经常用在二分类场景下，作为一种分类器(classifier), 比如我们经常能搜索到的一个场景就是spam-email-filter。 下面结合Sklearn的文档，谈谈我对Naive Bayes的理解， 也是笔者打算的最后一次关于NB的博客。 每个观测数据是(X, Y)其中X是n维向量， Y是目标变量，一般情况下多是categorical分布。 基本的条件假设-贝叶斯条件式：">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Staticor hungry" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="金勇-Steve的数学天地" type="application/atom+xml">
 
 
 
@@ -132,7 +132,7 @@
   };
 </script>
 
-  <title>machinelearning06--朴素贝叶斯Naive Bayes | Staticor hungry</title>
+  <title>machinelearning06--朴素贝叶斯Naive Bayes | 金勇-Steve的数学天地</title>
   
 
 
@@ -191,13 +191,13 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Staticor hungry</span>
+        <span class="site-title">金勇-Steve的数学天地</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
     
       
-        <p class="site-subtitle">努力， 努力， 努力</p>
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
       
     
     
@@ -374,12 +374,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jinyong Yang">
-      <meta itemprop="description" content="big data, data mining, machine learning">
+      <meta itemprop="description" content="大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Staticor hungry">
+      <meta itemprop="name" content="金勇-Steve的数学天地">
     </span>
 
     
@@ -430,7 +430,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-11 19:28:30" itemprop="dateModified" datetime="2019-10-11T19:28:30+08:00">2019-10-11</time>
+                <time title="Modified: 2019-10-16 16:13:28" itemprop="dateModified" datetime="2019-10-16T16:13:28+08:00">2019-10-16</time>
               
             
           </span>
@@ -483,7 +483,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.1k</span>
+                <span title="Symbols count in article">1.8k</span>
               
 
               
@@ -497,7 +497,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">1 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -538,9 +538,16 @@
  & \hat y =  \underset{y}{argmax} P(y)\prod_{i=1}^n P(x_i|y)
 \end{align*}</script><p>前面一项 $P(y)$即为$ y=0 \quad y=1$的频数分布， 所以下面的问题就可以使用MAP（最大后验， Maximum A Posteriori)来求解。</p>
 <p>虽然Naive Bayes的假设条件过强，很多情况下数据并不能满足这个条件，但是因为它的易实现（相较于其它方法，可算是容易很多了），而且在文档分类上得到了大量的实践，所以NB整体上来看还是一种基线级的工具。</p>
-<h1 id="不同分布下的Naive-Bayes"><a href="#不同分布下的Naive-Bayes" class="headerlink" title="不同分布下的Naive Bayes"></a>不同分布下的Naive Bayes</h1><h2 id="Gaussian-Naive-Bayes"><a href="#Gaussian-Naive-Bayes" class="headerlink" title="Gaussian Naive Bayes"></a>Gaussian Naive Bayes</h2><p>高斯NB（GNB）模型认为，每个维度下的x，都条件服从于某个高斯分布， 写出它的概率密度函数为：</p>
+<h1 id="不同分布下的Naive-Bayes"><a href="#不同分布下的Naive-Bayes" class="headerlink" title="不同分布下的Naive Bayes"></a>不同分布下的Naive Bayes</h1><h2 id="Bernoulli-Naive-Bayes-伯努利分布下的NB"><a href="#Bernoulli-Naive-Bayes-伯努利分布下的NB" class="headerlink" title="Bernoulli Naive Bayes - 伯努利分布下的NB"></a>Bernoulli Naive Bayes - 伯努利分布下的NB</h2><p>Bernoulli分布就是我们在概率学习版图下的最简易分布， 0-1分布， 一次实验， 1发现的概率为 $\phi$. 如果进行N次独立相同伯努利, 则延伸至二项分布(Binomial Distribution)</p>
+<p>因为Bernoulli分布的二分性， 其概率分布函数可以综合写成：</p>
+<script type="math/tex; mode=display">P(x_i|y) = $ \phi^y + (1-\phi)^{1-y}</script><h2 id="Multinomial-Naive-Bayes-多项分布下的NB"><a href="#Multinomial-Naive-Bayes-多项分布下的NB" class="headerlink" title="Multinomial Naive Bayes - 多项分布下的NB"></a>Multinomial Naive Bayes - 多项分布下的NB</h2><h2 id="Gaussian-Naive-Bayes-高斯分布下的NB"><a href="#Gaussian-Naive-Bayes-高斯分布下的NB" class="headerlink" title="Gaussian Naive Bayes - 高斯分布下的NB"></a>Gaussian Naive Bayes - 高斯分布下的NB</h2><p>高斯NB（GNB）模型认为，每个维度下的x，都条件服从于某个高斯分布， 写出它的概率密度函数为：</p>
 <script type="math/tex; mode=display">
-P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\sigma_y^2})  }</script>
+P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\sigma_y^2})  }</script><blockquote>
+<p> 在此模型下，要估计的参数就是 $ \theta = (\mu, \sigma^2)$</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> GaussianNB</span><br><span class="line">gaussian_nb = GaussianNB()</span><br><span class="line">y_pred = gaussian_nb.fit(iris.data, iris.target).predict(iris.data)</span><br><span class="line">print(<span class="string">"Number of # mislabeled points of total %d : %d "</span> % (iris.data.shape[<span class="number">0</span>],  (iris.target != pred).sum()))</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://www.cs.unb.ca/~hzhang/publications/FLAIRS04ZhangH.pdf" target="_blank" rel="noopener">The Optimality of Naieve Bayes,  Harry Zhang</a></p>
+
       
     </div>
 
@@ -567,7 +574,7 @@ P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\
           
             <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            <a href="/tags/监督学习/" rel="tag"># 监督学习</a>
+            <a href="/tags/概率/" rel="tag"># 概率</a>
           
         </div>
       
@@ -580,8 +587,8 @@ P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/22/math-career-suggest/" rel="next" title="math-career-suggest">
-                <i class="fa fa-chevron-left"></i> math-career-suggest
+              <a href="/2019/09/22/math-career-suggest/" rel="next" title="2019-09 对数据从业者的建议">
+                <i class="fa fa-chevron-left"></i> 2019-09 对数据从业者的建议
               </a>
             
           </div>
@@ -652,7 +659,7 @@ P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Jinyong Yang</p>
-              <p class="site-description motion-element" itemprop="description">big data, data mining, machine learning</p>
+              <p class="site-description motion-element" itemprop="description">大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验</p>
           </div>
 
           
@@ -662,7 +669,7 @@ P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -687,7 +694,9 @@ P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -732,7 +741,15 @@ P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -747,7 +764,7 @@ P(x_i|y) = \frac {1} {\sqrt(2\pi \sigma_y^2)} exp{(- \frac {(x_i - \mu_y)^2} {2\
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学公式/">数学公式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -832,7 +849,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math-baseStone/">math, baseStone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-2019/">数学, 2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学-信息/">数学, 信息</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学公式/">数学公式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -853,7 +870,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯简介"><span class="nav-number">1.</span> <span class="nav-text">朴素贝叶斯简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不同分布下的Naive-Bayes"><span class="nav-number">2.</span> <span class="nav-text">不同分布下的Naive Bayes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gaussian-Naive-Bayes"><span class="nav-number">2.1.</span> <span class="nav-text">Gaussian Naive Bayes</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯简介"><span class="nav-number">1.</span> <span class="nav-text">朴素贝叶斯简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不同分布下的Naive-Bayes"><span class="nav-number">2.</span> <span class="nav-text">不同分布下的Naive Bayes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bernoulli-Naive-Bayes-伯努利分布下的NB"><span class="nav-number">2.1.</span> <span class="nav-text">Bernoulli Naive Bayes - 伯努利分布下的NB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multinomial-Naive-Bayes-多项分布下的NB"><span class="nav-number">2.2.</span> <span class="nav-text">Multinomial Naive Bayes - 多项分布下的NB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gaussian-Naive-Bayes-高斯分布下的NB"><span class="nav-number">2.3.</span> <span class="nav-text">Gaussian Naive Bayes - 高斯分布下的NB</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
@@ -885,7 +902,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">63k</span>
+    <span title="Symbols count total">51k</span>
   
 
   
@@ -894,7 +911,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">57 mins.</span>
+    <span title="Reading time total">46 mins.</span>
   
 </div>
 
@@ -1016,9 +1033,14 @@ show_date_time();
   
 
 
+
+
+
   <script src="/js/src/utils.js?v=7.0.0"></script>
 
   <script src="/js/src/motion.js?v=7.0.0"></script>
+
+  <script src="/js/src/canvasline.js?v=7.0.0"></script>
 
 
 
@@ -1160,7 +1182,9 @@ show_date_time();
 
   <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
 <link rel="stylesheet" href="/photos/photos.css">
-<script type="text/javascript" src="/photos/photo.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/javascript" src="/photos/photo.js"></script>
+
+<script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
 </script>
@@ -1177,7 +1201,5 @@ show_date_time();
 <script type="text/javascript" src="custom_mathjax_source">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-
-</body>
+<!-- hexo-inject:end --></body>
 </html>
