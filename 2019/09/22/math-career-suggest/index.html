@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en-GB">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="之前我用不同的职业title来去考虑不同数据行业的工作特性， 今天我想换一种视角。考虑处理问题和平时的交流对象来看待自己的工作。 在考虑做什么之前， 要思考一个问题：  数据从哪里来， 数据要向哪里去。  pipe（管道流）自己是属于数据flow的哪一环； hot-code, use （自己生产的数据是直接用于客户吗？ 是用于公司内部？）  因为我个人更熟悉的数据行业是距离业务数据（企业内生产的产">
+<meta name="keywords" content="数据,职业发展">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019-09 对数据从业者的建议">
+<meta property="og:url" content="https://staticor.github.io/2019/09/22/math-career-suggest/index.html">
+<meta property="og:site_name" content="金勇-Steve的数学天地">
+<meta property="og:description" content="之前我用不同的职业title来去考虑不同数据行业的工作特性， 今天我想换一种视角。考虑处理问题和平时的交流对象来看待自己的工作。 在考虑做什么之前， 要思考一个问题：  数据从哪里来， 数据要向哪里去。  pipe（管道流）自己是属于数据flow的哪一环； hot-code, use （自己生产的数据是直接用于客户吗？ 是用于公司内部？）  因为我个人更熟悉的数据行业是距离业务数据（企业内生产的产">
+<meta property="og:locale" content="en-GB">
+<meta property="og:updated_time" content="2019-10-16T08:13:13.913Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2019-09 对数据从业者的建议">
+<meta name="twitter:description" content="之前我用不同的职业title来去考虑不同数据行业的工作特性， 今天我想换一种视角。考虑处理问题和平时的交流对象来看待自己的工作。 在考虑做什么之前， 要思考一个问题：  数据从哪里来， 数据要向哪里去。  pipe（管道流）自己是属于数据flow的哪一环； hot-code, use （自己生产的数据是直接用于客户吗？ 是用于公司内部？）  因为我个人更熟悉的数据行业是距离业务数据（企业内生产的产">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="金勇-Steve的数学天地" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://staticor.github.io/2019/09/22/math-career-suggest/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>2019-09 对数据从业者的建议 | 金勇-Steve的数学天地</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-GB">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">金勇-Steve的数学天地</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-taocp">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/taocp/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>TAOCP</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archive">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archive</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/09/22/math-career-suggest/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="金勇-Steve的数学天地">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2019-09 对数据从业者的建议
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-22 10:58:06" itemprop="dateCreated datePublished" datetime="2019-09-22T10:58:06+08:00">2019-09-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-16 16:13:13" itemprop="dateModified" datetime="2019-10-16T16:13:13+08:00">2019-10-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/职业发展/" itemprop="url" rel="index"><span itemprop="name">职业发展</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前我用不同的职业title来去考虑不同数据行业的工作特性， 今天我想换一种视角。<br>考虑处理问题和平时的交流对象来看待自己的工作。</p>
+<p>在考虑做什么之前， 要思考一个问题：  数据从哪里来， 数据要向哪里去。</p>
+<ul>
+<li>pipe（管道流）自己是属于数据flow的哪一环；</li>
+<li>hot-code, use （自己生产的数据是直接用于客户吗？ 是用于公司内部？）</li>
+</ul>
+<p>因为我个人更熟悉的数据行业是距离业务数据（企业内生产的产品、用户数据）， 所以我按照数据规模分成了下面的三种。</p>
+<h1 id="小数据、商业分析"><a href="#小数据、商业分析" class="headerlink" title="小数据、商业分析"></a>小数据、商业分析</h1><p>数据分析师的一种， 侧重于企业的宏观数据。 例如每月产品的成交、用户激活、注册数量。 向管理层或外部三方audit提交自己的核心数据。<br>几乎不会涉及到单个客户的明细数据。</p>
+<p>这类方向一般是要求具有3年+数据分析的工作经验， 擅长BI报告的数据解读， 对公司业务模式有深刻的理解， 并且对各类的基础归因分析信手拈来（自然趋势、季节效应、活动波动）。</p>
+<p>对编程要求并不高， 纯SQL操作就能满足大部分数据提取的任务， 复杂数据可以由上游处理（数据仓库、数据挖掘）</p>
+<p>虽然处理的数据平常只用Excel就能解决， 不过因为影响的面和汇报层级较高， 所以在企业中有较高的话语权， 可以视作企业内参谋的决策。而且也由于汇报的需要，只需要重点数据而非全面数据。要求人的能力是归因， 即能对增长、停滞给出解释。</p>
+<p>特点：数据一般是由专业工程师准备好， 商业分析与战略分析像大厨一样需要将配好的食材加工成可口的数据菜肴， 交付到高层。</p>
+<p>成长路径： 初级数据分析师， 商业BI分析师</p>
+<h2 id="初级数据分析"><a href="#初级数据分析" class="headerlink" title="初级数据分析"></a>初级数据分析</h2><p>数据分析对我而言是一个浅者觉其浅， 深者觉其深得无法自拔的四个字。<br><strong>浅</strong>是指很多刚毕业的学生可以选择数据分析为初期准备工作，一边工作，一边观望，然后2-3年之后找到自己适合的分支方向去发展。</p>
+<p>我虽然从事过一年多的数据分析工作，但不愿意和人谈起数据分析和数据挖掘的区别。<br>原因是有的不懂”数据分析“的深处的人， 总把这个工作想得容易。<br>因为在很多时候分析数据需要挖掘的技能， 而挖掘出来的结果还要分析报告的交付。 二者在我看来是一个方向， 也许是有的地方一直以来让两个人做不同的侧生工作，才有了数据分析师和数据挖掘两类职业。 但我则一直相信这是对人才放低门槛的妥协作派， 并不认可。</p>
+<p>虽然PPT与数据可视化也固然重要， 但也许在学生阶段不应将主要精力放在PPT和美学研究这上。 我也见过一些自称为商业分析师的人， 他们可能更擅长的是PPT制作，而非分析。 先学会用最简单的图表讲述故事， 简单生动， 直接深刻。 比起花哨而不知所云， 有用的多。</p>
+<h1 id="中数据、挖掘与爬虫"><a href="#中数据、挖掘与爬虫" class="headerlink" title="中数据、挖掘与爬虫"></a>中数据、挖掘与爬虫</h1><p>有小型企业初期是没有足够数据的， 所以有的企业要借助外部“在一定权限内可以”拿到的数据， 比如我们现在有很多企业信息查询的服务， 他们是在工商网拿到企业法人、注册信息。 这就需要专业的爬虫工程师， 基本上要求Python开发和熟悉当下流行的反爬策略。<br>（很多网站上用的复杂的验证码，就是对之抗衡的， 最惨的网站莫过于12306）。</p>
+<p>另外就是关于离线建模与统计的， 中数据。 有时几十万、几百万， 可能超过Excel处理范围。<br>因此要使用一些Python数据分析或者R类型的处理能力， 图形可视化能力在数据探索阶段经常要用。 （和前面的商业分析不同， 可视化要求不在于美观， 而在于实用） 。</p>
+<p>这类工作处理的数据任务多为阶段性且临时性的。 比如常说的ABtest其中对实验数据的结论分析， 比如设计一些策略需要的模型设计。<br>我联系到的一些数据任务都离不开数学建模、统计与概率。</p>
+<p>成长路径： 初级数据分析师， 数据挖掘工程师</p>
+<h1 id="大数据，-仓库与数据服务"><a href="#大数据，-仓库与数据服务" class="headerlink" title="大数据， 仓库与数据服务"></a>大数据， 仓库与数据服务</h1><p>数据仓库建设与维护、用户画像系统是最近两年我从事的工作方向。 因此说起这两部分内容也更有信心一些。  数据仓库比较偏向于开发， 直接维护了企业的所有底层数据（日志清洗、服务数据聚合)和ETL计算。 因此对大数据计算MR-Hive-Spark这一套流程比较熟悉，不同公司会有自己的技术栈。 如果是在学生阶段能有些接触，是非常有必要的。  （之前我也有过两次新人培养的经历，在他们的学校鲜有接触大数据集群的环境）</p>
+<p>数据服务：直接和企业的数据业务有关， 比如金融行业要有风控人才；百度是以搜索擅长；头条、抖音起于推荐；美团和滴滴则需要调配动态资源的算法；还有AI在未来：Face++与商汤；微博需要能够舆论控制与社会事件分析…</p>
+<p>就像没有一个人能精通C语言，Java，Python，PHP,Go … 一样， 我觉得在算法工程师也渐渐变得和<strong>程序员</strong>一样，成为了一个大门类。  所以在学生期就要明确1-2个未来的研究方向。</p>
+<p>特点：</p>
+<ul>
+<li>大数据， 关注大数据社区生态，对技术有兴趣；</li>
+<li>算法：要求具备数学与编程融合应用的能力，工作后还要保持科研的态度。</li>
+</ul>
+<p>成长路径： 数据开发、数据仓库；  算法实习生， 算法工程师（机器学习工程师，etc）</p>
+<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><p>除了上面的描述， 还有一些数据行业的工作， 例如大数据开发、云计算、运维、开源组件开发、DBA …</p>
+<p>我觉得它们距离业务数据较远，我自己也没有这方面的工作经验， 因此就不着重提及了。</p>
+<h2 id="关于统计"><a href="#关于统计" class="headerlink" title="关于统计"></a>关于统计</h2><p>坦白来说， 在目前国内就业前景来说， 统计专业的 就业预期不如CS（计算机 科学）专业， 主要原因是统计专业的倾向于计量统计，而且在毕业的工作对口上更窄一些，还是以传统的金融与医药企业为主，甚至有的高校把统计专业 的培养定位成了统计局工作者。</p>
+<p>我认为国外统计学的应用与互联网联系的更为紧密，因为在很多公司已经将流量实验、用户增长作为主旋律，那么围绕着与实验相关的研究和重要比10年前重视了许多。 “数学科学家“的一类方向就是要求要掌握足够深入的统计才能和设计实验的能力。 （因为多数情况下， 开展实验的成本非常之高，我们希望用更高效的设计方式得到更大价值的回报）</p>
+<p>我觉得本科数学+研究生统计，也是不错的组合。 这个组合我认为能适合前面的“小数据”+ “中数据。</p>
+<h1 id="个人经历简介"><a href="#个人经历简介" class="headerlink" title="个人经历简介"></a>个人经历简介</h1><p>2007-2011， 应用数学本科<br>2011-2914， 数据挖掘硕士<br>2015: 数据分析<br>2016-2019： 数据挖掘，数据仓库</p>
+<p>我的理想职业是成为一名数据科学家， 未来Focus：机器学习与增长策略</p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/wechat2.jpg" alt="Jinyong Yang wechat" style="width: 200px; max-width: 100%;">
+  <div>个人微信 - 如果有建议，欢迎你联系我</div>
+</div>
+
+      </div>
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据/" rel="tag"># 数据</a>
+          
+            <a href="/tags/职业发展/" rel="tag"># 职业发展</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/18/machinelearning04支持向量机/" rel="next" title="machinelearning04--Support Vector Machine">
+                <i class="fa fa-chevron-left"></i> machinelearning04--Support Vector Machine
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/18/machinelearning06朴素贝叶斯/" rel="prev" title="machinelearning06--朴素贝叶斯Naive Bayes">
+                machinelearning06--朴素贝叶斯Naive Bayes <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jinyong Yang</p>
+              <p class="site-description motion-element" itemprop="description">大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://terror-lm.github.io/" title="https://terror-lm.github.io/" rel="noopener" target="_blank">LM[蒙]</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kiseayoung.com" title="https://kiseayoung.com" rel="noopener" target="_blank">HJ[海君]</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+<div id="days"></div>
+
+<script language="javascript">
+
+
+
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("02/19/2019 15:00:00");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+
+
+</script>
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小数据、商业分析"><span class="nav-number">1.</span> <span class="nav-text">小数据、商业分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初级数据分析"><span class="nav-number">1.1.</span> <span class="nav-text">初级数据分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中数据、挖掘与爬虫"><span class="nav-number">2.</span> <span class="nav-text">中数据、挖掘与爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大数据，-仓库与数据服务"><span class="nav-number">3.</span> <span class="nav-text">大数据， 仓库与数据服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它"><span class="nav-number">4.</span> <span class="nav-text">其它</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于统计"><span class="nav-number">4.1.</span> <span class="nav-text">关于统计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#个人经历简介"><span class="nav-number">5.</span> <span class="nav-text">个人经历简介</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jinyong Yang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">51k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">46 mins.</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+  <script src="/js/src/canvasline.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.0"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/js.cookie.js?v=7.0.0"></script>
+  <script src="/js/src/scroll-cookie.js?v=7.0.0"></script>
+
+
+  
+
+  
+  
+  
+  <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
+  <script>
+  
+    bookmark.scrollToMark('auto', "#more");
+  
+  </script>
+
+
+  
+
+
+  <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+<link rel="stylesheet" href="/photos/photos.css">
+<script type="text/javascript" src="/photos/photo.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+<script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+</html>
