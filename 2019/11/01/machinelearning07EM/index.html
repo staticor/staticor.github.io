@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en-GB">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="老实来说， EM算法按道理讲并不是那么难。 但我看过几次书中的介绍后，都是感觉少了一些东西，以至于合起书之后，对着一张白纸，发着“自以为懂了的呆”，无地自容。 不过最近受到一些启示，在B站、Y站上看到不少机器学习的视频，通过横纵比较，交叉学习，我渐渐抛弃了之前“尽信书，不知思”的囧境。 EM算法是在学习未知参数时用到的迭代型学习算法， 和优化逼近的思路不同（以梯度下降为代表），它的出发点是概率优化">
+<meta name="keywords" content="数学,机器学习,GMM,EM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="machinelearning07-GMM与EM算法">
+<meta property="og:url" content="https://staticor.github.io/2019/11/01/machinelearning07EM/index.html">
+<meta property="og:site_name" content="金勇-Steve的数学天地">
+<meta property="og:description" content="老实来说， EM算法按道理讲并不是那么难。 但我看过几次书中的介绍后，都是感觉少了一些东西，以至于合起书之后，对着一张白纸，发着“自以为懂了的呆”，无地自容。 不过最近受到一些启示，在B站、Y站上看到不少机器学习的视频，通过横纵比较，交叉学习，我渐渐抛弃了之前“尽信书，不知思”的囧境。 EM算法是在学习未知参数时用到的迭代型学习算法， 和优化逼近的思路不同（以梯度下降为代表），它的出发点是概率优化">
+<meta property="og:locale" content="en-GB">
+<meta property="og:updated_time" content="2019-10-15T05:36:47.098Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="machinelearning07-GMM与EM算法">
+<meta name="twitter:description" content="老实来说， EM算法按道理讲并不是那么难。 但我看过几次书中的介绍后，都是感觉少了一些东西，以至于合起书之后，对着一张白纸，发着“自以为懂了的呆”，无地自容。 不过最近受到一些启示，在B站、Y站上看到不少机器学习的视频，通过横纵比较，交叉学习，我渐渐抛弃了之前“尽信书，不知思”的囧境。 EM算法是在学习未知参数时用到的迭代型学习算法， 和优化逼近的思路不同（以梯度下降为代表），它的出发点是概率优化">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="金勇-Steve的数学天地" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://staticor.github.io/2019/11/01/machinelearning07EM/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>machinelearning07-GMM与EM算法 | 金勇-Steve的数学天地</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-GB">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">金勇-Steve的数学天地</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-taocp">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/taocp/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>TAOCP</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archive">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archive</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/11/01/machinelearning07EM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="金勇-Steve的数学天地">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">machinelearning07-GMM与EM算法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-01 21:53:24" itemprop="dateCreated datePublished" datetime="2019-11-01T21:53:24+08:00">2019-11-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-15 13:36:47" itemprop="dateModified" datetime="2019-10-15T13:36:47+08:00">2019-10-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">3.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">4 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>老实来说， EM算法按道理讲并不是那么难。 但我看过几次书中的介绍后，都是感觉少了一些东西，以至于合起书之后，对着一张白纸，发着“自以为懂了的呆”，无地自容。</p>
+<p>不过最近受到一些启示，在B站、Y站上看到不少机器学习的视频，通过横纵比较，交叉学习，我渐渐抛弃了之前“尽信书，不知思”的囧境。</p>
+<p>EM算法是在学习未知参数时用到的迭代型学习算法， 和优化逼近的思路不同（以梯度下降为代表），它的出发点是概率优化。 优化的是基础核心： 极大化似然函数（MLE, Maximize Likelihood Estimation）或者是最大后验（Maximize A Posteriori)。 因此不管在何时何地，都有必要写下这个式子:</p>
+<script type="math/tex; mode=display">P( \theta | X ) \propto P( X | \theta ) P(\theta)</script><p>$ P( \theta | X ) 表示后验$<br>$ P( X | \theta ) 表示似然函数 $<br>$ P(\theta) $ 表示的是先验分布；</p>
+<h1 id="极大似然估计小引—-以一维Gauss分布为例"><a href="#极大似然估计小引—-以一维Gauss分布为例" class="headerlink" title="极大似然估计小引— 以一维Gauss分布为例"></a>极大似然估计小引— 以一维Gauss分布为例</h1><blockquote>
+<p>一维Gauss分布的概率密度函数为</p>
+<script type="math/tex; mode=display">P(x | \theta ) = \frac {1} {\sqrt {2\pi} \sigma} exp\{ \frac {-1}{2} (x-\mu)^2 \}</script><p>另外我们还要有一些数据独立性假设： 我们得到的原始数据集是满足<em>独立同分布</em>的， 即<br>$ x_i (i.i.d) ~~ N(\mu, \sigma^2) $ 对所有 $ x_i \in X $ 成立</p>
+</blockquote>
+<p>假设拥有数据的容量是$N$，下面我们要做的事情是从0开始推导此场景下的参数估计。 先写出对数似然函数:</p>
+<script type="math/tex; mode=display">log P(X | \theta)</script><p>前面加上对数符号的作用是为了后面要使用iid条件， 将连乘问题转为连加问题。 而且又因为对数函数不改变原函数单调性， 概率也分布于区间[0, 1] 上, 不考虑极端0点的情况下， 这个引入是一种自然想法， 特别是你看到下列连乘式写出：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+& log P(X | \theta) = log P(x_1, x_2, ..., x_N | \theta )
+ \newline
+ &  = log [P(x_1| \theta ) P(x_2| \theta) ... P(x_N| \theta)]
+ \newline
+ & =  log \prod_{i=1}^N P(x_i | \theta)
+ \newline
+ & = \sum_{i=1}^N log P(x_i | \theta)
+\end{align*}</script><blockquote>
+<p>不要怕麻烦， 将Gauss分布的密度函数代入上面的结果，写出完整对数似然函数，记$L$</p>
+</blockquote>
+<p>tips: 要做的事情就是求一个多元函数极值问题, 即写成这个样式：</p>
+<script type="math/tex; mode=display">(\mu_{mle}, \sigma^2_{mle}) = \underset {\mu, \sigma^2} {argmax} \quad L(\mu, \sigma^2)</script><script type="math/tex; mode=display">
+\begin{align*}
+
+ \newline
+ &  L(\mu, \sigma^2) = \sum_{i=1}^N  log [\frac {1} {\sqrt {2\pi} \sigma} - \frac {1}{2\sigma^2} (x_i -\mu)^2 \} ]
+ \newline
+ & L(\mu, \sigma^2) = \sum_{i=1}^N  [ \frac {-1} {2} log (2\pi\sigma^2) - \frac {1}{2\sigma^2} (x_i -\mu)^2 \} ]
+\end{align*}</script><blockquote>
+<p>(在此场景下， 牢记 $sigma^2$ 是我们关心的， 而非 $\sigma$) = , -<br>大学基本技能，求微分</p>
+</blockquote>
+<p>上面的函数看成 $\theta = (\mu, \sigma^2)$ 的二元函数， 求该函数极值就自然想到了对各自求偏导：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ & \frac {\partial L(\mu, \sigma^2) } {\partial \mu} = \sum_{i=1}^N (\mu - x_i) \rightarrowtail 0
+ \newline
+ & \Rightarrow  \mu_{mle} = \frac {1} {N} \sum_i^N x_i
+\end{align*}</script><script type="math/tex; mode=display">
+\begin{align*}
+ & \frac {\partial L(\mu, \sigma^2) } {\partial \sigma^2} = \sum_{i=1}^N [ \frac {-1} {2\sigma^2} + \frac{1}{2 \sigma^4} (x_i - \mu)^2 ]\rightarrowtail 0
+ \newline
+ & \Rightarrow  \sigma^2_{mle} = \frac {1} {N} \sum_i^N (x_i - \mu)^2
+\end{align*}</script><p>tips: 这里本科统计学还有印象的人可能会有印象，要注意的是极大似然估计得出的 $\sigma^2_{mle}$并非无偏估计，而是有偏估计量。</p>
+<h1 id="GMM"><a href="#GMM" class="headerlink" title="GMM"></a>GMM</h1><p>我们将问题复杂一点， 一方面将问题推广至正常的多维空间，而是正常Gauss分布。另外也把样本的出处搞得复杂一些：<br>上面估计问题的假设是单Gauss分布，并且各样本间服从iid假设，那么要是原样本来自k个不同的Gauss分布又会如何呢？</p>
+<script type="math/tex; mode=display">\theta_1 = (\mu_1, \Sigma_1)</script><script type="math/tex; mode=display">\theta_2 = (\mu_2, \Sigma_2)</script><script type="math/tex; mode=display">\cdot \cdot \cdot</script><script type="math/tex; mode=display">\theta_k = (\mu_k, \Sigma_k)</script><p>此时模型参数不再是单纯估计一组 $$ \theta = (\mu, \Sigma) $什么样的呢？<br>至少来说有k个Gauss分布，那么至少参数空间应该有这些未知量：</p>
+<script type="math/tex; mode=display">\Theta = \{ \theta_1, \theta_2, ..., \theta_k \}</script><p>但如果光写成这个样子，并不好，原因是我们没有考虑到各个Gauss分布出现的权重问题， 即假设权重向量为 $\alpha = ( \alpha_1, \alpha_2, …, \alpha_k ) $<br>因此此时参数空间就考虑周全了：</p>
+<script type="math/tex; mode=display">\Theta = \{ \theta_1, \theta_2, ..., \theta_k， \alpha_1, \alpha_2, ..., \alpha_k \}</script><script type="math/tex; mode=display">s.t.  \sum_i^k \alpha_i = 1 \quad</script><p>此时该模型定义为GMM（Gaussian Mixture Model， 高斯混合模型）。</p>
+<p>定义完模型之后，我们的问题就转变为，如何学习它的参数呢？</p>
+<p>如果还是仿照着前面单高斯场景下， 我们来写出它的对数似然函数（希望不要被吓唬住）：</p>
+<script type="math/tex; mode=display">\Theta_{mle} = \underset{\Theta} {argmax} \quad \{ \sum_{i=1}^N  log [ \sum_{l=1}^k \alpha_l N(\mu_l, \Sigma_l)  ] \}</script><p>tips: 这里为了让式子不吓人已经将Gauss分布密度函数简写为N-形式。<br>为什么不能继续求出偏导然后完事了解呢， 这是因为在上面的情况下，问题复杂大大增加，上面的式子中 对数函数 log内的真值部分是一个求和形式，我们知道Log只能对求积形式有化简，而非求和，在此情此境下，解决原来问题的偏微分方程组变得不太现实，所以得尝试借助一些巧妙技巧。</p>
+<p>后来终于有伟大的数学家站了出来，1977年由Dempster等人提出一种名为EM的迭代优化算法。对于含有隐变量(latent variable)的概率模型的极大似然估计， 或者MAP-极大后验估计的算法。 EM算法分成两步，也就是它字面意义上的E步（求期望-Expectation)与M步（极大化-Maximization）。</p>
+<h1 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h1><h2 id="EM算法怎么来的？"><a href="#EM算法怎么来的？" class="headerlink" title="EM算法怎么来的？"></a>EM算法怎么来的？</h2><p>作为机器学习与深度学习的爱好者， 我特别迷恋的事情就是这些优秀的算法是怎么来的，而非仅仅知道它们的应用场景、适用范围、程序开发…</p>
+<p>EM算法是一个让我感受到<strong>数学之美</strong>的算法，下面我来从零开始说说我对EM产生的理解。</p>
+<blockquote>
+<p>起点是似然函数</p>
+</blockquote>
+<p>因为EM算法诞生于包含隐变量，即完整数据不再是单纯的$Y$序列，而是 $(Y,Z)$<br>似然函数： $P(Y|\theta)$ ; 对数似然函数: $ log P(Y | \theta)$</p>
+<script type="math/tex; mode=display">\Rightarrow</script><p>似然函数： $P(Y, Z |\theta)$ ; 对数似然函数: $ log P(Y,Z | \theta)$</p>
+<p>于是我们可以得到</p>
+<script type="math/tex; mode=display">log P (Y|\theta) =  log P(Y, Z)| \theta) - log P(Z|Y, \theta )</script><p>等号两侧同时对隐状态求和（期望, 而且是上一轮迭代结果的隐参数）， 得到EM算法的核心引出公式:</p>
+<script type="math/tex; mode=display">\sum_Z log P (Y|\theta) P(Z|Y, \theta_{(i)}) = \sum_Z logP(Y, Z| \theta) P(Z|Y, \theta_{(i)}) - \sum_Z log P(Z | Y, \theta) P(Z|Y, \theta_{(i)})</script><p>tips: </p>
+<h1 id="EM算法收敛性"><a href="#EM算法收敛性" class="headerlink" title="EM算法收敛性"></a>EM算法收敛性</h1>
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/wechat2.jpg" alt="Jinyong Yang wechat" style="width: 200px; max-width: 100%;">
+  <div>个人微信 - 如果有建议，欢迎你联系我</div>
+</div>
+
+      </div>
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/GMM/" rel="tag"># GMM</a>
+          
+            <a href="/tags/EM/" rel="tag"># EM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/20/machinelearning决策树/" rel="next" title="machinelearning05--决策树模型以及GDBT">
+                <i class="fa fa-chevron-left"></i> machinelearning05--决策树模型以及GDBT
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/02/由天平12小球沿伸的思考/" rel="prev" title="由天平12小球沿伸的思考">
+                由天平12小球沿伸的思考 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jinyong Yang</p>
+              <p class="site-description motion-element" itemprop="description">大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://terror-lm.github.io/" title="https://terror-lm.github.io/" rel="noopener" target="_blank">LM[蒙]</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kiseayoung.com" title="https://kiseayoung.com" rel="noopener" target="_blank">HJ[海君]</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+<div id="days"></div>
+
+<script language="javascript">
+
+
+
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("02/19/2019 15:00:00");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+
+
+</script>
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#极大似然估计小引—-以一维Gauss分布为例"><span class="nav-number">1.</span> <span class="nav-text">极大似然估计小引— 以一维Gauss分布为例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GMM"><span class="nav-number">2.</span> <span class="nav-text">GMM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EM算法"><span class="nav-number">3.</span> <span class="nav-text">EM算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EM算法怎么来的？"><span class="nav-number">3.1.</span> <span class="nav-text">EM算法怎么来的？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EM算法收敛性"><span class="nav-number">4.</span> <span class="nav-text">EM算法收敛性</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jinyong Yang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">51k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">46 mins.</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+  <script src="/js/src/canvasline.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.0"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/js.cookie.js?v=7.0.0"></script>
+  <script src="/js/src/scroll-cookie.js?v=7.0.0"></script>
+
+
+  
+
+  
+  
+  
+  <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
+  <script>
+  
+    bookmark.scrollToMark('auto', "#more");
+  
+  </script>
+
+
+  
+
+
+  <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+<link rel="stylesheet" href="/photos/photos.css">
+<script type="text/javascript" src="/photos/photo.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+<script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+</html>
