@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="金勇-Steve的数学天地">
 <meta property="og:description" content="这里会介绍最近开始重新阅读的 “TAOCP” 系列一书， 并把其中一些感想和习题的解决放在这里。 使用版本： 第3版， 译者： 李伯民 / 范民 / 蒋爱军，  2016年. 人民邮电出版社  Vol.1 - 基本算法基本概念 - 这本书里的算法是指什么？这一章介绍了经典了欧几里得辗转相除法—求两个正整数最大公因数的算法。展开了算法要求具备的五个特质：有穷性，确定性，输入，输出，可行性。 明确了">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-12-20T13:53:57.052Z">
+<meta property="og:updated_time" content="2019-12-21T07:46:08.244Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="taocp - the art of computer programming">
 <meta name="twitter:description" content="这里会介绍最近开始重新阅读的 “TAOCP” 系列一书， 并把其中一些感想和习题的解决放在这里。 使用版本： 第3版， 译者： 李伯民 / 范民 / 蒋爱军，  2016年. 人民邮电出版社  Vol.1 - 基本算法基本概念 - 这本书里的算法是指什么？这一章介绍了经典了欧几里得辗转相除法—求两个正整数最大公因数的算法。展开了算法要求具备的五个特质：有穷性，确定性，输入，输出，可行性。 明确了">
@@ -519,13 +519,43 @@
 <p>证明Fibonaaci数列满足 对一切正整数n 满足</p>
 <script type="math/tex; mode=display">F_n \ge \phi^{n-2}</script><p>和书中给出 (3)式基本类似， 略。</p>
 <ul>
-<li>习题5 [21]<blockquote><p>素数是指 大于1 且除1和自身外没有其他正整数因数的整数。 根据此定义和数学归纳法， 证明每个大于1的整数可写成一个或多个素数的乘积。</p>
+<li><p>习题5 [21]</p>
+<blockquote><p>素数是指 大于1 且除1和自身外没有其他正整数因数的整数。 根据此定义和数学归纳法， 证明每个大于1的整数可写成一个或多个素数的乘积。</p>
+</blockquote>
+</li>
+<li><p>习题6 [20]</p>
+</li>
+</ul>
+<p>略</p>
+<ul>
+<li>习题7 [23]<br>$对于 1^2, 2^2-1^2, 3^2-2^2+1^2, …. , 等和式， 给出求和规则， 并用数学归纳法证明$</li>
+</ul>
+<p>即为前n项和的值。 $ \frac {(n+1)n} {2}$</p>
+<ul>
+<li>习题8 [25]<blockquote><p>证明前n项立方和的公式， 前n项和的平方。</p>
 </blockquote>
 </li>
 </ul>
+<p>之前在短视频中看到无字的证明方式， 蛮经典。</p>
+<ul>
+<li>习题9 [20]<blockquote><p>归纳法证明， 如果0<a<1, 那么则有 (1-a)^n>= 1 - na</a<1,></p>
+</blockquote>
+</li>
+</ul>
+<p>略。</p>
+<ul>
+<li>习题10 [M22]<blockquote><p>归纳法证明， 当n&gt;=10 2^n &gt; n^3</p>
+</blockquote>
+</li>
+</ul>
+<p>这个题目应该留下印象，因为说明了当n比较大的时候， 指数函数上升的速度要远快于多项式函数。<br>n = 10时， $ 2^{10}=1024 n^3 = 1000 $, 成立。<br>下面假设n情况成立， 欲证当n+1情况也成立。</p>
+<p> $2^{n+1} = 2·2^n &gt; (1+ 1/n)^3 · n^3 = (n+1) ^3 $</p>
+<ul>
+<li>习题11 [M30]</li>
+</ul>
+<p>求和式并证明</p>
 <hr>
-<h2 id="数学⚠"><a href="#数学⚠" class="headerlink" title="数学⚠"></a>数学⚠</h2><p>接下来是长达几十页的数学”基础”知识， 说它基础，其实有点夸张，很多内容连我这个数学专业的毕业生，都感觉到有点恐怖。 不知道计算机专业或者非理学专业的人，在看这部分的时候是什么想法。</p>
-
+<h2 id="机器语言⚠"><a href="#机器语言⚠" class="headerlink" title="机器语言⚠"></a>机器语言⚠</h2>
         
       </div>
       
@@ -796,7 +826,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vol-1-基本算法"><span class="nav-number">1.</span> <span class="nav-text">Vol.1 - 基本算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念-这本书里的算法是指什么？"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念 - 这本书里的算法是指什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法1-1-习题"><span class="nav-number">1.1.1.</span> <span class="nav-text">算法1.1 习题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学准备1-2"><span class="nav-number">1.1.2.</span> <span class="nav-text">数学准备1.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数学归纳法习题"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">数学归纳法习题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学⚠"><span class="nav-number">1.2.</span> <span class="nav-text">数学⚠</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vol-1-基本算法"><span class="nav-number">1.</span> <span class="nav-text">Vol.1 - 基本算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念-这本书里的算法是指什么？"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念 - 这本书里的算法是指什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法1-1-习题"><span class="nav-number">1.1.1.</span> <span class="nav-text">算法1.1 习题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学准备1-2"><span class="nav-number">1.1.2.</span> <span class="nav-text">数学准备1.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数学归纳法习题"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">数学归纳法习题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器语言⚠"><span class="nav-number">1.2.</span> <span class="nav-text">机器语言⚠</span></a></li></ol></li></ol></div>
             
 
           </div>
