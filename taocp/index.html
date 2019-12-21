@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="金勇-Steve的数学天地">
 <meta property="og:description" content="这里会介绍最近开始重新阅读的 “TAOCP” 系列一书， 并把其中一些感想和习题的解决放在这里。 使用版本： 第3版， 译者： 李伯民 / 范民 / 蒋爱军，  2016年. 人民邮电出版社  Vol.1 - 基本算法基本概念 - 这本书里的算法是指什么？这一章介绍了经典了欧几里得辗转相除法—求两个正整数最大公因数的算法。展开了算法要求具备的五个特质：有穷性，确定性，输入，输出，可行性。 明确了">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-12-20T00:43:59.000Z">
+<meta property="og:updated_time" content="2019-12-20T13:53:57.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="taocp - the art of computer programming">
 <meta name="twitter:description" content="这里会介绍最近开始重新阅读的 “TAOCP” 系列一书， 并把其中一些感想和习题的解决放在这里。 使用版本： 第3版， 译者： 李伯民 / 范民 / 蒋爱军，  2016年. 人民邮电出版社  Vol.1 - 基本算法基本概念 - 这本书里的算法是指什么？这一章介绍了经典了欧几里得辗转相除法—求两个正整数最大公因数的算法。展开了算法要求具备的五个特质：有穷性，确定性，输入，输出，可行性。 明确了">
@@ -458,6 +458,72 @@
 </blockquote>
 <h1 id="Vol-1-基本算法"><a href="#Vol-1-基本算法" class="headerlink" title="Vol.1 - 基本算法"></a>Vol.1 - 基本算法</h1><h2 id="基本概念-这本书里的算法是指什么？"><a href="#基本概念-这本书里的算法是指什么？" class="headerlink" title="基本概念 - 这本书里的算法是指什么？"></a>基本概念 - 这本书里的算法是指什么？</h2><p>这一章介绍了经典了欧几里得辗转相除法—求两个正整数最大公因数的算法。展开了算法要求具备的五个特质：有穷性，确定性，输入，输出，可行性。</p>
 <p>明确了<strong>算法分析</strong>和<strong>算法理论</strong>的研究边界问题。</p>
+<h3 id="算法1-1-习题"><a href="#算法1-1-习题" class="headerlink" title="算法1.1 习题"></a>算法1.1 习题</h3><ul>
+<li>习题1 [10]<blockquote><p>给出了置换操作[t &lt;- m, m &lt;- n, n &lt;- t], 那么对于给定输入四个变量(a,b,c,d)重新排列成(b,c,d,a)， 要最少进行多少置换操作？</p>
+</blockquote>
+</li>
+</ul>
+<p>n元组， 要进行 n-1次置换操作。</p>
+<ul>
+<li>习题2 [15]<blockquote><p>证明从步骤E1 第二次执行执行起，每次该步开始时，m 必须大于n (第一次执行时可能不满足);</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">假设开始的情况：</span><br><span class="line">i) 若m &gt;= n, 按余数的定义则接下来一直会满足 m &gt; n;</span><br><span class="line">ii)若m &lt; n, m / n = <span class="number">0</span> ....  m,  根据步骤<span class="number">3</span>的定义，从下一轮开始 m = n, n = r = m, 即完成了大小数置换。接下来就退化至情况 (i).</span><br><span class="line">=证毕=</span><br></pre></td></tr></table></figure>
+<ul>
+<li>习题3 [20]<blockquote><p>（为了提高效率）修改算法E， 使其避免出现 m &lt;- n 之类的 平凡替换操作， 按照算法E的风格写出这个新算法， 称为为算法F。</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>习题4 [16]<blockquote><p>2166 与 6099的最大公因数是多少？</p>
+</blockquote>
+</li>
+</ul>
+<p>57， 57(38, 107) = (2166, 6099)</p>
+<ul>
+<li>习题6 [20]<blockquote><p>当n = 5时，  执行算法步骤E1的平均次数 T_5 是多少？</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> n = <span class="number">5</span>, 分别代入 m = <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span> 分别要进行 <span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>次；</span><br><span class="line"> 当 m &gt;= <span class="number">6</span>时， 会出现循环。 因此平均次数是<span class="number">2.6</span>次。</span><br><span class="line">=解毕=</span><br></pre></td></tr></table></figure>
+<ul>
+<li>习题7 [M21]<blockquote><p>m已知， n在所有正整数范围内取值，令Um为算法E中步骤E1执行的平均次数。 说明Um具有合理定义， Um与Tm有关系吗？</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">书中给出Tm的定义是 假设n值已知， m取值在所有正整数上， 平均E1要跑多少次？</span><br><span class="line"></span><br><span class="line">这个题目可以使用上一题目的结论。因为m已知， 随着n的增长， 除了n较小的情况，总会出现n&gt;m。 当n大于m时，交换<span class="number">1</span>次就把问题变成了已知问题。 此时就有 Um = Tm + <span class="number">1.</span></span><br><span class="line">=解毕=</span><br></pre></td></tr></table></figure>
+<ul>
+<li>习题8 [M25]</li>
+<li>习题9 [M30]</li>
+</ul>
+<p>均跳过。</p>
+<h3 id="数学准备1-2"><a href="#数学准备1-2" class="headerlink" title="数学准备1.2"></a>数学准备1.2</h3><h4 id="数学归纳法习题"><a href="#数学归纳法习题" class="headerlink" title="数学归纳法习题"></a>数学归纳法习题</h4><ul>
+<li><p>习题1 [05]<br>略</p>
+</li>
+<li><p>习题2 [15]</p>
+<blockquote><p>批出下面定理证明的错误之处</p>
+</blockquote>
+</li>
+</ul>
+<p>出现了分母为0的情况</p>
+<ul>
+<li>习题3 [18]<blockquote><p>找出下面数学归纳法证明的错误地方。</p>
+</blockquote>
+</li>
+</ul>
+<p>n = 1 , 出现了分母为0的情况</p>
+<ul>
+<li>习题4 [20]</li>
+</ul>
+<p>证明Fibonaaci数列满足 对一切正整数n 满足</p>
+<script type="math/tex; mode=display">F_n \ge \phi^{n-2}</script><p>和书中给出 (3)式基本类似， 略。</p>
+<ul>
+<li>习题5 [21]<blockquote><p>素数是指 大于1 且除1和自身外没有其他正整数因数的整数。 根据此定义和数学归纳法， 证明每个大于1的整数可写成一个或多个素数的乘积。</p>
+</blockquote>
+</li>
+</ul>
+<hr>
 <h2 id="数学⚠"><a href="#数学⚠" class="headerlink" title="数学⚠"></a>数学⚠</h2><p>接下来是长达几十页的数学”基础”知识， 说它基础，其实有点夸张，很多内容连我这个数学专业的毕业生，都感觉到有点恐怖。 不知道计算机专业或者非理学专业的人，在看这部分的时候是什么想法。</p>
 
         
@@ -730,7 +796,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vol-1-基本算法"><span class="nav-number">1.</span> <span class="nav-text">Vol.1 - 基本算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念-这本书里的算法是指什么？"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念 - 这本书里的算法是指什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学⚠"><span class="nav-number">1.2.</span> <span class="nav-text">数学⚠</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vol-1-基本算法"><span class="nav-number">1.</span> <span class="nav-text">Vol.1 - 基本算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念-这本书里的算法是指什么？"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念 - 这本书里的算法是指什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法1-1-习题"><span class="nav-number">1.1.1.</span> <span class="nav-text">算法1.1 习题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学准备1-2"><span class="nav-number">1.1.2.</span> <span class="nav-text">数学准备1.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数学归纳法习题"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">数学归纳法习题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学⚠"><span class="nav-number">1.2.</span> <span class="nav-text">数学⚠</span></a></li></ol></li></ol></div>
             
 
           </div>
