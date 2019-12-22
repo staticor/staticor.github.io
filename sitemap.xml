@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://staticor.github.io/2019/12/22/taocp102/</loc>
+    
+    <lastmod>2019-12-22T14:02:55.925Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://staticor.github.io/about/index.html</loc>
+    
+    <lastmod>2019-12-22T13:54:18.578Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://staticor.github.io/taocp/index.html</loc>
     
-    <lastmod>2019-12-21T07:46:08.244Z</lastmod>
+    <lastmod>2019-12-22T13:16:00.154Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://staticor.github.io/2019/12/22/taocp101/</loc>
+    
+    <lastmod>2019-12-22T13:12:18.177Z</lastmod>
     
   </url>
   
@@ -152,13 +173,6 @@
     <loc>https://staticor.github.io/2019/03/16/math-1-1/2019-03-16-math-1/</loc>
     
     <lastmod>2019-09-27T22:07:38.252Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://staticor.github.io/about/index.html</loc>
-    
-    <lastmod>2019-09-21T02:42:34.000Z</lastmod>
     
   </url>
   
