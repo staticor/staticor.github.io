@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="金勇-Steve的数学天地">
 <meta property="og:description" content="简介P6 - P7 共计9题, 最有难度的是后2个。 自己看了书后答案也没有了解. 打算先留空,观望. 题目解答习题1 [10]  给出了置换操作[t &amp;lt;- m, m &amp;lt;- n, n &amp;lt;- t], 那么对于给定输入四个变量(a,b,c,d)重新排列成(b,c,d,a)， 要最少进行多少赋值操作？  解： 需要进行五次赋值操作。 ==&amp;gt;        t &amp;lt;- a, a">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-12-22T13:12:18.177Z">
+<meta property="og:updated_time" content="2019-12-24T07:09:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="taocp习题系列-101">
 <meta name="twitter:description" content="简介P6 - P7 共计9题, 最有难度的是后2个。 自己看了书后答案也没有了解. 打算先留空,观望. 题目解答习题1 [10]  给出了置换操作[t &amp;lt;- m, m &amp;lt;- n, n &amp;lt;- t], 那么对于给定输入四个变量(a,b,c,d)重新排列成(b,c,d,a)， 要最少进行多少赋值操作？  解： 需要进行五次赋值操作。 ==&amp;gt;        t &amp;lt;- a, a">
@@ -281,7 +281,7 @@
 
     
 
-    <a href="/taocp/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>TAOCP</a>
+    <a href="/taocp/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>TAOCP</a>
 
   </li>
         
@@ -305,7 +305,7 @@
         
         
           
-          <li class="menu-item menu-item-tags">
+          <li class="menu-item menu-item-math">
 
     
     
@@ -315,7 +315,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/math/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Math</a>
 
   </li>
         
@@ -462,12 +462,24 @@
                 
               
 
-              <time title="Created: 2019-12-22 19:32:56 / Modified: 21:12:18" itemprop="dateCreated datePublished" datetime="2019-12-22T19:32:56+08:00">2019-12-22</time>
+              <time title="Created: 2019-12-22 19:32:56" itemprop="dateCreated datePublished" datetime="2019-12-22T19:32:56+08:00">2019-12-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-12-24 15:09:40" itemprop="dateModified" datetime="2019-12-24T15:09:40+08:00">2019-12-24</time>
               
             
           </span>
@@ -502,7 +514,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.2k</span>
+                <span title="Symbols count in article">2.8k</span>
               
 
               
@@ -516,7 +528,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">3 mins.</span>
               
             </div>
           
@@ -598,7 +610,17 @@
 <p>直观上, 这意味着  $C_1$ 的任何计算序列都由 $C_2$ 模拟实现, 不过  $C_2$ 可能要用更多的计算步骤, 保留更多状态信息.</p>
 </blockquote>
 <pre><code>not-resolved.
-</code></pre>
+</code></pre><h1 id="scratch"><a href="#scratch" class="headerlink" title="scratch"></a>scratch</h1><blockquote>
+<p>others<br> 一些帮人的临时公式编辑操作</p>
+</blockquote>
+<p>令 $P_i$表示X天， 有且仅且收集了 $i$种卡片的概率。<br>显然， 这里 i 取值为 1，2，3…, 12 只有12种可能。 所以：</p>
+<script type="math/tex; mode=display">P_1 + P_2 + ... + P_{12} = 1</script><p>下面分别列式：</p>
+<p>$ P_1 = C_{12}^1 (\frac {1} {12})^X $, </p>
+<p>$ P_2 = C_{12}^2 \sum_{\alpha_1=1 , \alpha_2=1, \alpha_1 + \alpha_2 = X} (\frac {1} {12})^{\alpha_1}  (\frac {2} {12})^{\alpha_2} $</p>
+<p>…. </p>
+<p>$ P_{11} = C_{12}^{11} \sum_{\alpha_1=1 … \alpha_{11}=1, \alpha_1 + … + \alpha_{11} = X} (\frac {1} {12})^{\alpha_1} … (\frac {11} {12})^{\alpha_{11}} $</p>
+<p>$ P_{12} = C_{12}^{12} \sum_{\alpha_1=1 … \alpha_{12}=1, \alpha_1 + … + \alpha_{12} = X} (\frac {1} {12})^{\alpha_1} … (\frac {12} {12})^{\alpha_{12}} $</p>
+<script type="math/tex; mode=display">C_M^N</script>
       
     </div>
 
@@ -937,7 +959,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目解答"><span class="nav-number">2.</span> <span class="nav-text">题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-10"><span class="nav-number">2.1.</span> <span class="nav-text">习题1 [10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-15"><span class="nav-number">2.2.</span> <span class="nav-text">习题2 [15]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-20"><span class="nav-number">2.3.</span> <span class="nav-text">习题3 [20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-16"><span class="nav-number">2.4.</span> <span class="nav-text">习题4 [16]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-20"><span class="nav-number">2.5.</span> <span class="nav-text">习题6 [20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题7-M21"><span class="nav-number">2.6.</span> <span class="nav-text">习题7 [M21]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题8-M25"><span class="nav-number">2.7.</span> <span class="nav-text">习题8 [M25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题9-M30"><span class="nav-number">2.8.</span> <span class="nav-text">习题9 [M30]</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目解答"><span class="nav-number">2.</span> <span class="nav-text">题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-10"><span class="nav-number">2.1.</span> <span class="nav-text">习题1 [10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-15"><span class="nav-number">2.2.</span> <span class="nav-text">习题2 [15]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-20"><span class="nav-number">2.3.</span> <span class="nav-text">习题3 [20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-16"><span class="nav-number">2.4.</span> <span class="nav-text">习题4 [16]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-20"><span class="nav-number">2.5.</span> <span class="nav-text">习题6 [20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题7-M21"><span class="nav-number">2.6.</span> <span class="nav-text">习题7 [M21]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题8-M25"><span class="nav-number">2.7.</span> <span class="nav-text">习题8 [M25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题9-M30"><span class="nav-number">2.8.</span> <span class="nav-text">习题9 [M30]</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scratch"><span class="nav-number">3.</span> <span class="nav-text">scratch</span></a></li></ol></div>
             
 
           </div>
@@ -978,7 +1000,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:01</span>
+    <span title="Reading time total">1:02</span>
   
 </div>
 
@@ -1167,6 +1189,43 @@ show_date_time();
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
   
 
 
