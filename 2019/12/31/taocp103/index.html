@@ -134,18 +134,18 @@
 
 
 
-  <meta name="description" content="重温李航老师的《统计学习方法》，去年看到隐马的时候到第二小节就放下了，新时光重读老书，别有一番滋味。  隐马尔可夫模型（Hidden Markov Model)是可用来标注问题的统计学习模型，在NLP中有极广泛的应用， 其本质是指我们得到一组观测序列，其背后是由看不到的隐藏变量生成的。 联想到上帝投骰子，我们只看到若干点数，但不知道的是使用的哪个骰子（隐变量是指选择了某个骰子的概率）。 模型定义">
-<meta name="keywords" content="数学,机器学习,监督学习">
+  <meta name="description" content="1.2.3 和式 Summation 与 连乘 Production习题(一) 习题1[00] $a_1 + a_2 + a_3 + … + a_0 = 0,$那么 $a_2 + a_3 + … + a_0$ 是什么?  解: $ -a_1 $ 习题2[01] 如果n = 3.14, 记号 $ \sum_{1 \le j \le n} a_j$的含义是什么  $ a_1+a_2+a_3$ 习题3[">
+<meta name="keywords" content="计算机科学,TAOCP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="machinelearning08隐马尔可夫模型">
-<meta property="og:url" content="https://staticor.github.io/2019/11/15/machinelearning08隐马尔可夫模型/index.html">
+<meta property="og:title" content="taocp习题系列-103">
+<meta property="og:url" content="https://staticor.github.io/2019/12/31/taocp103/index.html">
 <meta property="og:site_name" content="金勇-Steve的数学天地">
-<meta property="og:description" content="重温李航老师的《统计学习方法》，去年看到隐马的时候到第二小节就放下了，新时光重读老书，别有一番滋味。  隐马尔可夫模型（Hidden Markov Model)是可用来标注问题的统计学习模型，在NLP中有极广泛的应用， 其本质是指我们得到一组观测序列，其背后是由看不到的隐藏变量生成的。 联想到上帝投骰子，我们只看到若干点数，但不知道的是使用的哪个骰子（隐变量是指选择了某个骰子的概率）。 模型定义">
+<meta property="og:description" content="1.2.3 和式 Summation 与 连乘 Production习题(一) 习题1[00] $a_1 + a_2 + a_3 + … + a_0 = 0,$那么 $a_2 + a_3 + … + a_0$ 是什么?  解: $ -a_1 $ 习题2[01] 如果n = 3.14, 记号 $ \sum_{1 \le j \le n} a_j$的含义是什么  $ a_1+a_2+a_3$ 习题3[">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-10-14T13:51:16.172Z">
+<meta property="og:updated_time" content="2019-12-27T00:48:25.232Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="machinelearning08隐马尔可夫模型">
-<meta name="twitter:description" content="重温李航老师的《统计学习方法》，去年看到隐马的时候到第二小节就放下了，新时光重读老书，别有一番滋味。  隐马尔可夫模型（Hidden Markov Model)是可用来标注问题的统计学习模型，在NLP中有极广泛的应用， 其本质是指我们得到一组观测序列，其背后是由看不到的隐藏变量生成的。 联想到上帝投骰子，我们只看到若干点数，但不知道的是使用的哪个骰子（隐变量是指选择了某个骰子的概率）。 模型定义">
+<meta name="twitter:title" content="taocp习题系列-103">
+<meta name="twitter:description" content="1.2.3 和式 Summation 与 连乘 Production习题(一) 习题1[00] $a_1 + a_2 + a_3 + … + a_0 = 0,$那么 $a_2 + a_3 + … + a_0$ 是什么?  解: $ -a_1 $ 习题2[01] 如果n = 3.14, 记号 $ \sum_{1 \le j \le n} a_j$的含义是什么  $ a_1+a_2+a_3$ 习题3[">
 
 
 
@@ -154,7 +154,7 @@
 
 
 
-  <link rel="canonical" href="https://staticor.github.io/2019/11/15/machinelearning08隐马尔可夫模型/">
+  <link rel="canonical" href="https://staticor.github.io/2019/12/31/taocp103/">
 
 
 
@@ -164,7 +164,7 @@
   };
 </script>
 
-  <title>machinelearning08隐马尔可夫模型 | 金勇-Steve的数学天地</title>
+  <title>taocp习题系列-103 | 金勇-Steve的数学天地</title>
   
 
 
@@ -419,7 +419,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/11/15/machinelearning08隐马尔可夫模型/">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/12/31/taocp103/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jinyong Yang">
@@ -436,7 +436,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">machinelearning08隐马尔可夫模型
+          <h1 class="post-title" itemprop="name headline">taocp习题系列-103
 
               
             
@@ -462,7 +462,7 @@
                 
               
 
-              <time title="Created: 2019-11-15 21:53:24" itemprop="dateCreated datePublished" datetime="2019-11-15T21:53:24+08:00">2019-11-15</time>
+              <time title="Created: 2019-12-31 19:33:57" itemprop="dateCreated datePublished" datetime="2019-12-31T19:33:57+08:00">2019-12-31</time>
             
 
             
@@ -479,29 +479,11 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-14 21:51:16" itemprop="dateModified" datetime="2019-10-14T21:51:16+08:00">2019-10-14</time>
+                <time title="Modified: 2019-12-27 08:48:25" itemprop="dateModified" datetime="2019-12-27T08:48:25+08:00">2019-12-27</time>
               
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -532,7 +514,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">6.3k</span>
+                <span title="Symbols count in article">1.2k</span>
               
 
               
@@ -546,7 +528,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">6 mins.</span>
+                <span title="Reading time">1 mins.</span>
               
             </div>
           
@@ -566,84 +548,39 @@
       
 
       
-        <blockquote>
-<p>重温李航老师的《统计学习方法》，去年看到隐马的时候到第二小节就放下了，新时光重读老书，别有一番滋味。</p>
+        <h1 id="1-2-3-和式-Summation-与-连乘-Production习题"><a href="#1-2-3-和式-Summation-与-连乘-Production习题" class="headerlink" title="1.2.3 和式 Summation 与 连乘 Production习题"></a>1.2.3 和式 Summation 与 连乘 Production习题</h1><p>(一)</p>
+<h2 id="习题1-00"><a href="#习题1-00" class="headerlink" title="习题1[00]"></a>习题1[00]</h2><blockquote>
+<p>$a_1 + a_2 + a_3 + … + a_0 = 0,$<br>那么 $a_2 + a_3 + … + a_0$ 是什么?</p>
 </blockquote>
-<p>隐马尔可夫模型（Hidden Markov Model)是可用来标注问题的统计学习模型，在NLP中有极广泛的应用， 其本质是指我们得到一组观测序列，其背后是由看不到的隐藏变量生成的。 联想到上帝投骰子，我们只看到若干点数，但不知道的是使用的哪个骰子（隐变量是指选择了某个骰子的概率）。</p>
-<h1 id="模型定义"><a href="#模型定义" class="headerlink" title="模型定义"></a>模型定义</h1><p>隐马尔可夫模型是伴有时间性质的概率模型，时间不一定是等间隔的严格时间序列，但是要有先后时序关系的数据。 描述由一个隐藏的马尔可夫链随机生成不可观测的状态序列（隐变量），由各个状态生成一个观测随机序列。</p>
-<p>隐马尔可夫模型的参数由三部分组成$\{A, B, \lambda \}$</p>
-<ul>
-<li>A 状态转移矩阵（State Transition Matrix)</li>
-<li>B 发射矩阵，观测矩阵（Emission Matrix)</li>
-<li>$\pi$ 初始状态向量</li>
-</ul>
-<p>这里为了后续公式的统一， 也给出和《统》一书相同的符号约定。<br>$Q$是所有可能的状态的集合， $V$是所有可能的观测集合，状态集的容量是N， 观测集的容量是M</p>
-<script type="math/tex; mode=display">Q = {q_1, q_2, \cdot \cdot \cdot, q_N } , V = { v_1, v_2, , \cdot \cdot \cdot, v_M }</script><p>两段<strong>等长</strong>的序列，分别是状态序列I和观测序列O:</p>
-<script type="math/tex; mode=display">I = (i_1, i_2, ..., i_T), O = (o_1, o_2, ... , o_T)</script><p>下面分别对模型参数三部分定义及解释。</p>
-<h2 id="状态转移矩阵"><a href="#状态转移矩阵" class="headerlink" title="状态转移矩阵"></a>状态转移矩阵</h2><p>A矩阵是一种状态间的描述， 与时刻无关（因为只能是两个相邻的时点）， 同一行各元素相加之和为1.</p>
-<script type="math/tex; mode=display">A = [a_{ij}]_{N·N}</script><script type="math/tex; mode=display">a_{ij} = P(i_{t+1} = q_j | i_t = q_i ), i,j = 1,2,... N;</script><p>矩阵中的每个元素表示含义是上一状态是 $i_t：q_i$, 转到下一状态 $i_{t+1} : q_j$的概率是多少。<br>因为有N个转移方向（包括下一时刻还是自己）， 所有情况的转移概率之和是1.</p>
-<h2 id="发射矩阵"><a href="#发射矩阵" class="headerlink" title="发射矩阵"></a>发射矩阵</h2><p><strong>发射</strong> 二字表示的当前时刻如果状态知道了，可能发出哪些观测值。 （HMM假定了状态和观测值均是离散取值，对于连续情况， 需要考虑其它的模型， 比如卡尔曼滤波等）。</p>
-<p>B发射矩阵的尺寸是 N * M, 每行是某个状态， 每列则是由该状态得出某观测值的概率：</p>
-<script type="math/tex; mode=display">B = [b_j(k)]_{N·M}</script><script type="math/tex; mode=display">b_j(k) = P(o_t = v_k | i_t = q_j ) k = 1, 2 ... M ; j = 1,2, ...N</script><p>对某行数据来说， __ 它的元素之和也为1.</p>
-<h2 id="初始状态"><a href="#初始状态" class="headerlink" title="初始状态"></a>初始状态</h2><p>前面在提到状态转移时, 我们应该要想一个问题： 转移之前总有一个起点， 那么刚开始的状态怎么确定呢？<br>我称这里 $\pi$ 向量就形如巴西的那只蝴蝶，是我们的初始条件。 用来定义在时刻1时可能是哪个状态的概率分布向量：</p>
-<script type="math/tex; mode=display">
-\pi = ( \pi_i), \quad \pi_i = P(i_1 = q_i), i = 1,2, ...N</script><p>因此综合以上的信息， 一个HMM由参数 $ \lambda = (A, B, \pi ) $确定， 状态转移矩阵和初始向量能够确定下来一条隐藏马尔可夫状态链，而状态链进而<strong>发射</strong>出观测序列。</p>
-<h1 id="模型假设与要解决的问题"><a href="#模型假设与要解决的问题" class="headerlink" title="模型假设与要解决的问题"></a>模型假设与要解决的问题</h1><p>对于隐变量模型来说，HMM的假设条件也相对简单， 它有两个假设：</p>
-<p>(i)齐次马尔可夫假设， 假设隐藏马尔可夫链在当前时刻的状态只依赖于前一状态， 与历史再之前的状态无关，与当前t的取值无关, 与之前的观测序列无关：</p>
-<script type="math/tex; mode=display">P(i_t | o_1, o_2, ... o_t, i_1, i_2, ..., i_{t-1}) = P(i_t | i_{t-1})</script><p>记忆tips: 状态序列的一阶自相关性；<br>(ii) 观测独立性假设， 任意时刻的观测值只依赖于当前的状态，与历史状态无关，与历史值无关：</p>
-<script type="math/tex; mode=display">P(o_t | o_1, o_2, ... o_{t-1}, i_1, i_2, ..., i_t) = P(o_t | i_t)</script><p>记忆tips: 上帝的骰子只取决于当前用的哪颗，和之前的投掷行为无关。</p>
-<h2 id="观测序列生成"><a href="#观测序列生成" class="headerlink" title="观测序列生成"></a>观测序列生成</h2><p>有了以上2个假设和模型参数， 我们就能用数学语言描述观测序列 {$o_1, o_2, …o_T$}是如何生成出来的了：</p>
-<p>输入信息：  $ \lambda = (A, B, \pi ) $, 需要的观测序列长度T；<br>输出序列：  $ O = (o_1, o_2, … … o_T)$</p>
-<ul>
-<li>初始：令t = 1, 按初始状态向量 $\pi$ 产生状态 $i_t$;</li>
-<li>发射：按发射矩阵B， 取值 $b_1(k)$,生成对应的 $o_1$</li>
-<li>转移：按状态转移矩阵A，取$ a_{ij} $ 转移到下个状态 $i_{t+1}$</li>
-<li>判停：令t = t+1, 如果$ t &lt; T$, 则跳至发射步；</li>
-<li>停止：如果 $t+1&gt;T$, 停止。</li>
-</ul>
-<h2 id="三个基本问题"><a href="#三个基本问题" class="headerlink" title="三个基本问题"></a>三个基本问题</h2><p>那么HMM模型定义后，能解决哪些问题呢？<br>(1) 最直接的自然是<strong>概率计算问题</strong>, 给定了模型参数还有观测序列，能否告诉我有多大概率在模型$\lambda$的情况下， 观测序列O出现？   即求  $P(O|\lambda)$<br>(2) <strong>学习问题</strong><br>学习问题就是在不知道参数， 只有观测序列的情况下， 去推测到底数据是怎么来的。 即估计模型的参数 $ \lambda = (A, B, \pi ) $， 使得此时观测序列条件概率 $P(O|\lambda)$ 最大。<br>能否用极大似然方法直接求出来呢?<br>(3) 解码问题 (Decoding)<br>已知模型参数和观测序列，要反推出模型的状态序列。 因为2个序列长度相等， 就像是已知密文求对应明文一样， 称为Decoding问题。</p>
-<h1 id="概率计算问题-Evaluation"><a href="#概率计算问题-Evaluation" class="headerlink" title="概率计算问题(Evaluation)"></a>概率计算问题(Evaluation)</h1><p>首先书里先讲的一种概念上可行但计算不可行的方法，然后再给出有递归性质的前向(forward)与后向(backward)方法。</p>
-<h2 id="直接计算法"><a href="#直接计算法" class="headerlink" title="直接计算法"></a>直接计算法</h2><p>按前面给出观测序列生成的机制，可以写出来给定模型 $\lambda = (A, B, \pi)$ 观测序列 $O = (o_1, o_2, …., o_T)$ 的 概率 $P(O|\lambda)$, 思路是列举出所有可能的长度为T的状态序列 $I = (i_1, i_2, … i_T) $, 单独计算出在一个状态序列下生成O的概率， 然后求出所有可能, 这里因为序列序列的长度为T， 每个元素都有N种取值可能， 所以直接概率计算方法就相当于是对 $ N^T$ 项进行求和， 在计算量上很大。</p>
-<p>尽管如此， 下面还是展开了解， 目的是进一步熟悉HMM模型。</p>
-<p>生成某状态序列 $I = (i_1, i_2, … i_T) $的概率, 其构造机制是先给定初始状态， 然后使用状态转移连乘而得：</p>
-<script type="math/tex; mode=display">P(I| \lambda ) = \pi_{i1} a_{i_1 i_2} a_{i_2 i_3} \cdot \cdot \cdot a_{i_{T-1} i_T}</script><p>给定状态序列I， 观测序列O也自然写出来了（记住， 每个观测值由对应的状态发射出来的）：</p>
-<script type="math/tex; mode=display">P(O | I, \lambda) = \prod_{l=1}^T b_{i_l}(o_l)</script><script type="math/tex; mode=display">P(O, I | \lambda) = P(O|I, \lambda) P(I | \lambda)</script><script type="math/tex; mode=display">
-= \prod_{l=1}^T b_{i_l}(o_l)  \pi_{i1} a_{i_1 i_2} a_{i_2 i_3} \cdot \cdot \cdot a_{i_{T-1} i_T}</script><p>再考虑所有情况下的状态序列， 就需要在前面加一个求和符号：</p>
-<script type="math/tex; mode=display">\underset {i_1, i_2, ...i_T}{\Sigma}P(O, I | \lambda)</script><p>这就是直接计算方法的结果， 复杂度是 $ O(TN^T) $, 理论可行，而计算实现上不可行的方法。</p>
-<h2 id="前向方法"><a href="#前向方法" class="headerlink" title="前向方法"></a>前向方法</h2><p>思路： 因为HMM的状态序列-观测序列是有方向的， 所以希望能找到前一项出现后与后一项的关系。</p>
-<p>定义前向概率，记作</p>
-<script type="math/tex; mode=display">\alpha_t(i) = P(o1, o2, ..., i_t = q_i | \lambda)</script><p>, 从而能够递推地求得前向概率 $ \alpha_t(i)$ 及观测序列概率 $P(O| \lambda)$</p>
-<p>观测序列的前向算法：<br>输入： 隐马尔可夫模型参数 $ \lambda = (A, B, \pi )$, 观测序列O<br>输出： 观测序列概率 $P(O|\lambda)$</p>
-<p>(i) 初值</p>
-<script type="math/tex; mode=display">\alpha_1(i) = \pi_i b_i(o_1), i = 1,2, ... N</script><p>(ii) 递推 对 t = 1, 2, …, T-1</p>
-<script type="math/tex; mode=display">\alpha_{t+1}(i) = [\sum_{j=1}^N \alpha_t(j) a_{ji}] b_i(o_{t+1}) , i = 1,2, ... N</script><p>(iii) 终止</p>
-<script type="math/tex; mode=display">P(O|\lambda) = \sum_{i=1}^N \alpha_T(i)</script><p>解释， 这里定义了 辅助变量 $\alpha_t(i) $ 表示的是看到了观测序列的前t项： $ o_1, o_2, … o_t $ 在t时刻隐状态为i的概率。  以第一项为例： $\alpha_1(i)$ 是两项之积：$ \pi_i b_1(o_1) $； 下面来看第二项 $ \alpha_2(i) $, 它与前项的联系就是<strong>状态转移</strong>, 第二时刻状态为i, 则前一时刻的状态可能有N种可能(j: 1-&gt; N), $\alpha_2(i) = ( \sum_{j=1}^N \alpha_1(i) * a_{ji} ) b_i (o_{t+1}) $<br>这个递推关系可以推广到后面的情况。</p>
-<p>此时使用这种前向方法，大大减少了计算量！ 复杂度由前述的 $O(TN^T)$ 降低至 $O(TN^2)$</p>
-<h2 id="后向算法"><a href="#后向算法" class="headerlink" title="后向算法"></a>后向算法</h2><p>后向算法与前向算法类似，只不过将方向对调一下。 定义了时刻t状态为$q_i$条件下，从t+1到T部分观测序列为 $o_{t+1}, o_{t+2}, … o_T$的概率为后向概率， 记作</p>
-<script type="math/tex; mode=display">\beta_t(i) = P(o_{t+1}, o_{t+2}, ... , o_T | i_t = q_i, \lambda)</script><p>可以用递推方法， 用 $ \beta_t(i)及观测序列概率P(O|\lambda)$简化问题。</p>
-<p>输入： 隐马尔可夫，观测序列 $ O = (o_1, o_2, …, o_T)$<br>输出： 观测序列概率 $ P(O|\lambda) $</p>
-<p>(1)对t = T</p>
-<script type="math/tex; mode=display">\beta_t(i) = 1 , i = 1,2, ..., N</script><p>(2)<br>对t = T-1, T-2, …,1</p>
-<script type="math/tex; mode=display">\beta_t(i) = \sum_{j=1}^N a_{ij}b_j(o_{t+1}) \beta_{t+1}(j), i = 1, ..., N</script><p>(3)</p>
-<script type="math/tex; mode=display">P(O|\lambda) = \sum_{i=1}^N \pi_i b_i(o_1)\beta_1(i)</script><h1 id="学习问题-Learning"><a href="#学习问题-Learning" class="headerlink" title="学习问题(Learning)"></a>学习问题(Learning)</h1><p>HMM的学习问题是指对生成模型参数$\lambda$估计， 如果给定了大量的完整数据（观测序列与状态序列组成的序列对）， 则可以使用监督学习下的极大似然估计。<br>由于比较简单这里就不占篇幅了，我打算把重心放在无监督学习上， 也就是<strong>HMM模型下的EM算法</strong> — <strong>Baum-Welch算法</strong></p>
-<p>假设只给定了若干等长的观测数据， S个 $ {O_1, O_2, … O_s} $, 其中每个每个 $O_i = (o_1, o_2, … o_T)$, 目前是学习HMM $ \lambda = (A, B, \pi )$的参数值，那么HMM事实上是围绕</p>
-<script type="math/tex; mode=display">P(O|\lambda) = \underset{I} {\sum} P(O|I, \lambda) P(I| \lambda)</script><h2 id="由对数似然函数写出Q函数"><a href="#由对数似然函数写出Q函数" class="headerlink" title="由对数似然函数写出Q函数"></a>由对数似然函数写出Q函数</h2><p>我们知道， 一般意义下的对数似然函数可写成 $log P(Y|\theta)$; 对于含有隐变量情况， 完整数据要写成 (X,Z), 在HMM的语境下就是（O, I），所以HMM下的对数似然函数就是 $ P( O, I | \lambda)$, 因为不知道I到底是什么分布， 所以就对所有可能I进行求和，</p>
-<p>EM算法是分成E步和M步迭代求解参数的方法， Baum-Welch算法是在EM算法提出之前的，与EM算法的思路异曲同工。</p>
-<p>那么我们仿照EM算法写下HMM的Q函数:</p>
-<script type="math/tex; mode=display">Q(\lambda, \lambda^{(t)}) =  \underset{I} {\sum} log P(O, I | \lambda) P(O, I | \lambda^{(t)})</script><p>其中 $\lambda^{(t)}$ 是当前估计值， $\lambda$是要极大化的模型参数；</p>
-<p>回忆之前，</p>
-<script type="math/tex; mode=display">P(O, I|\lambda) = \pi_{i_1} * b_{i_1}(o_1)*a_{i_1 i_2} * ... a_{i_{T-1}T} b_{i_T}(o_T)</script><p>于是将上式代入至Q函数，得到:</p>
-<script type="math/tex; mode=display">Q(\lambda, \lambda^{(t)}) = \underset{I} {\sum} log \pi_{i_1} P(O,I| \lambda^{(t)}) + \underset{I} {\sum} (\sum_{t=1}^{T-1} log a_{i_t i_{t+1}}) P(O,I| \lambda^{(t)}) + \underset{I} {\sum} (\sum_{t=1}^{T} log b_{i_t}(o_t)) P(O,I| \lambda^{(t)})</script><p>刻意将上面的Q函数拆解为三项， 对应于 $\lambda$的三参数， 目的是在M步极大化时， 可以分别求</p>
-<script type="math/tex; mode=display">
-\begin{align*}
- & \pi_i^{t+1} =  \underset{\pi_i}{ {argmax}} \quad \underset{I} {\sum} log \pi_{i} P(O,I| \lambda^{(t)})
- \newline
- &  s.t. \sum_{i=1}^N \pi_i = 1
-\end{align*}</script><p>这样求解优化问题，而且是带等值约束，能借助于拉格朗日乘数法求解。求得</p>
-<script type="math/tex; mode=display">\pi_i = \frac {P(O, i_1 = i | \lambda^{(t)})} {P(O| \lambda^{(t)})}</script><p>对于转移概率矩阵与发射矩阵 $ A = [a_{ij}] , B = [b_j(k)]$ 也是使用类似的方式求解。</p>
-<p>这里结果如下：</p>
-<script type="math/tex; mode=display">a_{ij} = \frac {\sum_{t=1}^{T-1} P(O, i_t = i, i_{t+1} = j | \lambda^{(t)})} { \sum_{t=1}^{T-1} P(O, i_t = i| \lambda^{(t)}) }</script><script type="math/tex; mode=display">b_j(k) = \frac { \sum_{t=1}^T P(O, i_t=j| \lambda^{(t)}) I\{o_t=k\} } {\sum_{t=1}^T P(O, i_t=j | \lambda^{(t)})}</script><p>注意， 这里对$b_j(k)$ 加上一个指示函数。</p>
-<h1 id="解码问题（Decoding"><a href="#解码问题（Decoding" class="headerlink" title="解码问题（Decoding)"></a>解码问题（Decoding)</h1>
+<p>解: $ -a_1 $</p>
+<h2 id="习题2-01"><a href="#习题2-01" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><blockquote>
+<p>如果n = 3.14, 记号 $ \sum_{1 \le j \le n} a_j$的含义是什么</p>
+</blockquote>
+<p>$ a_1+a_2+a_3$</p>
+<h2 id="习题3-13"><a href="#习题3-13" class="headerlink" title="习题3[13]"></a>习题3[13]</h2><blockquote>
+<p>不用$\sum$记号, 分别写出同</p>
+<script type="math/tex; mode=display">\sum_{0 \le n \le 5}  \frac {1} {2n +1}</script><p>和</p>
+<script type="math/tex; mode=display">\sum_{0 \le n^2 \le 5}  \frac {1} {2n^2 +1}</script><p>等价的表达式, 说明为什么尽管有规则b, 两个答案不一样.</p>
+</blockquote>
+<p>解: 分别为</p>
+<script type="math/tex; mode=display">1 + 1/3 + 1/5 + 1/7 + 1/9+ 1/11</script><script type="math/tex; mode=display">1/9 + 1/3 + 1 + 1/3  + 1/9</script><p>说明, 虽然有规则b, 但两个函数并不相同, 比如, 没有一个整数满足 $n^2 = 3 $<br>而且有2个整数满足 $n^2 = 1, n^2 = 4$</p>
+<h2 id="习题4-10"><a href="#习题4-10" class="headerlink" title="习题4[10]"></a>习题4[10]</h2><blockquote>
+<p>不用$\sum$记号, 对n =3的情况, 分别写出同等式(10) 两端等价的表达式</p>
+</blockquote>
+<p>解: 式10如下:</p>
+<script type="math/tex; mode=display">\sum_{i=1}^n \sum_{j=1}^{i} a_{ij} = \sum_{j=1}^n \sum_{n}^{i=j}</script><p>当n = 3, 左式 = $ \sum_{i=1}^n \sum_{j=1}^{i} a_{ij} $<br>= $ a_{11} + a_{21} +  a_{22} + a_{31} + a_{32} + a_{33}$</p>
+<p>当n = 3, 右式 = $ \sum_{j=1}^n \sum_{n}^{i=j} $<br>= $ a_{11} + a_{21} + a_{31}+ a_{22} + a_{32} + a_{33}$ = 右式</p>
+<h2 id="习题5-HM20"><a href="#习题5-HM20" class="headerlink" title="习题5[HM20]"></a>习题5[HM20]</h2><blockquote>
+<p>证明: 规则(a) 对收敛的无穷级数都成立, 规则a: 分配律</p>
+<script type="math/tex; mode=display">(\sum_{R(i)} a_i) (\sum_{S(j)} b_j) = (\sum_{R(i)} ) (\sum_{S(j)} a_i b_j)</script></blockquote>
+<p>简单, 证明使用代入法.</p>
+<hr>
+<h2 id="习题6-HM20"><a href="#习题6-HM20" class="headerlink" title="习题6[HM20]"></a>习题6[HM20]</h2><blockquote>
+<p>证明: 规则(d) 对任意的无穷级数都成立, 只要其中的四个和中有三个是存在的, 规则d: 处理求和范围.</p>
+<script type="math/tex; mode=display">(\sum_{R(j)} a_j) (\sum_{S(j)} a_j) =  (\sum_{R(j) 或 S(j)} a_j) +  (\sum_{R(j) 且 S(j)} a_j)</script></blockquote>
+<p>证明: 相当于是两个集合运算. 证明略.</p>
+<h2 id="习题2-01-1"><a href="#习题2-01-1" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-2"><a href="#习题2-01-2" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-3"><a href="#习题2-01-3" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-4"><a href="#习题2-01-4" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><hr>
+<h2 id="习题2-01-5"><a href="#习题2-01-5" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-6"><a href="#习题2-01-6" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-7"><a href="#习题2-01-7" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-8"><a href="#习题2-01-8" class="headerlink" title="习题2[01]"></a>习题2[01]</h2>
       
     </div>
 
@@ -678,11 +615,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数学/" rel="tag"># 数学</a>
+            <a href="/tags/计算机科学/" rel="tag"># 计算机科学</a>
           
-            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
-          
-            <a href="/tags/监督学习/" rel="tag"># 监督学习</a>
+            <a href="/tags/TAOCP/" rel="tag"># TAOCP</a>
           
         </div>
       
@@ -695,8 +630,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/02/由天平12小球沿伸的思考/" rel="next" title="由天平12小球沿伸的思考">
-                <i class="fa fa-chevron-left"></i> 由天平12小球沿伸的思考
+              <a href="/2019/12/22/taocp102/" rel="next" title="taocp习题系列-102">
+                <i class="fa fa-chevron-left"></i> taocp习题系列-102
               </a>
             
           </div>
@@ -704,10 +639,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/12/22/taocp101/" rel="prev" title="taocp习题系列-101">
-                taocp习题系列-101 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -984,7 +915,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模型定义"><span class="nav-number">1.</span> <span class="nav-text">模型定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#状态转移矩阵"><span class="nav-number">1.1.</span> <span class="nav-text">状态转移矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发射矩阵"><span class="nav-number">1.2.</span> <span class="nav-text">发射矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始状态"><span class="nav-number">1.3.</span> <span class="nav-text">初始状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型假设与要解决的问题"><span class="nav-number">2.</span> <span class="nav-text">模型假设与要解决的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#观测序列生成"><span class="nav-number">2.1.</span> <span class="nav-text">观测序列生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三个基本问题"><span class="nav-number">2.2.</span> <span class="nav-text">三个基本问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概率计算问题-Evaluation"><span class="nav-number">3.</span> <span class="nav-text">概率计算问题(Evaluation)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接计算法"><span class="nav-number">3.1.</span> <span class="nav-text">直接计算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前向方法"><span class="nav-number">3.2.</span> <span class="nav-text">前向方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后向算法"><span class="nav-number">3.3.</span> <span class="nav-text">后向算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习问题-Learning"><span class="nav-number">4.</span> <span class="nav-text">学习问题(Learning)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#由对数似然函数写出Q函数"><span class="nav-number">4.1.</span> <span class="nav-text">由对数似然函数写出Q函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解码问题（Decoding"><span class="nav-number">5.</span> <span class="nav-text">解码问题（Decoding)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-3-和式-Summation-与-连乘-Production习题"><span class="nav-number">1.</span> <span class="nav-text">1.2.3 和式 Summation 与 连乘 Production习题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-00"><span class="nav-number">1.1.</span> <span class="nav-text">习题1[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01"><span class="nav-number">1.2.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-13"><span class="nav-number">1.3.</span> <span class="nav-text">习题3[13]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-10"><span class="nav-number">1.4.</span> <span class="nav-text">习题4[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题5-HM20"><span class="nav-number">1.5.</span> <span class="nav-text">习题5[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-HM20"><span class="nav-number">1.6.</span> <span class="nav-text">习题6[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-1"><span class="nav-number">1.7.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-2"><span class="nav-number">1.8.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-3"><span class="nav-number">1.9.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-4"><span class="nav-number">1.10.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-5"><span class="nav-number">1.11.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-6"><span class="nav-number">1.12.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-7"><span class="nav-number">1.13.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-8"><span class="nav-number">1.14.</span> <span class="nav-text">习题2[01]</span></a></li></ol></li></ol></div>
             
 
           </div>
