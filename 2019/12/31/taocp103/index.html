@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="金勇-Steve的数学天地">
 <meta property="og:description" content="1.2.3 和式 Summation 与 连乘 Production习题(一) 习题1[00] $a_1 + a_2 + a_3 + … + a_0 = 0,$那么 $a_2 + a_3 + … + a_0$ 是什么?  解: $ -a_1 $ 习题2[01] 如果n = 3.14, 记号 $ \sum_{1 \le j \le n} a_j$的含义是什么  $ a_1+a_2+a_3$ 习题3[">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-12-27T00:48:25.232Z">
+<meta property="og:updated_time" content="2019-12-28T07:22:11.090Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="taocp习题系列-103">
 <meta name="twitter:description" content="1.2.3 和式 Summation 与 连乘 Production习题(一) 习题1[00] $a_1 + a_2 + a_3 + … + a_0 = 0,$那么 $a_2 + a_3 + … + a_0$ 是什么?  解: $ -a_1 $ 习题2[01] 如果n = 3.14, 记号 $ \sum_{1 \le j \le n} a_j$的含义是什么  $ a_1+a_2+a_3$ 习题3[">
@@ -479,7 +479,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-27 08:48:25" itemprop="dateModified" datetime="2019-12-27T08:48:25+08:00">2019-12-27</time>
+                <time title="Modified: 2019-12-28 15:22:11" itemprop="dateModified" datetime="2019-12-28T15:22:11+08:00">2019-12-28</time>
               
             
           </span>
@@ -514,7 +514,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.2k</span>
+                <span title="Symbols count in article">3k</span>
               
 
               
@@ -528,7 +528,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">1 mins.</span>
+                <span title="Reading time">3 mins.</span>
               
             </div>
           
@@ -579,8 +579,67 @@
 <p>证明: 规则(d) 对任意的无穷级数都成立, 只要其中的四个和中有三个是存在的, 规则d: 处理求和范围.</p>
 <script type="math/tex; mode=display">(\sum_{R(j)} a_j) (\sum_{S(j)} a_j) =  (\sum_{R(j) 或 S(j)} a_j) +  (\sum_{R(j) 且 S(j)} a_j)</script></blockquote>
 <p>证明: 相当于是两个集合运算. 证明略.</p>
-<h2 id="习题2-01-1"><a href="#习题2-01-1" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-2"><a href="#习题2-01-2" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-3"><a href="#习题2-01-3" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-4"><a href="#习题2-01-4" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><hr>
-<h2 id="习题2-01-5"><a href="#习题2-01-5" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-6"><a href="#习题2-01-6" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-7"><a href="#习题2-01-7" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><h2 id="习题2-01-8"><a href="#习题2-01-8" class="headerlink" title="习题2[01]"></a>习题2[01]</h2>
+<h2 id="习题7-HM23"><a href="#习题7-HM23" class="headerlink" title="习题7[HM23]"></a>习题7[HM23]</h2><blockquote>
+<p>已知c是一个整数， 证明： 即使两端的级数是无穷级数，<script type="math/tex">\sum_{R(j)} a_j = \sum_{R(c-j)}  a_{c-j}</script></p>
+</blockquote>
+<p>证明： c是任意级数则 $ j -&gt;  j - c $ 是形成了整数集到自身的双射。令 J=c-j, $J \in \it Z 即对等式右侧的 $ \sum_{R(c-j)}  a_{c-j}  = \sum_{R(J)} a_J $<br>因为对R函数而言, 没有明显外部约束的情况下, 认为其定义域为 $\it Z$, 使用自变量j替代J, 得</p>
+<p>右式 = $ \sum_{R(j)} a_j $ = 左式</p>
+<h2 id="习题8-HM25"><a href="#习题8-HM25" class="headerlink" title="习题8[HM25]"></a>习题8[HM25]</h2><blockquote>
+<p>给出一个不满足式7的无穷级数</p>
+</blockquote>
+<p>式7: <script type="math/tex">\sum_{R(i)} \sum_{S(j)}  a_{ij}  =  \sum_{S(j)} \sum_{R(i)}  a_{ij}</script></p>
+<p>解: 构造 $a_{i(i+1)} =1, a_{(i+1)i} = -1, (i \ge 0) 其余项为0 $<br>定义 $ R(i) = S(i) = “i \ge 0” $, 则有</p>
+<p>左式 , 右式 出现差异. 在于 “0”起点.</p>
+<h2 id="习题9-11-05"><a href="#习题9-11-05" class="headerlink" title="习题9-11 [05]"></a>习题9-11 [05]</h2><blockquote>
+<p>如果n =-1, 式14 的推导还有效吗？<br>如果n =-2, 式14 的推导还有效吗？<br>如果n = 1, 式14 的结果是什么</p>
+</blockquote>
+<p>解: 式14</p>
+<script type="math/tex; mode=display">\sum_{0 \le j \le n } a x ^j = a \frac  {1-x^{n+1}}{1-x}</script><p>代入 n = -1, 得 $a \frac {1} {1-x}$</p>
+<blockquote>
+<p>如果n =-2, 式14 的推导还有效吗？</p>
+</blockquote>
+<p>n = -1, -2 时无效. 不符合推导过程中的条件.<br>n = 1 结果是 a + na ;</p>
+<hr>
+<h2 id="习题12-10"><a href="#习题12-10" class="headerlink" title="习题12[10]"></a>习题12[10]</h2><blockquote>
+<p>1 + 1/7 + … + (1/7)^n 是什么</p>
+</blockquote>
+<p>解:  等比求和.</p>
+<h2 id="习题13-10"><a href="#习题13-10" class="headerlink" title="习题13[10]"></a>习题13[10]</h2><blockquote>
+<p>利用式15, 假定 $ m \le n 计算 \sum_{j=m}^{n} j $</p>
+</blockquote>
+<p>解: $ m + m+1 + … + n = \frac {1} {2} (m+n)(n-m+1)$  </p>
+<h2 id="习题14-11"><a href="#习题14-11" class="headerlink" title="习题14[11]"></a>习题14[11]</h2><blockquote>
+<p>利用上题, 计算 $ \sum_{j=m}^{n} \sum_{k=r}^{s} jk $</p>
+</blockquote>
+<p>解: 相当于两个等差项整体求积:</p>
+<script type="math/tex; mode=display">\frac {1} {2} (m+n)(n-m+1)  \frac {1} {2} (s+r)(s-r+1)</script><h2 id="习题15-M22"><a href="#习题15-M22" class="headerlink" title="习题15[M22]"></a>习题15[M22]</h2><blockquote>
+<p>对于小的n值, 计算 $ 1 <em> 2 + 2 </em> 2 ^2 + 3 <em> 2^3 + … + n </em> 2 ^ n $</p>
+</blockquote>
+<p>解:   $ (n-1) 2^{n+1} + 2 $</p>
+<p>这个在高中数列求和有个专有名词, <code>错位相减</code></p>
+<hr>
+<h2 id="习题16-M22"><a href="#习题16-M22" class="headerlink" title="习题16[M22]"></a>习题16[M22]</h2><blockquote>
+<p>不用数学归纳法, 证明</p>
+<script type="math/tex; mode=display">\sum_{j=0}^n j x ^j = \frac {nx^{n+2} - (n+1)x^{n+1} +x } {(x-1)^2}</script></blockquote>
+<p>证明: 错位相减的形式推导.  </p>
+<p>令S = 左 = $ \sum_{j=1}^n j x^j $<br>$x \ne 1$, $ T = S x = \sum_{j=1}^n j x^{j+1}  $<br> 使用变量替换, $ T = n x^{n+1} + \sum_{k=1}^n (k-1)x^k   $<br> 得,<br> $S - T = (1-x)S = \sum_{j=1}^n x^j - nx^{n+1} + x $<br> 化简后为结果.</p>
+<h2 id="习题17-M00"><a href="#习题17-M00" class="headerlink" title="习题17[M00]"></a>习题17[M00]</h2><blockquote>
+<p>S为整数的一个集合, $\sum_{j \in S } 1 $是什么?</p>
+</blockquote>
+<p>解: S中整数个数.</p>
+<h2 id="习题18-M20"><a href="#习题18-M20" class="headerlink" title="习题18[M20]"></a>习题18[M20]</h2><blockquote>
+<p>已知R(i) 是 关系” n 是 i的倍数”, S(i,j)是关系 $”1 \le j \lt i”$ 说明如何像式9那样交换求和次序.</p>
+</blockquote>
+<h2 id="习题19-20"><a href="#习题19-20" class="headerlink" title="习题19[20]"></a>习题19[20]</h2><blockquote>
+<p>计算$\sum_{j=m}^n (a_j - a_{j-1}) $</p>
+</blockquote>
+<p>解: 裂项.   $ a_n - a_{m-1}$</p>
+<h2 id="习题20-25"><a href="#习题20-25" class="headerlink" title="习题20[25]"></a>习题20[25]</h2><blockquote>
+<p>矩阵博士曾经观察到非同寻常的一系列公式<br>9<em>1+2 =11, 9</em>12+3 =111, 9*123+4 = 1111, …</p>
+</blockquote>
+<p>Sigma表示a) :  9 <em> (1</em>10^k + 2<em>10^{k-1} + … + k</em>10^0) + (k+1)<br>$ = (b-1) * \sum_{k=0}^n (n-k)b^k   + n + 1  $<br>右 = $ \sum_{i=1}^k  10^i $</p>
+<hr>
+
       
     </div>
 
@@ -630,8 +689,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/22/taocp102/" rel="next" title="taocp习题系列-102">
-                <i class="fa fa-chevron-left"></i> taocp习题系列-102
+              <a href="/2019/12/29/2019-12有意思的数学面试题/" rel="next" title="2019-12有意思的数学面试题">
+                <i class="fa fa-chevron-left"></i> 2019-12有意思的数学面试题
               </a>
             
           </div>
@@ -708,7 +767,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -809,7 +868,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -894,7 +953,7 @@ show_date_time();
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -915,7 +974,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-3-和式-Summation-与-连乘-Production习题"><span class="nav-number">1.</span> <span class="nav-text">1.2.3 和式 Summation 与 连乘 Production习题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-00"><span class="nav-number">1.1.</span> <span class="nav-text">习题1[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01"><span class="nav-number">1.2.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-13"><span class="nav-number">1.3.</span> <span class="nav-text">习题3[13]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-10"><span class="nav-number">1.4.</span> <span class="nav-text">习题4[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题5-HM20"><span class="nav-number">1.5.</span> <span class="nav-text">习题5[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-HM20"><span class="nav-number">1.6.</span> <span class="nav-text">习题6[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-1"><span class="nav-number">1.7.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-2"><span class="nav-number">1.8.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-3"><span class="nav-number">1.9.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-4"><span class="nav-number">1.10.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-5"><span class="nav-number">1.11.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-6"><span class="nav-number">1.12.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-7"><span class="nav-number">1.13.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01-8"><span class="nav-number">1.14.</span> <span class="nav-text">习题2[01]</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-3-和式-Summation-与-连乘-Production习题"><span class="nav-number">1.</span> <span class="nav-text">1.2.3 和式 Summation 与 连乘 Production习题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-00"><span class="nav-number">1.1.</span> <span class="nav-text">习题1[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01"><span class="nav-number">1.2.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-13"><span class="nav-number">1.3.</span> <span class="nav-text">习题3[13]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-10"><span class="nav-number">1.4.</span> <span class="nav-text">习题4[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题5-HM20"><span class="nav-number">1.5.</span> <span class="nav-text">习题5[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-HM20"><span class="nav-number">1.6.</span> <span class="nav-text">习题6[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题7-HM23"><span class="nav-number">1.7.</span> <span class="nav-text">习题7[HM23]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题8-HM25"><span class="nav-number">1.8.</span> <span class="nav-text">习题8[HM25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题9-11-05"><span class="nav-number">1.9.</span> <span class="nav-text">习题9-11 [05]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题12-10"><span class="nav-number">1.10.</span> <span class="nav-text">习题12[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题13-10"><span class="nav-number">1.11.</span> <span class="nav-text">习题13[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题14-11"><span class="nav-number">1.12.</span> <span class="nav-text">习题14[11]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题15-M22"><span class="nav-number">1.13.</span> <span class="nav-text">习题15[M22]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题16-M22"><span class="nav-number">1.14.</span> <span class="nav-text">习题16[M22]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题17-M00"><span class="nav-number">1.15.</span> <span class="nav-text">习题17[M00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题18-M20"><span class="nav-number">1.16.</span> <span class="nav-text">习题18[M20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题19-20"><span class="nav-number">1.17.</span> <span class="nav-text">习题19[20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题20-25"><span class="nav-number">1.18.</span> <span class="nav-text">习题20[25]</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -947,7 +1006,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">69k</span>
+    <span title="Symbols count total">72k</span>
   
 
   
@@ -956,7 +1015,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:03</span>
+    <span title="Reading time total">1:06</span>
   
 </div>
 
