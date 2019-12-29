@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="金勇-Steve的数学天地">
 <meta property="og:description" content="1.2.3 和式 Summation 与 连乘 Production习题(一) 习题1[00] $a_1 + a_2 + a_3 + … + a_0 = 0,$那么 $a_2 + a_3 + … + a_0$ 是什么?  解: $ -a_1 $ 习题2[01] 如果n = 3.14, 记号 $ \sum_{1 \le j \le n} a_j$的含义是什么  $ a_1+a_2+a_3$ 习题3[">
 <meta property="og:locale" content="en-GB">
-<meta property="og:updated_time" content="2019-12-28T07:22:11.090Z">
+<meta property="og:updated_time" content="2019-12-29T12:59:53.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="taocp习题系列-103">
 <meta name="twitter:description" content="1.2.3 和式 Summation 与 连乘 Production习题(一) 习题1[00] $a_1 + a_2 + a_3 + … + a_0 = 0,$那么 $a_2 + a_3 + … + a_0$ 是什么?  解: $ -a_1 $ 习题2[01] 如果n = 3.14, 记号 $ \sum_{1 \le j \le n} a_j$的含义是什么  $ a_1+a_2+a_3$ 习题3[">
@@ -479,7 +479,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 15:22:11" itemprop="dateModified" datetime="2019-12-28T15:22:11+08:00">2019-12-28</time>
+                <time title="Modified: 2019-12-29 20:59:53" itemprop="dateModified" datetime="2019-12-29T20:59:53+08:00">2019-12-29</time>
               
             
           </span>
@@ -514,7 +514,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3k</span>
+                <span title="Symbols count in article">5.2k</span>
               
 
               
@@ -528,7 +528,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">3 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -638,6 +638,64 @@
 <p>矩阵博士曾经观察到非同寻常的一系列公式<br>9<em>1+2 =11, 9</em>12+3 =111, 9*123+4 = 1111, …</p>
 </blockquote>
 <p>Sigma表示a) :  9 <em> (1</em>10^k + 2<em>10^{k-1} + … + k</em>10^0) + (k+1)<br>$ = (b-1) * \sum_{k=0}^n (n-k)b^k   + n + 1  $<br>右 = $ \sum_{i=1}^k  10^i $</p>
+<hr>
+<h2 id="习题21-M25"><a href="#习题21-M25" class="headerlink" title="习题21[M25]"></a>习题21[M25]</h2><blockquote>
+<p>从式8和式17推导规则(d)</p>
+</blockquote>
+<p>证明：<br>式8:</p>
+<script type="math/tex; mode=display">\sum_{R(i)} (b_i + c_i) = \sum_{R(i)} b_i + \sum_{R(i)} c_i</script><p>式17:</p>
+<script type="math/tex; mode=display">\sum_{R(j)} a_j = \sum_j a_j [R(j)]</script><p>规则(d) 处理求和范围:</p>
+<script type="math/tex; mode=display">\sum_{R(j)} a_j + \sum_{S(j)} a_j = \sum_{R(j) 或 S(j) } a_j + \sum_{R(j)且S(j)} a_j</script><p>借助式17， 规则d左式可写成 </p>
+<script type="math/tex; mode=display">左 = \sum_j a_j ([R(j)] + [S(j)] ) = \sum_j a_j [R(j)] + \sum_j a_j [S(j)]</script><p>规则d右式可写成</p>
+<script type="math/tex; mode=display">右 = \sum_j a_j ([R(j) 或 S(j) ] + [S(j) 且 R(j)] )</script><p>根据集合运算性质（交集与并集的运算规律） 推出左= 右。</p>
+<p>$\emptyset$</p>
+<h2 id="习题22-20"><a href="#习题22-20" class="headerlink" title="习题22[20]"></a>习题22[20]</h2><blockquote>
+<p>把和改成积， 类推对应式5，7，8，11 的相应等式</p>
+</blockquote>
+<p>证明： </p>
+<p>式5(变量代换): $ \prod_{R(i)} a_i = \prod_{R(j)} a_j = \prod_{R(p(j))} a_{p(j)} $</p>
+<p>证明思路如书中描述， 这里只是将下标变量名称由i换成j， 不改变原来的计算结构。</p>
+<p>式7(交换求积次序): $ \prod_{R(i)} \prod_{S(j)} a_{ij} = \prod_{S(j)} \prod_{R(i)} a_{ij} $</p>
+<p>式11(处理求积范围): $ (\prod_{R(i)} a_j ) <em> (\prod_{S(j)} a_j)  = (\prod_{R(j) or S(j)} a_j ) </em> (\prod_{R(j) and S(j)} a_j )$ </p>
+<h2 id="习题23-10"><a href="#习题23-10" class="headerlink" title="习题23[10]"></a>习题23[10]</h2><blockquote>
+<p>当没有整数满足R(j)时， $\sum_{R(j) } a_j  和 \prod_{R(j)} a_j $分别定义为0和1 。</p>
+</blockquote>
+<p>这是显然的。 如果不这样做， 和式和积式再参与其它运算会改变结果。<br>而若参与运算， 0不会改变和式结果， 1 不会改变积式结果， 故有此定义。</p>
+<h2 id="习题24-20"><a href="#习题24-20" class="headerlink" title="习题24[20]"></a>习题24[20]</h2><blockquote>
+<p>假定 R(j) 仅对有限多的j为真。 对满足 R(j) 的整数数目归纳， 证明 $ log_b \prod_{R(j)} a_j = \sum_{R(j)} (log_b a_j) $, 假定所有 $ a_j &gt; 0 $.</p>
+</blockquote>
+<p>证明: 套用对数公式 + 数学归纳即可。 </p>
+<h2 id="习题25-15"><a href="#习题25-15" class="headerlink" title="习题25[15]"></a>习题25[15]</h2><blockquote>
+<p>下列推导对吗？ 哪里不对？</p>
+<script type="math/tex; mode=display">(\sum_{i = 1}^n a_i) (\sum_{j = 1}^n \frac {1} {a_j}) = \sum_{1\le i \le n} \sum_{ 1 \le j \le n} \frac {a_i} {a_j} = \sum_{i=1}^n 1 = n</script></blockquote>
+<p>不对的地方发生在用i同时表示两个无关的和式。 </p>
+<hr>
+<h2 id="习题26-25"><a href="#习题26-25" class="headerlink" title="习题26[25]"></a>习题26[25]</h2><blockquote>
+<p>像习题22那样， 处理求积符号， 证明可用 $\prod_{i=0}^n a_i $ 表示 $\prod_{i=0}^n \prod_{j=0}^i a_i a_j $ </p>
+</blockquote>
+<p>解: 记 $\pi = \prod_{i=0}^n a_i $  即 对a数列求积， 从0-n角标各出现一次。</p>
+<p>要求的式子 恰好是每个角标出现了 2n+2 次， 因此 要求的结果可写成 $ \pi^{2n+2}$ </p>
+<h2 id="习题27-M20"><a href="#习题27-M20" class="headerlink" title="习题27[M20]"></a>习题27[M20]</h2><blockquote>
+<p>假定 $ 0 \lt a_j \lt 1$， 证明:</p>
+<script type="math/tex; mode=display">\prod_{j=1}^n (1-a_j) \ge 1 - \sum_{j=1}^n a_j</script></blockquote>
+<p>证明: 归纳法， 比较简单。</p>
+<h2 id="习题28-M22"><a href="#习题28-M22" class="headerlink" title="习题28[M22]"></a>习题28[M22]</h2><blockquote>
+<p>求 $ \prod_{j=2}^n (1 - 1/j^2)$ 的简单计算公式。 </p>
+</blockquote>
+<p>解： 平方差代入消去。<br>结果为 (n+1)/2n</p>
+<h2 id="习题29-M30"><a href="#习题29-M30" class="headerlink" title="习题29[M30]"></a>习题29[M30]</h2><blockquote>
+<p>a)用本节最后介绍多重求和符号， 表示 $ \sum_{i=0}^n \sum_{j=0}^i \sum_{k=0}^j a_i a_j a_k  $<br>b)用 $ (\sum_{i=0}^n a_i )$,   $(\sum_{i=0}^n a_i ^2 ) $, $ (\sum_{i=0}^n a_i ^3 )$ 表示式a的和。</p>
+</blockquote>
+<h2 id="习题30-M23"><a href="#习题30-M23" class="headerlink" title="习题30[M23]"></a>习题30[M23]</h2><blockquote>
+<p>(雅克·比内 1812) 不用归纳法， 证明恒等式</p>
+<script type="math/tex; mode=display">(\sum_{j=1}^n a_j x_j ) (\sum_{j=1}^n b_j y_j ) = (\sum_{j=1}^n a_j y_j )(\sum_{j=1}^n b_j x_j ) + \sum_{1 \le j \lt k \le n } (a_jb_k - a_kb_j) (x_jy_k - x_ky_j)</script></blockquote>
+<p>( 如果 引入复数， 以及共轭的设置， 则可以得到著名的柯西-施瓦茨不等式： </p>
+<script type="math/tex; mode=display">( \sum_{j=1}^n |w_j|^2 ) ( \sum_{j=1}^n |z_j|^2 ) \ge | \sum_{j=1}^n w_j z_j |^2</script><p>就是比内公式的一个推论 ^ ^<br>)</p>
+<p>证明： 这个题目也不是很难 主要是符号太多了。<br>自己在A4纸上把右边的2因式乘开，然后强行化简右侧结果即可。 </p>
+<p>：）</p>
+<p>好了， 今天就到这吧。 </p>
+<p>找点别的乐子。</p>
+<p>2019-12-29 </p>
 <hr>
 
       
@@ -974,7 +1032,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-3-和式-Summation-与-连乘-Production习题"><span class="nav-number">1.</span> <span class="nav-text">1.2.3 和式 Summation 与 连乘 Production习题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-00"><span class="nav-number">1.1.</span> <span class="nav-text">习题1[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01"><span class="nav-number">1.2.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-13"><span class="nav-number">1.3.</span> <span class="nav-text">习题3[13]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-10"><span class="nav-number">1.4.</span> <span class="nav-text">习题4[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题5-HM20"><span class="nav-number">1.5.</span> <span class="nav-text">习题5[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-HM20"><span class="nav-number">1.6.</span> <span class="nav-text">习题6[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题7-HM23"><span class="nav-number">1.7.</span> <span class="nav-text">习题7[HM23]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题8-HM25"><span class="nav-number">1.8.</span> <span class="nav-text">习题8[HM25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题9-11-05"><span class="nav-number">1.9.</span> <span class="nav-text">习题9-11 [05]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题12-10"><span class="nav-number">1.10.</span> <span class="nav-text">习题12[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题13-10"><span class="nav-number">1.11.</span> <span class="nav-text">习题13[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题14-11"><span class="nav-number">1.12.</span> <span class="nav-text">习题14[11]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题15-M22"><span class="nav-number">1.13.</span> <span class="nav-text">习题15[M22]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题16-M22"><span class="nav-number">1.14.</span> <span class="nav-text">习题16[M22]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题17-M00"><span class="nav-number">1.15.</span> <span class="nav-text">习题17[M00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题18-M20"><span class="nav-number">1.16.</span> <span class="nav-text">习题18[M20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题19-20"><span class="nav-number">1.17.</span> <span class="nav-text">习题19[20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题20-25"><span class="nav-number">1.18.</span> <span class="nav-text">习题20[25]</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-3-和式-Summation-与-连乘-Production习题"><span class="nav-number">1.</span> <span class="nav-text">1.2.3 和式 Summation 与 连乘 Production习题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-00"><span class="nav-number">1.1.</span> <span class="nav-text">习题1[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01"><span class="nav-number">1.2.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-13"><span class="nav-number">1.3.</span> <span class="nav-text">习题3[13]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-10"><span class="nav-number">1.4.</span> <span class="nav-text">习题4[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题5-HM20"><span class="nav-number">1.5.</span> <span class="nav-text">习题5[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-HM20"><span class="nav-number">1.6.</span> <span class="nav-text">习题6[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题7-HM23"><span class="nav-number">1.7.</span> <span class="nav-text">习题7[HM23]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题8-HM25"><span class="nav-number">1.8.</span> <span class="nav-text">习题8[HM25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题9-11-05"><span class="nav-number">1.9.</span> <span class="nav-text">习题9-11 [05]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题12-10"><span class="nav-number">1.10.</span> <span class="nav-text">习题12[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题13-10"><span class="nav-number">1.11.</span> <span class="nav-text">习题13[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题14-11"><span class="nav-number">1.12.</span> <span class="nav-text">习题14[11]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题15-M22"><span class="nav-number">1.13.</span> <span class="nav-text">习题15[M22]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题16-M22"><span class="nav-number">1.14.</span> <span class="nav-text">习题16[M22]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题17-M00"><span class="nav-number">1.15.</span> <span class="nav-text">习题17[M00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题18-M20"><span class="nav-number">1.16.</span> <span class="nav-text">习题18[M20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题19-20"><span class="nav-number">1.17.</span> <span class="nav-text">习题19[20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题20-25"><span class="nav-number">1.18.</span> <span class="nav-text">习题20[25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题21-M25"><span class="nav-number">1.19.</span> <span class="nav-text">习题21[M25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题22-20"><span class="nav-number">1.20.</span> <span class="nav-text">习题22[20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题23-10"><span class="nav-number">1.21.</span> <span class="nav-text">习题23[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题24-20"><span class="nav-number">1.22.</span> <span class="nav-text">习题24[20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题25-15"><span class="nav-number">1.23.</span> <span class="nav-text">习题25[15]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题26-25"><span class="nav-number">1.24.</span> <span class="nav-text">习题26[25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题27-M20"><span class="nav-number">1.25.</span> <span class="nav-text">习题27[M20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题28-M22"><span class="nav-number">1.26.</span> <span class="nav-text">习题28[M22]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题29-M30"><span class="nav-number">1.27.</span> <span class="nav-text">习题29[M30]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题30-M23"><span class="nav-number">1.28.</span> <span class="nav-text">习题30[M23]</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1006,7 +1064,7 @@ show_date_time();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">72k</span>
+    <span title="Symbols count total">75k</span>
   
 
   
@@ -1015,7 +1073,7 @@ show_date_time();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:06</span>
+    <span title="Reading time total">1:08</span>
   
 </div>
 
