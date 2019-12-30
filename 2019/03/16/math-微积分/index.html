@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en-GB">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="book 《普林斯顿微积分读本》 引子： 为什么0.9999… 这个无限循环小数等于1？ 0.9999….  除以3， 即为 0.3333333….. (三分之一)而三分之一的三倍是1， 所以 0.9999…. = 1 函数定义与性质函数是将一个对象转化为另一个对象的规则， $ f(x) $ 是把这个变换规则应用于变量x后得到的结果， 因此 说 ” $ f(x) $ 是一个函数， 这是一种不正确的">
+<meta name="keywords" content="数学,微积分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数学基础巩固-3微积分读本Note">
+<meta property="og:url" content="https://staticor.github.io/2019/03/16/math-微积分/index.html">
+<meta property="og:site_name" content="金勇-Steve的数学天地">
+<meta property="og:description" content="book 《普林斯顿微积分读本》 引子： 为什么0.9999… 这个无限循环小数等于1？ 0.9999….  除以3， 即为 0.3333333….. (三分之一)而三分之一的三倍是1， 所以 0.9999…. = 1 函数定义与性质函数是将一个对象转化为另一个对象的规则， $ f(x) $ 是把这个变换规则应用于变量x后得到的结果， 因此 说 ” $ f(x) $ 是一个函数， 这是一种不正确的">
+<meta property="og:locale" content="en-GB">
+<meta property="og:updated_time" content="2019-12-20T05:54:42.851Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数学基础巩固-3微积分读本Note">
+<meta name="twitter:description" content="book 《普林斯顿微积分读本》 引子： 为什么0.9999… 这个无限循环小数等于1？ 0.9999….  除以3， 即为 0.3333333….. (三分之一)而三分之一的三倍是1， 所以 0.9999…. = 1 函数定义与性质函数是将一个对象转化为另一个对象的规则， $ f(x) $ 是把这个变换规则应用于变量x后得到的结果， 因此 说 ” $ f(x) $ 是一个函数， 这是一种不正确的">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="金勇-Steve的数学天地" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://staticor.github.io/2019/03/16/math-微积分/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数学基础巩固-3微积分读本Note | 金勇-Steve的数学天地</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-GB">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">金勇-Steve的数学天地</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-taocp">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/taocp/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>TAOCP</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archive">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archive</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-math">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/math/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Math</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/03/16/math-微积分/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="金勇-Steve的数学天地">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数学基础巩固-3微积分读本Note
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-16 15:01:31" itemprop="dateCreated datePublished" datetime="2019-03-16T15:01:31+08:00">2019-03-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-12-20 13:54:42" itemprop="dateModified" datetime="2019-12-20T13:54:42+08:00">2019-12-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">5 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>book 《普林斯顿微积分读本》</p>
+<p>引子： 为什么0.9999… 这个无限循环小数等于1？</p>
+<p>0.9999….  除以3， 即为 0.3333333….. (三分之一)<br>而三分之一的三倍是1， 所以 0.9999…. = 1</p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="定义与性质"><a href="#定义与性质" class="headerlink" title="定义与性质"></a>定义与性质</h2><p>函数是将一个对象转化为另一个对象的规则， $ f(x) $ 是把这个变换规则应用于变量x后得到的结果， 因此 说</p>
+<p>” $ f(x) $ 是一个函数， 这是一种不正确的说法； 需要更正为</p>
+<p>“ $ f $ “ 是一个函数。</p>
+<p>函数的组成需要指定输入集合（定义域）和对应的规则，  输出对象的范围叫做值域。 对应规则需要保证唯一性：</p>
+<p>一个函数必须给每一个有效的输入指定唯一的输出。</p>
+<p>如果已经给出了函数的图像， 那么要能够快速判断该函数的定义域与值域。</p>
+<p>ex: <script type="math/tex">f(x) = x^2</script></p>
+<p>ex: <script type="math/tex">g(x) = x^2 , (x \gt 0 )</script></p>
+<p>有了（正）函数， 我们相当于建立了从X空间建立到Y空间的映射，反过来，如果站在Y的视角， 都有唯一的输出在X空间里， 就能得到一个逆函数。</p>
+<p>我们称这个函数是原函数 $f$ 的反函数。  记作：  $  f^{-1}$</p>
+<h2 id="线性、二次函数"><a href="#线性、二次函数" class="headerlink" title="线性、二次函数"></a>线性、二次函数</h2><p>如何表达一条直线， 需要哪些条件。  如果给出2个点， 直线方程是什么？  如果给出一个点与斜率呢？</p>
+<p>如果给出的是直线与坐标轴两个交点呢？</p>
+<p>线性函数是最重要的函数。</p>
+<p>第二重要的， 我认为就是二次函数， 形如：</p>
+<script type="math/tex; mode=display">y = ax^2 + bx + c</script><p>我记得初中时对韦达定理的记忆太过深刻（抛物线与x轴两根 $ x_1, x_2 $) 两根之和、两根之积。</p>
+<p>几乎初高中所有涉及到函数和二次几何（曲线）的场景的都围绕着这个定理在构造。</p>
+<p>线性函数和二次函数都是多项式函数家庭的特殊情况， 而多项式函数又可以理解为分母是1的特殊整式函数 （ $\frac{p} { q} 型$ )<br>其中 p, q 均是关于x的多项式函数。</p>
+<p>除此之外，指数函数、对数函数、三角函数（反三角函数）、绝对值函数， 都是重要的初等函数。</p>
+<p>后面也会再次提到， 有的函数非常适用于讨论函数的连续性、可导性。</p>
+<p>而有的函数则是作为函数周期性、奇偶性的最易联想例子。</p>
+<h1 id="极限"><a href="#极限" class="headerlink" title="极限"></a>极限</h1><p>一般来说， 我们会关注函数的点极限（在某点处极限是否存在）和无穷极限（当x趋向无穷大时的极限是否存在）</p>
+<p>函数值存在和极限的关系有时相似， 但也要加以区别。</p>
+<p>$f(x)$ 在某点 $x=a$ 处， 是否存在极限， 取决于左右两侧的极限是否均存在且值相等。（注： 和此点是否定义无关）</p>
+<p>ex：  <script type="math/tex">\lim  \frac{(x-1)^2}{x-1}</script></p>
+<p>虽然 在 $ x= 1$ 处 函数没有定义， 但在该点的极限存在。</p>
+<p>特别是在无穷处时，  $ sin(x)  极限不存在 $</p>
+<h2 id="连续"><a href="#连续" class="headerlink" title="连续"></a>连续</h2><p>如果函数在 $ x= a$ 有定义， 且 在该的极限与函数值相等， 则称 在该点连续。</p>
+<p>所以可看， 连续是极限的递进概念。   而且往往不会提无穷远处连续， 一般皆是限定在有限范围。 如各种区间：</p>
+<blockquote><p>令 a &lt; b</p>
+<p>[a, b]</p>
+<p>(a, b)</p>
+<p>[a, b)</p>
+<p>(a, b]</p>
+</blockquote>
+<p>连续的相对概念是间断， 间断点按函数值存在与否分为第一类间断点和第二类间断点。</p>
+<p>连续性的应用：</p>
+<blockquote><p>介值定理</p>
+<script type="math/tex; mode=display">f(x) 在[a，b] 上处处连续， 且 f(a) < 0 f(b) > 0 ， 则在 [a,b]上必至少存在一点 c 使得 f(c) = 0</script></blockquote>
+<p>例题练习是  证明方程<script type="math/tex">x  =  \cos x</script> 至少存在一个解。</p>
+<p>连续性的应用：<br><blockquote><p>最大最小定理<br>如果 $f  在 [a,b] $连续， 那么 $f  在 [a,b] $上至少存在一个最大值和最小值。</p>
+</blockquote></p>
+<h2 id="可导"><a href="#可导" class="headerlink" title="可导"></a>可导</h2><h3 id="储备知识"><a href="#储备知识" class="headerlink" title="储备知识"></a>储备知识</h3><p>函数的可导性也是基于极限定义的。 如果下面的极限存在， 则称 $ f(x) 在x=h$处可导</p>
+<script type="math/tex; mode=display">f'(x) = \lim_{h \to 0} \frac {f(x+h) - f(x)}{h}</script><p>举例说明， 有定义且连续未必可导的例子， $ f(x) = |x| $  在 $ x = 0$ 处。<br>反之， 如果可导则必连续。    因此 连续是可导的充分的条件。</p>
+<p>下面列出导数（或者说微分）的基础知识：</p>
+<ul>
+<li><p>常数函数的导数为0；</p>
+</li>
+<li><p>线性函数$y=kx+b$的导数为斜率k；</p>
+</li>
+<li><p>当$n &gt; 1 $时， 幂函数 $x^n$ 的导数为 $ n \cdot x^{n-1}$</p>
+</li>
+<li><p>和的导数：多个函数之和的导数 等于 各个函数求导后的和。</p>
+</li>
+<li><p>积的导数：两个函数之积的导数公式为  $ h(x) = f(x)g(x), 则 h’ = f’  g + f g’ $</p>
+</li>
+<li><p>商的导数： 两个函数之商的导数公式为 $ h(x) = \frac{f(x)}{g(x)}$, 则</p>
+<script type="math/tex; mode=display">h'(x) = \frac {f'(x) g(x) - f(x) g'(x)} {g^2 (x)}</script></li>
+</ul>
+<ul>
+<li>复合函数的导数(链式求导法则)</li>
+</ul>
+<p>如果 $h(x) = f(g(x)), 那么 h’(x) = f’(g(x)) g(x) $</p>
+<p>本书第七章及接下来几章是对函数求导的展开（三角函数的极限和导数、隐函数、<br>指数函数和对数函数的导数、反三角函数， 这里不再细讲。</p>
+<h1 id="微分"><a href="#微分" class="headerlink" title="微分"></a>微分</h1><p>我始终认为微分和可导是关系极其紧密的, 但为了后面提高积分的重要性,<br>这里我将 微分作为Part 3 , 不过其在内容上是和 Part 2 一口气过来的.</p>
+<h2 id="导数图像、最（极）值问题"><a href="#导数图像、最（极）值问题" class="headerlink" title="导数图像、最（极）值问题"></a>导数图像、最（极）值问题</h2><p>从图像的角度， 对比原函数图像和导数图像， 首先容易想到的时原函数在最值处导数图像刚好经过横轴。</p>
+<p>以及从图像角度理解最值，  全局最值和局部最值。</p>
+<blockquote><p>一些重要定理介绍</p>
+<h2 id="极值定理"><a href="#极值定理" class="headerlink" title="极值定理"></a>极值定理</h2><p>若$f(x) 在一段开区间(a,b)内存在一点c，$c为函数的局部最大值或最小值，那么c为该函数的临界点， 即<br>$f’(c) = 0 或 f’(c) 不存在$</p>
+</blockquote>
+<p>因此用最值的必要性， 求解导数值为0的点， 便是寻找最值的方法（当然， 导数值为0， 该点未必是最值）， 例子</p>
+<script type="math/tex; mode=display">f(x) = x ^ 3</script><h2 id="罗尔定理"><a href="#罗尔定理" class="headerlink" title="罗尔定理"></a>罗尔定理</h2><blockquote><p>罗尔定理</p>
+<p>假设函数 $f$ 在闭区间[a,b]内连续， 在开区间 (a,b)可导。 如果 $ f(a) = f(b) $， 那么<br>在开区间（a,b)内至少存在一点$c$, 使得 $f’(c) = 0 $</p>
+</blockquote>
+<h2 id="中值定理"><a href="#中值定理" class="headerlink" title="中值定理"></a>中值定理</h2><p>中值定理是罗尔定理的推广形式，如果函数在区间上的图像理解成一辆车的位移变化， 右式可理解为这个区间上的平均速度<br>即， 如果位移是连续变化的，那么至少某一点上你的速度必与区间平均速度相等。</p>
+<blockquote><p>中值定理<br>假设函数 $f$ 在闭区间[a,b]内连续， 在开区间 (a,b)可导。 如果 $ f(a) = f(b) $， 那么<br>在开区间（a,b)内至少存在一点$c$, 使得</p>
+<script type="math/tex; mode=display">f'(c) = \frac {f(b)-f(a)}{b-a}</script></blockquote>
+<h2 id="导数图像"><a href="#导数图像" class="headerlink" title="导数图像"></a>导数图像</h2><ul>
+<li><p>尝试画出原函数的趋势图像；</p>
+</li>
+<li><p>尝试画出导函数的大致图像： x轴点、正负性</p>
+</li>
+<li><p>尝试画出二阶导数的大致图像</p>
+</li>
+</ul>
+<p>由图像这里引出二阶导数，以及二阶导数值为0的问题，  进而定义了拐点。 和上面的提到：</p>
+<p>导数值为0未必是最值点一样；   二阶导数值为0，也未必就是拐点。    必要条件非充分条件。</p>
+<h2 id="最值的应用"><a href="#最值的应用" class="headerlink" title="最值的应用"></a>最值的应用</h2><p>借助了以上掌握的工具， 导数的最广泛应用（在我看来）就是解决最优化问题。</p>
+<p>通过对已有的场景函数化定义， 然后对变量域求导， 再代入原来的场景确定root恰好是最值点，而非拐点。</p>
+<p>这里值得一说的是一些经典计算方法，《数值计算》的范畴。</p>
+<ul>
+<li>线性化方法</li>
+</ul>
+<p>比如要求解 $ \sqrt 11 $ 到底是多少的问题，我们如果要手算， 可以尝试用这种思路：</p>
+<p>我们首先知道 $\sqrt 9 = 3 $（初始条件）， 而且也是目标值最近的已知条件， 那么在函数 $ f(x) = \sqrt x$</p>
+<p>$ x = 9 = \sqrt 9 $ 处作切线， 然后切线方程 $ y = ax + b $ 在切线上计算 $x=11$得出的y值 即为原始问题的估计结果。</p>
+<p>因为这种方法是利用了导数与初始条件的线性逼近， 因此是线性模拟非线性的思路。</p>
+<p>微分的理解</p>
+<script type="math/tex; mode=display">f(a+ \triangle x ) \approx  f(a) + f'(a) \triangle x</script><ul>
+<li>牛顿法</li>
+</ul>
+<p>牛顿法是在求方程根的常用方法. 给定初始条件 $ x=a$ 作为 $f(x) = 0 $的近似 , 如果令</p>
+<script type="math/tex; mode=display">b = a - \frac {f(a)}{f'(a)}</script><p>则在很多情况下, b是个比a更好的近似.</p>
+<h2 id="洛必达法则和极限问题总结"><a href="#洛必达法则和极限问题总结" class="headerlink" title="洛必达法则和极限问题总结"></a>洛必达法则和极限问题总结</h2><p>在凯撒死后,其养子(甥孙屋大维)联同旧部安东尼和洛必达进一步了缩减了罗马贵族的权力, 称为后三头时代.</p>
+<p>(前三头时代是苏拉, 庞培, 凯撒, 如果我没记错的话.)</p>
+<p>当然这里的洛必达法则肯定不是那个人.</p>
+<blockquote><p>利用导数的知识求极限, 这种方法叫做洛必达法则.</p>
+</blockquote>
+<ul>
+<li>0/0型</li>
+</ul>
+<script type="math/tex; mode=display">如果 f(a) = g(a) = 0, 那么  \lim_{x \to a } \frac {f(x)}{g(x)} = \frac {f'(x)}{g'(x)}</script><ul>
+<li>$ \infty $ / 0   或 $ \infty $  / $ \infty $</li>
+</ul>
+<p>可视作0型的倒数, 类比.</p>
+<ul>
+<li>$ 1^{ \infty  }  \quad  0^0  \quad \infty ^0 $  ,</li>
+</ul>
+<h1 id="积分"><a href="#积分" class="headerlink" title="积分"></a>积分</h1><p>积分的概念离不开和式, 即以求1+2+3+… 为例, 和式表达形式为:</p>
+<script type="math/tex; mode=display">\sum_i^{100} i</script><h2 id="定积分"><a href="#定积分" class="headerlink" title="定积分"></a>定积分</h2><p>定积分的基本思想要先在脑中构造一个区间[a,b]上的连续函数$f(x)$, 以及在 x = a, x = b 处分别作垂直x轴的虚线,</p>
+<p>从而得到一个曲边梯形.  这个梯形称作 $f(x)$ 在 [a,b]上的定积分, 记作</p>
+<script type="math/tex; mode=display">\int_a^b f(x) dx</script><p>$f(x)$ 叫做被积函数,  [a,b]是积分端点.</p>
+<p>定积分的性质</p>
+<ul>
+<li><p>定积分面积如果是零,则积分结果也是零.</p>
+</li>
+<li><p>倍长, 如果被积函数乘上一个常数C, 在积分结果中可以把C从积分符号内部移到外部;</p>
+</li>
+<li><p>如果被积函数存在反函数,则反函数的积分就相当于被积函数与y轴的面积.</p>
+</li>
+</ul>
+<ul>
+<li>积分中值定理</li>
+</ul>
+<blockquote><p>积分中值定理</p>
+<p>如果函数f 在闭区间[a, b]上连续, 那么在开区间(a, b)上总存在一点c, 满足</p>
+<p>$f(c) = \frac {1}{b-a} \int_a^b f(x) dx$</p>
+</blockquote>
+<p>什么样的函数是不可积的?</p>
+<p>如果函数f为有界函数并在区间[a,b]上的不连续点是有限的,那么函数f是可积的.<br>举个不可积的例子, 例如在区间[a,b]上, 函数f在所有无理数点上值为1, 反则为0.<br>那么这个函数是不可积的.</p>
+<h2 id="微积分基本定理"><a href="#微积分基本定理" class="headerlink" title="微积分基本定理"></a>微积分基本定理</h2><ul>
+<li>第一基本定理</li>
+</ul>
+<blockquote><p>如果函数f在闭区间[a,b]上是连续的, 定义F为</p>
+<script type="math/tex; mode=display">F(x) = \int_a^x f(t) dt , \quad x \in [a,b]</script><p>则$F$在开区间(a,b)内是可导函数, 而且 $ F’(x) = f(x) $</p>
+</blockquote>
+<ul>
+<li>第二基本定理</li>
+</ul>
+<blockquote><p>如果函数f在闭区间[a,b]上是连续的, F为f的任意一个反导数(关于x), 那么有</p>
+<script type="math/tex; mode=display">\int_a^b f(x) dx = F(b) - F(a).</script></blockquote>
+<h2 id="计算积分的方法"><a href="#计算积分的方法" class="headerlink" title="计算积分的方法"></a>计算积分的方法</h2><ul>
+<li>换元法  — 逆用链式求导法则</li>
+</ul>
+<p>ex:</p>
+<script type="math/tex; mode=display">\int_a^b xe^{x^2}dx</script><ul>
+<li>分部积分法</li>
+</ul>
+<script type="math/tex; mode=display">\frac {d}{dx}(uv) =  v\frac{du}{dx} + u\frac{dv}{dx}</script><p>—&gt;</p>
+<script type="math/tex; mode=display">\int u \frac{dv}{dx} dx = \int  \frac{d}{dx} (uv) dx - \int v \frac{du}{dx} dx</script><p>—&gt;</p>
+<script type="math/tex; mode=display">\int udv = uv - \int vdu</script><p>ex:</p>
+<script type="math/tex; mode=display">\int x e^x dx =  xe^x - \int e^x dx</script><p>—&gt; $\int xe^x dx = xe^x - e^x + C $</p>
+<ul>
+<li>应用三角恒等式</li>
+</ul>
+<p>(三角换元法的变种)</p>
+<h1 id="数列和级数"><a href="#数列和级数" class="headerlink" title="数列和级数"></a>数列和级数</h1><p>数列是一项有序的数, 拥有无穷项的数列叫做无穷数列, 进而定义无穷级数:</p>
+<p>无穷数列: <script type="math/tex">{a_n} = a_1, a_2, a_3 ...</script></p>
+<p>无穷级数: <script type="math/tex">\sum_{n=1}^\infty {a_n} = a_1 + a_2 + a_3 +...</script></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/wechat2.jpg" alt="Jinyong Yang wechat" style="width: 200px; max-width: 100%;">
+  <div>个人微信 - 如果有建议，欢迎你联系我</div>
+</div>
+
+      </div>
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/微积分/" rel="tag"># 微积分</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/15/thoughts78/" rel="next" title="我的思想世界有一匹小野马">
+                <i class="fa fa-chevron-left"></i> 我的思想世界有一匹小野马
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/16/math-1-1/2019-03-16-math-1/" rel="prev" title="Review系列~ 微积分读本Note">
+                Review系列~ 微积分读本Note <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jinyong Yang</p>
+              <p class="site-description motion-element" itemprop="description">大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://terror-lm.github.io/" title="https://terror-lm.github.io/" rel="noopener" target="_blank">LM[蒙]</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kiseayoung.com" title="https://kiseayoung.com" rel="noopener" target="_blank">HJ[海君]</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+<div id="days"></div>
+
+<script language="javascript">
+
+
+
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("02/19/2019 15:00:00");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+
+
+</script>
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义与性质"><span class="nav-number">1.1.</span> <span class="nav-text">定义与性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性、二次函数"><span class="nav-number">1.2.</span> <span class="nav-text">线性、二次函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#极限"><span class="nav-number">2.</span> <span class="nav-text">极限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连续"><span class="nav-number">2.1.</span> <span class="nav-text">连续</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可导"><span class="nav-number">2.2.</span> <span class="nav-text">可导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#储备知识"><span class="nav-number">2.2.1.</span> <span class="nav-text">储备知识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#微分"><span class="nav-number">3.</span> <span class="nav-text">微分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导数图像、最（极）值问题"><span class="nav-number">3.1.</span> <span class="nav-text">导数图像、最（极）值问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极值定理"><span class="nav-number">3.2.</span> <span class="nav-text">极值定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#罗尔定理"><span class="nav-number">3.3.</span> <span class="nav-text">罗尔定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中值定理"><span class="nav-number">3.4.</span> <span class="nav-text">中值定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导数图像"><span class="nav-number">3.5.</span> <span class="nav-text">导数图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最值的应用"><span class="nav-number">3.6.</span> <span class="nav-text">最值的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛必达法则和极限问题总结"><span class="nav-number">3.7.</span> <span class="nav-text">洛必达法则和极限问题总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#积分"><span class="nav-number">4.</span> <span class="nav-text">积分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定积分"><span class="nav-number">4.1.</span> <span class="nav-text">定积分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微积分基本定理"><span class="nav-number">4.2.</span> <span class="nav-text">微积分基本定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算积分的方法"><span class="nav-number">4.3.</span> <span class="nav-text">计算积分的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数列和级数"><span class="nav-number">5.</span> <span class="nav-text">数列和级数</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jinyong Yang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">75k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:08</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+  <script src="/js/src/canvasline.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.0"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/js.cookie.js?v=7.0.0"></script>
+  <script src="/js/src/scroll-cookie.js?v=7.0.0"></script>
+
+
+  
+
+  
+  
+  
+  <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
+  <script>
+  
+    bookmark.scrollToMark('auto', "#more");
+  
+  </script>
+
+
+  
+
+
+  <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+<link rel="stylesheet" href="/photos/photos.css">
+<script type="text/javascript" src="/photos/photo.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+<script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+</html>

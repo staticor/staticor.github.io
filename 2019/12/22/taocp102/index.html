@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en-GB">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="数学准备1.2从1.2开始就进入到数学part了, 大部分内容均是大学的代数知识: 排列组合,无穷级数, 微积分, 可能有一些复变函数,群论,概率论的内容. 习题 1.2.1 - 数学归纳法习题1 [05] 如果要对所有非负整数 n = 0, 1, 2, … … 而不是对 n = 1, 2, 3, …… 证明某个命题 P(n), 请说明 应如何修改数学归纳法的证明思路.  表述: 首先回顾书中给出">
+<meta name="keywords" content="计算机科学,TAOCP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="taocp习题系列-102">
+<meta property="og:url" content="https://staticor.github.io/2019/12/22/taocp102/index.html">
+<meta property="og:site_name" content="金勇-Steve的数学天地">
+<meta property="og:description" content="数学准备1.2从1.2开始就进入到数学part了, 大部分内容均是大学的代数知识: 排列组合,无穷级数, 微积分, 可能有一些复变函数,群论,概率论的内容. 习题 1.2.1 - 数学归纳法习题1 [05] 如果要对所有非负整数 n = 0, 1, 2, … … 而不是对 n = 1, 2, 3, …… 证明某个命题 P(n), 请说明 应如何修改数学归纳法的证明思路.  表述: 首先回顾书中给出">
+<meta property="og:locale" content="en-GB">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==">
+<meta property="og:updated_time" content="2019-12-25T23:57:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="taocp习题系列-102">
+<meta name="twitter:description" content="数学准备1.2从1.2开始就进入到数学part了, 大部分内容均是大学的代数知识: 排列组合,无穷级数, 微积分, 可能有一些复变函数,群论,概率论的内容. 习题 1.2.1 - 数学归纳法习题1 [05] 如果要对所有非负整数 n = 0, 1, 2, … … 而不是对 n = 1, 2, 3, …… 证明某个命题 P(n), 请说明 应如何修改数学归纳法的证明思路.  表述: 首先回顾书中给出">
+<meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="金勇-Steve的数学天地" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://staticor.github.io/2019/12/22/taocp102/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>taocp习题系列-102 | 金勇-Steve的数学天地</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-GB">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">金勇-Steve的数学天地</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-taocp">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/taocp/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>TAOCP</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archive">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archive</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-math">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/math/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Math</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2019/12/22/taocp102/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="金勇-Steve的数学天地">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">taocp习题系列-102
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-12-22 19:33:57" itemprop="dateCreated datePublished" datetime="2019-12-22T19:33:57+08:00">2019-12-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-12-26 07:57:11" itemprop="dateModified" datetime="2019-12-26T07:57:11+08:00">2019-12-26</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数学准备1-2"><a href="#数学准备1-2" class="headerlink" title="数学准备1.2"></a>数学准备1.2</h1><p>从1.2开始就进入到数学part了, 大部分内容均是大学的代数知识: 排列组合,无穷级数, 微积分, 可能有一些复变函数,群论,概率论的内容.</p>
+<h1 id="习题-1-2-1-数学归纳法"><a href="#习题-1-2-1-数学归纳法" class="headerlink" title="习题 1.2.1 - 数学归纳法"></a>习题 1.2.1 - 数学归纳法</h1><h2 id="习题1-05"><a href="#习题1-05" class="headerlink" title="习题1 [05]"></a>习题1 [05]</h2><blockquote>
+<p>如果要对所有非负整数 n = 0, 1, 2, … … 而不是对 n = 1, 2, 3, …… 证明某个命题 P(n), 请说明 应如何修改数学归纳法的证明思路.</p>
+</blockquote>
+<p>表述: 首先回顾书中给出的 算法I(构造证明)</p>
+<ul>
+<li>I1. [证明P(1)] 置 k &lt;- 1, 并且证明命题P(n)情况为 n = 1时成立;</li>
+<li>I2. [蕴含关系] 如果 P(1),P(2), …, P(n) 全部为真, 并且能证明出 P(n+1)</li>
+</ul>
+<p>将上面的表述修改为 起点从0开始:</p>
+<ul>
+<li>I1. [证明P(0)] 置 k &lt;- 0, 并且证明命题P(n)情况为 n = 0时成立;</li>
+<li>I2. [蕴含关系] 如果 P(0),P(1),P(2), …, P(n) 全部为真, 并且能证明出 P(n+1)</li>
+</ul>
+<hr>
+<h2 id="习题2-15"><a href="#习题2-15" class="headerlink" title="习题2 [15]"></a>习题2 [15]</h2><blockquote>
+<p>找出下面定理证明的错误之处</p>
+</blockquote>
+<p>解: 代入 n = 1到题目中, 解出a = 1.<br>因此这个题目若假定 a 恒为 1, 则成立, 否则不成立.<br>原证明的错误之处 在于题目命令只假定了 对所有正整数n, $a^{n-1} = 1$<br>但在证明时,出现了 $a^{n-1-1} $.   因此要保证 n - 1 为正整数.</p>
+<hr>
+<h2 id="习题3-18"><a href="#习题3-18" class="headerlink" title="习题3 [18]"></a>习题3 [18]</h2><blockquote>
+<p>找出下面数学归纳法证明的错误地方。</p>
+</blockquote>
+<p>解: n = 1 , 出现了分母为0的情况 (n-1作为了分母)</p>
+<hr>
+<h2 id="习题4-20"><a href="#习题4-20" class="headerlink" title="习题4 [20]"></a>习题4 [20]</h2><blockquote>
+<p>证明Fibonaaci数列满足 对一切正整数n 满足 <script type="math/tex">F_n \ge \phi^{n-2}</script></p>
+</blockquote>
+<p> 书中给出 (3)式: $  F_n \le \phi^{n-1} $<br>(数学归纳)证明: 比较简单, 主要利用了 <script type="math/tex">1+\phi = \phi^2</script> 这个公式.</p>
+<hr>
+<h2 id="习题5-21"><a href="#习题5-21" class="headerlink" title="习题5 [21]"></a>习题5 [21]</h2><blockquote>
+<p>素数是指 大于1 且除1和自身外没有其他正整数因数的整数。 根据此定义和数学归纳法， 证明每个大于1的整数可写成一个或多个素数的乘积。</p>
+</blockquote>
+<p>证明: 如果n本身就是素数,则成立. 反之n就可以写成两个比n小的因数之积, $ n = pq$, 又因为已经证明过 p, q 分别能写成若干个素数之积, 所以 n 也能写成 若干个有限素数之积.</p>
+<hr>
+<h2 id="习题6-20"><a href="#习题6-20" class="headerlink" title="习题6 [20]"></a>习题6 [20]</h2><blockquote>
+<p>如果式6: 在步骤R4之前成立, 那么在执行E4后也成立.</p>
+</blockquote>
+<hr>
+<h2 id="习题7-23"><a href="#习题7-23" class="headerlink" title="习题7 [23]"></a>习题7 [23]</h2><blockquote>
+<p>$对于 1^2, 2^2-1^2, 3^2-2^2+1^2, …. , 等和式， 给出求和规则， 并用数学归纳法证明$</p>
+</blockquote>
+<p>证明:  $ \frac {(n+1)n} {2}$<br>借助平方差公式即可, 很简单.</p>
+<hr>
+<h2 id="习题8-25"><a href="#习题8-25" class="headerlink" title="习题8 [25]"></a>习题8 [25]</h2><blockquote>
+<p>证明前n项立方和的公式， 前n项和的平方。</p>
+</blockquote>
+<p>证明: 之前在短视频中看到无字的证明方式， 蛮经典。 这里找到一个网络中的图片,</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cubesum.jpeg" alt></p>
+<hr>
+<h2 id="习题9-20"><a href="#习题9-20" class="headerlink" title="习题9 [20]"></a>习题9 [20]</h2><blockquote>
+<p> 归纳法证明， 如果0<a<1, 那么则有 (1-a)^n>= 1 - na</a<1,></p>
+</blockquote>
+<p>证明: 略.</p>
+<hr>
+<h2 id="习题10-M22"><a href="#习题10-M22" class="headerlink" title="习题10 [M22]"></a>习题10 [M22]</h2><blockquote>
+<p> 归纳法证明， 当n&gt;=10 2^n &gt; n^3</p>
+</blockquote>
+<p>证明: 这个题目应该留下印象，因为说明了当n比较大的时候， 指数函数上升的速度要远快于多项式函数。<br>n = 10时， $ 2^{10}=1024 n^3 = 1000 $, 成立。<br>下面假设n情况成立， 欲证当n+1情况也成立。</p>
+<p> $2^{n+1} = 2·2^n &gt; (1+ 1/n)^3 · n^3 = (n+1) ^3 $</p>
+<hr>
+<h2 id="习题11-M30"><a href="#习题11-M30" class="headerlink" title="习题11 [M30]"></a>习题11 [M30]</h2><blockquote>
+<p>求和式并证明。</p>
+</blockquote>
+<p>略.</p>
+<h2 id="习题12-M25"><a href="#习题12-M25" class="headerlink" title="习题12 [M25]"></a>习题12 [M25]</h2><blockquote>
+<p>正文提到,可以推广算法E, 使之能够接受如 u + v $ \sqrt 2 $的输入值, 其中u和v为整数. 说明如何推广, 使得计算仍然可以用初等方法完成. 另外如果m=1, n = $\sqrt 2$, 则计算不会停止</p>
+</blockquote>
+<p>证明: 涉及群论-二次环的知识. 略.</p>
+<h2 id="习题13-M23"><a href="#习题13-M23" class="headerlink" title="习题13 [M23]"></a>习题13 [M23]</h2><hr>
+<h2 id="习题14-50"><a href="#习题14-50" class="headerlink" title="习题14 [50]"></a>习题14 [50]</h2><p>难度超过40, 跳了.</p>
+<hr>
+<h2 id="习题15-M28"><a href="#习题15-M28" class="headerlink" title="习题15 [M28]"></a>习题15 [M28]</h2><hr>
+<h1 id="习题1-2-2-数-幂与对数"><a href="#习题1-2-2-数-幂与对数" class="headerlink" title="习题1.2.2-数,幂与对数"></a>习题1.2.2-数,幂与对数</h1><hr>
+<h2 id="习题1-00"><a href="#习题1-00" class="headerlink" title="习题1[00]"></a>习题1[00]</h2><blockquote>
+<p>最小正有理数是多少?</p>
+</blockquote>
+<p>解:不存在.<br>假设存在, 为r. 那么 r/2 也一定是正有理数, 而且小于r.</p>
+<hr>
+<h2 id="习题2-00"><a href="#习题2-00" class="headerlink" title="习题2[00]"></a>习题2[00]</h2><blockquote>
+<p>1+0.2399999… 是一个十进制展开式吗?</p>
+</blockquote>
+<p>解: 不是. 十进制展开式不能是以9循环结尾的形式.</p>
+<hr>
+<h2 id="习题3-02"><a href="#习题3-02" class="headerlink" title="习题3[02]"></a>习题3[02]</h2><blockquote>
+<p>$(-3)^{-3}$是多少?</p>
+</blockquote>
+<p>解: $\frac {-1} {27}$</p>
+<hr>
+<h2 id="习题4-05"><a href="#习题4-05" class="headerlink" title="习题4[05]"></a>习题4[05]</h2><blockquote>
+<p>$(0.125)^{-2/3}$是多少?</p>
+</blockquote>
+<p>解: $0.125 = \frac {1} {8}$, 开三次方是 $\frac {1} {2}$, 再平方是 $\frac {1} {4}$, 最后取倒数是 $4$.</p>
+<hr>
+<h2 id="习题5-05"><a href="#习题5-05" class="headerlink" title="习题5[05]"></a>习题5[05]</h2><blockquote>
+<p>我们通过十进制展开定义了实数.讨论怎样改用二进制展开式定义实数,并且给出替代式(2)的定义.</p>
+</blockquote>
+<p>这里复述书给的式(1):</p>
+<script type="math/tex; mode=display">x = n+0.d_1d_2d_3 ... ...</script><p>式(2):</p>
+<script type="math/tex; mode=display">n + \frac {d_1} {10} + \frac {d_2} {10^2} + ... + \frac {d_k} {10^k} \le x \le n + \frac {d_1} {10} + \frac {d_2} {10^2} + ... + \frac {d_k} {10^k} + \frac {1} {10^k}</script><hr>
+<h2 id="习题6-10"><a href="#习题6-10" class="headerlink" title="习题6[10]"></a>习题6[10]</h2><blockquote>
+<p>令x = $m+0.d_1d_2 … $ , y = $ n+0.e_1e_2 … $ 为实数. 基于十进制表示,给出用来判定 x, y 大小关系的规则.</p>
+</blockquote>
+<p>解: 从高位至低位逐位判定. 这里假定m和n都表示的某整数.</p>
+<ul>
+<li>从第一位开始, 若 m = n 则继续, 否则 m &gt; n 对应 x &gt; y, m &lt; n 对应 x &lt; y;</li>
+<li>进行到第k位比较, 若 $d_k = e_k$, 则继续, 否则 $d_k &gt; e_k$ 对应 x &gt; y, $d_k &lt; e_k$ 对应 x &lt; y;</li>
+<li>依次类推.</li>
+</ul>
+<hr>
+<h2 id="习题7-M23"><a href="#习题7-M23" class="headerlink" title="习题7[M23]"></a>习题7[M23]</h2><blockquote>
+<p>已知x和y为整数, 从式4给出定义出发,证明指数定律.<br>式4: b^0 = 1, b^n = b^{n-1}b  如果n&gt;0; b^n = b^{n+1}/b 如果 n &lt; 0<br>指数定律:  $b^{x+y} = b^x b^y $,  $(b^x)^y = b ^ {xy}$</p>
+</blockquote>
+<p>证明: 可以借助数学归纳法. 先考虑x为正整数, 然后x为0, 最后x为负整数.</p>
+<hr>
+<h2 id="习题8-25-1"><a href="#习题8-25-1" class="headerlink" title="习题8[25]"></a>习题8[25]</h2><blockquote>
+<p>令m为正整数, 证明每个正实数u有唯一的m次正根, 做法是给出一种方法,依次构造根的十进制展开式中的n, $d_1, d_2, …$的值</p>
+</blockquote>
+<p>解: 整数部分, 一定可以找到一个整数n, 使得 $n^m \le u \lt (n+1)^{m} $;<br>下面构造小数部分, $d_1$ 可以在10种选择内出现: 0,1,2…, 9.<br>那么一定可以找到某个值 $d_1 = z$, 使得</p>
+<script type="math/tex; mode=display">(n + \frac {z} {10^1}) ^ m \le u \lt (n + \frac {z+1} {10^1}) ^ m</script><hr>
+<h2 id="习题9-M23"><a href="#习题9-M23" class="headerlink" title="习题9[M23]"></a>习题9[M23]</h2><blockquote>
+<p>假定当x, y为整数时指数定律成立, 证明x和y为有理数指数定律也成立.</p>
+</blockquote>
+<p>略.</p>
+<hr>
+<h2 id="习题10-18"><a href="#习题10-18" class="headerlink" title="习题10[18]"></a>习题10[18]</h2><blockquote>
+<p>证明 $log_{10} 2 $ 不是有理数.</p>
+</blockquote>
+<p>证明: 假若 $log_{10} 2$ = $\frac {p} {q}$ 则可以写出 $2^q$ = $10^p$<br>(p, q均为整数)<br>这个可以得出矛盾(除非p=q=0. 但这显然不能成立), 因为左侧整数只有2的因子, 右侧有5的因子.</p>
+<hr>
+<h2 id="习题11-10"><a href="#习题11-10" class="headerlink" title="习题11[10]"></a>习题11[10]</h2><blockquote>
+<p>如果b = 10 , x 约为 $log_{10} 2$, 为了确定$b^x$的十进制展开式的前3位小数, 我们需要知道多少位精度的x的值?</p>
+</blockquote>
+<p>解: 无穷多位, $log_{10} 2$ 是无理数.</p>
+<hr>
+<h2 id="习题12-02"><a href="#习题12-02" class="headerlink" title="习题12[02]"></a>习题12[02]</h2><blockquote>
+<p>对数的定义.</p>
+</blockquote>
+<hr>
+<h2 id="习题13-M23-1"><a href="#习题13-M23-1" class="headerlink" title="习题13[M23]"></a>习题13[M23]</h2><blockquote>
+<p>(a)已知x是正实数, n是正整数, 证明不等式:</p>
+<script type="math/tex; mode=display">(1+x)^{1/n} - 1 \le x / n</script><p>(b) 利用这个结论解释(7)</p>
+</blockquote>
+<p>数学归纳证明: 令 x = ny, 欲证转化为 $ (1+ny) \le (1+y)^n $<br>假定前n情况成立, 下面证明n+1时也成立.<br>$左= 1 + (n+1)y$   $右= (1+y)^{n+1}$<br>欲证转化为 $y \ne (1+y)^n y $, 成立, 故此归纳证毕.<br>原式成立.</p>
+<hr>
+<h2 id="习题14-15"><a href="#习题14-15" class="headerlink" title="习题14[15]"></a>习题14[15]</h2><blockquote>
+<p>证明式(12): $ log_b c^y = y log_b c$  如果c &gt; 0</p>
+</blockquote>
+<p>证明: 假定 $ x = log_b c $ ,  即 $b^x = c$, 欲证转化为</p>
+<script type="math/tex; mode=display">log_b b^{xy}  = xy = yx = 右</script><p>证毕.</p>
+<hr>
+<h2 id="习题15-10"><a href="#习题15-10" class="headerlink" title="习题15[10]"></a>习题15[10]</h2><blockquote>
+<p>证明或证伪: $ log_b x / y = log_b x - log_b y $, 如果 x, y &gt; 0</p>
+</blockquote>
+<p>证明: 令 $ m = log_b x $, $ n = log_b y $ 则有<br>$b^m = x , b^n = y $, 两式相除得,</p>
+<script type="math/tex; mode=display">b^{m-n} = x/y</script><p>取对数, 证毕.</p>
+<hr>
+<h2 id="习题16-00"><a href="#习题16-00" class="headerlink" title="习题16[00]"></a>习题16[00]</h2><blockquote>
+<p>怎样用 表示 $ log_{10} x$?</p>
+</blockquote>
+<p>解: 根据对数换底公式:  $ log_{10} x  = \frac {ln x} {ln 10}$</p>
+<hr>
+<h2 id="习题17-05"><a href="#习题17-05" class="headerlink" title="习题17[05]"></a>习题17[05]</h2><blockquote>
+<p>计算:</p>
+</blockquote>
+<p>$lg 32 = 5 $<br>$log_{\pi} \pi = 1 $<br>$ln e = 1 $<br>$log_b 1  = 0 $<br>$log_b (-1)  $  不存在</p>
+<hr>
+<h2 id="习题18-10"><a href="#习题18-10" class="headerlink" title="习题18[10]"></a>习题18[10]</h2><blockquote>
+<p>证明或证伪: $log_8 x = \frac {1} {2} log_2 x$</p>
+</blockquote>
+<p>证伪, 代入 x = 64, 左式 = 2, 右 = 3</p>
+<hr>
+<h2 id="习题19-20"><a href="#习题19-20" class="headerlink" title="习题19[20]"></a>习题19[20]</h2><blockquote>
+<p>如果整数n的十进制表示长14位数, n的值能否存入容量为47个二进制位和1个符号位的一个计算机字?</p>
+</blockquote>
+<p>解: 整数n的取值范围是 -99999999999999 ~ 99999999999999 (14个9)<br>而2的47次方是 140737488355328 大于14个9, 因此可以.</p>
+<hr>
+<h2 id="习题20-10"><a href="#习题20-10" class="headerlink" title="习题20[10]"></a>习题20[10]</h2><blockquote>
+<p>在 $log_{10} 2$ 与 $log_2 10$之间是否存在简单关系</p>
+</blockquote>
+<p>解 倒数关系</p>
+<hr>
+<h2 id="习题21-15"><a href="#习题21-15" class="headerlink" title="习题21[15]"></a>习题21[15]</h2><blockquote>
+<p>(对数的对数)用 $ln ln x $, $ln ln b $, $ ln b$ 表示 $log_b log_b x$</p>
+</blockquote>
+<p>解: 根据对数换底公式, 首先有</p>
+<script type="math/tex; mode=display">log_{b} x =  \frac {ln x} {ln b}</script><p>两侧同时取log 以b为底对数</p>
+<script type="math/tex; mode=display">log_{b} (log_{b} x) =  log_{b}  {ln x} - log_{b} {ln b}</script><p>再次使用对数换底公式得:</p>
+<script type="math/tex; mode=display">log_{b} (log_{b} x) =  \frac  {ln ln x}  {ln b} - \frac  {ln ln b}  {ln b}</script><hr>
+<h2 id="习题22-20"><a href="#习题22-20" class="headerlink" title="习题22[20]"></a>习题22[20]</h2><blockquote>
+<p>(理查德汉明)证明 $ lg x 约= ln x + log_{10} x $<br>证明: 根据对数换底公式可以得到:</p>
+<script type="math/tex; mode=display">log_2 e = \frac {log_e x} {log_2 x}</script><p>, 因此得 $log_2 x 约=  1.442 ln x $</p>
+<script type="math/tex; mode=display">log_10 e = \frac {log_e x} {log_10 x}</script><p>, 因此得 $log_{10} x 约=  0.4329 ln x $</p>
+</blockquote>
+<p>所以, 左右两侧都可以除以 $ ln x $ 看到误差小于1% .</p>
+<hr>
+<h2 id="习题23-M25"><a href="#习题23-M25" class="headerlink" title="习题23[M25]"></a>习题23[M25]</h2><blockquote>
+<p>根据图6, 给出 $ln xy = lnx + lny 几何证明$</p>
+</blockquote>
+<hr>
+<h2 id="习题24-15"><a href="#习题24-15" class="headerlink" title="习题24[15]"></a>习题24[15]</h2><blockquote>
+<p>说明怎样修改本小节最后用于计算以10为底对数的方法,使之能计算以2为底对数.</p>
+</blockquote>
+<p>解:将2换成10.</p>
+<hr>
+<h2 id="习题25-22"><a href="#习题25-22" class="headerlink" title="习题25[22]"></a>习题25[22]</h2><blockquote>
+<p>假设我们有一台二进制计算机和一个数x, x in [1, 2), 说明下面的算法,可计算<br>$ y = llog_b x $ 近似值, 仅需使用同所需精度小数位数成正比的移位\加法\减法运算:</p>
+</blockquote>
+<ul>
+<li>L1. [初始化] y &lt;-0, z &lt;- x 右移1位, k &lt;- 1</li>
+<li>L2. [检验算法终结.] 如果 x = 1 终止;</li>
+<li>L3. [比较.] 如果 x - z &lt; 1, 置 z &lt;- z 右移一位, k &lt;- k+1 重复这一步;</li>
+<li>L4. [减少值] 置 x &lt;- x -z, z &lt;- x 右移k位, y &lt;- $ y + log_b (2^k / 2^k -1) $, 然后转 L2.</li>
+</ul>
+<h2 id="习题26-M27"><a href="#习题26-M27" class="headerlink" title="习题26[M27]"></a>习题26[M27]</h2><blockquote>
+<p>分析上题算法的固有误差求出一个严格上界.</p>
+</blockquote>
+<hr>
+<h2 id="习题28-M30"><a href="#习题28-M30" class="headerlink" title="习题28[M30]"></a>习题28[M30]</h2><blockquote>
+<p>(理查德费曼) 建立当 0&lt;=x &lt; 1时计算$b^x$的一种方法,仅使用移位, 加法和减法.<br>(类似习题25), 并且分析它的精度.</p>
+</blockquote>
+<hr>
+<h2 id="习题29-HM20"><a href="#习题29-HM20" class="headerlink" title="习题29[HM20]"></a>习题29[HM20]</h2><blockquote>
+<p>给定大于1的实数x.<br>(a) 实数b&gt;1, 取什么值时, $ blog_b x  $达最小?<br>(b) 整数b&gt;1取什么值时, $ blog_b x  $达最小?<br>(c) 整数b&gt;1取什么值时, $ (b+1)log_b x  $达最小?</p>
+</blockquote>
+<p>解: 这个题目相当于高中数学导数部分的练习. 通过求导, 令导数为0. 求b<br>a) e ;<br>b) 代入 e 邻近的2, 3 比较大小, 得到 当 b = 3时 值最小.<br>c) b = 4</p>
+<h2 id="习题30-12"><a href="#习题30-12" class="headerlink" title="习题30[12]"></a>习题30[12]</h2><blockquote>
+<p>假定 $ n &gt; 1 且 n \ne e, 化简式子 (ln n) ^ {ln n / ln ln n}$</p>
+</blockquote>
+<p>解: 令 $a = ln ln n$, 则有 $ e^a = ln n$, 原式化为</p>
+<script type="math/tex; mode=display">e^{a / a * ln n } =  e ^ {ln n } = n</script><p>即, 最终结果为 n.</p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/wechat2.jpg" alt="Jinyong Yang wechat" style="width: 200px; max-width: 100%;">
+  <div>个人微信 - 如果有建议，欢迎你联系我</div>
+</div>
+
+      </div>
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机科学/" rel="tag"># 计算机科学</a>
+          
+            <a href="/tags/TAOCP/" rel="tag"># TAOCP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/22/taocp101/" rel="next" title="taocp习题系列-101">
+                <i class="fa fa-chevron-left"></i> taocp习题系列-101
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/29/2019-12有意思的数学面试题/" rel="prev" title="2019-12有意思的数学面试题">
+                2019-12有意思的数学面试题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jinyong Yang</p>
+              <p class="site-description motion-element" itemprop="description">大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://terror-lm.github.io/" title="https://terror-lm.github.io/" rel="noopener" target="_blank">LM[蒙]</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kiseayoung.com" title="https://kiseayoung.com" rel="noopener" target="_blank">HJ[海君]</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+<div id="days"></div>
+
+<script language="javascript">
+
+
+
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("02/19/2019 15:00:00");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+
+
+</script>
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数学准备1-2"><span class="nav-number">1.</span> <span class="nav-text">数学准备1.2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#习题-1-2-1-数学归纳法"><span class="nav-number">2.</span> <span class="nav-text">习题 1.2.1 - 数学归纳法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-05"><span class="nav-number">2.1.</span> <span class="nav-text">习题1 [05]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-15"><span class="nav-number">2.2.</span> <span class="nav-text">习题2 [15]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-18"><span class="nav-number">2.3.</span> <span class="nav-text">习题3 [18]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-20"><span class="nav-number">2.4.</span> <span class="nav-text">习题4 [20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题5-21"><span class="nav-number">2.5.</span> <span class="nav-text">习题5 [21]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-20"><span class="nav-number">2.6.</span> <span class="nav-text">习题6 [20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题7-23"><span class="nav-number">2.7.</span> <span class="nav-text">习题7 [23]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题8-25"><span class="nav-number">2.8.</span> <span class="nav-text">习题8 [25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题9-20"><span class="nav-number">2.9.</span> <span class="nav-text">习题9 [20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题10-M22"><span class="nav-number">2.10.</span> <span class="nav-text">习题10 [M22]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题11-M30"><span class="nav-number">2.11.</span> <span class="nav-text">习题11 [M30]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题12-M25"><span class="nav-number">2.12.</span> <span class="nav-text">习题12 [M25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题13-M23"><span class="nav-number">2.13.</span> <span class="nav-text">习题13 [M23]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题14-50"><span class="nav-number">2.14.</span> <span class="nav-text">习题14 [50]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题15-M28"><span class="nav-number">2.15.</span> <span class="nav-text">习题15 [M28]</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#习题1-2-2-数-幂与对数"><span class="nav-number">3.</span> <span class="nav-text">习题1.2.2-数,幂与对数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-00"><span class="nav-number">3.1.</span> <span class="nav-text">习题1[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-00"><span class="nav-number">3.2.</span> <span class="nav-text">习题2[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-02"><span class="nav-number">3.3.</span> <span class="nav-text">习题3[02]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-05"><span class="nav-number">3.4.</span> <span class="nav-text">习题4[05]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题5-05"><span class="nav-number">3.5.</span> <span class="nav-text">习题5[05]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-10"><span class="nav-number">3.6.</span> <span class="nav-text">习题6[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题7-M23"><span class="nav-number">3.7.</span> <span class="nav-text">习题7[M23]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题8-25-1"><span class="nav-number">3.8.</span> <span class="nav-text">习题8[25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题9-M23"><span class="nav-number">3.9.</span> <span class="nav-text">习题9[M23]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题10-18"><span class="nav-number">3.10.</span> <span class="nav-text">习题10[18]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题11-10"><span class="nav-number">3.11.</span> <span class="nav-text">习题11[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题12-02"><span class="nav-number">3.12.</span> <span class="nav-text">习题12[02]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题13-M23-1"><span class="nav-number">3.13.</span> <span class="nav-text">习题13[M23]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题14-15"><span class="nav-number">3.14.</span> <span class="nav-text">习题14[15]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题15-10"><span class="nav-number">3.15.</span> <span class="nav-text">习题15[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题16-00"><span class="nav-number">3.16.</span> <span class="nav-text">习题16[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题17-05"><span class="nav-number">3.17.</span> <span class="nav-text">习题17[05]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题18-10"><span class="nav-number">3.18.</span> <span class="nav-text">习题18[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题19-20"><span class="nav-number">3.19.</span> <span class="nav-text">习题19[20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题20-10"><span class="nav-number">3.20.</span> <span class="nav-text">习题20[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题21-15"><span class="nav-number">3.21.</span> <span class="nav-text">习题21[15]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题22-20"><span class="nav-number">3.22.</span> <span class="nav-text">习题22[20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题23-M25"><span class="nav-number">3.23.</span> <span class="nav-text">习题23[M25]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题24-15"><span class="nav-number">3.24.</span> <span class="nav-text">习题24[15]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题25-22"><span class="nav-number">3.25.</span> <span class="nav-text">习题25[22]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题26-M27"><span class="nav-number">3.26.</span> <span class="nav-text">习题26[M27]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题28-M30"><span class="nav-number">3.27.</span> <span class="nav-text">习题28[M30]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题29-HM20"><span class="nav-number">3.28.</span> <span class="nav-text">习题29[HM20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题30-12"><span class="nav-number">3.29.</span> <span class="nav-text">习题30[12]</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jinyong Yang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">75k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:08</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+  <script src="/js/src/canvasline.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.0"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/js.cookie.js?v=7.0.0"></script>
+  <script src="/js/src/scroll-cookie.js?v=7.0.0"></script>
+
+
+  
+
+  
+  
+  
+  <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
+  <script>
+  
+    bookmark.scrollToMark('auto', "#more");
+  
+  </script>
+
+
+  
+
+
+  <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+<link rel="stylesheet" href="/photos/photos.css">
+<script type="text/javascript" src="/photos/photo.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+<script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+</html>
