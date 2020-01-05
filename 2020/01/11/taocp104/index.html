@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en-GB">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1.2.4 整除函数与初等数论高斯取整函数，向上取整与向下取整。 有时也称为 entier 函数，法文单词「整数」。 然后由整数过度到下面的经典运算。如果x和y是任意实数， 我们定义二元运算 x mod y = x - y [x/y],  如果y\ne 0x mod 0 = x当 y 不为0 时， (x  mod  y ) / y  in [0, 1) $ x mod 1 就是这个数的小数部分。">
+<meta name="keywords" content="计算机科学,TAOCP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="taocp习题系列-104">
+<meta property="og:url" content="https://staticor.github.io/2020/01/11/taocp104/index.html">
+<meta property="og:site_name" content="金勇-Steve的数学天地">
+<meta property="og:description" content="1.2.4 整除函数与初等数论高斯取整函数，向上取整与向下取整。 有时也称为 entier 函数，法文单词「整数」。 然后由整数过度到下面的经典运算。如果x和y是任意实数， 我们定义二元运算 x mod y = x - y [x/y],  如果y\ne 0x mod 0 = x当 y 不为0 时， (x  mod  y ) / y  in [0, 1) $ x mod 1 就是这个数的小数部分。">
+<meta property="og:locale" content="en-GB">
+<meta property="og:updated_time" content="2020-01-01T13:17:58.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="taocp习题系列-104">
+<meta name="twitter:description" content="1.2.4 整除函数与初等数论高斯取整函数，向上取整与向下取整。 有时也称为 entier 函数，法文单词「整数」。 然后由整数过度到下面的经典运算。如果x和y是任意实数， 我们定义二元运算 x mod y = x - y [x/y],  如果y\ne 0x mod 0 = x当 y 不为0 时， (x  mod  y ) / y  in [0, 1) $ x mod 1 就是这个数的小数部分。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="金勇-Steve的数学天地" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://staticor.github.io/2020/01/11/taocp104/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>taocp习题系列-104 | 金勇-Steve的数学天地</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-GB">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">金勇-Steve的数学天地</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-taocp">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/taocp/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>TAOCP</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archive">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archive</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-math">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/math/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Math</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://staticor.github.io/2020/01/11/taocp104/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinyong Yang">
+      <meta itemprop="description" content="大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="金勇-Steve的数学天地">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">taocp习题系列-104
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-11 23:34:15" itemprop="dateCreated datePublished" datetime="2020-01-11T23:34:15+08:00">2020-01-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-01 21:17:58" itemprop="dateModified" datetime="2020-01-01T21:17:58+08:00">2020-01-01</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-2-4-整除函数与初等数论"><a href="#1-2-4-整除函数与初等数论" class="headerlink" title="1.2.4 整除函数与初等数论"></a>1.2.4 整除函数与初等数论</h1><p>高斯取整函数，向上取整与向下取整。 有时也称为 entier 函数，法文单词「整数」。</p>
+<p>然后由整数过度到下面的经典运算。<br>如果x和y是任意实数， 我们定义二元运算</p>
+<script type="math/tex; mode=display">x mod y = x - y [x/y],  如果y\ne 0</script><script type="math/tex; mode=display">x mod 0 = x</script><p>当 y 不为0 时， (x  <code>mod</code>  y ) / y  in [0, 1) $</p>
+<p>x <code>mod</code> 1 就是这个数的小数部分。</p>
+<h2 id="习题1-00"><a href="#习题1-00" class="headerlink" title="习题1[00]"></a>习题1[00]</h2><blockquote>
+<p>符号计算 [1.1], $\lfloor -1.1 \rfloor $ , $\lceil -1.1 \rceil  $ …</p>
+</blockquote>
+<p>略</p>
+<h2 id="习题2-01"><a href="#习题2-01" class="headerlink" title="习题2[01]"></a>习题2[01]</h2><blockquote>
+<p>化简   $ \lceil \lfloor x \rfloor \rceil $ </p>
+</blockquote>
+<p>解: $  \lfloor x \rfloor$</p>
+<h2 id="习题3-M10"><a href="#习题3-M10" class="headerlink" title="习题3[M10]"></a>习题3[M10]</h2><blockquote>
+<p>令n为整数， x为实数， 证明<br>(a) 当且仅当 $x &lt; n$ 时 ，   $  \lfloor x \rfloor &lt; n$;</p>
+<p>(b) 当且仅当 $n \le x$ 时 ， $ n \le \lfloor x \rfloor $;</p>
+<p>(c) 当且仅当 $x \le n$ 时 ，   $  \lceil x \rceil \le n$;</p>
+<p>(d) 当且仅当 $n \lt x$ 时 ， $ n \lt \lceil x \rceil $;</p>
+<p>(e) 当且仅当 $ x - 1 \lt n \le x $时，又当且仅当  $ n\le x \lt n+1 $时，  $  \lfloor x \rfloor = n $</p>
+<p>(f) 当且仅当 $ x \le n \lt x + 1 $时，又当且仅当  $ n-1 \lt x \le n $时，  $  \lceil x \rceil = n $</p>
+</blockquote>
+<p>这几个性质都不难证明， 但手写一写会加深自己对取整函数的理解。</p>
+<p>证明: $ \lfloor x \rfloor$ 表示的是个整数， 而且和原来数x相比，有约束。 </p>
+<p>如果两个整数m, n， $ m \lt n  \leftarrow  \rightarrow m\le n-1 $.<br>结论(a) 可以分两种情况考虑 若 $ x \ge n $, 则 $ \lfloor x \rfloor = n $  得不出结论；<br>反之， $ x \lt n $, $ \lfloor x \rfloor \le x \lt n $, 得证。</p>
+<p>(b) （c) (d) 与(a)类似。 这里略。</p>
+<p>(e) (f)  相当对前四小问的结合形式。 </p>
+<h2 id="习题4-M10"><a href="#习题4-M10" class="headerlink" title="习题4[M10]"></a>习题4[M10]</h2><blockquote>
+<p>利用上题性质， 证明 $  \lfloor  -x \rfloor =  \lceil x \rceil $</p>
+</blockquote>
+<p>证明:  可分类讨论 x正负性证明。</p>
+<h2 id="习题5-16"><a href="#习题5-16" class="headerlink" title="习题5[16]"></a>习题5[16]</h2><blockquote>
+<p>假定x为正实数， 建立一个把x表示成舍入到最近的整数的简单公式。</p>
+</blockquote>
+<p>解：考虑到round函数是与0.5有关的函数， 大于0.5则取上面的整数， 小于0.5则取下面的整数， 因此将原来的值加上0.5， 再做向下取整。</p>
+<p>$  \lfloor  （x+0.5） \rfloor $</p>
+<hr>
+<h2 id="习题6-20"><a href="#习题6-20" class="headerlink" title="习题6[20]"></a>习题6[20]</h2><blockquote>
+<p>在下列等式中， 哪些等式对于所有正实数x恒成立?<br>(a) $  \lfloor  \sqrt { \lfloor x \rfloor} \rfloor =  \lfloor \sqrt x \rfloor $<br>(b) $  \lceil  \sqrt { \lceil x \rceil} \rceil =  \lceil \sqrt x \rceil $<br>(c) $  \lceil  \sqrt { \lfloor x \rfloor } \rceil =  \lceil \sqrt x \rceil $</p>
+</blockquote>
+<p>解： a  b成立 平方后证明；<br>c不成立， 可举例证伪： x = 1.5</p>
+<h2 id="习题7-M15"><a href="#习题7-M15" class="headerlink" title="习题7[M15]"></a>习题7[M15]</h2><blockquote>
+<p>（取整函数的三角不等式）证明 $ \lfloor x \rfloor + \lfloor y \rfloor \le \lfloor x + y \rfloor $， 并且当且仅当 $  x \quad mod \quad 1 + y \quad mod \quad 1 \lt 1  $时取等号。 对于向上取整函数， 类似的公式成立吗？</p>
+</blockquote>
+<p>证明：  $ \because x =  \lfloor x \rfloor + x mod 1 ， y =  \lfloor y \rfloor + y mod 1 $<br>       $ \therefore x + y = \lfloor x \rfloor + \lfloor y \rfloor +  x \quad mod \quad 1  + y \quad mod \quad 1 $<br>       $ \because x \quad mod \quad 1 , y \quad mod  \quad 1 \in [0, 1) $<br>       $ \therefore \lfloor x + y \rfloor \ge \lfloor x \rfloor + \lfloor y \rfloor $</p>
+<p>当 $  x \quad mod \quad 1 + y \quad mod \quad 1 \lt 1  $ 等号易证。</p>
+<p>对于向上取整函数， 不等式方向应改为大于等于。</p>
+<h2 id="习题8-9-10-0-10"><a href="#习题8-9-10-0-10" class="headerlink" title="习题8,9,10[0-10]"></a>习题8,9,10[0-10]</h2><blockquote>
+<p>习题8 计算 $ 100   mod 3 , 100   mod   7 , -100   mod   7, -100   mod    0 $<br>习题9 计算 $ 5   mod -3，  18   mod   -3,  -2   mod   -3 $<br>习题10 计算 $  1.1 mod 1, 0.11 mod 0.1,  0.11 mod -0.1 $<br>略。</p>
+</blockquote>
+<hr>
+<h2 id="习题11-00"><a href="#习题11-00" class="headerlink" title="习题11[00]"></a>习题11[00]</h2><blockquote>
+<p>按我们的约定， “$ a \equiv b \pmod 0$ ”的含义是什么？</p>
+</blockquote>
+<p>解： a = b.</p>
+<h2 id="习题12-00"><a href="#习题12-00" class="headerlink" title="习题12[00]"></a>习题12[00]</h2><blockquote>
+<p>哪些整数与1是互素的？</p>
+</blockquote>
+<p>解： 除0外所有整数 （假定未定义与0的公因数）。</p>
+<h2 id="习题13-M00"><a href="#习题13-M00" class="headerlink" title="习题13[M00]"></a>习题13[M00]</h2><blockquote>
+<p>若我们约定0与n最大公因数是 $ |n| $, 哪些整数与0互素？</p>
+</blockquote>
+<p>解： -1， +1.</p>
+<h2 id="习题14-12"><a href="#习题14-12" class="headerlink" title="习题14[12]"></a>习题14[12]</h2><blockquote>
+<p>如果 $ x \equiv 3 = 2, x \equiv 5 = 3, 那么 x \equiv 15 是多少？$</p>
+</blockquote>
+<p>解: 8. </p>
+<h2 id="习题15-10"><a href="#习题15-10" class="headerlink" title="习题15[10]"></a>习题15[10]</h2><blockquote>
+<p>证明 $ z ( x \pmod y) = (zx) \pmod (zy) $ [定律C是这个分配律的推论]</p>
+</blockquote>
+<p>证明： * 首先 $y = 0$时显然成立； 下面证明 $ y \ne 0$<br>其实也非常简单， 只要利用 取mod的定义。</p>
+<script type="math/tex; mode=display">x \pmod y =  x  - y \lfloor x / y \rfloor</script><p>即可。</p>
+<h2 id="———————————"><a href="#———————————" class="headerlink" title="———————————-"></a>———————————-</h2><h2 id="———————————-1"><a href="#———————————-1" class="headerlink" title="———————————-"></a>———————————-</h2><h2 id="———————————-2"><a href="#———————————-2" class="headerlink" title="———————————-"></a>———————————-</h2><h2 id="———————————-3"><a href="#———————————-3" class="headerlink" title="———————————-"></a>———————————-</h2><hr>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/wechat2.jpg" alt="Jinyong Yang wechat" style="width: 200px; max-width: 100%;">
+  <div>个人微信 - 如果有建议，欢迎你联系我</div>
+</div>
+
+      </div>
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机科学/" rel="tag"># 计算机科学</a>
+          
+            <a href="/tags/TAOCP/" rel="tag"># TAOCP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/31/taocp103/" rel="next" title="taocp习题系列-103">
+                <i class="fa fa-chevron-left"></i> taocp习题系列-103
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jinyong Yang</p>
+              <p class="site-description motion-element" itemprop="description">大数据行业从业者，对数据挖掘，机器学习，数据仓库与治理，商业智能分析有经验</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://terror-lm.github.io/" title="https://terror-lm.github.io/" rel="noopener" target="_blank">LM[蒙]</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kiseayoung.com" title="https://kiseayoung.com" rel="noopener" target="_blank">HJ[海君]</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+<div id="days"></div>
+
+<script language="javascript">
+
+
+
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("02/19/2019 15:00:00");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+
+
+</script>
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EM/">EM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GMM/">GMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TAOCP/">TAOCP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hide/">hide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/名人/">名人</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/得到/">得到</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微积分/">微积分</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据/">数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率/">概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监督学习/">监督学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计/">程序设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法思维/">算法思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计/">统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业发展/">职业发展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脑力挑战/">脑力挑战</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高等代数/">高等代数</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-4-整除函数与初等数论"><span class="nav-number">1.</span> <span class="nav-text">1.2.4 整除函数与初等数论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#习题1-00"><span class="nav-number">1.1.</span> <span class="nav-text">习题1[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题2-01"><span class="nav-number">1.2.</span> <span class="nav-text">习题2[01]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题3-M10"><span class="nav-number">1.3.</span> <span class="nav-text">习题3[M10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题4-M10"><span class="nav-number">1.4.</span> <span class="nav-text">习题4[M10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题5-16"><span class="nav-number">1.5.</span> <span class="nav-text">习题5[16]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题6-20"><span class="nav-number">1.6.</span> <span class="nav-text">习题6[20]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题7-M15"><span class="nav-number">1.7.</span> <span class="nav-text">习题7[M15]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题8-9-10-0-10"><span class="nav-number">1.8.</span> <span class="nav-text">习题8,9,10[0-10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题11-00"><span class="nav-number">1.9.</span> <span class="nav-text">习题11[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题12-00"><span class="nav-number">1.10.</span> <span class="nav-text">习题12[00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题13-M00"><span class="nav-number">1.11.</span> <span class="nav-text">习题13[M00]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题14-12"><span class="nav-number">1.12.</span> <span class="nav-text">习题14[12]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题15-10"><span class="nav-number">1.13.</span> <span class="nav-text">习题15[10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#———————————"><span class="nav-number">1.14.</span> <span class="nav-text">———————————-</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#———————————-1"><span class="nav-number">1.15.</span> <span class="nav-text">———————————-</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#———————————-2"><span class="nav-number">1.16.</span> <span class="nav-text">———————————-</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#———————————-3"><span class="nav-number">1.17.</span> <span class="nav-text">———————————-</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jinyong Yang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">79k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:12</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+  <script src="/js/src/canvasline.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.0"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/js.cookie.js?v=7.0.0"></script>
+  <script src="/js/src/scroll-cookie.js?v=7.0.0"></script>
+
+
+  
+
+  
+  
+  
+  <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
+  <script>
+  
+    bookmark.scrollToMark('auto', "#more");
+  
+  </script>
+
+
+  
+
+
+  <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+<link rel="stylesheet" href="/photos/photos.css">
+<script type="text/javascript" src="/photos/photo.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+<script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+</html>
