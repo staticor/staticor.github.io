@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://staticor.github.io/2020/02/15/java-HashMap/</loc>
+    
+    <lastmod>2020-02-16T03:24:04.591Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://staticor.github.io/2020/01/17/Apache-Kafka-bin%E5%91%BD%E4%BB%A4/</loc>
     
-    <lastmod>2020-01-17T00:48:27.619Z</lastmod>
+    <lastmod>2020-01-22T06:06:10.000Z</lastmod>
     
   </url>
   
