@@ -1,0 +1,299 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>死锁入门与银行家算法 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    死锁入门与银行家算法
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-06-03 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>定义：<br>
+A有B的依赖资源，B有A的依赖资源，双方都不能抢夺走对方的资源，也不放弃目前拥有的，为了完成自己的目标采取互相等待,导致程序无法进行下去的现象。</p>
+<p>死锁产生的条件， 四个条件都发生时，才可能会产生死锁。</p>
+<ul>
+<li>互斥使用，某些资源只能交由一个线程使用，不能共享；</li>
+<li>不可抢占，别的线程需要急需某资源，涌终止另外正在运行的线程。</li>
+<li>占有且等待，保持对原有资源的占有，不轻易放弃</li>
+<li>循环等待  ，多个线程间的等待关系成环</li>
+</ul>
+<p>解决死锁</p>
+<p>一般互斥使用这个条件是很难破坏的，在设计层面一开始就决定了，要避免或解决死锁，就要从另外三个条件入手。</p>
+<ul>
+<li>
+<p>破坏“不可抢占”<br>
+当要去尝试获取另一个资源， 获取不到，就放弃当下拥有的资源， 避免自己手上资源被人依赖。</p>
+</li>
+<li>
+<p>破坏“占有且等待”：</p>
+<p>​    让程序每次执行时申请所有需要的资源， 如果有部分未完成 就阻塞。</p>
+</li>
+<li>
+<p>破坏“循环等待”</p>
+<p>给每个资源标上优先级序号， 用线性方式去申请资源。</p>
+</li>
+</ul>
+<p>循环等待是因为各资源没有线性关系。</p>
+<pre><code class="language-java">
+
+
+Object a = new Object();
+Object b = new Object();
+
+
+
+
+new Thread( ()-&gt;{
+    synchronized (a) {
+        System.out.println(&quot;i get a &quot;);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(&quot;I want get b&quot;);
+        synchronized(b) {
+            System.out.println(&quot;I get b&quot;);
+        }
+    }
+});
+
+
+new Thread( ()-&gt;{
+    synchronized (b) {
+        System.out.println(&quot;i get b&quot;);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(&quot;I want get a&quot;);
+        synchronized(a) {
+            System.out.println(&quot;I get a&quot;);
+        }
+    }
+});
+
+
+
+
+
+
+
+数据库中的死锁
+
+文章： https://levelup.gitconnected.com/understanding-why-a-database-deadlock-occurs-8bbd32be8026 
+
+</code></pre>
+<p>使用jstack  可以看到</p>
+<pre><code class="language-shell">
+Java stack information for the threads listed above:
+===================================================
+&quot;Thread-0&quot;:
+        at dealock.Example.lambda$main$0(Example.java:22)
+        - waiting to lock &lt;0x000000043f83b988&gt; (a java.lang.Object)
+        - locked &lt;0x000000043f83b978&gt; (a java.lang.Object)
+        at dealock.Example$$Lambda$14/0x0000000800066840.run(Unknown Source)
+        at java.lang.Thread.run(java.base@11.0.15/Thread.java:829)
+&quot;Thread-1&quot;:
+        at dealock.Example.lambda$main$1(Example.java:37)
+        - waiting to lock &lt;0x000000043f83b978&gt; (a java.lang.Object)
+        - locked &lt;0x000000043f83b988&gt; (a java.lang.Object)
+        at dealock.Example$$Lambda$15/0x0000000800066c40.run(Unknown Source)
+        at java.lang.Thread.run(java.base@11.0.15/Thread.java:829)
+
+Found 1 deadlock.
+
+</code></pre>
+<h2 id="银行家算法">银行家算法</h2>
+<p>事先预防策略，避免系统进入不安全状态。</p>
+<blockquote>
+<p>在银行中，客户申请贷款的数量是有限的，每个客户在第一次申请贷款时要声明完成该项目所需的最大资金量，在满足所有贷款要求时，客户应及时归还。银行家在客户申请的贷款数量不超过自己拥有的最大值时，都应尽量满足客户的需要。在这样的描述中，银行家就好比操作系统，资金就是资源，客户就相当于要申请资源的进程。</p>
+</blockquote>
+<p>pseudo-code</p>
+<ul>
+<li>P  进程的集合</li>
+<li>Mp 进程p的最大请求数目</li>
+<li>Cp 进程p当前被分配资源</li>
+<li>A 当前可用资源</li>
+</ul>
+<pre><code class="language-java">while (P != ∅) {
+    found = FALSE;
+    foreach (p ∈ P) {
+        if (Mp − Cp ≤ A) {
+             /* p可以獲得他所需的資源。假設他得到資源後執行；執行終止，並釋放所擁有的資源。*/
+             A = A + Cp ;
+             P = P − {p};
+             found = TRUE;
+        }
+    }
+    if (! found) return FAIL;
+}
+return OK;
+
+
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/ji-ji-ge-you-yi-si-de-zhi-li-ti-mu/" class="post-title gt-a-link">
+                    记几个有意思的智力题目
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

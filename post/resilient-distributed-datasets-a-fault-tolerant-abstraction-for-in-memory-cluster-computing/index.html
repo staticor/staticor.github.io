@@ -1,0 +1,304 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>[Paper]Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    [Paper]Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-05-01 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/BJ_Iwwr-R/" class="post-tags">
+                            # paper
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="abstract">Abstract</h1>
+<p>我们提出了RDD, 弹性分布式数据集 ---- 一种分布式内存的抽象结构, 允许程序员以容错方式在大型集群上执行内存计算.  在当前计算框架下,有两种类型的计算应用表现性能较低: 迭代式算法和交互式数据挖掘, RDD也是受到了启发,从而产生.</p>
+<p>这两种情况下,将数据保存在内存可以将性能提高一个数量级.</p>
+<p>RDD提供了一种受限制的内存共享机制,基于对共享状态粗粒度的转换,而不是细粒度更新.</p>
+<p>然而, 我们证明RDD的表达能力是足以覆盖很多计算场景的.</p>
+<h1 id="introduction">Introduction</h1>
+<p>MapReduce和Dryad等诸框架已经被大规模应用,这些系统让用户使用一系列高级别的算子完成并行计算,不必担心工作的分发和容错.</p>
+<p>但它们缺少了对于内存的抽象,导致效率低.</p>
+<p>Data复用在很多地方上是必要的: PageRank, K-Means 聚类, LR回归.</p>
+<p>交互数据挖掘, 频繁对数据进行ad-hoc.  可惜, 像MapReduce是满足不了这两类场景的.</p>
+<p>MR在HDFS上的计算任务,会产生大量的IO\ 序列化和数据备份,严重影响了任务的开销.</p>
+<p>认识到这个问题,研究者提出了一些data reuse的方案 : Prege, HaLoop<br>
+它们的局限性是仅适用于特定计算场景.</p>
+<p>本论文提出的RDD具备更宽的使用范围.<br>
+RDD是容错的,并行数据结构,封装了一系列的灵活算子,可以在内存完成各自任务.</p>
+<p>RDD设计的主要挑战是编程接口的容错设计.</p>
+<p>目前存在的集群内存存储设计: DSM(Distributed Shared Memory), Database, Piccolo,是通过对状态的细粒度更新,提供了接口.</p>
+<p>RDD是基于 粗粒度的接口设计.</p>
+<h1 id="rdd">RDD</h1>
+<h2 id="rdd的抽象设计">RDD的抽象设计</h2>
+<p>只读的,带有分区.<br>
+创建方式有二: 只能从指定存储的数据结构或者由别的RDD变换而来, 我们称这些变换为特定的&quot;transformation&quot; 算子.</p>
+<p>典型的例子, map, filter, join.</p>
+<p>RDD 不需要在任何时刻都被实现, RDD拥有足够的信息,证明自己是怎么派生出来的(从其它数据集), 这是一个很便利的属性. 本质上, 一个程序不能引用一个RDD (如果它重建失败了)</p>
+<h2 id="spark-编程接口">Spark 编程接口</h2>
+<p>map, filter<br>
+Actions: count, collect, save<br>
+除此之外,还提供 persist 方法.<br>
+Spark默认将RDD保存在内存,但如果内存不够,可以指定别的存储策略.</p>
+<p>例子, Console Log Mining   控制台日志分析</p>
+<p>想在HDFS已有的日志(TB级)检索信息.</p>
+<p>使用Spark, 会将这些日志分段加载到不同的节点</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654171616038.png" alt="" loading="lazy"></figure>
+<pre><code class="language-scala">lines = spark.textFile(&quot;hdfs:// ...path...&quot;)
+
+errors = lines.filter(_.startsWith(&quot;ERROR&quot;))
+
+errors.persist()
+
+
+errors.filter(_.contains(&quot;MySQL&quot;)).count()
+
+errors.filter(_.contains(&quot;HDFS&quot;))
+       .map(_.split('\t')(3))
+          .collect()
+
+</code></pre>
+<p>pipeline 作业, 把任务分发到持有errors分区的节点上.</p>
+<h2 id="rdd-vs-distributed-shared-memory">RDD vs. Distributed Shared Memory</h2>
+<p>DSM(是什么), 可以全局的进行读写.</p>
+<p>RDD和DSM的主要区别: RDD只能由粗变换创建, DSM可以对单个内存地址读写(RDD可以视作是一片连续区域?)</p>
+<p>RDD限制了批量写的程序,但可以更有效的容错.<br>
+特别地,RDD不用产生检查点,因为它们可以使用血缘来快速恢复.</p>
+<p>只有当RDD失败时才会重算(并行的在其它节点完成),不必重头回滚整个程序.</p>
+<p>RDD的第二个特性,不可变性.  系统通过运行慢任务备份副本来缓解慢节点.</p>
+<h2 id="rdd不适合的应用场景">RDD不适合的应用场景</h2>
+<p>通过前面的介绍,RDD是适合于批量计算的应用,也适合于一步接一步的迭代式计算.</p>
+<p>但对于流计算, RDD不适用的.</p>
+<h1 id="spark-programming-interface">Spark Programming Interface</h1>
+<p>Spark使用Scala,提供了像 DryadLINQ 一样的 API.<br>
+Scala是函数式编程语言, 然而RDD倒不必须使用FP来实现.</p>
+<p>Spark, 开发者需要完成一个 driver program, 与一系列workers集群通信, 如下图:<br>
+<img src="https://staticor.github.io/post-images/1654171647996.png" alt="" loading="lazy"></p>
+<p>编程接口<br>
+<img src="https://staticor.github.io/post-images/1654171661931.png" alt="" loading="lazy"></p>
+<pre><code class="language-scala">val points = spark.textFile(... ) .map(parseFunc).persist()
+
+var w = // random 
+for( i &lt;- 1 to ITERATIONS) {
+   val gradient = points.map {
+     p.x * (1/ ...)
+   }.reduce( (a, b) =&gt; a+b )
+   w -= gradient 
+}
+
+</code></pre>
+<h1 id="rdd-的表示">RDD 的表示</h1>
+<p>提供了通用的五个特征:</p>
+<ul>
+<li>partitions 分区, 数据集的最小操作原子单位. 返回一组分区列表</li>
+<li>dependencies  依赖, RDD是怎么来的     返回一组依赖的列表</li>
+<li>partitioner  返回metadata, return metadata  这个RDD是Hash分区还是Range分区.</li>
+<li>metadata  分区,schema信息</li>
+<li>data placement  数据放置信息    preferredLocation(p)   节点列表, 参数是p(分区), 返回能访问它的节点</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654171677564.png" alt="" loading="lazy"></figure>
+<p>对RDD而言,有意思的便是设计不同RDD的依赖关系.<br>
+我们定义了两类, 窄依赖和宽依赖.</p>
+<p>窄依赖,每个父RDD的分区,最多被一个子RDD依赖.  例如 map是窄依赖的操作<br>
+宽依赖则是一个RDD的分区被多个子RDD依赖, 例如 join是宽依赖操作.</p>
+<p>窄依赖可以在一个节点上形成执行流水线作业(map, filter  + ..) 都是element by element.<br>
+对比来说,宽依赖需要收集所有依赖的父分区数据.</p>
+<p>窄依赖可以快速重算.<br>
+在宽依赖下,如果单节点计算失败了,就需要再次重上游依赖提取数据重计算,恢复成本较高.</p>
+<figure data-type="image" tabindex="3"><img src="https://staticor.github.io/post-images/1654171693170.png" alt="" loading="lazy"></figure>
+<h1 id="实现">实现</h1>
+<p>大约使用了14000行Scala代码完成了Spark的实现.<br>
+能运行在Mesos集群,Hadoop共享资源的应用.</p>
+<h2 id="job-scheduling">Job Scheduling</h2>
+<p>分配任务时, 将任务分发到哪一台机器上考虑了 data locality. 就近</p>
+<p>对于宽依赖(shuffle 依赖), 目前我们采用的是这种方式, 在父分区所在节点,存储中间结果,以简化故障恢复, 有些类似MapReduce时对Map output的设计.</p>
+<p>如果一个任务失败了, 会在别的节点上 rerun.</p>
+<p>如果某一个Stage不可用了, (比如 从Mapside 产生的shuffle write 结果丢了), 会重新提交丢失的分区.</p>
+<h2 id="interpreter-intergration">Interpreter Intergration</h2>
+<p>解释器集成</p>
+<p>two changes</p>
+<ul>
+<li>Class Shipping,</li>
+<li>Modified code generation</li>
+</ul>
+<h2 id="memory-management-内存管理">Memory Management 内存管理</h2>
+<p>Spark 提供了三个RDD持久化的级别,</p>
+<ul>
+<li>在内存持久化(以Java 反序列化对象)</li>
+<li>在内存以序列化对象</li>
+<li>在硬盘</li>
+</ul>
+<p>第一种性能最好,  JVM可以直接访问RDD.<br>
+第二种 允许用户在空间有限时, 比Java对象更节省空间的方式表示, 但性能不如第一种.<br>
+第三种, 当RDD太大时, 每次都用内存开销太高. 因此在内存上更为方便</p>
+<p>为了更好利用内存,我们使用LRU的丢弃机制.<br>
+当新的RDD分区被计算, 而且没有足够空间存储它, 我们会将最久不使用的RDD丢弃.</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/sparkkrdd1/" class="post-title gt-a-link">
+                    Spark中的RDD(一）+ Paper Reading
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Data Marketplace | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Data Marketplace
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-06-02 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/sYbTBNDF0/" class="post-tags">
+                            # data marketplace
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <figure data-type="image" tabindex="1"><img src="img/data-marketplace-framework.png" alt="" loading="lazy"></figure>
+<h1 id="data-governance-数据治理">Data governance 『数据治理』</h1>
+<ul>
+<li>Data discovery</li>
+</ul>
+<p>on-time 嗅探上游的metadata变动， 新增表，字段，格式， etc。</p>
+<p>**- Data catalog  **</p>
+<p>业务上的数据标签</p>
+<ul>
+<li>Data lineage</li>
+</ul>
+<p>数据表的依赖关系 DAG。<br>
+发现数据是如何生产的，数据的流动和加工明细。</p>
+<ul>
+<li>Data dictionary</li>
+</ul>
+<p>较好理解，业务方定位数据或查询使用的产品。 通过关键字或数据标签或指标，定位到数据解释的含义。<br>
+有特殊编码的字段，一般需要在这里给出对应的mapping meaning。</p>
+<ul>
+<li>Data taxonomy</li>
+</ul>
+<p>数据分门别类的管理。  按业务划分。</p>
+<ul>
+<li>Data classification</li>
+</ul>
+<p>数据按安全和访问程度分级，与上面的taxonomy 不同。<br>
+比如敏感的客户数据（手机号，地址，信用卡）高严重级。</p>
+<ul>
+<li>
+<p>Data stewardship<br>
+数据监管和管理。</p>
+</li>
+<li>
+<p>KPI definition (Core metrics)</p>
+</li>
+</ul>
+<h1 id="data-collection-数据集成">Data collection    数据集成</h1>
+<p>实时数据<br>
+近实时<br>
+离线数据</p>
+<p>集成建议， metadata-driven data collection</p>
+<p>数据源管理工具。</p>
+<h1 id="data-ingestion">Data ingestion</h1>
+<p>Schema registration（Schema 注册<br>
+Schema validation</p>
+<p>Data classification   敏感数据标记 在这里</p>
+<h1 id="data-transformation">Data transformation</h1>
+<p>(ETL) 的核心过程<br>
+Data structuring</p>
+<p>Data cleansing/filtering</p>
+<p>Data integration</p>
+<h1 id="data-storage-consumption">Data storage &amp; consumption</h1>
+<p>Business intelligence<br>
+Maching Learning<br>
+Data warehousing, Data lake<br>
+Semantic layer</p>
+<h1 id="sensitive-data-protection">Sensitive data protection</h1>
+<pre><code>Role -based access control (RBAC)
+</code></pre>
+<p>根据角色定义的数据访问权限系统。</p>
+<pre><code>Data de- identification 
+</code></pre>
+<p>数据加密和脱敏</p>
+<p>Encryption, masking, Tokenization, Hashing</p>
+<p><a href="https://www.youtube.com/watch?v=kBZzgOksCSI&amp;ab_channel=AWSEvents">Youtube视频</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/data-warehouse-design/" class="post-title gt-a-link">
+                    Data warehouse - Design
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

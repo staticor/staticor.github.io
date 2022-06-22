@@ -1,0 +1,417 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Hive的执行计划 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Hive的执行计划
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-01-05 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/mHEqq0620/" class="post-tags">
+                            # tuning
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/MTigWmiSP/" class="post-tags">
+                            # hive
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="hive的sql是怎么转变成的mapreduce">Hive的SQL是怎么转变成的MapReduce</h1>
+<p>Driver端,</p>
+<ul>
+<li>将HQL语句转换为AST;
+<ul>
+<li>借助于 ParseDriver:  将HQL语句转为Token , 对Token解析生成AST;</li>
+</ul>
+</li>
+<li>将AST转换为TaskTree;
+<ul>
+<li>SemanticAnalyzer, AST转换为QueryBlock</li>
+<li>将QB转换为OperatorTree</li>
+<li>将OT进行逻辑优化, 生成TaskTree</li>
+<li>TaskTree执行物理优化</li>
+</ul>
+</li>
+<li>提交任务执行 (ExecDriver)</li>
+</ul>
+<h1 id="hive-的执行入口类">Hive 的执行入口类</h1>
+<ul>
+<li>主类 CliDriver   run() 方法</li>
+<li>执行executeDriver</li>
+<li>processCmd</li>
+<li>processLocalCmd</li>
+<li>qp.run(cmd)</li>
+<li>runInternal</li>
+</ul>
+<p>其中 qp 是Driver对象,  Driver端的runInternal 方法, 调用了compile 完成了语法的解析和编译.</p>
+<h2 id="compileinternal-编译">compileInternal  编译</h2>
+<p>编译器, 解析器, 优化器 在这步</p>
+<h3 id="ast-在这里生成">AST 在这里生成</h3>
+<p>compile方法中, 使用ParseUtils.parse 完成对命令的解析,生成一棵AST树,代码如下:</p>
+<pre><code class="language-java">    ASTNode tree; // AST  树
+      
+    tree = ParseUtils.parse(command, ctx);
+...
+HiveLexerX lexer = new HiveLexerX(new ANTLRNoCaseStringStream(command));
+
+TokenRewriteStream tokens = new TokenRewriteStream(lexer);
+</code></pre>
+<p>Hive 使用ANTLR 完成SQL的词法解析, 在老版本的Hive中, 因为语法非常简单, 只用一个文件 <code>Hive.g</code> 完成,随着语法规则越来越复杂, 目前为拆分成了5个文件:</p>
+<ul>
+<li>词法规则 HiveLexer.g</li>
+<li>语法规则 四个文件:
+<ul>
+<li>SelectClauseParser.g</li>
+<li>FromClauseParser.g</li>
+<li>IdentifiersParser.g</li>
+<li><a href="https://github.com/apache/hive/blob/master/hplsql/src/main/antlr4/org/apache/hive/hplsql/Hplsql.g4">HiveParser.g</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="ast转为operator-tree">AST转为Operator Tree</h3>
+<ul>
+<li>Implementation of the semantic analyzer. It generates the query plan.</li>
+<li>There are other specific semantic analyzers for some hive operations such as</li>
+<li>DDLSemanticAnalyzer for ddl operations.</li>
+</ul>
+<h3 id="优化器">优化器</h3>
+<pre><code class="language-java">// SemanticAnalyzer.java
+Optimizer optm = new Optimizer();
+
+</code></pre>
+<p>轮询Optimizer中的优化策略</p>
+<pre><code class="language-java">// Optimizer.java
+// Invoke all the transformations one-by-one, and alter the query plan.
+  public ParseContext optimize() throws SemanticException {
+    for (Transform t : transformations) {
+      t.beginPerfLogging();
+      pctx = t.transform(pctx);
+      t.endPerfLogging(t.toString());
+    }
+    return pctx;
+  }
+</code></pre>
+<p>这个Transform 就是优化策略的抽象类,</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654159736495.png" alt="" loading="lazy"></figure>
+<p>例如<code>GroupByOptimizer</code>  是有条件地执行map侧计算,减少shuffle IO.</p>
+<blockquote>
+<p>This transformation does group by optimization. If the grouping key is a superset of the bucketing and sorting keys of the underlying table in the same order, the group by can be performed on the map-side completely.</p>
+</blockquote>
+<h2 id="execute-执行">execute() 执行</h2>
+<p>执行器</p>
+<h1 id="hive-explain">Hive- Explain</h1>
+<h2 id="最简单的explain计划例子">最简单的Explain计划例子</h2>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654159713526.png" alt="" loading="lazy"></figure>
+<p>只有一个Stage, 即Stage-0, 而且是一个Fetch Operator,  limit为负1 表示没有Limit操作.<br>
+Processor树下面只有一个TableScan, 是对表名 logs的操作.<br>
+统计信息能看到 一共的行数,(Num rows), 数据尺寸(Data size).  Select算子下面是执行的扫列, 因为执行了select *,  所以全部列的schema都展示出来了.</p>
+<h2 id="一个稍稍复杂的例子">一个稍稍复杂的例子</h2>
+<p>再来看一个带有 分组聚合查询(count + count distinct)的例子<br>
+执行语句是</p>
+<pre><code class="language-shell">hive&gt; explain extended select ip , count(distinct id) uv, count(  doop) pv from logs group by  ip;
+</code></pre>
+<p>阶段划分为2个了, Stage 1是 根阶段, Stage 0 依赖于Stage1</p>
+<p>Stage1是一个Map Reduce阶段,分为 Map树<br>
+Map过程也是要执行TableScan, 扫的logs表-行数列数, 执行 Select, 只对 ip id 和 doop 三列扫.  GroupBy 算子</p>
+<pre><code class="language-sql">STAGE DEPENDENCIES:
+  Stage-1 is a root stage
+  Stage-0 depends on stages: Stage-1
+
+STAGE PLANS:
+  Stage: Stage-1
+    Map Reduce
+      Map Operator Tree:
+          TableScan
+            alias: logs
+            Statistics: Num rows: 2762962 Data size: 828888768 Basic stats: COMPLETE Column stats: NONE
+            GatherStats: false
+            Select Operator
+              expressions: ip (type: string), id (type: string), doop (type: string)
+              outputColumnNames: ip, id, doop
+              Statistics: Num rows: 2762962 Data size: 828888768 Basic stats: COMPLETE Column stats: NONE
+              Group By Operator
+                aggregations: count(DISTINCT id), count(doop)
+                keys: ip (type: string), id (type: string)
+                mode: hash
+                outputColumnNames: _col0, _col1, _col2, _col3
+                Statistics: Num rows: 2762962 Data size: 828888768 Basic stats: COMPLETE Column stats: NONE
+                Reduce Output Operator
+                  key expressions: _col0 (type: string), _col1 (type: string)
+                  null sort order: aa
+                  sort order: ++
+                  Map-reduce partition columns: _col0 (type: string)
+                  Statistics: Num rows: 2762962 Data size: 828888768 Basic stats: COMPLETE Column stats: NONE
+                  tag: -1
+                  value expressions: _col3 (type: bigint)
+                  auto parallelism: false
+      Path -&gt; Alias:
+        file:/Users/staticor/tmp/hive/warehouse/shopee.db/logs [logs]
+      Path -&gt; Partition:
+        file:/Users/staticor/tmp/hive/warehouse/shopee.db/logs
+          Partition
+            base file name: logs
+            input format: org.apache.hadoop.mapred.TextInputFormat
+            output format: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+            properties:
+              bucket_count -1
+              column.name.delimiter ,
+              columns id,user_id,ip,doop,ttr
+              columns.comments
+              columns.types bigint:bigint:string:string:string
+              file.inputformat org.apache.hadoop.mapred.TextInputFormat
+              file.outputformat org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+              location file:/Users/staticor/tmp/hive/warehouse/shopee.db/logs
+              name shopee.logs
+              numFiles 1
+              numRows 0
+              rawDataSize 0
+              separatorChar
+              serialization.ddl struct logs { i64 id, i64 user_id, string ip, string doop, string ttr}
+              serialization.format 1
+              serialization.lib org.apache.hadoop.hive.serde2.OpenCSVSerde
+              totalSize 828888758
+              transient_lastDdlTime 1653360838
+            serde: org.apache.hadoop.hive.serde2.OpenCSVSerde
+
+              input format: org.apache.hadoop.mapred.TextInputFormat
+              output format: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+              properties:
+                bucket_count -1
+                column.name.delimiter ,
+                columns id,user_id,ip,doop,ttr
+                columns.comments
+                columns.types bigint:bigint:string:string:string
+                file.inputformat org.apache.hadoop.mapred.TextInputFormat
+                file.outputformat org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+                location file:/Users/staticor/tmp/hive/warehouse/shopee.db/logs
+                name shopee.logs
+                numFiles 1
+                numRows 0
+                rawDataSize 0
+                separatorChar
+                serialization.ddl struct logs { i64 id, i64 user_id, string ip, string doop, string ttr}
+                serialization.format 1
+                serialization.lib org.apache.hadoop.hive.serde2.OpenCSVSerde
+                totalSize 828888758
+                transient_lastDdlTime 1653360838
+              serde: org.apache.hadoop.hive.serde2.OpenCSVSerde
+              name: shopee.logs
+            name: shopee.logs
+      Truncated Path -&gt; Alias:
+        /shopee.db/logs [logs]
+      Needs Tagging: false
+      Reduce Operator Tree:
+        Group By Operator
+          aggregations: count(DISTINCT KEY._col1:0._col0), count(VALUE._col1)
+          keys: KEY._col0 (type: string)
+          mode: mergepartial
+          outputColumnNames: _col0, _col1, _col2
+          Statistics: Num rows: 1381481 Data size: 414444384 Basic stats: COMPLETE Column stats: NONE
+          File Output Operator
+            compressed: false
+            GlobalTableId: 0
+            directory: file:/Users/staticor/tmp/hive/9ae192bf-f90d-4427-ba16-54d05ac3c8a3/hive_2022-05-29_16-51-04_737_1249285988661867765-1/-mr-10001/.hive-staging_hive_2022-05-29_16-51-04_737_1249285988661867765-1/-ext-10002
+            NumFilesPerFileSink: 1
+            Statistics: Num rows: 1381481 Data size: 414444384 Basic stats: COMPLETE Column stats: NONE
+            Stats Publishing Key Prefix: file:/Users/staticor/tmp/hive/9ae192bf-f90d-4427-ba16-54d05ac3c8a3/hive_2022-05-29_16-51-04_737_1249285988661867765-1/-mr-10001/.hive-staging_hive_2022-05-29_16-51-04_737_1249285988661867765-1/-ext-10002/
+            table:
+                input format: org.apache.hadoop.mapred.SequenceFileInputFormat
+                output format: org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat
+                properties:
+                  columns _col0,_col1,_col2
+                  columns.types string:bigint:bigint
+                  escape.delim \
+                  hive.serialization.extend.additional.nesting.levels true
+                  serialization.escape.crlf true
+                  serialization.format 1
+                  serialization.lib org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+                serde: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+            TotalFiles: 1
+            GatherStats: false
+            MultiFileSpray: false
+
+  Stage: Stage-0
+    Fetch Operator
+      limit: -1
+      Processor Tree:
+        ListSink
+
+Time taken: 0.159 seconds, Fetched: 123 row(s)
+</code></pre>
+<p>hive.fetch.task.conversion=more<br>
+控制哪些查询走MapReduce</p>
+<p>none， 所有查询都走MR；<br>
+more， 默认Level， 查询字段，分区的where， limit 时间戳， 虚拟字段<br>
+minimal，  查询字段， 分区的where， limit 不走MR</p>
+<p>一个简单的count (distinct ) + sum 的单表执行计划：</p>
+<figure data-type="image" tabindex="3"><img src="https://staticor.github.io/post-images/1654159671093.png" alt="" loading="lazy"></figure>
+<p>Stage 0 依赖于Stage1，</p>
+<p>Stage1 执行了MapReduce，</p>
+<p>Map阶段执行操作：<br>
+表扫描，<br>
+字段映射Project（Select Operator)<br>
+聚合</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/lin-qun-yuan-shi-guan-yu-wei-ji-fen-de-yan-jiang-nei-rong/" class="post-title gt-a-link">
+                    林群院士-关于微积分的演讲内容
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

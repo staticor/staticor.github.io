@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://staticor.github.io</id>
+    <title>staticor in data</title>
+    <updated>2022-06-22T07:11:44.339Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://staticor.github.io"/>
+    <link rel="self" href="https://staticor.github.io/atom.xml"/>
+    <subtitle>To Think   You Have to Write</subtitle>
+    <logo>https://staticor.github.io/images/avatar.png</logo>
+    <icon>https://staticor.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, staticor in data</rights>
+    <entry>
+        <title type="html"><![CDATA[Onedata-3, 节省数据成本——到数据资产]]></title>
+        <id>https://staticor.github.io/post/33xsTBvWN/</id>
+        <link href="https://staticor.github.io/post/33xsTBvWN/">
+        </link>
+        <updated>2022-06-09T00:41:22.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Onedata-2 数据出错了]]></title>
+        <id>https://staticor.github.io/post/onedata-2-shu-ju-chu-cuo-liao/</id>
+        <link href="https://staticor.github.io/post/onedata-2-shu-ju-chu-cuo-liao/">
+        </link>
+        <updated>2022-06-08T14:23:29.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[BookNote-大数据之路(Alibaba-OneData) Part2]]></title>
+        <id>https://staticor.github.io/post/booknote-da-shu-ju-zhi-lu-alibaba-onedata-part2/</id>
+        <link href="https://staticor.github.io/post/booknote-da-shu-ju-zhi-lu-alibaba-onedata-part2/">
+        </link>
+        <updated>2022-06-06T12:41:11.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[OneData与OneService 初识]]></title>
+        <id>https://staticor.github.io/post/onedata/</id>
+        <link href="https://staticor.github.io/post/onedata/">
+        </link>
+        <updated>2022-06-05T11:17:02.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Booknote，《Star Schema -The Complete Reference》]]></title>
+        <id>https://staticor.github.io/post/booknotelesslessstar-schema-the-complete-referencegreatergreater/</id>
+        <link href="https://staticor.github.io/post/booknotelesslessstar-schema-the-complete-referencegreatergreater/">
+        </link>
+        <updated>2022-06-05T04:26:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[BookNote-大数据之路(Alibaba-OneData) Part1]]></title>
+        <id>https://staticor.github.io/post/booknote-da-shu-ju-zhi-lu-alibaba/</id>
+        <link href="https://staticor.github.io/post/booknote-da-shu-ju-zhi-lu-alibaba/">
+        </link>
+        <updated>2022-06-04T16:04:59.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Spark源码学习（五）-存储与序列化]]></title>
+        <id>https://staticor.github.io/post/spark-yuan-ma-xue-xi-wu-cun-chu-yu-xu-lie-hua/</id>
+        <link href="https://staticor.github.io/post/spark-yuan-ma-xue-xi-wu-cun-chu-yu-xu-lie-hua/">
+        </link>
+        <updated>2022-06-03T14:39:40.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[死锁入门与银行家算法]]></title>
+        <id>https://staticor.github.io/post/si-suo-ru-men-zhi-shi/</id>
+        <link href="https://staticor.github.io/post/si-suo-ru-men-zhi-shi/">
+        </link>
+        <updated>2022-06-03T01:47:10.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[记几个有意思的智力题目]]></title>
+        <id>https://staticor.github.io/post/ji-ji-ge-you-yi-si-de-zhi-li-ti-mu/</id>
+        <link href="https://staticor.github.io/post/ji-ji-ge-you-yi-si-de-zhi-li-ti-mu/">
+        </link>
+        <updated>2022-06-03T01:42:12.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Linux 文件系统权限与Find命令]]></title>
+        <id>https://staticor.github.io/post/linux-wen-jian-xi-tong-quan-xian-yu-find-ming-ling/</id>
+        <link href="https://staticor.github.io/post/linux-wen-jian-xi-tong-quan-xian-yu-find-ming-ling/">
+        </link>
+        <updated>2022-06-02T12:02:17.000Z</updated>
+    </entry>
+</feed>

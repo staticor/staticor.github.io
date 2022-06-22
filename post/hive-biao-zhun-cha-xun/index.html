@@ -1,0 +1,213 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title> Hive  窗口查询 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                     Hive  窗口查询
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-24 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.</p>
+<p>Hive未来会使用Spark  Tez</p>
+<h1 id="窗口查询">窗口查询</h1>
+<h2 id="全量窗口查询">全量窗口查询</h2>
+<p>select grp, sum(money)  from student   group by grp</p>
+<p>需求， 求每个组占总money的比例， 并排序。</p>
+<p>思路1， groupBy   分别计算分子和分母</p>
+<p>select  a.*, totalmoney,  a.subtotal / totalmoney from (select grp, sum(money)  subtotal from student   group by grp )a   join (select sum(money) as totalmoney  from student ) b on 1=1</p>
+<p>注意， set hive.strict.checks.cartesian.product=flase;</p>
+<p>//使用 全量窗口</p>
+<p>select grp, v, sum(v) over() as total from (select grp, sum(money) as v from student  group by grp )a</p>
+<p>使用 全量窗口，性能会好于 group by.</p>
+<h2 id="分区窗口查询">分区窗口查询</h2>
+<p>选择一个离散categorical 字段， 对数据分区。</p>
+<p>OVER()  内， 放置分区逻辑。</p>
+<pre><code>      , row_number() over(partition by player_id order by match_day asc) rk1 
+</code></pre>
+<h2 id="分区窗口内引入-bound">分区窗口内引入 BOUND</h2>
+<pre><code>知识准备
+</code></pre>
+<p>截止当前累加的和 （阶梯累加）</p>
+<pre><code>select name, orderdate,  money
+, sum(money) over ( 
+    partition by name,   substring(orderdate, 1, 7)  order by date 
+     rows between UNBOUNDED PRECEDING and  CURRENT ROW 
+)  from   。。。
+
+
+</code></pre>
+<p>游标取值范围， 要传入两个参数，  默认值：<br>
+rows between UNBOUNDED PRECEDING and  CURRENT ROW</p>
+<p>当前行（ 默认值） ： CURRENT ROW<br>
+往前n行  n PRECEDING<br>
+往后n行   n FOLLOWING<br>
+起点  UNBOUNDED<br>
+起点之前（默认值）  UNBOUNDED PRECEDING<br>
+终点之后    UNBOUNDED  FOLLOWING</p>
+<p>需求， 计算每个人最近7天的累积消费，截止当前付费</p>
+<pre><code>select name, orderdate,  money
+, sum(money) over ( 
+    partition by name,   substring(orderdate, 1, 7)  order by date 
+     rows between UNBOUNDED PRECEDING and  2 PRECEDING
+)  from   。。。
+
+
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

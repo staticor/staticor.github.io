@@ -1,0 +1,253 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Booknote，&lt;C Primer Plus&gt; | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Booknote，&lt;C Primer Plus&gt;
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2016-06-09 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/yRD3c8faX/" class="post-tags">
+                            # C lang
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/gIWbJvnhi/" class="post-tags">
+                            # booknote
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>速成回顾， <a href="https://learnxinyminutes.com/docs/zh-cn/c-cn/">learnxinyminutes-c lang</a></p>
+<p>C语言经典书， 通过关键插图或代码块记录这本书的精华。</p>
+<p><img src="https://staticor.github.io/post-images/1654492440990.png" alt="" loading="lazy"><br>
+第一个C语言程序， #include&lt;stdio.h&gt; 表示引入标准IO库的头文件。</p>
+<p>接下来定义了返回值为int的 main函数。</p>
+<p>main函数也是应用程序的入口函数，main函数内部再调用其它函数。<br>
+参考下图， Anatomy of a C program.</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654492494754.png" alt="" loading="lazy"></figure>
+<pre><code>Question&gt;&gt;为什么IO这么基础的操作还要额外导入，C为什么不直接内置呢？
+</code></pre>
+<p>考量1:节简原则，并不是所有程序都要IO；<br>
+书中用的词是  <strong>The principle of economics</strong></p>
+<p>DataTypes in C:<br>
+<img src="https://staticor.github.io/post-images/1654493460886.jpg" alt="" loading="lazy"></p>
+<p>为什么整数类型有short, long, unsigned short, unsigned long 和 int 这么多种类型？</p>
+<p><code>fit the types to the machine</code> ··· Windows， Apple 不同系统平台。</p>
+<blockquote>
+<p>Picture, Difference Between C90, C99 and C11</p>
+</blockquote>
+<p>Two_func, 在main函数调用</p>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654495016827.png" alt="" loading="lazy"></figure>
+<p>String &amp; Char array<br>
+<img src="https://staticor.github.io/post-images/1654526864083.png" alt="" loading="lazy"></p>
+<p><code>#define</code> 定义常量的关键词,预处理 —— 编程程序时，所有 define的变量会被批量替换成指定的字面值，这个过程称为编译时替换(compile-time substitution)。<br>
+<code>char name[40]</code> 声明一个 长度为40的char数组。<br>
+scanf从标准输入中获取用户的输入，保存到name数组中😥。</p>
+<p>strlen()  vs. sizeof</p>
+<p>sizeof(T) 可以返回T类型在运行的机器上占用多少个字节 ， strlen方法返回这个string对象有多少个字符。 因为一个char占用一个byte,可能会想它们是相同的（对于一个char[])  其实不然。</p>
+<figure data-type="image" tabindex="3"><img src="https://staticor.github.io/post-images/1654528787052.png" alt="" loading="lazy"></figure>
+<p>sizeof 作用于结构体时，不等于各分量的sizeof结果之和。<br>
+一般而言，以下断言不成立：// sizeof(struct rectangle) == sizeof(int) + sizeof(int)<br>
+这是因为structure成员之间可能存在潜在的间隙（为了对齐）</p>
+<p>编译之前的预处理</p>
+<p><code>define TAXRATE 0.015</code><br>
+<img src="https://staticor.github.io/post-images/1654572591227.png" alt="" loading="lazy"></p>
+<p>while-循环<br>
+<img src="https://staticor.github.io/post-images/1654574795330.png" alt="" loading="lazy"></p>
+<figure data-type="image" tabindex="4"><img src="https://staticor.github.io/post-images/1654575118544.png" alt="" loading="lazy"></figure>
+<p>for-循环<br>
+<img src="https://staticor.github.io/post-images/1654575724674.png" alt="" loading="lazy"></p>
+<p>尾递归 - Tail recursion</p>
+<p>最简单的递归形式是把递归调用置于函数的末尾，即return 语句之前的位置。 这种递归称为尾递归。</p>
+<p>指针：指向一个值为内存地址的变量（或数据对象）</p>
+<figure data-type="image" tabindex="5"><img src="https://staticor.github.io/post-images/1654592668968.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://staticor.github.io/post-images/1654592878789.png" alt="" loading="lazy"></figure>
+<p>指针要带有类型声明。<br>
+int * pi; 指向int类型的指针；<br>
+char * pc; 指向 char类型的指针；<br>
+float * pf; 指向float类型的指针。</p>
+<p>在许多语言中，地址都不暴露给程序员。在C中，可以通过&amp;运算符访问地址，通过*运算符获得地址上的值。<br>
+例如 &amp;barn 表示变量barn的地址，使用变量名即可获得变量的数值。</p>
+<p>数组和指针</p>
+<p>数组名就是数组的地址头，索引[x]则表示顺着这个内存地址，访问到联排的地址。</p>
+<figure data-type="image" tabindex="7"><img src="https://staticor.github.io/post-images/1654621565272.png" alt="" loading="lazy"></figure>
+<p>内存管理（申请和释放）， 存储级别</p>
+<p><code>storage classes</code></p>
+<p>storage duration 存储期， 对象在内存中保留了多长时间。<br>
+scope 作用域 、linkage 链接  表明程序哪些部分可以使用它。<br>
+不同存储级别具有不同的存储期、作用域和链接。</p>
+<p>作用域， 块作用域、函数作用域、函数原型作用域或文件作用域。</p>
+<ul>
+<li>块作用域， block scope  用 { } 圈起来的一个变量；   块内的局部变量
+<ul>
+<li>for循环， while循环和if语句控制的变量，也是块的一部分。</li>
+</ul>
+</li>
+<li>文件作用域，变量定义在函数外面， 有点类似全局变量 global variable</li>
+</ul>
+<p><code>malloc() and free()</code></p>
+<p>内存的分配 (memory allocation) 是怎么回事？<br>
+<code>int plates[100];</code> 该声明预留了100个内存位置，每个位置都用于储存int类型的值。<br>
+内存的分配工具 malloc 函数 ， 接收一个参数， 所需要内存字节数。 会找到一块匿名地址，返回动态分配内存块的首字节地址。</p>
+<p>有申请就有释放，释放指令是free(地址）。</p>
+<pre><code class="language-c">
+double * ptd;
+ptd = (double *) malloc( 30 * sizeof(double));
+
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

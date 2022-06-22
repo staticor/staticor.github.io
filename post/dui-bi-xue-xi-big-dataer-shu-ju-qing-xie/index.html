@@ -1,0 +1,248 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>对比学习--Big Data（二）数据倾斜 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    对比学习--Big Data（二）数据倾斜
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-19 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/MTigWmiSP/" class="post-tags">
+                            # hive
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/m5G8CnLvG/" class="post-tags">
+                            # 大数据
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>什么是数据倾斜（Data Skewing）</p>
+<p>数据倾斜的前提是分布处理，本质是Shuffle过程时不同Reducer节点的处理处理不均衡；<br>
+现象是在观看各Task运行耗时，发现绝大多数Task在很多时间内完成了，而只有部分任务一直在运行，典型数字是一直卡在了99%。</p>
+<p>倾斜的常见场景：</p>
+<pre><code>业务数据特性 - 
+Reduce Key分布不均匀
+建表时考虑不周
+SQL语句导致
+</code></pre>
+<p>业务数据和建表设计，通过样本分布调查， 是能快速确定或者排除。</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1653139341843.png" alt="" loading="lazy"></figure>
+<p>补充：<br>
+除了MR计算， HDFS的distcp， Sqoop数据同步任务也会出现倾斜。 有机会本文再补充上述的倾斜场景</p>
+<h1 id="问题定位">问题定位</h1>
+<ol>
+<li>
+<p>关注Stage（Hive或Spark，都有对应的Stage描述）</p>
+</li>
+<li>
+<p>分析Shuffle过程的启动算子</p>
+</li>
+</ol>
+<p>注意groupBy, reduceBy, combineBy, join, distinct等打散MapRDD的操作时用了哪些key。</p>
+<p>找到了倾斜发生现场， 进一步要追源头。</p>
+<h2 id="分析产生倾斜的原因">分析产生倾斜的原因</h2>
+<h3 id="源头与上游表设计">源头与上游表设计</h3>
+<ul>
+<li>是否输入源头本来就倾斜？</li>
+</ul>
+<p>业务特性导致的不均匀；<br>
+数据仓库设计导致的不均匀；</p>
+<h3 id="提取逻辑">提取逻辑</h3>
+<ul>
+<li>是不是异常Key引起的， 比如有NULL字段、<br>
+解决思路：过滤掉NULL值的记录， 或预处理</li>
+</ul>
+<h3 id="sql中的shuffle处理">SQL中的Shuffle处理</h3>
+<ul>
+<li>
+<p>Join on 条件用到的key<br>
+分析 reduce join , map join</p>
+</li>
+<li>
+<p>group by / count distinct 字段</p>
+</li>
+</ul>
+<h1 id="处理方式">处理方式</h1>
+<h2 id="本源操作">本源操作</h2>
+<h2 id="局部优化">局部优化</h2>
+<p>map端， hive.map.aggr = true,   在map中做部分的聚集操作<br>
+map端， hive.groupby.skewingdata = true,  数据倾斜时启用负载均衡   引入随机key  二次mapreduce</p>
+<p>reduce端； <code>hive.exec.reducers.bytes.per.reducer = 1000000000</code>  Hive 默认每个节点处理1G大小数据。<br>
+Reduce Join 前置为Map Join   适用于一个表（或RDD）明显小于另一个的场景。</p>
+<p>set hive.optimize.skewjoin = true<br>
+set hive.skewjoin.key = skew_key_threshold (default  )</p>
+<p>内存与任务规模优化：</p>
+<p>提高shuffle并行度/ 增加Reducer个数<br>
+增加Reducer  的JVM内存<br>
+自定义分区</p>
+<h2 id="sql语法优化">SQL语法优化</h2>
+<p>count(distinct a)    count(1) from grouped_A</p>
+<p>拆表查询， 将引起倾斜部分的数据单独处理。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/java-zhong-de-hashmap/" class="post-title gt-a-link">
+                    数据结构进阶（一） Java中的HashMap
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

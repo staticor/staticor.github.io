@@ -1,0 +1,252 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Apache Kafka常见问题 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Apache Kafka常见问题
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-23 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>Kafka， 分布式的消息引擎（中间件，消息队列）， 提供点对点或发布-订阅，主要处理数据在系统间的流转。<br>
+也提供了弱持久化和弱流式计算，但据我了解，多数场景是只把Kafka作为消息传输工具。</p>
+<pre><code>为什么要用到消息队列， Kafka作为消息队列有什么特色？
+</code></pre>
+<ul>
+<li>
+<p>削峰填谷<br>
+只考虑数据系统有两个，上游和下游。 当上游数据有突发流量，下游处理会有风险时，消息队列这在中间起到了“削峰“缓冲流量的作用。</p>
+</li>
+<li>
+<p>解耦和异步通信</p>
+</li>
+</ul>
+<p>消息队列作为一个接口层，解耦重要的业务流程。<br>
+消息队列提供了异步处理机制，允许用户把一个消息放入队列，等需要时再处理它们。</p>
+<pre><code>Kafka的物理架构
+</code></pre>
+<p>生产者 +  消费者 + 中间有多个broker组成的Kafka集群 + zookeeper（ 老版本）</p>
+<p>broker, 消息代理商的意谓， 这个消息代理，这么理解：<br>
+Producers，往Broker指定Topic写消息。<br>
+Consumers，从Brokers里拉取指定Topic的数据。</p>
+<p>Zookeeper在这个过程起什么作用。<br>
+分布式协调组件， Kafka用ZK储存meta信息， consumer消费状态， 新版本在淡化ZK。</p>
+<p>补充一下controller。<br>
+管理协调集群的， 有点类似 resource manager。</p>
+<pre><code>Kafka 分区 Partition的分类
+</code></pre>
+<p>Leader 唯一对外服务的副本， 生产者写，消费者读。<br>
+Follower 和Leader保持同步的跟随者副本。<br>
+AR，   数据分区的所有副本。<br>
+ISR， In-Sync Replicas  与Leader同步，不至于太落后的副本（集合）。<br>
+参数， replica.lag.time.max.ms<br>
+OSR， ISR反面  超过阈值后从ISR剔出去的副本， AR=ISR+OSR</p>
+<pre><code>Kafka为什么这么快？
+</code></pre>
+<p>Zero-copy  DMAC<br>
+https://chowdera.com/2021/09/20210919064412301v.html</p>
+<pre><code>Follower是如何与Leader同步数据
+</code></pre>
+<p>follower要从Leader同步数据：</p>
+<ul>
+<li>F向L发送同步数据赋诗，包含了F需要的offset 请求序列：</li>
+<li>
+<pre><code>发请求1， 请求2，请求3， 请求4，  表示以最新的请求为准。 
+</code></pre>
+</li>
+<li>
+<pre><code>超10秒没有发送请求， 或者没有收到请求数据， Follower从ISR剔除队列，降级为OSR。 
+</code></pre>
+</li>
+</ul>
+<p>ISR为空时怎么办？<br>
+Unclean选举。</p>
+<p>为什么Unclean选举会造成数据丢失？<br>
+新上任的领导落后Leader太多， 有个gap， 但生产者继续发， 而老leader下线不服务。<br>
+新leader和原leader之间的差异就丢了。</p>
+<pre><code>数据传输的可靠性
+</code></pre>
+<p>在Producer端， send方法设置 ack的参数</p>
+<ul>
+<li>正1，  leader接收就算发送成功</li>
+<li>负1， 即all 所有副本（ISR中）都收到才算成功</li>
+<li>0， fire and shot  发了就不管</li>
+</ul>
+<p>重复消费， 幂等性，事务。</p>
+<p>丢失， 这里要采用带有回调的send方法， 并且ack要设置为负1.</p>
+<pre><code>关于副本的Leader选举细节 介绍介绍。
+</code></pre>
+<p>unclean选择， 是否允许 OSR的能否参加选举。<br>
+丢数据： OSR 是落后原Leader进度较多的， 如果它成为leader， spark streaming拿到的 HW 会突破变小。</p>
+<p>每个Partition有个Controller进程， 当Leader挂了</p>
+<pre><code>Kafka 读写分离
+</code></pre>
+<p>主写从读</p>
+<pre><code>分区重分配
+</code></pre>
+<p>kafka-reassign-partitions</p>
+<p>本质在于数据复制，增加新的副本，然后进行数据同步，最后再删除老副本。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/bu-tong-chang-jing-de-count1-vs-count/" class="post-title gt-a-link">
+                    不同场景的count(1) vs count(*)
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

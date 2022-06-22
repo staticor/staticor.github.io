@@ -1,0 +1,716 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <div class="main-content">
+        <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+
+        <div class="post-list-container">
+    <div class="post-inner">
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/hive-de-zhi-xing-ji-hua/">
+                            <span class="post-title gt-c-content-color-first">Hive的执行计划</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2022-01-05 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/mHEqq0620/" class="post-tag">
+                                # tuning
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/MTigWmiSP/" class="post-tag">
+                                # hive
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/hive-de-zhi-xing-ji-hua/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/hive-de-zhi-xing-ji-hua.jpeg')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/lin-qun-yuan-shi-guan-yu-wei-ji-fen-de-yan-jiang-nei-rong/">
+                            <span class="post-title gt-c-content-color-first">林群院士-关于微积分的演讲内容</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2021-07-08 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/46uXED5aG/" class="post-tag">
+                                # 学习方法
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/c7awgdqP96/" class="post-tag">
+                                # 微积分
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/hivetuning0520/">
+                            <span class="post-title gt-c-content-color-first">「数据仓库技能树」--Hive  Tuning</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2021-05-05 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/MTigWmiSP/" class="post-tag">
+                                # hive
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/6ykOqkgld/" class="post-tag">
+                                # 数据仓库
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/hivetuning0520/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/hivetuning0520.jpeg')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/sparktuning/">
+                            <span class="post-title gt-c-content-color-first">Spark   Tuning</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2021-05-05 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/mA96HGnuT/" class="post-tag">
+                                # jvm
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tag">
+                                # spark
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/sparktuning/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/sparktuning.jpeg')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/data-modeling/">
+                            <span class="post-title gt-c-content-color-first">0521-Data Modeling (一）数据建模的三个阶段</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2021-05-04 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/_DeA0FdqU/" class="post-tag">
+                                # modeling
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/6ykOqkgld/" class="post-tag">
+                                # 数据仓库
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/data-modeling/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/data-modeling.jpg')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/MySQL-stuff/">
+                            <span class="post-title gt-c-content-color-first">MySQL要知道的知识</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        提交语句到执行查询的过程(用户侧)
+
+连接器
+
+
+一切要从连接开始， MySQL使用TCP连接。
+mysql -h$ip -P$port -u$user -p&quot;password&quot;
+
+服务端经TCP握手，建立连接，鉴定用户的身份：密码+权限都在这个过程完成校验。
+（多久处理idle的连接？    在MySQL对应参数是 wait_timeout, 默认值 28800 秒， 8小时）
+提交查询命令， 之前总觉得MySQL有个cache机制，但后来了解到这个查询缓存功能有些鸡肋。
+命中率低，失效情况普遍（前后两个查询，变动一个字符都会视作不同的查询）。
+在新版8.0已经删除了cache。
+
+分析器 parser &amp; analyzer
+
+接下来MySQL服务端要将客户端的提交查询进行解析，是否合法的查询。 词法分析
+
+
+优化器 optimizor
+
+
+执行器  executor
+
+
+（ Hive将query转换成MapReduce的过程，也会经parser &amp; analyzer &amp; optimze 的过程）
+redo log , binlog
+数据持久化，一般有两个思路。
+
+edit Log， 记录所有的指令操作， 当重启时通过replay log 恢复；
+image（snapshot)， 滚动打快照，当重启时通过load快照恢复现场。
+
+我们自然希望edit log 越小越好（恢复操作快）， image离目前越近越好（恢复操作快）。  所以editLog和image需要经常合并，  在Hadoop NameNode中，它有个辅助节点称为 Secondary NameNode就是完成的这项工作。
+而在MySQL中，采用的是WAL（Write-Ahead Logging），先写日志，再写磁盘。
+
+redo log 的 容量和设计： 几块文件（环形队列）， 每个文件写到末尾从到再写。
+参考： https://dev.mysql.com/blog-archive/mysql-8-0-new-lock-free-scalable-wal-design/
+事务隔离
+ACID（我的记忆口决： 毛利兰的朋友—— 园子 一直要抹隔离霜， 持久防晒）
+SQL的事务隔离级别：
+
+读未提交 read uncommitted   A事务查询时，能查到另一个事务B 还没commit的变更
+读已提交  read committed     较上面， 只有B事务提交了，A事务才能查到B的变更
+可重复读  repeatable read   A事务执行过程中看到数据，和启动前看到的数据一致
+串行化  serialized           最好理解， 所有操作都加个锁，前面没完事，后面就等着。
+
+用 transaction_isolation 查看当前的隔离级别。
+MVCC 与 undo log
+每行数据是有多个版本的，每次事务更新，修改了这行数据，都会生成一个新的数据版本。
+每个数据版本有一列 transaction id  就对应着修改它的事务id， 标记为 row trx_id 。
+如果这行数据被改了多次，就会有多个版本，对应着不同的 row trx_id。
+MySQL中的另一个日志： undo log
+事务的一致性视图（read-view)
+InnoDB为每个事务构造了一个数组，用来保存事务启动时，当前正在活跃的所有事务ID，活跃（启动了但未提交） 数组里事务ID最小值记为 低水位，当前系统已经创建的事务ID最大值+1 记为高水位。
+这个视图数组和高水位，组成了当前这个事务的一致性视图。 用之来判定数据的可见性：
+
+如果是已提交事务， row trx_id 落在低水位以下， 这个数据看得见；
+如果是未提交事务， 分2类：
+-  row trx_id 在数组中，表示这个版本没提交， 不可见；
+-  row trx_id 不在数组中，表示这个版本由已经提交的事务生成，可见
+如果落在未开始事务（高水位以后），这个版本是由将来启动事务生成的， 不可见
+
+索引 B+树
+关于索引，描述得再多也不过份。
+关于索引的生活举例，我个人更喜欢用的例子，并非是书中目录和页的关系，而是图书馆中的书架和书的关系。 有过借阅经历的我们能回忆起自己借书的步骤：
+
+找一台机器，登录图书馆检索系统，录入自己身份；
+搜索自己想查的书，根据作者、书名、类型；
+得到一个书架编号，自己走到书架
+在书架某层中，找到书，走借阅流程。
+如没有找到，联系管理员协商解决，或放弃。
+
+以前在工作时，和索引接触最多的场景，就是接到DBA的要求，对线上慢查进行优化。
+当时内心第一反应就是“糟了，是不是索引没有用对（没走理想索引）“。
+系统来看，索引就是帮助寻地址定位数据的信息量，也是存放在数据页中的。
+在数据结构中，哈希表也是一种索引模型 —— 将key通过hash函数，使用hash结果可以快速回答底部元素是否存在的问题。  hash的局限性也非常明显，无法解决范围和带顺序的检索需求。
+第二种想法是使用连续数组，使用二分查找，也能快速查找一个或者一片连续的数据。
+但数组的问题就是添加和删除数据时的维护成本，远没有链表灵活。所以，有序数组只适用于存储静态数据。
+第三种想法是引入非线性数据结构，树。
+BST，AVL，RB树。
+MySQL使用的是多叉树（N叉的N，一般可达到1000-2000），数据都存放在叶子节点，中间节点只放索引。
+如果是4层的树高， 第三层所有叶子节点的数量是1500的三次方，超过30亿数据了。
+称为B-树， 或B+树。
+根节点常驻内存，中间节点的data page 是在磁盘的。
+磁盘的IO 寻址是毫秒级，所以一次定位数据一般要2-3次的树中向下遍历工作。
+普通索引和唯一索引
+聚簇索引和非聚簇索引
+聚簇索引的叶子节点内容是整行的数据。 非主键索引的叶子节点是存放的主键的值， 在InnoDB 非主键索引也称为二级索引。
+回表： 二级索引，如果查询的数据是不在索引中的， 还要将查到的主键值再到聚簇索引中再查一次。
+所以查询要尽量使用主键查询。
+覆盖索引， 查主键树就能返回查询结果，不用回表。
+索引建立
+索引维护
+页分裂： 新插入数据，会占掉原来的链表位置，即data page的空间。  那么如果这个页已经满了，B+树算法的设计是要申请一个新页，挪动部分数据。  就像动态数组的扩容， 页分裂显然是对性能有影响的。
+有分裂也有对应的逆过程——合并页。
+怎样减少分裂的操作呢。
+如果说数据每次插入都是递增的，不会插入到之前的历史数据中，不就好了么？
+这恰恰响应了自增主键的表设计规范。
+索引下推
+Index condition pushdown
+在联合索引中，申请回表前增加判断， 减少回表次数。
+锁
+锁的划分有多种方式，比较直观的分类是按锁的影响范围，分为
+
+全局锁
+表级锁
+行锁
+
+全局锁， 对整个数据库加锁。  flush tables with read lock   场景，全库备份。
+表级锁， lock tables ... read / write  分为表读锁和表写锁。
+另一类表级锁是 MDL（Metadata lcok）。
+行锁，不是所有的引擎都支持的。  InNoDB支持行锁，在需要的时候加上行锁，事务结束之后释放，即两阶段锁协议。
+死锁
+以两个事务为例，死锁满足的条件是：
+
+AB互斥
+AB互不打断对方
+AB有对方的依赖资源
+AB循环等待对方
+
+死锁检测的成本要在服务端。
+附录：相关命令
+show processlist;  -- show current connections, include users, ip address and port, state
+
+
+show variables  like '%timeout%' --  find  wait_timeout   28800 seconds
+
+
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2021-03-17 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/7bucEeeDnv/" class="post-tag">
+                                # MySQL
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/MySQL-stuff/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/MySQL-stuff.jpeg')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/JItOkbzRI/">
+                            <span class="post-title gt-c-content-color-first">booknote，《李光耀观天下》</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2021-03-04 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/xin-jia-po/" class="post-tag">
+                                # 新加坡
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/gIWbJvnhi/" class="post-tag">
+                                # booknote
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/JItOkbzRI/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/JItOkbzRI.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/learnnote-suan-fa-dao-lun-2020mit-yi/">
+                            <span class="post-title gt-c-content-color-first">MIT 6.006--LearnNote-算法导论(2020.MIT)</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-09-25 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/hAXiKNsM-/" class="post-tag">
+                                # 公开课
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/1QR-i3r4F/" class="post-tag">
+                                # algorithm
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/NLZWE3893/">
+                            <span class="post-title gt-c-content-color-first">让子弹飞一会儿</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-06-02 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/movie/" class="post-tag">
+                                # movie
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/GC-in-java/">
+                            <span class="post-title gt-c-content-color-first">Java的GC</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-05-29 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/mA96HGnuT/" class="post-tag">
+                                # jvm
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/uVyPsHAfy_/" class="post-tag">
+                                # java
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/GC-in-java/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/GC-in-java.jpeg')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/resilient-distributed-datasets-a-fault-tolerant-abstraction-for-in-memory-cluster-computing/">
+                            <span class="post-title gt-c-content-color-first">[Paper]Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-05-01 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/BJ_Iwwr-R/" class="post-tag">
+                                # paper
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tag">
+                                # spark
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/resilient-distributed-datasets-a-fault-tolerant-abstraction-for-in-memory-cluster-computing/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/resilient-distributed-datasets-a-fault-tolerant-abstraction-for-in-memory-cluster-computing.jpg')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/sparkkrdd1/">
+                            <span class="post-title gt-c-content-color-first">Spark中的RDD(一）+ Paper Reading</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-12-02 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tag">
+                                # spark
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/m5G8CnLvG/" class="post-tag">
+                                # 大数据
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/sparkkrdd1/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/sparkkrdd1.jpg')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/hello-gridea/">
+                            <span class="post-title gt-c-content-color-first">Hello Gridea</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        👏  欢迎使用 Gridea ！
+✍️  Gridea 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2018-12-12 ·
+                        </time>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/hello-gridea/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/hello-gridea.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://staticor.github.io/post/booknote-c-primer-plus/">
+                            <span class="post-title gt-c-content-color-first">Booknote，&lt;C Primer Plus&gt;</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2016-06-09 ·
+                        </time>
+                        
+                            <a href="https://staticor.github.io/tag/yRD3c8faX/" class="post-tag">
+                                # C lang
+                            </a>
+                        
+                            <a href="https://staticor.github.io/tag/gIWbJvnhi/" class="post-tag">
+                                # booknote
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://staticor.github.io/post/booknote-c-primer-plus/" class="post-feature-image"
+                       style="background-image: url('https://staticor.github.io/post-images/booknote-c-primer-plus.jpg')">
+                    </a>
+                
+            </div>
+        
+    </div>
+</div>
+
+        <div class="pagination-container">
+    
+        <a href="https://staticor.github.io/page/2/" class="prev-page gt-a-link">上一页</a>
+    
+    
+</div>
+
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

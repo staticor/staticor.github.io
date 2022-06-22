@@ -1,0 +1,645 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spark源码学习(二)-阶段划分和任务执行 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Spark源码学习(二)-阶段划分和任务执行
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-31 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>Spark应用有这么几个概念: Job, Stage和Task</p>
+<ul>
+<li>Job以行动算子为界,  RDD 的 action算子会执行 <code>runJob</code> 方法 (SparkContext类).</li>
+<li>Stage 以Shuffle依赖为界, 遇到一次Shuffle就会产生新的Stage, 默认会有一个ResultStage;</li>
+<li>Task是Stage子集,以并行度(分区数量)来衡量, 分区数是多少,就有多少个Task.</li>
+</ul>
+<h1 id="提交job">提交Job</h1>
+<pre><code class="language-scala">  def runJob[T, U: ClassTag](
+      rdd: RDD[T],
+      func: (TaskContext, Iterator[T]) =&gt; U,
+      partitions: Seq[Int],
+      resultHandler: (Int, U) =&gt; Unit): Unit = {
+    if (stopped.get()) {
+      throw new IllegalStateException(&quot;SparkContext has been shutdown&quot;)
+    }
+    val callSite = getCallSite
+    val cleanedFunc = clean(func)
+    logInfo(&quot;Starting job: &quot; + callSite.shortForm)
+    if (conf.getBoolean(&quot;spark.logLineage&quot;, false)) {
+      logInfo(&quot;RDD's recursive dependencies:\n&quot; + rdd.toDebugString)
+    }
+    dagScheduler.runJob(rdd, cleanedFunc, partitions, callSite, resultHandler, localProperties.get)
+    progressBar.foreach(_.finishAll())
+    rdd.doCheckpoint()
+  }
+
+</code></pre>
+<p>上面的关键一行 <code>    dagScheduler.runJob(rdd, cleanedFunc, partitions, callSite, resultHandler, localProperties.get)</code></p>
+<p>这是 DAGScheduler类提供的方法.</p>
+<p>在这个方法中, 调用了 submitJob 方法</p>
+<p><code>val waiter = submitJob(rdd, func, partitions, callSite, resultHandler, properties)</code></p>
+<p>在submitJob中, 创建了jobId<br>
+<code>val jobId = nextJobId.getAndIncrement()</code></p>
+<p>往一个事件队列中,将这个jobId 和数据,计算逻辑, 分区,扔进去.</p>
+<pre><code class="language-scala">// 在DAGScheduler类submitJoby方法
+    eventProcessLoop.post(JobSubmitted(
+      jobId, rdd, func2, partitions.toArray, callSite, waiter,
+      Utils.cloneProperties(properties)))
+
+
+// EventLoop类. post方法
+  def post(event: E): Unit = {
+    if (!stopped.get) {
+      if (eventThread.isAlive) {
+        eventQueue.put(event)
+      } else {
+        onError(new IllegalStateException(s&quot;$name has already been stopped accidentally.&quot;))
+      }
+    }
+  }
+</code></pre>
+<h2 id="事件类型">事件类型</h2>
+<p>Event处理会用 <code>doOnReceive(event)</code> 完成处理,  在DAGSchedulerEvent类 有这个方法:</p>
+<pre><code class="language-scala">
+  private def doOnReceive(event: DAGSchedulerEvent): Unit = event match {
+    case JobSubmitted(jobId, rdd, func, partitions, callSite, listener, properties) =&gt;
+      dagScheduler.handleJobSubmitted(jobId, rdd, func, partitions, callSite, listener, properties)
+
+    case MapStageSubmitted(jobId, dependency, callSite, listener, properties) =&gt;
+      dagScheduler.handleMapStageSubmitted(jobId, dependency, callSite, listener, properties)
+
+    case StageCancelled(stageId, reason) =&gt;
+      dagScheduler.handleStageCancellation(stageId, reason)
+
+    case JobCancelled(jobId, reason) =&gt;
+      dagScheduler.handleJobCancellation(jobId, reason)
+
+    case JobGroupCancelled(groupId) =&gt;
+      dagScheduler.handleJobGroupCancelled(groupId)
+
+    case AllJobsCancelled =&gt;
+      dagScheduler.doCancelAllJobs()
+
+    case ExecutorAdded(execId, host) =&gt;
+      dagScheduler.handleExecutorAdded(execId, host)
+
+    case ExecutorLost(execId, reason) =&gt;
+      val workerHost = reason match {
+        case ExecutorProcessLost(_, workerHost, _) =&gt; workerHost
+        case ExecutorDecommission(workerHost) =&gt; workerHost
+        case _ =&gt; None
+      }
+      dagScheduler.handleExecutorLost(execId, workerHost)
+
+    case WorkerRemoved(workerId, host, message) =&gt;
+      dagScheduler.handleWorkerRemoved(workerId, host, message)
+
+    case BeginEvent(task, taskInfo) =&gt;
+      dagScheduler.handleBeginEvent(task, taskInfo)
+
+    case SpeculativeTaskSubmitted(task) =&gt;
+      dagScheduler.handleSpeculativeTaskSubmitted(task)
+
+    case UnschedulableTaskSetAdded(stageId, stageAttemptId) =&gt;
+      dagScheduler.handleUnschedulableTaskSetAdded(stageId, stageAttemptId)
+
+    case UnschedulableTaskSetRemoved(stageId, stageAttemptId) =&gt;
+      dagScheduler.handleUnschedulableTaskSetRemoved(stageId, stageAttemptId)
+
+    case GettingResultEvent(taskInfo) =&gt;
+      dagScheduler.handleGetTaskResult(taskInfo)
+
+    case completion: CompletionEvent =&gt;
+      dagScheduler.handleTaskCompletion(completion)
+
+    case TaskSetFailed(taskSet, reason, exception) =&gt;
+      dagScheduler.handleTaskSetFailed(taskSet, reason, exception)
+
+    case ResubmitFailedStages =&gt;
+      dagScheduler.resubmitFailedStages()
+
+    case RegisterMergeStatuses(stage, mergeStatuses) =&gt;
+      dagScheduler.handleRegisterMergeStatuses(stage, mergeStatuses)
+
+    case ShuffleMergeFinalized(stage) =&gt;
+      dagScheduler.handleShuffleMergeFinalized(stage)
+  }
+
+</code></pre>
+<p>第一个模式匹配. 命中了 JobSubmitted 这个case class, 再执行 <code>handleJobSubmitted(jobId ...)</code>  方法,</p>
+<pre><code class="language-scala">   // New stage creation may throw an exception if, for example, jobs are run on a
+      // HadoopRDD whose underlying HDFS files have been deleted.
+      finalStage = createResultStage(finalRDD, func, partitions, jobId, callSite)
+...
+      ```
+
+
+可见在在这里完成的结果Stage的创建.  
+
+
+# 结果创建 DAGScheduler.createResultStage 
+
+
+```scala
+
+  private def createResultStage(
+      rdd: RDD[_],
+      func: (TaskContext, Iterator[_]) =&gt; _,
+      partitions: Array[Int],
+      jobId: Int,
+      callSite: CallSite): ResultStage = {
+    val (shuffleDeps, resourceProfiles) = getShuffleDependenciesAndResourceProfiles(rdd)
+    val resourceProfile = mergeResourceProfilesForStage(resourceProfiles)
+    checkBarrierStageWithDynamicAllocation(rdd)
+    checkBarrierStageWithNumSlots(rdd, resourceProfile)
+    checkBarrierStageWithRDDChainPattern(rdd, partitions.toSet.size)
+    val parents = getOrCreateParentStages(shuffleDeps, jobId)
+    val id = nextStageId.getAndIncrement()
+    val stage = new ResultStage(id, rdd, func, partitions, parents, jobId,
+      callSite, resourceProfile.id)
+    stageIdToStage(id) = stage
+    updateJobIdStageIdMaps(jobId, stage)
+    stage
+  }
+
+
+
+</code></pre>
+<p>核心语句 <code>val stage = new ResultStage(id, rdd, func, partitions, parents, jobId,       callSite, resourceProfile.id)</code></p>
+<p>结果阶段的构造参数有:</p>
+<ul>
+<li>id, 阶段ID</li>
+<li>rdd, 最后的结果RDD</li>
+<li>func, 途程执行的算子</li>
+<li>partitions, 分区列表</li>
+<li>parents,     上游依赖的阶段 getOrCreateParentStages(shuffleDeps, jobId)</li>
+<li>jobID     提交时的Job ID</li>
+<li>callSite</li>
+<li>resourceProfile.id</li>
+</ul>
+<p>上一级阶段的获取方法, getOrCreateParentStages</p>
+<pre><code class="language-scala">
+  /**
+   * Get or create the list of parent stages for the given shuffle dependencies. The new
+   * Stages will be created with the provided firstJobId.
+   */
+  private def getOrCreateParentStages(shuffleDeps: HashSet[ShuffleDependency[_, _, _]],
+      firstJobId: Int): List[Stage] = {
+    shuffleDeps.map { shuffleDep =&gt;
+      getOrCreateShuffleMapStage(shuffleDep, firstJobId)
+    }.toList
+</code></pre>
+<p>这个获取上级阶段的方法,又调用了<code>getOrCreateShuffleMapStage</code></p>
+<pre><code class="language-scala">// 获取 可能存在的 ShuffleIdToMapStage,  如果不存在,该方法创建一个Shuffle Map Stage. 
+private def getOrCreateShuffleMapStage(
+      shuffleDep: ShuffleDependency[_, _, _],
+      firstJobId: Int): ShuffleMapStage = {
+    shuffleIdToMapStage.get(shuffleDep.shuffleId) match {
+      case Some(stage) =&gt;
+        stage
+
+      case None =&gt;
+        // Create stages for all missing ancestor shuffle dependencies.
+        getMissingAncestorShuffleDependencies(shuffleDep.rdd).foreach { dep =&gt;
+          // Even though getMissingAncestorShuffleDependencies only returns shuffle dependencies
+          // that were not already in shuffleIdToMapStage, it's possible that by the time we
+          // get to a particular dependency in the foreach loop, it's been added to
+          // shuffleIdToMapStage by the stage creation process for an earlier dependency. See
+          // SPARK-13902 for more information.
+          if (!shuffleIdToMapStage.contains(dep.shuffleId)) {
+            createShuffleMapStage(dep, firstJobId)
+          }
+        }
+        // Finally, create a stage for the given shuffle dependency.
+        createShuffleMapStage(shuffleDep, firstJobId)
+    }
+  }
+
+</code></pre>
+<p>可见, 该方法使用了 <code>createShuffleMapStage</code>来创建 Shuffle Map的Stage.</p>
+<pre><code class="language-scala">  /**
+   * Creates a ShuffleMapStage that generates the given shuffle dependency's partitions. If a
+   * previously run stage generated the same shuffle data, this function will copy the output
+   * locations that are still available from the previous shuffle to avoid unnecessarily
+   * regenerating data.
+   */
+  def createShuffleMapStage[K, V, C](
+      shuffleDep: ShuffleDependency[K, V, C], jobId: Int): ShuffleMapStage = {
+    val rdd = shuffleDep.rdd
+    val (shuffleDeps, resourceProfiles) = getShuffleDependenciesAndResourceProfiles(rdd)
+    val resourceProfile = mergeResourceProfilesForStage(resourceProfiles)
+    checkBarrierStageWithDynamicAllocation(rdd)
+    checkBarrierStageWithNumSlots(rdd, resourceProfile)
+    checkBarrierStageWithRDDChainPattern(rdd, rdd.getNumPartitions)
+    val numTasks = rdd.partitions.length
+    val parents = getOrCreateParentStages(shuffleDeps, jobId)
+    val id = nextStageId.getAndIncrement()
+    val stage = new ShuffleMapStage(
+      id, rdd, numTasks, parents, jobId, rdd.creationSite, shuffleDep, mapOutputTracker,
+      resourceProfile.id)
+
+    stageIdToStage(id) = stage
+    shuffleIdToMapStage(shuffleDep.shuffleId) = stage
+    updateJobIdStageIdMaps(jobId, stage)
+
+    if (!mapOutputTracker.containsShuffle(shuffleDep.shuffleId)) {
+      // Kind of ugly: need to register RDDs with the cache and map output tracker here
+      // since we can't do it in the RDD constructor because # of partitions is unknown
+      logInfo(s&quot;Registering RDD ${rdd.id} (${rdd.getCreationSite}) as input to &quot; +
+        s&quot;shuffle ${shuffleDep.shuffleId}&quot;)
+      mapOutputTracker.registerShuffle(shuffleDep.shuffleId, rdd.partitions.length,
+        shuffleDep.partitioner.numPartitions)
+    }
+    stage
+  }
+</code></pre>
+<pre><code class="language-scala">    val stage = new ShuffleMapStage(
+      id, rdd, numTasks, parents, jobId, rdd.creationSite, shuffleDep, mapOutputTracker,
+      resourceProfile.id)
+</code></pre>
+<p>可见阶段的划分就是取决于Shuffle依赖的数量.</p>
+<p>阶段数,就是Shuffle依赖的数量+ 1.</p>
+<h1 id="任务切分">任务切分</h1>
+<p>阶段划分过后, 查看 <code>submitStage </code>方法</p>
+<pre><code class="language-scala">
+  /** Submits stage, but first recursively submits any missing parents. */
+  private def submitStage(stage: Stage): Unit = {
+    val jobId = activeJobForStage(stage)
+    if (jobId.isDefined) {
+      logDebug(s&quot;submitStage($stage (name=${stage.name};&quot; +
+        s&quot;jobs=${stage.jobIds.toSeq.sorted.mkString(&quot;,&quot;)}))&quot;)
+      if (!waitingStages(stage) &amp;&amp; !runningStages(stage) &amp;&amp; !failedStages(stage)) {
+        val missing = getMissingParentStages(stage).sortBy(_.id)
+        logDebug(&quot;missing: &quot; + missing)
+        if (missing.isEmpty) {
+          logInfo(&quot;Submitting &quot; + stage + &quot; (&quot; + stage.rdd + &quot;), which has no missing parents&quot;)
+          submitMissingTasks(stage, jobId.get)
+        } else {
+          for (parent &lt;- missing) {
+            submitStage(parent)
+          }
+          waitingStages += stage
+        }
+      }
+    } else {
+      abortStage(stage, &quot;No active job for stage &quot; + stage.id, None)
+    }
+  }
+
+</code></pre>
+<p><code>val missing = getMissingParentStages(stage).sortBy(_.id)</code> 这一行, 要通过 <code> getMissingParentStages</code> 获取可能存在的上一级阶段id, 如果没有上一级,就直接提交本阶段stage的任务.  如果有上一级,就遍历.</p>
+<p><code>submitMissingTasks</code> 中出现了我们关心的任务 -- tasks.</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654162589744.png" alt="" loading="lazy"></figure>
+<p>可见, 任务对stage模式区宵只分为两类,   ShuffleMapStage和ResultStage.</p>
+<ul>
+<li>如果是ShuffleMapStage, 创建ShuffleMapTask.</li>
+<li>如果是ResultStage, 创建ResultTask</li>
+</ul>
+<p>任务的划分就是由 <code>partitionsToCompute</code>这个对象指派的.</p>
+<p>tasks 创建好之后, 将它们封装在一个TaskSet中, 调用taskScheduer 的submitTasks进行提交</p>
+<pre><code class="language-scala">taskScheduler.submitTasks(new TaskSet(
+        tasks.toArray, stage.id, stage.latestInfo.attemptNumber, jobId, properties,
+        stage.resourceProfileId))
+
+</code></pre>
+<p>TaskScheduler 是 Trait, 它的实现是 <code>TaskSchedulerImpl</code></p>
+<pre><code class="language-scala">private[spark] class TaskSchedulerImpl(
+    val sc: SparkContext,
+    val maxTaskFailures: Int,
+    isLocal: Boolean = false,
+    clock: Clock = new SystemClock)
+  extends TaskScheduler
+
+
+  ...
+  提交方法(jjyy)
+
+  override def submitTasks(taskSet: TaskSet): Unit = {
+    val tasks = taskSet.tasks
+    logInfo(&quot;Adding task set &quot; + taskSet.id + &quot; with &quot; + tasks.length + &quot; tasks &quot;
+      + &quot;resource profile &quot; + taskSet.resourceProfileId)
+    this.synchronized {
+      val manager = createTaskSetManager(taskSet, maxTaskFailures)
+      val stage = taskSet.stageId
+      val stageTaskSets =
+        taskSetsByStageIdAndAttempt.getOrElseUpdate(stage, new HashMap[Int, TaskSetManager])
+
+      // Mark all the existing TaskSetManagers of this stage as zombie, as we are adding a new one.
+      // This is necessary to handle a corner case. Let's say a stage has 10 partitions and has 2
+      // TaskSetManagers: TSM1(zombie) and TSM2(active). TSM1 has a running task for partition 10
+      // and it completes. TSM2 finishes tasks for partition 1-9, and thinks he is still active
+      // because partition 10 is not completed yet. However, DAGScheduler gets task completion
+      // events for all the 10 partitions and thinks the stage is finished. If it's a shuffle stage
+      // and somehow it has missing map outputs, then DAGScheduler will resubmit it and create a
+      // TSM3 for it. As a stage can't have more than one active task set managers, we must mark
+      // TSM2 as zombie (it actually is).
+      stageTaskSets.foreach { case (_, ts) =&gt;
+        ts.isZombie = true
+      }
+      stageTaskSets(taskSet.stageAttemptId) = manager
+      schedulableBuilder.addTaskSetManager(manager, manager.taskSet.properties)
+
+      if (!isLocal &amp;&amp; !hasReceivedTask) {
+        starvationTimer.scheduleAtFixedRate(new TimerTask() {
+          override def run(): Unit = {
+            if (!hasLaunchedTask) {
+              logWarning(&quot;Initial job has not accepted any resources; &quot; +
+                &quot;check your cluster UI to ensure that workers are registered &quot; +
+                &quot;and have sufficient resources&quot;)
+            } else {
+              this.cancel()
+            }
+          }
+        }, STARVATION_TIMEOUT_MS, STARVATION_TIMEOUT_MS)
+      }
+      hasReceivedTask = true
+    }
+    backend.reviveOffers()
+  }
+
+</code></pre>
+<p>核心语句, <code>val manager = createTaskSetManager(taskSet, maxTaskFailures)</code></p>
+<p>创建了一个TaskSetManager, 即将TaskSet作为参数,又打了一层包.</p>
+<h1 id="任务调度">任务调度</h1>
+<p>schedulableBuilder, 任务调度器, 在初始化时会根据模式进行初始化.</p>
+<pre><code class="language-scala">
+  def initialize(backend: SchedulerBackend): Unit = {
+    this.backend = backend
+    schedulableBuilder = {
+      schedulingMode match {
+        case SchedulingMode.FIFO =&gt;
+          new FIFOSchedulableBuilder(rootPool)
+        case SchedulingMode.FAIR =&gt;
+          new FairSchedulableBuilder(rootPool, sc)
+        case _ =&gt;
+          throw new IllegalArgumentException(s&quot;Unsupported $SCHEDULER_MODE_PROPERTY: &quot; +
+          s&quot;$schedulingMode&quot;)
+      }
+    }
+    schedulableBuilder.buildPools()
+  }
+
+</code></pre>
+<p>Spark默认的调度器是FIFOSchedulableBuilder.</p>
+<p>关注 <code> rootPool</code> 变量, 所谓任务调度就是将若干个任务放在一个池子里,然后以某种策略取出来执行的过程.</p>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654162614309.png" alt="" loading="lazy"></figure>
+<p>任务池的对面, 是谁来取任务调用呢?</p>
+<h2 id="schedulerbackend">SchedulerBackend</h2>
+<p><code>SchedulerBackend</code> 是个特质, 实现 <code>class CoarseGrainedSchedulerBackend(scheduler: TaskSchedulerImpl, val rpcEnv: RpcEnv)</code>, 我管它叫调度后端录杂粮版.</p>
+<p>调用receiverOffers  从TaskPool取任务.   最终执行, 关注方法 ~makeOffers</p>
+<pre><code class="language-scala">    // Make fake resource offers on all executors
+    private def makeOffers(): Unit = {
+      // Make sure no executor is killed while some task is launching on it
+      val taskDescs = withLock {
+        // Filter out executors under killing
+        val activeExecutors = executorDataMap.filterKeys(isExecutorActive)
+        val workOffers = activeExecutors.map {
+          case (id, executorData) =&gt;
+            new WorkerOffer(id, executorData.executorHost, executorData.freeCores,
+              Some(executorData.executorAddress.hostPort),
+              executorData.resourcesInfo.map { case (rName, rInfo) =&gt;
+                (rName, rInfo.availableAddrs.toBuffer)
+              }, executorData.resourceProfileId)
+        }.toIndexedSeq
+        scheduler.resourceOffers(workOffers, true)
+      }
+      if (taskDescs.nonEmpty) {
+        launchTasks(taskDescs)
+      }
+</code></pre>
+<h2 id="调度算法-schedulingalgorithm">调度算法 SchedulingAlgorithm</h2>
+<p>SchedulingAlgorithm是特质, 实现也有两种, FIFO和Fair.</p>
+<h1 id="task-分发的策略">Task 分发的策略</h1>
+<p>Task是计算逻辑, 面对三个Executor, Driver将Task发给谁呢?</p>
+<p><code>移动数据不如移动计算. </code><br>
+在调度执行时, Spark调度总是尽量让每个task以最高的LocalityLevel来尝试获取RDD.<br>
+这也是 RDD中 <code>getPreferredLocation</code> 方法的对应:</p>
+<p>计算和数据的位置,有不同的&quot;level&quot;,这个称为本地化级别;</p>
+<ul>
+<li>如果是同在一个进程当中, 称为进程本地化, 效率是最高的;  (PROCESS_LOCAL)</li>
+<li>节点本地化, 较上次之;   (NODE_LOCAL)</li>
+<li>rack本地化, 较上次之;   (RACK_LOCAL)</li>
+<li>else, 最次.          ANY   性能最差</li>
+<li>NO_PREF</li>
+</ul>
+<h1 id="启动任务">启动任务</h1>
+<p>杂粮调度器后端 :</p>
+<pre><code class="language-scala"> // Launch tasks returned by a set of resource offers
+    private def launchTasks(tasks: Seq[Seq[TaskDescription]]): Unit = {
+      for (task &lt;- tasks.flatten) {
+        val serializedTask = TaskDescription.encode(task)
+        if (serializedTask.limit() &gt;= maxRpcMessageSize) {
+          Option(scheduler.taskIdToTaskSetManager.get(task.taskId)).foreach { taskSetMgr =&gt;
+            try {
+              var msg = &quot;Serialized task %s:%d was %d bytes, which exceeds max allowed: &quot; +
+                s&quot;${RPC_MESSAGE_MAX_SIZE.key} (%d bytes). Consider increasing &quot; +
+                s&quot;${RPC_MESSAGE_MAX_SIZE.key} or using broadcast variables for large values.&quot;
+              msg = msg.format(task.taskId, task.index, serializedTask.limit(), maxRpcMessageSize)
+              taskSetMgr.abort(msg)
+            } catch {
+              case e: Exception =&gt; logError(&quot;Exception in error callback&quot;, e)
+            }
+          }
+        }
+        else {
+          val executorData = executorDataMap(task.executorId)
+          // Do resources allocation here. The allocated resources will get released after the task
+          // finishes.
+          val rpId = executorData.resourceProfileId
+          val prof = scheduler.sc.resourceProfileManager.resourceProfileFromId(rpId)
+          val taskCpus = ResourceProfile.getTaskCpusOrDefaultForProfile(prof, conf)
+          executorData.freeCores -= taskCpus
+          task.resources.foreach { case (rName, rInfo) =&gt;
+            assert(executorData.resourcesInfo.contains(rName))
+            executorData.resourcesInfo(rName).acquire(rInfo.addresses)
+          }
+
+          logDebug(s&quot;Launching task ${task.taskId} on executor id: ${task.executorId} hostname: &quot; +
+            s&quot;${executorData.executorHost}.&quot;)
+
+          executorData.executorEndpoint.send(LaunchTask(new SerializableBuffer(serializedTask)))
+        }
+      }
+    }
+
+
+</code></pre>
+<p>关键代码, <code>  executorData.executorEndpoint.send(LaunchTask(new SerializableBuffer(serializedTask)))</code></p>
+<p>从任务池中获取任务 (序列化后) 发给 executor 执行.</p>
+<hr>
+<h1 id="dagscheudler的注释">DAGScheudler的注释</h1>
+<ul>
+<li>The high-level scheduling layer that implements stage-oriented scheduling. It computes a DAG of stages for each job, keeps track of which RDDs and stage outputs are materialized, and finds a minimal schedule to run the job.</li>
+<li>It then submits stages as TaskSets to an underlying TaskScheduler implementation that runs them on the cluster. A TaskSet contains fully independent tasks that can run right away based on the data that's already on the cluster (e.g. map output<br>
+files from previous stages), though it may fail if this data becomes unavailable.</li>
+<li>It then submits stages as TaskSets to an underlying TaskScheduler implementation that runs them on the cluster. A TaskSet contains fully independent tasks that can run right away based on the data that's already on the cluster (e.g. map output files from previous stages), though it may fail if this data becomes unavailable.</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/spark-yuan-ma-xue-xi-yi-sparkcontext/" class="post-title gt-a-link">
+                    Spark源码学习(三)-Shuffle
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

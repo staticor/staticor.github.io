@@ -1,0 +1,298 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Data warehouse - Design | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Data warehouse - Design
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-06-01 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/6ykOqkgld/" class="post-tags">
+                            # 数据仓库
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>数据仓库  vs 数据库, 阅读我的<a href="https://staticor.github.io/post/compare-study/">另一篇文章</a></p>
+<p>Data Warehouse 是给谁设计的， 正如Service Engineer， 他们建设的Application/Server是服务于公司的客户。 而DataWarehouse是给公司的决策层和分析层使用的， 所以面临的挑战是：</p>
+<ul>
+<li>where can I find the proper data I want    我怎么能够便捷的找到我想要的数据。</li>
+<li>How good is that data?   这个数据的呈现形式是我想要的吗， 是否易用？</li>
+<li>How can I get access to that data ? 这个数据我是否能访问， 怎么访问？</li>
+</ul>
+<p>Gartner 曾做过一次调查，对企业内部发现进行业务决策面临的数据挑战来自于no data, poor data, complex data。</p>
+<p>no data 压根没有数据；<br>
+poor data, 数据不完全；<br>
+complex data, 数据需要额外的加工和解析，无法直接成为决策依据。</p>
+<p>Data warehouse 的联想:</p>
+<ul>
+<li>数据组织成本高, 需要有专人维护</li>
+<li>存储数据量大</li>
+<li>计算任务多且种类繁杂</li>
+<li>数据用度广泛</li>
+</ul>
+<p>数据仓库, 公司的业务决策系统,不直接面向用户提供服务.<br>
+(decision support system)</p>
+<pre><code>数据仓库是围绕特定业务主题的产物.
+</code></pre>
+<p>公司的业务可以细分, 不同业务系统在数仓中用&quot;主题&quot; (subject)进行逻辑上的划分.</p>
+<h1 id="数仓建设的方法论">数仓建设的方法论</h1>
+<p><code>Inmon范式建模</code><br>
+根据3NF自上而下建模,将数据抽取为实体和关系模型, 不强调事实表和维度表.<br>
+根据上游数据生产,加工成数据仓库,再产生数据集市关心的指标.<br>
+数据源往往是异构的,强调数据清洗工作.</p>
+<p><code>Kimball维度建模</code></p>
+<p>自下而上建模,从数据集市-&gt;数据仓库-&gt;数据源,以最终任务为导向,将数据按照目标拆分为不同的需求.<br>
+数据会抽取为事实-维度模型.<br>
+数据源经ETL转化为事实表和维度表,导入到数据集市, 数据集市是数据仓库中的一个逻辑上的主题域.</p>
+<p><code>data vault modeling</code></p>
+<p>Data Vault（保险箱？）是 Dan Listedt提出，面向细节，可追踪历史。<br>
+由中心表，链接表和附属表三部分，核心是中心表，存储业务主键，链接表存储业务关系，附属表存储业务描述。  英文文章中用 <code>Hub</code>，<code>Link</code>和<code>Satellites</code>表示。</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654157169226.jpg" alt="" loading="lazy"></figure>
+<h2 id="几种建模实践">几种建模实践</h2>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654157181728.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://staticor.github.io/post-images/1654157190761.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://staticor.github.io/post-images/1654157197895.png" alt="" loading="lazy"></figure>
+<p>如果遵循Inmon执行范式建模,要准备若干个表:</p>
+<ul>
+<li>城市信息实体表</li>
+<li>订单与用户的关联表</li>
+<li>支付手段解释表</li>
+<li>商品信息分类表</li>
+<li>用户注销状态解释表</li>
+<li>... ...</li>
+</ul>
+<p>即 实体是实体, 两个实体之间的relation 表. 这是ER设计的理念,也是 Inmon的模式.</p>
+<p><code>Kimball模式建模</code></p>
+<p>Kimball关心业务的核心过程,在这里只有一个业务过程,即用户下单. 所以事实表只有一个: <code>订单事实表</code></p>
+<p>用户表在这里是一张特殊信息维度 ---- 虽然用户的注册,资料更新也是用户的操作,但对于业务来说,并不是商业动作,而是产生动作的来源,和&quot;商品&quot;等价.</p>
+<p>城市表,支付方式表,商品分类表,都是与支付有关的维度表.</p>
+<figure data-type="image" tabindex="5"><img src="https://staticor.github.io/post-images/1654157209196.png" alt="" loading="lazy"></figure>
+<pre><code>上图,维度建模的示例,雪花模型
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://staticor.github.io/post-images/1654157219195.jpeg" alt="" loading="lazy"></figure>
+<pre><code>上图,维度建模的示例,星形模型
+</code></pre>
+<p>图片来自 <a href="https://towardsdatascience.com/data-warehouse-68ec63eecf78">towardsdatascience</a></p>
+<h2 id="分层设计-物理分层">分层设计-物理分层</h2>
+<p>Data Staging Area 是OLTP-上游关系型数据库进入数仓之前的缓冲层,可以进行简单的数据清理操作.<br>
+<img src="https://staticor.github.io/post-images/1654157236829.png" alt="" loading="lazy"><br>
+<img src="https://staticor.github.io/post-images/1654157244028.png" alt="" loading="lazy"></p>
+<p>ODS 层是做什么?</p>
+<h2 id="分主题设计构建总线矩阵">分主题设计，构建总线矩阵</h2>
+<p>主题域是业务过程的抽象集合。<br>
+业务过程就是公司经营过程中一个个不可拆分的行为事件，但并不一个业务过程就单独划分一个域，而会进行一些合并，如下面的流量域：</p>
+<p>商品域: 业务过程商品的创建和上架下架，是交易的基础依赖域；<br>
+用户域:用户有关的数据，包括注册，登录，用户身份管理；<br>
+供应链域:商品内部采购和调拨业务过程；<br>
+物流域：商品配送的物流快递数据；<br>
+仓储域：仓库存储相关的数据，入库，出库；<br>
+流量域：一般是电商平台用户相关行为数据，搜索、曝光<br>
+交易域：加入购物车、下单、支付，与用户购买直接相关的过程；<br>
+售后域：电商平台交易的逆过程，包括工单申请、退货订单；<br>
+促销域：商品促销有关的数据，包括优惠券、抢杀、拼团等；<br>
+内容域：内容社区，包括发布、分享等业务过程；<br>
+... ...</p>
+<p>主题域划分的要求：<br>
+稳定性——相对稳定，新加入一个主题域，不影响已划分的主题域；<br>
+扩展性——有一定的扩展性，允许某些主题域凋零下线；</p>
+<p>总线矩阵： 主题域 + 业务过程  + 可分析维度</p>
+<figure data-type="image" tabindex="7"><img src="https://staticor.github.io/post-images/1654500317872.png" alt="" loading="lazy"></figure>
+<p>构建一致性维度。</p>
+<pre><code>数仓设计难题 - 不同主题的边界如何划定
+</code></pre>
+<h1 id="cube-vs-granularity">Cube vs. Granularity</h1>
+<p>(维度 vs. 粒度)</p>
+<h2 id="设计技巧-数据模型设计怎样提升复用">设计技巧 -- 数据模型设计，怎样提升复用？</h2>
+<h2 id="先了解集群">先了解集群</h2>
+<figure data-type="image" tabindex="8"><img src="https://staticor.github.io/post-images/1654496720009.webp" alt="" loading="lazy"></figure>
+<p>使用率： 在一定时间范围内，对每层的所有数仓表计算它们有多少被查询任务命中🎯；</p>
+<figure data-type="image" tabindex="9"><img src="https://staticor.github.io/post-images/1654496993652.webp" alt="" loading="lazy"></figure>
+<p>ODS（原始数据层）：892；<br>
+DWD（明细数据层）：1008；<br>
+DWS（轻度汇总层）：152<br>
+ADS/DM（应用层，集市层）：305<br>
+DIM（维度表）：862</p>
+<p>衡量DWD层是否完善，一般看ODS层有多少被上层引用。  ODS层跨层用得占比过高，说明DWD建设度不成熟。<br>
+之前我在的公司是把所有ODS层都执行了DWD层的复制，再定期计算DWD层的跨层引用率，即由DWD层有多少比例的表被DIM、DM、ADS层有效依赖。</p>
+<p>（无效依赖是指，有些任务曾经依赖过，但任务已经下线）</p>
+<p>DWS/ADS、DM层的完善度：考核汇总层和应用层的完善程度，则主要看满足查询需求的程度。<br>
+即在查询需求中有哪些是对这三层的表的零依赖。如果这样的任务太多，说明这三层建设要进一步提升。</p>
+<figure data-type="image" tabindex="10"><img src="https://staticor.github.io/post-images/1654498225007.png" alt="" loading="lazy"></figure>
+<p>（图片来自 《数据中台实战课 - 极客时间）</p>
+<h2 id="zipper-table-拉链表">Zipper Table  拉链表</h2>
+<p>即累积历史全量表,记录了某一实体从产生到当前的全量统计信息, 通常为用户创建的居多, 一行表示一位用户的累积统计信息:  以user_id 为唯一主键</p>
+<ul>
+<li>用户注册日期, 联系方式等静态信息</li>
+<li>用户首次付费日期,  用 9999-12-31 这种无效数字表示还未发生的数字,而不用NULL值</li>
+<li>用户累积付费金额,</li>
+<li>用户的xxx</li>
+<li>(关键) 统计窗口的起始日期</li>
+</ul>
+<p>使用场景, 基于历史快照的统计, 比如2019年12月31日,系统累积有付费用户数是多少?</p>
+<p>拉链表几乎是要每天更新的,动态更新这个窗口.</p>
+<p>拉链表的开发和实现比较容易,要遵循历史+增量的merge逻辑.</p>
+<p>可进一步参考这篇<a href="https://developpaper.com/zipper-table-of-data-warehouse/">文章</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/data-architectures-in-companies/" class="post-title gt-a-link">
+                    Data Architectures in companies
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

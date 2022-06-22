@@ -1,0 +1,252 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>OneData与OneService 初识 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    OneData与OneService 初识
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-06-05 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/Wc3ajsb70/" class="post-tags">
+                            # 数据中台
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/fpMRWEw0UV/" class="post-tags">
+                            # datasystem
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/6ykOqkgld/" class="post-tags">
+                            # 数据仓库
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>OneData OneService，统一数据管理，统一数据服务。</p>
+<p>大型公司的数据部门最终发展方向是面向公司的数据使用者提供一个稳定可靠的数据平台，真正发挥数据的价值，而不单是成本。</p>
+<p>数据资产的意义是沉淀+挖掘，可以形成有价值的业务决策。 成本是消耗性质的，难以复用和被挖掘的。</p>
+<p>几万张表最基本的分类是按业务域和主题域进行逻辑上的划分。</p>
+<p>例如表名：<br>
+<code>dwd.wms_inbound_order_info_di</code></p>
+<p>dwd是数据明细层，物理分层标识；<br>
+wsm是仓储主题域的缩写；<br>
+inbound表示产品入库业务过程；<br>
+order_info是事实表名称；<br>
+di是存量增量后缀符，表示按日增量表</p>
+<h1 id="数据架构">数据架构</h1>
+<p>存储 + 集成 + 计算 + 服务 + 治理</p>
+<p>以Hadoop为代表性的大数据集群，Hadoop（包含HBase）是负责数据的存储工作。<br>
+Hadoop之上是和外部系统的数据管道对接服务（集成模块）：Flume，Sqoop，Datax，Kafka。</p>
+<p>另外便是计算引擎层Hive，Spark，Flink，这些跑在Hadoop之上的数据作业，一般是以一棵棵任务调度树的形式运转，用web-ui的方式组织（Airflow，Azkaban）</p>
+<p>数据服务层是将生产加工出的数据（离线或实时）投递到对应的展现层，包装成数据产品。</p>
+<p>数据治理，则是围绕着元数据中心进行数据地图、血缘关系、数据字典、指标系统、权限管理进行。</p>
+<p>我认为企业的数据仓库组织架构发展存在这几个阶段：<br>
+一<code>草根时期，无名义上的数据仓库工作者，由运营或分析师处理公司的必要数据需求；此时基本上没有Hadoop集群；  二</code>小型大数据部门（10人），分配3-5人进行数据仓库工作，3-5人进行数据服务与平台开发工作。 此时多是以高效完成业务数据需求为主，对数据质量和治理花的功夫不多。<br>
+三<code>多点开花，随着业务扩张或公司规模发展，开始划分出多个业务自治的数据仓库。 多个分散小数仓各自为战，灵活效率支撑业务需求。 四</code>分久必合。成立数据中台项目，形成统一的公共数据仓库层。自然，这个过程也就说明公司技术部门在数据上的资源是加大投入的，要有专职的数据产品部门、数据开发团队和平台架构部门的配合，才得以完成。</p>
+<h1 id="metadata">metadata</h1>
+<p>公司元数据应包含哪些内容？</p>
+<pre><code>数据字典 [data dictionary]
+</code></pre>
+<p>数据结构体为： 库名-表名，表中各字段名、数据类型和备注<br>
+<img src="https://staticor.github.io/post-images/1654434193661.webp" alt="" loading="lazy"></p>
+<pre><code>血缘关系 [data lineage]
+</code></pre>
+<p>血缘关系是指表的加工依赖，一般是可以看到一张倒树图：</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654434580625.png" alt="" loading="lazy"></figure>
+<pre><code>其它，数据特征
+</code></pre>
+<p>目前业内有影响力的元数据产品，<a href="https://github.com/Netflix/metacat">Netflix-Metacat</a>，Apache Atlas，Cloudera Navigator.</p>
+<p>元数据管理的组成部门：</p>
+<ul>
+<li>数据源管理： MySQL，MongoDB，Hive，Kudu ...</li>
+<li>血缘解析：解析SQL，提出目标表和依赖的输入表。</li>
+</ul>
+<p>很久以前，我自己也实现过简单的Python parser脚本（正则解析），完成一个SQL脚本的表名解析。<br>
+这也是一种最简单的解析SQL方式：静态解析。 除此之外还可以实时抓取执行SQL的计划，获取输入和输出。<br>
+以及第三种，根据任务日志再解析。</p>
+<p>数据血缘是数据生命周期管理的前提，便于实现数据级别和数据安全（访问权限控制）。</p>
+<h2 id="netflix的元数据管理实践">Netflix的元数据管理实践</h2>
+<p>阅读了一篇Medium的技术文章（2018年）<br>
+<a href="https://medium.com/netflix-techblog/metacat-making-big-data-discoverable-and-meaningful-at-netflix-56fb36a53520">Metacat: Making Big Data Discoverable and Meaningful at Netflix</a></p>
+<p>早期Netflix是使用Hive+Pig进行数据ETL，数据源涉及Amazon S3，Druid，ES，Redshift，Snowflake和MySQL。</p>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654476647089.png" alt="" loading="lazy"></figure>
+<p>Metacat是通过一套统一的REST/Thrift接口，访问各种不同的数据源。</p>
+<pre><code>The respective metadata stores are still the source of truth for schema metadata, 
+so Metacat does not materialize it in its storage. 
+It only directly stores the business and user-defined metadata about the datasets. 
+It also publishes all of the information about the datasets to Elasticsearch for full-text search and discovery.
+
+</code></pre>
+<p>可见Metacast直接抽取上游的元数据，不再单独的实现。同时提供ES的检索功能。</p>
+<p>以Hive元数据为例，Hive的元数据托管在RDBMS（MySQL），有可能成为Hive服务的瓶颈。<br>
+所以额外的数据读取服务需要重新设计，以避免对Hive作业造成影响。<br>
+（例如对元数据读写造成的锁冲突问题）</p>
+<h1 id="oneservice">OneService</h1>
+<figure data-type="image" tabindex="3"><img src="https://staticor.github.io/post-images/1654761530973.png" alt="" loading="lazy"></figure>
+<p>数据服务是面向数据需求。<br>
+满足数据需求的方式由数据产品和业务方与开发人员协商，最终确定实现。</p>
+<p>在这个过程中离不开数据的开发和服务的稳定。</p>
+<p>数据研发流程要考虑的角色和阶段：</p>
+<figure data-type="image" tabindex="4"><img src="https://staticor.github.io/post-images/1654761655455.webp" alt="" loading="lazy"></figure>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/booknotelesslessstar-schema-the-complete-referencegreatergreater/" class="post-title gt-a-link">
+                    Booknote，《Star Schema -The Complete Reference》
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

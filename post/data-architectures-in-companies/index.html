@@ -1,0 +1,222 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Data Architectures in companies | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Data Architectures in companies
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-06-01 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/kdsz4v2vc/" class="post-tags">
+                            # 数据架构
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/m5G8CnLvG/" class="post-tags">
+                            # 大数据
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="netflix">Netflix</h1>
+<p>2018年<br>
+<img src="https://staticor.github.io/post-images/1654476346125.png" alt="" loading="lazy"></p>
+<h1 id="shopee">Shopee</h1>
+<h1 id="2021"><a href="https://developpaper.com/how-are-you-real-time-data-warehouse-of-cross-border-e-commerce-shopee/">2021</a></h1>
+<p>shopee@2021, Author: Huang Lianghui  (Data warehouse architecture )<br>
+<img src="https://staticor.github.io/post-images/1654158659303.png" alt="" loading="lazy"></p>
+<p>Shopee  2020年Q1季度的订单量达429.8 million 较2019年同比增长110%</p>
+<pre><code>数据集成层:  Binlog, Service Log
+数据存储层, kafka持久化消息stream, HDFS/HBase (HBase存储维度数据)
+计算查询引擎: Spark, Flink, Presto SQL
+调度管理层: Airflow,  Streaming SQL Platform, Streaming Job Management
+OLAP存储层, Druid, Phonix(HBase), Elastic Search
+应用层: 数据报表, 用户画像和其它商业应用
+</code></pre>
+<p>实时数据仓库: Flink, druid + hive</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654158669402.png" alt="" loading="lazy"></figure>
+<p>Shopee 将DB的Binlog 同步到Kafka,通过Flink或Spark应用,计算实时的销售数据\ 用户下单和商品浏览等行为数据.最终结果存储到Druid和HDFS.   任务正由Spark的Structured Streaming迁移到Flink.</p>
+<p>计算架构使用Lambda:</p>
+<ul>
+<li>Flink只处理当天的增量数据</li>
+<li>离线任务处理T-1</li>
+</ul>
+<h2 id="challenges">Challenges</h2>
+<p>数据规模增长  expansion of data scale , various query requrements,<br>
+实时需求的迫切性 ,  T+1 不再满足当下业务需要</p>
+<ul>
+<li>BI teams's real-time demand</li>
+<li>real-time label training<br>
+技术开发,维护成本高  开发成本高</li>
+</ul>
+<h1 id="airbnb">AirBnB</h1>
+<h2 id="2016"><a href="https://medium.com/airbnb-engineering/data-infrastructure-at-airbnb-8adfb34f169c">2016</a></h2>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654158680868.png" alt="" loading="lazy"></figure>
+<p>数据集成: EventLogs接Kafka, RDB接Sqoop 进HDFS S3集群<br>
+数据存储: S3, 主备两个集群 (gold, silver)<br>
+计算调度: Airflow<br>
+补充: Spark集群和Presto集群<br>
+数据应用: Airpal, Panoramix, Tableau</p>
+<p>Airpal是一个Presto即席查询平台.</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/spark-yuan-ma-xue-xi-er-ren-wu-he-jie-duan-hua-fen/" class="post-title gt-a-link">
+                    Spark源码学习(二)-阶段划分和任务执行
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

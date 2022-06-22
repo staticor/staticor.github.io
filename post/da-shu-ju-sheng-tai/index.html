@@ -1,0 +1,306 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>大数据生态 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    大数据生态
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-17 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/m5G8CnLvG/" class="post-tags">
+                            # 大数据
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1652776070434.webp" alt="" loading="lazy"></figure>
+<h1 id="hadoop-evolution">Hadoop  Evolution</h1>
+<ul>
+<li>2002 Nutch project</li>
+<li>2003 - 2004 Google Paper （GFS， MapReduce）</li>
+<li>2008 Hadoop  ——Apache Foundation ， top-level project</li>
+<li>2011， Hadoop1.0 released</li>
+<li>2012， Hadoop2.0 released + YARN</li>
+<li>2017， Hadoop3.0 released   （Java ， MR Optimization)</li>
+<li>2020， Hadoop3.1.3</li>
+</ul>
+<p>MapReduce是21世纪计算机科学个有里程碑意义的技术革新，将“分治处理”应用到了大型数据处理领域。</p>
+<ul>
+<li>网页爬取</li>
+<li>日志处理</li>
+<li>... ...</li>
+</ul>
+<p>恰好它诞生在web2.0 爆发的时期的互联网广告领域，进而影响了后面的移动互联网。</p>
+<p>同时，MR的使用前提也需要新的文件系统。</p>
+<h2 id="hdfs">HDFS</h2>
+<p>HDFS是主从架构， 主为NameNode，从为一些DataNode，主存储了集群的数据元信息，帮助应用程序锁定位置，从是负责存储和计算的节点，并通过心跳和主节点汇报自己的健康状态和block信息。<br>
+一般集群的建议是DataNode数量小于5K。</p>
+<p>SNN，Secondary NameNode<br>
+周期性的完成对NameNode的Editslog和FsImage的合并，减少Editslog大小。</p>
+<p>Block（数据块）的放置策略</p>
+<ul>
+<li>第一个副本放在上传文件的所在DataNode</li>
+<li>第二个副本放在另一个rack上的节点</li>
+<li>第三个副本放在与2号副本相同rack的另一台节点上</li>
+<li>第四个副本： 随机。</li>
+</ul>
+<h2 id="hadoop-mr计算框架的一丿-wordcount">Hadoop MR计算框架的一丿 —— WordCount</h2>
+<pre><code class="language-java">// Mapper 
+public static class TokenizerMapper extends Mapper&lt;Object, Text, Text, IntWritable&gt; {
+	private final statck IntWritable one = new IntWritable(1);
+	private Text word = new Text();
+	
+	public void Map(Object key, Text value, Context context) throws IOException, InterruptedException {
+		StringTokenizer itr = new StringTokenizer(value.toString());
+		while (itr.hasMoreTokens()) {
+			word.set(itr.nextToken());
+			context.write(word, one);
+		}
+	}
+}
+
+// Reducer 
+public static class IntSumReducer extends Reducer&lt;Text, IntWritable, Text, IntWriterable&gt; {
+	private IntWritable result = new IntWritable();
+	
+	public void Reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException, InterruptedException {
+		int sum = 0;
+		for (IntWritable val: values) {
+			sum += val.get();
+		}
+		result.set(sum);
+		context.write(key, result);
+	}
+}
+
+
+// Job entry
+public static void main(String[] args)throws Exception {
+	Configuration conf = new Configuration();
+	Job job = Job.getInstance(conf, &quot;word count&quot;);
+	job.setJarByClass(WordCount.class);
+	job.setMapperClass(TokenizerMapper.class);
+	job.setCombinerClass(IntSumReducer.class);
+	job.setReducerClass(IntSumReducer.class);
+	job.setOutputKeyClass(Text.class);
+	job.setOutputValueClass(IntWritable.class);
+	FileInputFormat.addInputPath(job, new Path(args[0]));
+	FileOutputFormat.addOutputPath(job, new Path(args[1]));
+	System.exit(job.waitForCompletion(true)?0:1);
+}
+
+</code></pre>
+<p>计算如何向数据移动？</p>
+<p>在MR计算框架中，有几个角色：</p>
+<ul>
+<li>客户端应用， 任务清单（Split切片信息）
+<ul>
+<li>split 和block 的对应关系 由NameNode存储映射</li>
+<li>客户端要把自己的计算逻辑移动到存有block的DataNode上， 客户端任务有一个统筹管理者 —— ApplicationMaster</li>
+</ul>
+</li>
+<li>JobTracker（资源管理+任务调度</li>
+<li>TaskTracker（任务管理 资源汇报）</li>
+<li></li>
+</ul>
+<p>计算逻辑由客户端上传到HDFS， 副本数大于3；</p>
+<h1 id="spark">Spark</h1>
+<p>随着Hadoop的推广和普及，MR的性能问题也成为了诟病的地方。 MR 的问题：</p>
+<ul>
+<li>
+<p>操作算子单一，只有Map 和Reduce两种，开始繁琐，特别是对于多表Join；</p>
+</li>
+<li>
+<p>Shuffle（Map与Reduce的中间过程）必须要落盘，磁盘开销大，严重影响任务的性能；</p>
+</li>
+<li>
+<p>LowAPI, MR 在Hive提出之前，开发门槛很高； Spark提供了Python （PySpark），Spark SQL， 以及 Spark MLlib， 对于开发和应用上，非常友好。</p>
+</li>
+</ul>
+<p>Spark提供了丰富的操作算子： filter, join, flatMap, union  等。</p>
+<p>逻辑上将代码分为逻辑处理层和物理执行层，逻辑上将应用解析成一个DAG（有向无环图），定义数据及数据间的操作关系。<br>
+每个action 定义一个job。<br>
+每次shuffle过程会创建一个新的Stage。</p>
+<h2 id="spark的shuffle">Spark的Shuffle</h2>
+<h2 id="spark-的wordcount">Spark 的WordCount</h2>
+<pre><code class="language-scala">
+object WordCount {
+	def main(args: Array[String]): Unit = {
+		val conf = new SparkConf().setAppName(&quot;WordCount&quot;).setMaster(&quot;local[*]&quot;))
+		val spark = SparkSession.builder().config(conf).getOrCreate()
+		
+		import spark.implicits._
+		val count = spark.read.textFile(&quot;input.txt&quot;)
+				.flatMap(_.split(&quot; &quot;))
+				.Map(s =&gt; (s, 1))
+				.rdd
+				.ReduceByKey((a, b) =&gt; a + b)
+				.collect()
+	}
+}
+
+</code></pre>
+<h1 id="下一站-湖仓一体">下一站， 湖仓一体</h1>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/spark-chuang-kou-cha-xun/" class="post-title gt-a-link">
+                    Spark 窗口查询
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spark 窗口查询 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Spark 窗口查询
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-16 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/6ykOqkgld/" class="post-tags">
+                            # 数据仓库
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>相关代码: https://github.com/staticor/WindowQueryInSparkHive.git</p>
+<p>什么是窗口查询</p>
+<pre><code>示例1
+ PARTITION BY country ORDER BY date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+
+ 示例2
+ PARTITION BY country ORDER BY date ROWS BETWEEN 3 PRECEDING AND 3 FOLLOWING
+</code></pre>
+<pre><code>示例1的Spark链式实现
+Window.partitionBy(&quot;country&quot;).orderBy(&quot;date&quot;).rowsBetween(Window.unboundedPreceding, Window.currentRow)
+
+
+示例2的Spark链式实现
+Window.partitionBy(&quot;country&quot;).orderBy(&quot;date&quot;).rowsBetween(-3, 3)
+
+</code></pre>
+<p>如果不引入partition by ， 那将是全局排序。  用到了partition by 就会针对指定的列划分子窗口。<br>
+一般来说会对窗口执行 order by 排序算子。</p>
+<p>定义窗口由两个类实现： Window.scala, WindowSpec.scala</p>
+<h1 id="rowsbetween">rowsBetween</h1>
+<p>开窗上下边界有这几种情形：</p>
+<ul>
+<li>unbounded preceding  输入数据第一行</li>
+<li>unbounded following 输入数据最后一行</li>
+<li>current row ( 即整数0)  当前行</li>
+</ul>
+<p>如果是传入的整数， 正整数或负整数，对应的是间隔偏移量，表示的即为一个滑动窗口；   比如-3 表示当前行之前的3行，+4  表示接下来之后的4行，  <code>[-3， 4]</code>  这是一个包括左右端点的窗口，一共有8条数据的滚动窗口。</p>
+<p>WindowSpec的核心构造函数是 <code>rowsBetween</code></p>
+<pre><code>源码 （WindowSpec.scala, rowsBetween)
+</code></pre>
+<pre><code class="language-scala">def rowsBetween(start: Long, end: Long): WindowSpec = {
+    val boundaryStart = start match {
+      case 0 =&gt; CurrentRow
+      case Long.MinValue =&gt; UnboundedPreceding
+      case x if Int.MinValue &lt;= x &amp;&amp; x &lt;= Int.MaxValue =&gt; Literal(x.toInt)
+      case x =&gt; throw QueryCompilationErrors.invalidBoundaryStartError(x)
+    }
+
+    val boundaryEnd = end match {
+      case 0 =&gt; CurrentRow
+      case Long.MaxValue =&gt; UnboundedFollowing
+      case x if Int.MinValue &lt;= x &amp;&amp; x &lt;= Int.MaxValue =&gt; Literal(x.toInt)
+      case x =&gt; throw QueryCompilationErrors.invalidBoundaryEndError(x)
+    }
+
+    new WindowSpec(
+      partitionSpec,
+      orderSpec,
+      SpecifiedWindowFrame(RowFrame, boundaryStart, boundaryEnd))
+  }
+</code></pre>
+<pre><code>窗口的属性
+</code></pre>
+<ul>
+<li>partitionSpec</li>
+<li>orderSpec</li>
+<li>SpecifiedWindowFrame</li>
+</ul>
+<p><code>SpecifiedWindowFrame</code> 是一个case class。</p>
+<pre><code class="language-scala">case class SpecifiedWindowFrame(frameType: FrameType, lower: Expression, upper: Expression)   extends WindowFrame
+</code></pre>
+<p>partitionSpec 和 orderSpec 是把数据分桶和桶内排序， 第三部分是确定窗口范围。</p>
+<p><code>WindoSpecDefinition</code></p>
+<h1 id="执行计划分析">执行计划分析</h1>
+<pre><code class="language-scala"> import spark.implicits._
+    import org.apache.spark.sql.functions._
+
+    val df: DataFrame = Seq((1, &quot;a&quot;), (1, &quot;a&quot;), (2, &quot;a&quot;), (1, &quot;b&quot;), (2, &quot;b&quot;), (3, &quot;b&quot;))
+      .toDF(&quot;id&quot;, &quot;category&quot;)
+
+    val byCategoryOrderedById =
+      Window.partitionBy(&quot;category&quot;)
+        .orderBy(&quot;id&quot;)
+        .rowsBetween(Window.currentRow, 1)
+
+    val frame: DataFrame = df.withColumn(&quot;sum&quot;, sum(&quot;id&quot;) over byCategoryOrderedById)
+
+</code></pre>
+<p>输出结果</p>
+<pre><code>
+================  analyzed ====================
+Project [id#7, category#8, sum#12L]
++- Project [id#7, category#8, sum#12L, sum#12L]
+   +- Window [sum(id#7) windowspecdefinition(category#8, id#7 ASC NULLS FIRST, specifiedwindowframe(RowFrame, currentrow$(), 1)) AS sum#12L], [category#8], [id#7 ASC NULLS FIRST]
+      +- Project [id#7, category#8]
+         +- Project [_1#2 AS id#7, _2#3 AS category#8]
+            +- LocalRelation [_1#2, _2#3]
+
+============= optimized Plan=================
+Window [sum(id#7) windowspecdefinition(category#8, id#7 ASC NULLS FIRST, specifiedwindowframe(RowFrame, currentrow$(), 1)) AS sum#12L], [category#8], [id#7 ASC NULLS FIRST]
++- LocalRelation [id#7, category#8]
+
+============= executed Plan=================
+AdaptiveSparkPlan isFinalPlan=false
++- Window [sum(id#7) windowspecdefinition(category#8, id#7 ASC NULLS FIRST, specifiedwindowframe(RowFrame, currentrow$(), 1)) AS sum#12L], [category#8], [id#7 ASC NULLS FIRST]
+   +- Sort [category#8 ASC NULLS FIRST, id#7 ASC NULLS FIRST], false, 0
+      +- Exchange hashpartitioning(category#8, 200), ENSURE_REQUIREMENTS, [id=#52]
+         +- LocalTableScan [id#7, category#8]
+
+
+</code></pre>
+<p>Exchange hashpartitioning</p>
+<h1 id="实际例子">实际例子</h1>
+<h2 id="row_number">row_number</h2>
+<pre><code class="language-scala"> 
+import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan
+import org.apache.spark.sql.execution.SparkPlan
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.expressions.Window
+
+import org.apache.spark.sql.functions._
+object Example_4_Spark {
+
+  def main(args: Array[String]): Unit = {
+    val conf: SparkConf = new SparkConf().setMaster(&quot;local[4]&quot;)
+
+    val spark: SparkSession = SparkSession.builder().config(conf)
+      .appName(&quot;CsvExample&quot;)
+      .master(&quot;local&quot;).getOrCreate()
+
+
+    import spark.implicits._
+    val scoreDF = spark.sparkContext.makeRDD(Array( Score(&quot;a&quot;, 1, 80),
+      Score(&quot;b&quot;, 1, 78),
+      Score(&quot;c&quot;, 1, 95),
+      Score(&quot;d&quot;, 2, 74),
+      Score(&quot;e&quot;, 2, 92),
+      Score(&quot;f&quot;, 3, 99),
+      Score(&quot;g&quot;, 3, 99),
+      Score(&quot;h&quot;, 3, 45),
+      Score(&quot;i&quot;, 3, 55),
+      Score(&quot;j&quot;, 3, 78))).toDF(&quot;name&quot;,&quot;class&quot;,&quot;score&quot;)
+    scoreDF.createOrReplaceTempView(&quot;score&quot;)
+    scoreDF.show()
+
+    println(&quot;//***************  求每个班最高成绩学生的信息  ***************/&quot;)
+    println(&quot;    /*******  开窗函数的表  ********/&quot;)
+    spark.sql(&quot;select name,class,score, rank() over(partition by class order by score desc) rank from score&quot;).show()
+
+    println(&quot;    /*******  计算结果的表  *******&quot;)
+    spark.sql(
+      &quot;&quot;&quot;
+        |select  name, class, score, rk
+        |from (
+        |   select name, class, score, rank() over(partition by class order by score desc) rk
+        |   from score
+        |) mid where rk = 1
+        |&quot;&quot;&quot;.stripMargin).show()
+  }
+}
+
+case class Score(name: String, group: Int, score: Int)
+
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/compare-study/" class="post-title gt-a-link">
+                    对比学习--Big Data（一）
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

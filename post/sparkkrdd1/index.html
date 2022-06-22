@@ -1,0 +1,426 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spark中的RDD(一）+ Paper Reading | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Spark中的RDD(一）+ Paper Reading
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2019-12-02 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/m5G8CnLvG/" class="post-tags">
+                            # 大数据
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>本篇文章结合 https://spark.apache.org/docs/latest/rdd-programming-guide.html#overview</p>
+<p>Paper<Resilient Distributed Datasets: AFault- Tolerant Abstraction for In-Memory  Cluster Computing></p>
+<p>每个Spark应用的driver program都是由用户侧的main函数驱动的， Spark提供了一种抽象的操作集合： RDD —— 弹性分布式数据集。</p>
+<p>RDD的特点：</p>
+<ul>
+<li>不可变对象，数据集的逻辑表达；</li>
+<li>分布存储 + 并行计算，每个数据分片称为一个分区；</li>
+<li>容错可用，失败可重试</li>
+<li>可缓存到内存或磁盘</li>
+<li>可变换成其它类型的RDD</li>
+</ul>
+<p>注意，Spark不支持嵌套型RDD（RDD复合RDD），见Spark-5063.</p>
+<p>Spark RDD属性, RDD是一个抽象类， 类声明为</p>
+<pre><code class="language-scala">
+abstract class RDD[T: ClassTag](
+    @transient private var _sc: SparkContext,
+    @transient private var deps: Seq[Dependency[_]]
+  ) extends Serializable with Logging {
+
+</code></pre>
+<p>RDD[T: ClassTag]  是一个泛型类， RDD中元素的类型。<br>
+SparkContext 是不可或缺的参数, 定义了几个</p>
+<ul>
+<li>compute     具体计算逻辑，由实现的子类完成。</li>
+<li>getPartitions      返回这个RDD的所有分区Array（返回值是 Array[Partition])</li>
+<li>getDependencies, RDD对父RDD的依赖关系</li>
+<li>getPreferredLocations , specify 放置策略</li>
+<li>partitioner :   可选的的覆写属性。</li>
+<li>persisit， cache 持久化</li>
+</ul>
+<h1 id="rdd与基本操作">RDD与基本操作</h1>
+<figure data-type="image" tabindex="1"><img src="img/RDD-ops.png" alt="" loading="lazy"></figure>
+<pre><code>创建
+</code></pre>
+<p>RDD有三种创建方式，本地内存，外部流或由别的RDD转换而来。</p>
+<ul>
+<li>
+<p>从内存创建</p>
+<ul>
+<li>makeRDD</li>
+<li>parallelize</li>
+</ul>
+</li>
+<li>
+<p>从外部流创建，</p>
+<ul>
+<li>textFile  单个文件，或正则匹配</li>
+<li>wholeTextFiles  读取多个小文本文件的目录</li>
+</ul>
+<p>RDD操作</p>
+</li>
+</ul>
+<p>RDD支持两种类型操作， transform 和 action 。<br>
+transform 是将已有的RDD转换为新的RDD， action是对rdd运行计算，将值要返回给Driver。<br>
+Spark中所有转换都是<strong>惰性</strong>的。</p>
+<pre><code class="language-scala">    val lines: RDD[String] = context.textFile(&quot;input/hello.txt&quot;)
+    val lineLengths: RDD[Int] = lines.map((line: String) =&gt; line.length)
+    val totalLength: Int = lineLengths.reduce((a, b) =&gt; a + b)
+
+</code></pre>
+<p><img src="img/lineage-graph-of-rdd.png" alt="" loading="lazy"><br>
+RDD 的依赖血缘, 示例代码为:</p>
+<pre><code class="language-scala">lines = spark.textFile(&quot;hdfs://...&quot;)
+errors = lines.filter(_.startsWith(&quot;ERROR&quot;)
+errors.persist()
+</code></pre>
+<pre><code>RDD 持久化
+</code></pre>
+<p>RDD有两个持久化（缓存）方法： cache, persist 。<br>
+cache 调用的persist 默认参数的方法（默认缓存到内存中）；如果保存到磁盘，要修改StorageLevel。</p>
+<pre><code class="language-scala">  /**
+   * Persist this RDD with the default storage level (`MEMORY_ONLY`).
+   */
+  def cache(): this.type = persist()
+
+  def persist(): this.type = persist(StorageLevel.MEMORY_ONLY)
+</code></pre>
+<p>重点关注源码中的<code>StorageLevel</code> 方法.<br>
+持久化也是“懒操作”， 要等到触发action算子时才执行）</p>
+<h3 id="rdd-和分布式共享内存dsm的比较">RDD 和分布式共享内存(DSM)的比较</h3>
+<figure data-type="image" tabindex="2"><img src="img/rdd-dist-shared-mem.png" alt="" loading="lazy"></figure>
+<p>Driver 启动多个workers, worker 从HDFS读取inputdata, 分别在内存计算rdd.<br>
+<img src="img/basemodel-rdd.png" alt="" loading="lazy"></p>
+<p>Spark 会将可以流水线执行的窄依赖Transformation放在一个job stage,而Job Stage间要对数据进行Shuffle.<br>
+这是Spark DAGScheduler 在生成任务时的作业划分过程完成的.</p>
+<p>调度Task的考虑, Spark会关心Partition所在的集群位置,也有就近取数的策略.</p>
+<h2 id="什么操作会启动shuffle">什么操作会启动Shuffle</h2>
+<p>为什么要Shuffle？</p>
+<blockquote>
+<p>In Spark, data is generally not distributed across partitions to be in the necessary place for a specific operation. Duration computations, a single task will operate on a single partition - thus, to organize all the data for a single reduceByKey task to execute, Spark need to perform all-to-all operation. It must read from all partitions to find all the valeus for all keys, and then bring together values across partitions to compute the final result for each key -- this is called the shuffle*</p>
+</blockquote>
+<p>这里我的理解是这样的 ——  简而言之，某些运算要把相同的Key聚合到一起才能计算出来，例如说按Key求和，少一个元素，最终结果都是不准确的。 但数据的输入来源是分散在各个partitions之间的，那么按需要，把满足聚合条件的key聚合在一起的数据移动和分配的过程就是Shuffle。</p>
+<pre><code>有哪些Shuffle算子？
+
+
+Operations which can cause a shuffle include repartition operations like repartition and coalesce, 'ByKey' operations (except for counting) like groupByKey and reduceByKey, and join operations like cogroup and join. 
+</code></pre>
+<p>重分区算子，</p>
+<ul>
+<li>repartition</li>
+<li>coalesce<br>
+ByKey操作类，</li>
+<li>groupByKey</li>
+<li>reduceByKey</li>
+<li>sortByKey</li>
+<li>combineByKey</li>
+<li>foldByKey</li>
+<li>aggregateByKey</li>
+</ul>
+<p>join算子，</p>
+<ul>
+<li>jopin</li>
+<li>cogroup</li>
+<li></li>
+</ul>
+<p>还有一个distinct</p>
+<p>countByKey 是Action ， 不是 Transform</p>
+<p>文档介绍，该方法只能用于结果的map很小的场景，返回值是Map[K, Long] 不是RDD 。<br>
+会加载到driver 的 memory.</p>
+<pre><code class="language-scala">/**
+   * Count the number of elements for each key, collecting the results to a local Map.
+   *
+   * @note This method should only be used if the resulting map is expected to be small, as
+   * the whole thing is loaded into the driver's memory.
+   * To handle very large results, consider using rdd.mapValues(_ =&gt; 1L).reduceByKey(_ + _), which
+   * returns an RDD[T, Long] instead of a map.
+   */
+  def countByKey(): Map[K, Long] = self.withScope {
+    self.mapValues(_ =&gt; 1L).reduceByKey(_ + _).collect().toMap
+  }
+</code></pre>
+<p>distinct  也是一个shuffle算子。</p>
+<pre><code>def removeDuplicatesInPartition(partition: Iterator[T]): Iterator[T] = {
+      // Create an instance of external append only map which ignores values.
+      val map = new ExternalAppendOnlyMap[T, Null, Null](
+        createCombiner = _ =&gt; null,
+        mergeValue = (a, b) =&gt; a,
+        mergeCombiners = (a, b) =&gt; a)
+      map.insertAll(partition.map(_ -&gt; null))
+      map.iterator.map(_._1)
+    }
+
+
+  /**
+   * Return a new RDD containing the distinct elements in this RDD.
+   */
+  def distinct(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T] = withScope {
+    --
+    partitioner match {
+      case Some(_) if numPartitions == partitions.length =&gt;
+        mapPartitions(removeDuplicatesInPartition, preservesPartitioning = true)
+      case _ =&gt; map(x =&gt; (x, null)).reduceByKey((x, _) =&gt; x, numPartitions).map(_._1)
+    }
+  }
+
+
+</code></pre>
+<h2 id="几种bykey算子">几种ByKey算子</h2>
+<pre><code class="language-scala">reduceByKey(_+_)     
+aggregateByKey(0)(_+_)(_+_)
+foldByKey(0)(_+_)
+combineByKey( v=&gt;,  (x: Int, y) =&gt; x+y,  (x:Int, y:Int) =&gt; x+y)
+
+源码： PairRDDFunctions.scala
+
+  def combineByKeyWithClassTag[C](
+      createCombiner: V =&gt; C,
+      mergeValue: (C, V) =&gt; C,
+      mergeCombiners: (C, C) =&gt; C,
+      partitioner: Partitioner,
+      mapSideCombine: Boolean = true,
+      serializer: Serializer = null)
+
+</code></pre>
+<p>后台调用的都是这个函数， 只不过参数不一样。</p>
+<p>combineByKey<br>
+第一个数据做什么操作 createCombiner, 相同Key 第一条数据进行的处理函数。<br>
+第二个参数，控制分区的聚合逻辑<br>
+第三个参数，控制分区间的处理逻辑  mergeCombiner</p>
+<pre><code class="language-scala">
+
+基函数
+
+def combineByKeyWithClassTag[C](
+      createCombiner: V =&gt; C,
+      mergeValue: (C, V) =&gt; C,
+      mergeCombiners: (C, C) =&gt; C,
+      partitioner: Partitioner,
+      mapSideCombine: Boolean = true,
+      serializer: Serializer = null)(implicit ct: ClassTag[C]): RDD[(K, C)] = self.withScope {
+    require(mergeCombiners != null, &quot;mergeCombiners must be defined&quot;) // required as of Spark 0.9.0
+    if (keyClass.isArray) {
+      if (mapSideCombine) {
+        throw new SparkException(&quot;Cannot use map-side combining with array keys.&quot;)
+      }
+      if (partitioner.isInstanceOf[HashPartitioner]) {
+        throw new SparkException(&quot;HashPartitioner cannot partition array keys.&quot;)
+      }
+    }
+    val aggregator = new Aggregator[K, V, C](
+      self.context.clean(createCombiner),
+      self.context.clean(mergeValue),
+      self.context.clean(mergeCombiners))
+    if (self.partitioner == Some(partitioner)) {
+      self.mapPartitions(iter =&gt; {
+        val context = TaskContext.get()
+        new InterruptibleIterator(context, aggregator.combineValuesByKey(iter, context))
+      }, preservesPartitioning = true)
+    } else {
+      new ShuffledRDD[K, V, C](self, partitioner)
+        .setSerializer(serializer)
+        .setAggregator(aggregator)
+        .setMapSideCombine(mapSideCombine)
+    }
+  }
+
+
+
+foldByKey的重载
+
+
+  /**
+   * Merge the values for each key using an associative function and a neutral &quot;zero value&quot; which
+   * may be added to the result an arbitrary number of times, and must not change the result
+   * (e.g., Nil for list concatenation, 0 for addition, or 1 for multiplication.).
+   */
+  def foldByKey(
+      zeroValue: V,
+      partitioner: Partitioner)(func: (V, V) =&gt; V): RDD[(K, V)] = self.withScope {
+    // Serialize the zero value to a byte array so that we can get a new clone of it on each key
+    val zeroBuffer = SparkEnv.get.serializer.newInstance().serialize(zeroValue)
+    val zeroArray = new Array[Byte](zeroBuffer.limit)
+    zeroBuffer.get(zeroArray)
+
+    // When deserializing, use a lazy val to create just one instance of the serializer per task
+    lazy val cachedSerializer = SparkEnv.get.serializer.newInstance()
+    val createZero = () =&gt; cachedSerializer.deserialize[V](ByteBuffer.wrap(zeroArray))
+
+    val cleanedFunc = self.context.clean(func)
+    combineByKeyWithClassTag[V]((v: V) =&gt; cleanedFunc(createZero(), v),
+      cleanedFunc, cleanedFunc, partitioner)
+  }
+
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/hello-gridea/" class="post-title gt-a-link">
+                    Hello Gridea
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

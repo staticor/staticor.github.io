@@ -1,0 +1,372 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>读书Note-《DDIA》 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    读书Note-《DDIA》
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-26 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/gIWbJvnhi/" class="post-tags">
+                            # booknote
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/fpMRWEw0UV/" class="post-tags">
+                            # datasystem
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p><code>DDIA</code> 是 Designing Data-Intensive Applications 的简称,因为此书具有一定的普遍性和推广意义, 所以在数据计算领域和分布存储,有单独的称呼.</p>
+<p>我对这本书基于之前几位社区译者的基础上进行了再次翻译和备注的repo:<br>
+https://github.com/staticor/ddia</p>
+<h1 id="概念与数据模型">概念与数据模型</h1>
+<p>应用可划分为数据密集型和计算密集型的,通常数据密集型包括以下组件:</p>
+<ul>
+<li>冷数据存储,如数据库，便于其他应用程序跨服务间的延迟访问</li>
+<li>热数据存储,如缓存，取用代价昂贵，所以不用数据库</li>
+<li>索引设计与即席查询</li>
+<li>实时处理流式数据</li>
+<li>定期处理的批量数据</li>
+</ul>
+<p>衡量密集数据系统的角度:</p>
+<ul>
+<li>可靠性 (硬件故障,软件bug,人为操作)</li>
+<li>可扩展性(伸缩性,负载均衡, 吞吐量)</li>
+<li>易维护性(操作简化, 可迭代升级)</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654271082935.png" alt="" loading="lazy"></figure>
+<p>最著名的数据模型是基于实体关系的ER设计,使用SQL来查询</p>
+<p>作者以一个LinkedIn-BillGates 这个实体对象的存储设计来对比了SQL与No-SQL(JSON)的差异.</p>
+<p>json文档自然是非常灵活的,但灵活的背后也会产生生产加工的额外成本. 从信息处理的角度上,或许只是将处理工序安放在哪个团队的问题,本质上没有带来新的突破性优化.</p>
+<p>对比概念， 故障vs失败， 可用vs可靠。</p>
+<p>容错相对于失败的最大区别是预见到了失败的发生，但并不是考虑到所有类型的错误。</p>
+<p>第二章深入探讨了文档数据库与关系型数据的差异。</p>
+<p>图数据模型，以后有机会我会考虑学习Neo4j和Cypher。</p>
+<h1 id="存储与检索">存储与检索</h1>
+<p>世界上最简单的数据库, 用两个Bash函数实现.</p>
+<pre><code class="language-shell">#!/bin/bash
+db_set () {
+  echo &quot;$1,$2&quot; &gt;&gt; database
+}
+
+db_get () {
+  grep &quot;^$1,&quot; database | sed -e &quot;s/^$1,//&quot; | tail -n 1
+}
+</code></pre>
+<p>存储系统不光要考虑数据如何存放,还要设计好数据怎样被快速检索.</p>
+<p>为了快速的在数据库中,根据key定位到数据的位置,引入了特定的数据结构-索引.<br>
+索引是一个&quot;接口&quot;层的逻辑概念,如果被实现有不同的方式: 散列索引, 树结构索引.</p>
+<p>索引是主数据(primary data)的派生信息,很多数据库都支持灵活的索引添加和删除操作,也支持查询时指定索引.<br>
+自然,好的索引会带来额外的存储开销,所以这里就是存储和查询性能之间的trade-off了.</p>
+<h2 id="hash-索引">Hash 索引</h2>
+<p>Hash索引, 容易想到,但局限性也明显,不支持范围查询和带排序分组的查询,只对单值的等值查询效能高.</p>
+<p>像Python中的字典,Java中的HashMap就可以视作为一种微观的键值数据库.<br>
+如果一直采用Log-append,怎样避免最终用完最终硬盘?<br>
+一种解决方案是日志分为特定大小的段(segment),当日志增长到特定大小就关闭当前段,写入一个新段.<br>
+然后再针对已关闭的日志段进行压缩管理, 压缩文件再进行合并.<br>
+实现细节要考虑的因素还不少:<br>
+文件格式, 删除记录,崩溃恢复,部分写入记录,并发控制</p>
+<blockquote>
+<p>为什么不直接在文件更新, 要采用追加写入呢?<br>
+追加和分段合并, 都是顺序写入,比随机写入快得多得多.</p>
+</blockquote>
+<h2 id="sstables-和-lsm树">SSTables 和 LSM树</h2>
+<p>前面的Log-segment设计并没有提到key-value的顺序.在原有基础上做个改变, 要求键值对的序列按key排序.  称这个段文件格式为 SST(Sorted String Table简写),并且每个key只在每个合并的Segment中出现一次.  (合并时两个相同key冲突时的解决方案,新key覆盖旧key)</p>
+<pre><code>构建和维护SSTables
+</code></pre>
+<p>SSTables的核心,怎么事先就让数据有序的组织进Segment?<br>
+这就需要先在内存完成有序组织,可以使用平衡树结构, 这个内存组织的树称为内存表(memtable), 当内存表大于某个阈值, 通常是几MB,将它作为SSTable文件写入硬盘, 因为这个树是key-ordering的,所以写到硬盘时,也是排好序的.</p>
+<p>这个设计方案的小问题: 如果数据库崩溃,内存表中的数据会丢失(还没写到硬盘). 为避免这个问题,可以在硬盘上保存一个单独日志,记录每个写入操作, 这个操作日志是不要求顺序的,它的目的是解决恢复后replay. 当内存数据写出到SSTable,相应操作日志就可以被丢弃了.</p>
+<pre><code>用SSTables制作LSM树
+</code></pre>
+<p>LSM 的由来: 这种索引结构由O'Neil等人描述, 被命名为 Log-Structured Merge-Tree (LSM树), 基于这种合并和压缩排序文件原理的存储引擎通常被称为LSM存储引擎.</p>
+<p>SSTables何时被压缩和合并,有不同的策略设计,常见的选择是 size-tiered 和 leveled compaction.</p>
+<p>size-tiered : HBase<br>
+leveled compaction:  LevelDB, RocksDB<br>
+Cassandra 同时支持这两种.</p>
+<p>LSM基本思想, 后台有若干SSTables, 执行压缩合并, 在内存区保留一个缓存区,负责最新写入数据.</p>
+<h2 id="b树">B树</h2>
+<p>和SStables一样,B树也是Key-ordering, 支持按Key的值查找和范围查询. B树和特殊之处是什么?</p>
+<p>B树将数据库分解成固定大小的块(block或数据页datapage), 一般为4KB/16KB,并且一次只能读取或写入一个页面. 这种设计也接近底层硬件的组织结构.</p>
+<figure data-type="image" tabindex="2"><img src="img/ddiafig3-6.png" alt="" loading="lazy"></figure>
+<p>B树的基本底层写操作是新数据覆写硬盘页面,这个前面的LSM是有差异的(前面的只追加,不修改).<br>
+一些操作如果覆写几个不同页面,这是一个危险操作,B树通常会有一个额外的硬盘数据结构: WAL.</p>
+<pre><code>WAL,  Write-Ahead log
+</code></pre>
+<p>WAL也称为  redo log, 这是一个仅追加的文件,每个B树修改在数据页操作前,必须写入到该文件.  当数据库崩溃后恢复,这个日志被用来数据恢复.</p>
+<pre><code>比较B树和LSM树
+</code></pre>
+<p>LSM写入速度更快,B树读取速度更快.<br>
+(B树写慢, 不是纯追加的写,而是覆盖写, 而且是两次写, 第一次预写WAL日志, 二次写data page)<br>
+(LSM读 慢, 必须检查不同数据结构和不同压缩层级的SSTables)</p>
+<p>进一步优化, 部值放在索引中</p>
+<p>聚集索引, 索引中存储了所有行数据.<br>
+非聚集索引,仅在索引中存储数据的引用.</p>
+<p>内存存储一切?<br>
+事务处理还是分析?</p>
+<figure data-type="image" tabindex="3"><img src="img/oltp-olap.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="Img/etl-1.png" alt="" loading="lazy"></figure>
+<p>一个企业可能有少则几十个多则上百个数据处理系统:控制商品的商品产品中台,物料库存管理,供应链管理,用户注册管理,交易管理等等. 每个系统都需要有专人维护,这些系统都是独立运行的.</p>
+<p>对业务数据的分析需求不能与这些系统作业共用一个系统 ---- 会影响OLTP性能.</p>
+<p>在此背景下,数据仓库应运而生,  Datawarehouse的建立之初是汇聚多个OLTP系统的数据,完成统计分析需求.</p>
+<p>数据仓库和业务数据库有很大的区别,它们的相同点是提供了类SQL的查询接口,但系统构造和设计几乎是完全不同.  例如关系数据库的设计要遵循设计范式,</p>
+<h1 id="数据仓库">数据仓库</h1>
+<pre><code>星形模型与雪花模型
+</code></pre>
+<p>许多数据仓库的设计是公式化的, 比较著名的是用星型维度建模.</p>
+<p>事实表是中心,事实表外键关联维度表,解释业务过程中的描述信息.</p>
+<p>当某个维度出现了多级维度,例如国家-城市-地区-社区这个四级地址维度,如果都放在一个表是星型维度,会有数据冗余. 如果放在四张表,都用id-parentId关联,这就产生了四级关联,从而将原来的星星变成了像雪花一样的多级散射形态, 这种模式称为雪花建模.</p>
+<pre><code>列式存储
+</code></pre>
+<p>事实表的列数少则几十,多则几百上千,所以对数据的逻辑设计和物理设计更高了.<br>
+在 OLTP数据库,以行式存储引擎为主,每行表示一个完整的record.<br>
+在数据仓库场景,很少用 <code> select * from someTableWithManyColumns</code> , 而更关注的需求涉及到部分列.</p>
+<p>列数据压缩, 列格式存储更利于压缩, 各列中的数据类型是一致的, 使用压缩能大大减少磁盘的IO.</p>
+<p>列存的相关技术或文章: Google Dremel, HBase, Cassandra.</p>
+<p>列存中的排序问题</p>
+<h1 id="第四章encoding-and-evolution">第四章，Encoding and Evolution</h1>
+<h1 id="第五章复制副本">第五章，复制，副本</h1>
+<p><strong>复制（副本）意味着通过网络连接的多台机器上保留相同数据的副本。</strong></p>
+<p>解决服务的单点故障问题，一台机器出了问题，别的机器拥有数据副本，依旧能保证服务的顺利进行。</p>
+<p>复制的难点在于数据并不是一陈不变的 —— 数据是动态更新的。 因此需要特殊的设计</p>
+<p>主流的变更复制算法：</p>
+<ul>
+<li>单主复制。 single leader</li>
+<li>多主复制。 multi leader</li>
+<li>无主复制。 leaderless    无主</li>
+</ul>
+<p>几乎所有的分布式数据库都使用这三种方法之一。</p>
+<p>从机制又分为两种：同步复制、异步复制。</p>
+<h2 id="leader-and-follower-领导者与追随者">leader and follower  领导者与追随者</h2>
+<p>存储了数据库复制的每个节点称为副本 replica。</p>
+<p>如果是多个副本情况，怎样保证他们的数据是一致的？</p>
+<p>每一次向数据库的写入操作都需要广播到所有副本上，否则副本就会数据不一致。</p>
+<p>常见的策略被称为 基于leader的复制 （也称 主动或被动复制， 或主/从复制）。</p>
+<ul>
+<li>一个副本被指定为领导者 leader / master（也称为主库）。 客户端向数据库写入时，它必须将请求发送给领导者，leader将新数据写入本地存储。</li>
+<li>其他副本被称为追随者（follower)，  也被称为只读副本 read-only replica 、备库。  领导者将新数据写入本地存储，也会将数据变更发送给其它follower，称之为** 复制日志或变更流** （replication log 或 change stream）。  每个follower 从领导者拉取日志， 按相应的处理顺序也在自己本地进行修改。</li>
+</ul>
+<p><img src="https://staticor.github.io/post-images/1655870102675.png" alt="" loading="lazy"><br>
+（基于领导者的复制）</p>
+<p>同步复制的优点：从库能保证与所有主库一致的最新数据副本。<br>
+缺点，如果同步从库没有响应，主库就无法处理写入操作，主库必须要等，一直阻塞，直到同步副本再次可用。</p>
+<p>因此，所有从库设置为同步是不切实际的 —— 任何一个节点的中断都会导致整个系统停滞。</p>
+<p>如果在数据库启用同步复制，通常意味着多个从库中，有的是同步复制（一般设置为一个），其他从库是异步复制。 这样保证至少有两个节点是拥有最新数据副本（主库和同步从库）。  这种配置有时也被称为 半同步（semi-synchronous)。</p>
+<p>通常是完全异步复制。</p>
+<blockquote>
+<p>链式复制（chain replication)   是同步复制的变体。</p>
+</blockquote>
+<p>主从系统中，任何节点皆有可能宕机，怎样处理节点故障以提升系统的容错？</p>
+<p>从库失效，要追赶落后的进度。  主从之间的网络中断、从库crash都会导致从库失效。 从库可以从日志获知最后一个事务。当从库连接到主库后，请求断开期间发生的后续变更。</p>
+<p>主库失效，要进行故障转移（failure-over).  故障转换可以手动，也能自动执行。</p>
+<blockquote>
+<p>确认主库有效失效，大多数是用超时（Timeout）来判断，一个节点在一段时间（如30秒、60秒）没响应，就认为它失效（挂了）；<br>
+怎样选择一个新主库，主库由剩余的副本完成， 有选举算法和指派算法：比如按多数投票选举的方式选择，或者由一个指定的coordinator(协调者节点)指派 某个节点为新leader。<br>
+重新配置系统，以启用新的主库。</p>
+</blockquote>
+<p>故障切换中容易出错的场景：</p>
+<ul>
+<li>若使用异步复制，新主库可能没有收到老主库宕机前最后的写入操作。  选出新主后，老主重新加入集群，新主在此期间可能收到冲突的写入。 常见解法是丢弃老主未复制的写入。</li>
+<li>脑裂（brain-split) 非常危险，两个节点都自以为自己是主库，接受写操作请求，而且没有冲突解决机制，就可能造成数据丢失和损坏。</li>
+</ul>
+<p>复制日志</p>
+<ul>
+<li>
+<p>预定日志（ WAL, Write-Ahead Log）</p>
+</li>
+<li>
+<p>逻辑日志复制（基于行） logical</p>
+</li>
+<li>
+<p>基于触发器的复制</p>
+</li>
+</ul>
+<p>RDB的逻辑日志是以行的粒度描述库表的更新序列：</p>
+<ol>
+<li>插入新行，日志包含所有列的新值；</li>
+<li>删除的行，日志包含唯一标识能识别被删除的行，通常是表主键；</li>
+<li>更新的行，日志包含唯一标识更新的行，以及所有列新值；</li>
+</ol>
+<p>如果修改多行，则会生成多条日志记录。</p>
+<p>对外部应用，逻辑日志的格式更容易解析。 将数据库的内容发送到外部系统，如复制到数据仓库进行离线分析，或建立自定义索引和缓存，这种技术被称为数据变更捕获（change data capture)。</p>
+<h1 id="第六章分区">第六章：分区</h1>
+<p>分区策略， Hash分区、Range分区。<br>
+Hash策略，如Java的hashCode。</p>
+<p>要担心的特性： 数据不均衡问题。</p>
+<p>分区再平衡。</p>
+<p>随时间推移，数据库会有各种变化：</p>
+<ul>
+<li>查询吞吐量增加，想要添加更多CPU；</li>
+<li>数据集大小增加，想添加更多磁盘和RAM存储它；</li>
+<li>机器故障，其他机器需要接管故障机器的责任；</li>
+</ul>
+<p>将集群负载从一个节点转移到另一个节点的过程称为再平衡（rebalancing)。</p>
+<p>再平衡策略。</p>
+<ul>
+<li>hash mod N   实际上，生产环境很少使用这种算法。  如hash(key) = 123456, 如果最初有10个节点， 则这个数据要放在 6号。   模N 方法是当N数量变化时，会产生频繁的rebalance代价。</li>
+</ul>
+<h1 id="分布式系统与事务">分布式系统与事务</h1>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/apache-kafka-chang-jian-wen-ti/" class="post-title gt-a-link">
+                    Apache Kafka常见问题
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

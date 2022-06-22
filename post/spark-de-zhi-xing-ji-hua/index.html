@@ -1,0 +1,453 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spark的执行计划 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Spark的执行计划
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-20 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p><strong>A  Deep Dive into Spark SQL's Catalyst Optimizer  -- Yin Huai</strong><br>
+https://databricks.com/session/a-deep-dive-into-spark-sqls-catalyst-optimizer</p>
+<p><strong>A Deep Dive into Query Execution Engine of Spark SQL - Maryann Xue</strong></p>
+<p>Spark Execution plan</p>
+<p>在MySQL的Server会将用户提交的query进行解析和分析优化，转变为执行任务。 在Hive和Spark SQL的工作流程中，也会有类似的过程。</p>
+<p><img src="https://staticor.github.io/post-images/1654158317959.png" alt="" loading="lazy"><br>
+<img src="https://staticor.github.io/post-images/1654158344325.png" alt="" loading="lazy"></p>
+<ul>
+<li>Analysis
+<ul>
+<li>Unresolved Logical plan</li>
+<li>Catalog</li>
+<li>Logical Plan</li>
+</ul>
+</li>
+<li>Logical Optimization
+<ul>
+<li>Optimized Logical Plan</li>
+</ul>
+</li>
+<li>Physical Planing
+<ul>
+<li>Physical plans</li>
+</ul>
+</li>
+<li>Cost Model</li>
+<li>Code Generation</li>
+</ul>
+<p>不妨先用一个引子来看看Plan是什么，怎样看到它。</p>
+<pre><code class="language-scala">
+val schemaItems: StructType = StructType(List(
+      StructField(&quot;itemid&quot;, IntegerType, nullable = false),
+      StructField(&quot;itemname&quot;, StringType, nullable = false),
+      StructField(&quot;price&quot;, DoubleType, nullable = false),
+    ))
+
+    val itemRDD: RDD[Row] = spark.sparkContext.parallelize(Seq(
+      Row(1, &quot;Tomato&quot;, 4.5),
+      Row(2, &quot;Potato&quot;, 3.5),
+      Row(0, &quot;Watermelon&quot;, 14.5),
+    ))
+
+    val schemaOrders: StructType = StructType(List(
+      StructField(&quot;userid&quot;, IntegerType, nullable = false),
+      StructField(&quot;itemid&quot;, IntegerType, nullable = false),
+      StructField(&quot;count&quot;, IntegerType, nullable = false),
+    ))
+
+    val orderRDD: RDD[Row] = spark.sparkContext.parallelize(Seq(
+      Row(100, 0 , 1),
+      Row(100, 1, 1),
+      Row(101, 2, 3),
+      Row(102, 2, 8),
+    ))
+
+
+    val itemDF = spark.createDataFrame(itemRDD, schemaItems)
+    val orderDF = spark.createDataFrame(orderRDD, schemaOrders)
+
+    itemDF.createTempView(&quot;items&quot;)
+    orderDF.createTempView(&quot;orders&quot;)
+
+    itemDF.show()
+
+    orderDF.show()
+//    itemDF.join(orderDF, &quot;itemDF.itemid == orderDF.itemid&quot;).show()
+
+    val x: DataFrame = spark.sql(
+      &quot;&quot;&quot;
+        |select  items.itemname, sum(1) as pv, sum(orders.count) as totalcount
+        |from items, orders
+        |where items.itemid = orders.itemid
+        |group by items.itemname
+        |&quot;&quot;&quot;.stripMargin)
+
+
+    x.explain()
+
+
+
+</code></pre>
+<pre><code>在控制台能看输出的结果： 其中explain的参数分为三类
+
+-- 无参数类型
+x.explain() //   等于 SimpleMode
+
+-- Boolean类型
+explain(mode=”simple”) which will display the physical plan
+x.explain(true)  //    开为true之后中， 会显示 物理plan+逻辑plan
+
+-- String类型： extended / codegen / cost / formatted 
+explain(mode=”extended”) which will display physical and logical plans (like “extended” option)
+explain(mode=”codegen”) which will display the java code planned to be executed
+explain(mode=”cost”)     打印出 逻辑计划和统计。 
+explain(mode=”formatted”)    分为两个section: 物理计划和节点
+</code></pre>
+<p><img src="img/spark-plan-sample.png" alt="spark-sample-physcial plan" loading="lazy"><br>
+<img src="https://staticor.github.io/post-images/1654158390793.png" alt="" loading="lazy"></p>
+<p>以<code>formatted</code>为例的输出</p>
+<pre><code>
+== Physical Plan ==
+AdaptiveSparkPlan (14)
++- HashAggregate (13)
+   +- Exchange (12)
+      +- HashAggregate (11)
+         +- Project (10)
+            +- SortMergeJoin Inner (9)
+               :- Sort (4)
+               :  +- Exchange (3)
+               :     +- Project (2)
+               :        +- Scan ExistingRDD (1)
+               +- Sort (8)
+                  +- Exchange (7)
+                     +- Project (6)
+                        +- Scan ExistingRDD (5)
+
+
+(1) Scan ExistingRDD
+Output [3]: [itemid#3, itemname#4, price#5]
+Arguments: [itemid#3, itemname#4, price#5], MapPartitionsRDD[2] at createDataFrame at MustKnowAboutQueryPlan.scala:44, ExistingRDD, UnknownPartitioning(0)
+
+(2) Project
+Output [2]: [itemid#3, itemname#4]
+Input [3]: [itemid#3, itemname#4, price#5]
+
+(3) Exchange
+Input [2]: [itemid#3, itemname#4]
+Arguments: hashpartitioning(itemid#3, 200), ENSURE_REQUIREMENTS, [id=#62]
+
+(4) Sort
+Input [2]: [itemid#3, itemname#4]
+Arguments: [itemid#3 ASC NULLS FIRST], false, 0
+
+(5) Scan ExistingRDD
+Output [3]: [userid#12, itemid#13, count#14]
+Arguments: [userid#12, itemid#13, count#14], MapPartitionsRDD[3] at createDataFrame at MustKnowAboutQueryPlan.scala:45, ExistingRDD, UnknownPartitioning(0)
+
+(6) Project
+Output [2]: [itemid#13, count#14]
+Input [3]: [userid#12, itemid#13, count#14]
+
+(7) Exchange
+Input [2]: [itemid#13, count#14]
+Arguments: hashpartitioning(itemid#13, 200), ENSURE_REQUIREMENTS, [id=#63]
+
+(8) Sort
+Input [2]: [itemid#13, count#14]
+Arguments: [itemid#13 ASC NULLS FIRST], false, 0
+
+(9) SortMergeJoin
+Left keys [1]: [itemid#3]
+Right keys [1]: [itemid#13]
+Join condition: None
+
+(10) Project
+Output [2]: [itemname#4, count#14]
+Input [4]: [itemid#3, itemname#4, itemid#13, count#14]
+
+(11) HashAggregate
+Input [2]: [itemname#4, count#14]
+Keys [1]: [itemname#4]
+Functions [2]: [partial_sum(1), partial_sum(count#14)]
+Aggregate Attributes [2]: [sum#51L, sum#52L]
+Results [3]: [itemname#4, sum#53L, sum#54L]
+
+(12) Exchange
+Input [3]: [itemname#4, sum#53L, sum#54L]
+Arguments: hashpartitioning(itemname#4, 200), ENSURE_REQUIREMENTS, [id=#70]
+
+(13) HashAggregate
+Input [3]: [itemname#4, sum#53L, sum#54L]
+Keys [1]: [itemname#4]
+Functions [2]: [sum(1), sum(count#14)]
+Aggregate Attributes [2]: [sum(1)#46L, sum(count#14)#47L]
+Results [3]: [itemname#4, sum(1)#46L AS pv#44L, sum(count#14)#47L AS totalcount#45L]
+
+(14) AdaptiveSparkPlan
+Output [3]: [itemname#4, pv#44L, totalcount#45L]
+Arguments: isFinalPlan=false
+
+
+
+Process finished with exit code 0
+
+</code></pre>
+<h1 id="spark-sql-解析器-parser">Spark SQL  解析器 - Parser</h1>
+<p>Spark使用 <code>ANTLR(Another Tool for  Language Recognition) 4</code> 进行语法的解析.</p>
+<p>关于ANTLR4,我还了解不多. 先加到TODO吧.</p>
+<p>这部分要重点看 Expressions.</p>
+<h1 id="logicalplan">LogicalPlan</h1>
+<p>逻辑计划在执行计划中是承前启后的作用,SparkSqlParser 中AstBuilder执行节点访问地,将语法树的Context节点转换成对应的LogicalPlan节点 , 生成一棵未解析的逻辑算子树(Unresolved LogicalPlan)</p>
+<p>第二阶段, 由Analyzer将一系列规则作用在这个Unresolved LogicalPlan上,对树节点绑定各种数据信息, 生成解析后的逻辑算子树 Analyzed LogicalPlan.</p>
+<p>第三阶段执行优化器 Optimizer.</p>
+<p>QueryPlan 是 LogicalPlan的父类, 主要操作分为6个模块: 输入输出,字符串,规划化,表达式操作,基本属性和约束.</p>
+<p>QueryPlan的方法,</p>
+<ul>
+<li>output   虚函数</li>
+<li>outputSet   封装output返回值, 返回AttributeSet</li>
+<li>inputSet, 节点输入是所有子节点的输出, 返回值也是 返回AttributeSet</li>
+<li>produceAttributes  该节点产生的属性;</li>
+<li>missingInput   该节点表达式涉及的, 但子节点输出不包含的属性</li>
+</ul>
+<h2 id="各阶段plan的角色">各阶段Plan的角色</h2>
+<h3 id="unresolved-logical-plan">Unresolved Logical Plan</h3>
+<ul>
+<li>syntactic field check</li>
+<li>语义分析， 生成第一版logical plan</li>
+</ul>
+<p>此时的plan 还不会下探到字段级别， 如下面所示。</p>
+<pre><code>== Parsed Logical Plan ==
+'Aggregate ['items.itemname], ['items.itemname, 'sum(1) AS pv#44, 'sum('orders.count) AS totalcount#45]
++- 'Filter ('items.itemid = 'orders.itemid)
+   +- 'Join Inner
+      :- 'UnresolvedRelation [items], [], false
+      +- 'UnresolvedRelation [orders], [], false
+
+</code></pre>
+<h3 id="analyzed-logical-plan">Analyzed Logical Plan</h3>
+<p>通过Spark Catalog获取Schema信息，包括字段的名称和类型，<br>
+参考下面， 会看到RDD的字段名称已经显示出来了。</p>
+<pre><code>== Analyzed Logical Plan ==
+itemname: string, pv: bigint, totalcount: bigint
+Aggregate [itemname#4], [itemname#4, sum(1) AS pv#44L, sum(count#14) AS totalcount#45L]
++- Filter ((itemid#3 = itemid#13) AND (price#5 &gt; cast(2 as double)))
+   +- Join Inner
+      :- SubqueryAlias items
+      :  +- View (`items`, [itemid#3,itemname#4,price#5])
+      :     +- LogicalRDD [itemid#3, itemname#4, price#5], false
+      +- SubqueryAlias orders
+         +- View (`orders`, [userid#12,itemid#13,count#14])
+            +- LogicalRDD [userid#12, itemid#13, count#14], false
+
+
+</code></pre>
+<h3 id="optimized-logical-plan">Optimized Logical Plan</h3>
+<p>？ Optimized的rule有哪些？ 待补充。</p>
+<p>观察Filter算子 在上一个Plan中出现在Join之前， Predicate Pushdown发生在这里。<br>
+优化之后，Filter算子下推到了Join内部的流程。</p>
+<pre><code>
+== Optimized Logical Plan ==
+Aggregate [itemname#4], [itemname#4, sum(1) AS pv#44L, sum(count#14) AS totalcount#45L]
++- Project [itemname#4, count#14]
+   +- Join Inner, (itemid#3 = itemid#13)
+      :- Project [itemid#3, itemname#4]
+      :  +- Filter (price#5 &gt; 2.0)
+      :     +- LogicalRDD [itemid#3, itemname#4, price#5], false
+      +- Project [itemid#13, count#14]
+         +- LogicalRDD [userid#12, itemid#13, count#14], false
+
+</code></pre>
+<h3 id="physical-plan">Physical Plan</h3>
+<pre><code>
+== Physical Plan ==
+AdaptiveSparkPlan isFinalPlan=false
++- HashAggregate(keys=[itemname#4], functions=[sum(1), sum(count#14)], output=[itemname#4, pv#44L, totalcount#45L])
+   +- Exchange hashpartitioning(itemname#4, 200), ENSURE_REQUIREMENTS, [id=#74]
+      +- HashAggregate(keys=[itemname#4], functions=[partial_sum(1), partial_sum(count#14)], output=[itemname#4, sum#53L, sum#54L])
+         +- Project [itemname#4, count#14]
+            +- SortMergeJoin [itemid#3], [itemid#13], Inner
+               :- Sort [itemid#3 ASC NULLS FIRST], false, 0
+               :  +- Exchange hashpartitioning(itemid#3, 200), ENSURE_REQUIREMENTS, [id=#66]
+               :     +- Project [itemid#3, itemname#4]
+               :        +- Filter (price#5 &gt; 2.0)
+               :           +- Scan ExistingRDD[itemid#3,itemname#4,price#5]
+               +- Sort [itemid#13 ASC NULLS FIRST], false, 0
+                  +- Exchange hashpartitioning(itemid#13, 200), ENSURE_REQUIREMENTS, [id=#67]
+                     +- Project [itemid#13, count#14]
+                        +- Scan ExistingRDD[userid#12,itemid#13,count#14]
+
+</code></pre>
+<h2 id="aqeadaptive-query-execution">AQE(Adaptive  Query  Execution )</h2>
+<p>在上面的计划执行过程中有一行，显示了  <code>AdaptiveSparkPlan isFinalPlan=false</code></p>
+<p>默认情况 AQE是关闭的</p>
+<p>参考文章：</p>
+<p><a href="https://medium.com/datalex/sparks-logical-and-physical-plans-when-why-how-and-beyond-8cd1947b605a#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ4NmYxNjQ4MjAwNWEyY2RhZjI2ZDkyMTQwMThkMDI5Y2E0NmZiNTYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2NTMwMDgwNzksImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMDEzNTIzMTM4MjkyMDI4Mjc1NiIsImVtYWlsIjoic3RhdGljb3IwODI4QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJuYW1lIjoiWW9uZyBKaW4iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2h1dHRoa3NxeXJ2T2l0bmRhRUl5dG9EQUEwQWhPSDJNNHYySHpiRHk4PXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IllvbmciLCJmYW1pbHlfbmFtZSI6IkppbiIsImlhdCI6MTY1MzAwODM3OSwiZXhwIjoxNjUzMDExOTc5LCJqdGkiOiI4OGI4Y2NlYzM5MDY0NjZiODM3ZTNlYzU2Yjg3MjljNjY1YzVkMTEyIn0.kiIFufiqz6oYVtO5IK9gLDGgzrbJzrXgMrdJbg3mzC0od-XSf43tcwVTvI5dE1u71WaqEYkNXCuL5oMdrCjy34_216zrZCJjwa-j96OZfjXtQIVkVNOg5beWkR74oNV-iM3ZWS9mI84seC12IxWdDTrvZkpcHBHDHpeFaHv5ZerWNvbTayGf4YHT9vbkDo2uAqw5kohyILaRF-47XiIbMX83aylxy_XckxxGANY3SJf8aFH6FkWtrfawPIdr6Ja7G7XfRnsvfXmXoJE10hVw5w7fdTNTM_g8iS4gL4j-4jgMI2JPwefSL6tcoM8gkANH-mrE8E8323D8-Bt-meQPCw">Laurent  Leturgez - medium</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/dui-bi-xue-xi-big-dataer-shu-ju-qing-xie/" class="post-title gt-a-link">
+                    对比学习--Big Data（二）数据倾斜
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

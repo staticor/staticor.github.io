@@ -1,0 +1,334 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Java的GC | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Java的GC
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-05-29 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/mA96HGnuT/" class="post-tags">
+                            # jvm
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/uVyPsHAfy_/" class="post-tags">
+                            # java
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>不断更新， 预计还需要1个月完成。</p>
+<h1 id="java-gc概念">Java GC概念</h1>
+<pre><code>什么是垃圾？ 
+</code></pre>
+<p>在程序运行中，没有任何指针（引用）指向的对象。</p>
+<blockquote>
+<p>An object is considered garbage when it can no longer be reached from any pointer in the running program.</p>
+</blockquote>
+<pre><code>为什么需要GC？
+</code></pre>
+<p>一个基本认知，是如何不进行GC，内存尽早被消耗殆尽。<br>
+如果不及时清理，这些垃圾对象占用的内存空间会一直保留到应用程序结束，被保留的空间无法被其他对象使用，而且会产生大量的不连续内存空间，影响大对象的存储，甚至导致内存溢出。</p>
+<p>表示数据已不可见，对用户没有价值。</p>
+<pre><code>什么时机GC？
+
+
+
+
+怎样GC？   标记 + 清理。 
+</code></pre>
+<p>早期在C、C++时代， GC是人工进行的，开发人员使用new进行内存申请，使用Delete关键字内存释放。<br>
+虽然灵活，但频繁操作带来管理负担。</p>
+<p>新语言的出现，发现了这个问题，因此提出了自动化内存分配和GC的理念，目前多数新语言都是采用自动化GC。</p>
+<p>在有了自动GC机制后（如Java），开发人员可以解释了手脚，专注于开发核心流程，而减少对GC的关注。</p>
+<pre><code>识别垃圾的方法： 引用计数与可达性分析
+</code></pre>
+<ul>
+<li>引用计数。<br>
+一个对象A被引用了，它的计数器加个1，当引用失效就减1，当它的计数器为零时，表示这个对象A就是垃圾了。<br>
+优点：实现简单，便于标识，判定效率高，回收没有延迟性。<br>
+缺点：需要单独的字段存储计数器，占用存储空间；时间开销，每次引用变化的维护。<br>
+最为严重的缺点，无法解决循环引用的GC场景，这是一条致命缺陷，导致在Java中没有使用这种方法。</li>
+</ul>
+<p>（Python用引用计数法， 使用弱引用。）</p>
+<ul>
+<li>可达性分析（GC Roots）<br>
+Java，C# 使用。</li>
+</ul>
+<p>GC Roots 根集合是一组活跃的引用对象，由它出发直接或间接访问到的对象就不是垃圾。<br>
+也称作追踪性垃圾回收（Tracing Garbage Collection）</p>
+<ol>
+<li>
+<p>虚拟机栈中引用的对象引用</p>
+</li>
+<li>
+<p>本地方法栈内JNI引用对象引用</p>
+</li>
+<li>
+<p>方法区中静态属性引用的对象引用</p>
+</li>
+<li>
+<p>方法区中常量引用的对象引用</p>
+</li>
+<li>
+<p>所有被同步锁持有的对象引用</p>
+</li>
+<li>
+<p>虚拟机内部的引用</p>
+<p>有哪几种GC算法</p>
+</li>
+</ol>
+<ul>
+<li>Mark-Sweep （标记清除算法）</li>
+</ul>
+<p>1960年， J. McCarthy提出，应用于Lisp语言。</p>
+<p>堆中有效内存空间（available memory)被耗尽时，会停止整个程序（STW）。<br>
+进行两项工作，标记，清除。<br>
+标记： 从引用根节点（Root）开始遍历，标记所有被引用对象， 在对象的Header记录为可达对象。<br>
+清除： Collector 对堆内存从头到尾线性扫描，发现没有标记可达，则视作为垃圾。 并不是真清空，而是把对象地址保存在空闲的地址列表里。  下次有新对象需要加载时，判断垃圾的空间是否足够，如果足够，就直接覆盖。</p>
+<p>缺点， 两次对全局对象的全遍历效率不高； 有STW，影响正常的工作流程；<br>
+以及比较大的问题（第三点） —— 产生不连续的内存空间（碎片），影响后续对象的分配。<br>
+需要维护一个空闲列表。</p>
+<ul>
+<li>Copy （复制算法）</li>
+</ul>
+<p>在内存开辟A区和B区，在A区标记为正常对象和垃圾对象，将正常对象都复制到B区。</p>
+<p>优点和缺点比较明显： 用空间换时间的理念，换来的是运行高效，复制过去也能保证空间连续性。</p>
+<p><code>局限性</code> 系统中垃圾对象很多，复制算法需要复制的存活对象不能太多</p>
+<p>在分代Young-old中的S1和S0就是采用的这个方法。</p>
+<ul>
+<li>Mark-Compact（标记-整理算法，标记-压缩算法）</li>
+</ul>
+<p>第一阶段和Mark-Sweep相同。<br>
+第二阶段（Compact）， 将所有存活对象压缩到内存的一端，按顺序排放。 之后清理边界外所有空间，腾挪出所有空间。</p>
+<p>和MS区别， MS是一种非移动式的回收算法。<br>
+MC是移动式的，效率要比MS低。 移动过程中也会STW。</p>
+<h1 id="systemgc-vs-runtimegc-vs-systemrunfinalization">System.gc()  vs Runtime.gc() vs System.runFinalization</h1>
+<pre><code>System.gc() 
+</code></pre>
+<p>首先看下System.gc方法的源码声明：</p>
+<blockquote>
+<p>Runs the garbage collector.<br>
+Calling the gc method suggests that the Java Virtual Machine expend effort toward recycling unused objects in order to make the memory they currently occupy available for quick reuse. When control returns from the method call, the Java Virtual Machine has made a best effort to reclaim space from all discarded objects.<br>
+The call System.gc() is effectively equivalent to the call:<br>
+Runtime.getRuntime().gc()<br>
+See Also: Runtime.gc()</p>
+</blockquote>
+<p>**建议（提醒）**JVM调用gc方法，以回收垃圾对象。</p>
+<p>这里的&quot;suggest&quot; 有一些传神，因为方法不确定是否马上执行gc。</p>
+<pre><code>System.runFinalization
+</code></pre>
+<p>强制执行对象的finalize()方法</p>
+<h2 id="java中的garbage-collector回收器">Java中的Garbage Collector（回收器）</h2>
+<pre><code>按线程数分，可分为串行垃圾回收器和并行垃圾回收器。 
+</code></pre>
+<p>串行，同一时间段只允许有一个CPU用于执行GC，此时STW，直到GC结束。<br>
+与串行相反， 并行GC运用多个CPU同时执行GC，提升应用的吞吐量，不过并行与串行回收一样，采用独占式，使用STW机制。</p>
+<p>GC的迭代过程，<br>
+1999年， JDK1.3.1 Serial GC 串行，第一款GC；  ParNew 是其多线程版本<br>
+2002年， JDK1.4.2, 推出Parallel GC和 CMS（Concurrent Mark Sweep GC）.   在JDK6之后， Parallel GC成为HotSpot默认GC<br>
+2012年， JDK1.7u4， G1推出<br>
+2017年， JDK9中 G1成为默认GC<br>
+2018年，JDK11， 引入 Epsilon GC （No-op  无操作）， 同时引入ZGC<br>
+2019年， JDK12 优化G1， 引入 Shenandoah GC<br>
+2019年， JDK13发布，增强ZGC<br>
+2020年，JDK14， 删除CMS，扩展ZGC</p>
+<p>七款经典回收器：</p>
+<p>串行回收： Serial ， Serial Old<br>
+并行： ParNew， Parallel Scavenge， Parallel Old<br>
+并发： CMS，  G1</p>
+<p>按代际划分：</p>
+<p>新生代： Serial， ParNew，  PS<br>
+老年代：Serial Old， Parallel Old， CMS<br>
+整体： G1</p>
+<pre><code>垃圾收集器的组合
+</code></pre>
+<p>JVM堆空间分代，不同代有各自的回收器。</p>
+<p>老年代来说： Serial Old   都能组合；<br>
+Parallel Old 只能和PS；  CMS 不能要PS</p>
+<p><img src="img/javagc.png" alt="" loading="lazy"><br>
+（JDK10  CMS 删除）<br>
+(JDK 14版 弃用了上面的红线；  绿线标记为Deprecated)</p>
+<p>G1, 既能回收新生代，也能回收老年代。<br>
+如果是目前的视角， 七种经典回收器的可用组合就是3种了</p>
+<ul>
+<li>Serial GC + Serial Old</li>
+<li>PS + Parallel Old</li>
+<li>G1</li>
+</ul>
+<hr>
+<h1 id="回头看对象的引用">回头看对象的引用</h1>
+<pre><code>强引用，软引用，弱引用，虚引用有什么区别？（Strong/Soft/Weak/Phantom  Reference)
+</code></pre>
+<p>强软弱虚 4种引用强度依次递减的引用类型。</p>
+<p>除强引用， 剩余三种在java.lang.ref包。</p>
+<ul>
+<li>new对象产生的引用对象便是强引用。 关键字： 宁肯OOM也不回收。</li>
+<li>软引用，内存溢出之前，将这弱引用对象进行二次回收。  关键字，内存不够时，回收。</li>
+<li>弱引用，不管内存够不够，只要发现弱引用，就回收。</li>
+<li>虚引用， 唯一目的是在这个对象被gc时收到一个系统通知。</li>
+</ul>
+<p>应用场景，大多数情况我们使用的都是强引用，在使用缓存时会用软引用和弱引用。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/resilient-distributed-datasets-a-fault-tolerant-abstraction-for-in-memory-cluster-computing/" class="post-title gt-a-link">
+                    [Paper]Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

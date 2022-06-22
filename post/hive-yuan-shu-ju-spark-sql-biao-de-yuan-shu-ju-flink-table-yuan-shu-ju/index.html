@@ -1,0 +1,251 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Hive元数据, Spark SQL表的元数据,Flink Table 元数据 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Hive元数据, Spark SQL表的元数据,Flink Table 元数据
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-26 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/gi2kec0O6/" class="post-tags">
+                            # flink
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/MTigWmiSP/" class="post-tags">
+                            # hive
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="hive">Hive</h1>
+<p>Hive的元数据配置信息在 <code>conf/hive-site.xml</code> 中,  key值为:</p>
+<ul>
+<li>javax.jdo.option.ConnectionURL ,    这里我会一般用Mysql地址</li>
+<li>javax.jdo.option.ConnectionDriverName,   如果是MySQL对应的驱动连接器</li>
+<li>javax.jdo.option.ConnectionUserName</li>
+<li>
+<ul>
+<li>javax.jdo.option.ConnectionPassword</li>
+</ul>
+</li>
+</ul>
+<p>除了数据库连接外, 还要修改几个log存放的位置</p>
+<ul>
+<li>hive.querylog.location            查询过程时的本地log文件存放目录</li>
+<li>hive.exec.local.scratchdir          Local scratch space for hive jobs</li>
+<li>hive.downloaded.resources.dir      临时本地目录</li>
+</ul>
+<pre><code class="language-xml">-- 数据库地址
+   &lt;value&gt;jdbc:mysql://127.0.0.1:3306/hive_metastore?createDatabaseIfNotExist=true&amp;amp;useSSL=false&lt;/value&gt;
+
+-- 数据库连接器的reference
+   &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+
+</code></pre>
+<h2 id="hive元数据-表er关系mysql">Hive元数据 表ER关系(MySQL)</h2>
+<figure data-type="image" tabindex="1"><img src="img/hive-metastore.png" alt="" loading="lazy"></figure>
+<p>(由MySQL Workbench 逆向生成)</p>
+<p>核心表: DBS, TBLS,COLS, PARTITIONS</p>
+<h3 id="dbs">DBS</h3>
+<p>数据库表, 一个库对应一行DB_ID, 相应的数据库属性信息外连到  <code>DATABASE_PARAMS</code> 表 (dbid + k + v 三元组).</p>
+<h3 id="tbls">TBLS</h3>
+<p>TBLS,  表名称和基础信息在这个表,  核心字段</p>
+<pre><code class="language-sql">
+CREATE TABLE `TBLS` (
+  `TBL_ID` bigint NOT NULL,    表唯一ID
+  `CREATE_TIME` int NOT NULL,
+  `DB_ID` bigint DEFAULT NULL,       关联数据库ID
+  `LAST_ACCESS_TIME` int NOT NULL,
+  `OWNER` varchar(767) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
+  `RETENTION` int NOT NULL,
+  `SD_ID` bigint DEFAULT NULL,              序列化与反序列化ID
+  `TBL_NAME` varchar(256) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
+  `TBL_TYPE` varchar(128) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
+  `VIEW_EXPANDED_TEXT` mediumtext,
+  `VIEW_ORIGINAL_TEXT` mediumtext,
+  `IS_REWRITE_ENABLED` bit(1) NOT NULL,
+  PRIMARY KEY (`TBL_ID`),
+  UNIQUE KEY `UNIQUETABLE` (`TBL_NAME`,`DB_ID`),
+  KEY `TBLS_N50` (`SD_ID`),
+  KEY `TBLS_N49` (`DB_ID`),
+  CONSTRAINT `TBLS_FK1` FOREIGN KEY (`SD_ID`) REFERENCES `SDS` (`SD_ID`),
+  CONSTRAINT `TBLS_FK2` FOREIGN KEY (`DB_ID`) REFERENCES `DBS` (`DB_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+</code></pre>
+<p>表类型一共有这几种: <code> MANAGED_TABLE, EXTERNAL_TABLE, INDEX_TABLE, VIRTUAL_VIEW</code></p>
+<p>表的附加信息有 <code>TABLE_PARAMS </code>   <code>TBL_PRIVS </code></p>
+<h3 id="分区有关的表-partitions-partition_keys-partition_key_vals-partition_params">分区有关的表: PARTITIONS, PARTITION_KEYS,  PARTITION_KEY_VALS, PARTITION_PARAMS</h3>
+<p><code>PART_ID </code> 表示一个分区,  它关联<code>SD_ID,   TBL_ID</code></p>
+<p>PARTITION表 存放了分区ID, 存有 SD_ID和TBL_ID</p>
+<h3 id="列相关的表-columns_v2">列相关的表  COLUMNS_V2</h3>
+<p>列明细表</p>
+<h3 id="存储有关的表-sds-sd_params-serdes-serde_params">存储有关的表:  SDS, SD_PARAMS, SERDES, SERDE_PARAMS</h3>
+<p><code>SD_ID</code>  不是 <code>SERDE_ID </code>  缩写, 而是指存储信息</p>
+<p>SDS是存储的主表,包含了数据文件输入和输出格式,所在HDFS路径, 有没有压缩, 分桶数量<br>
+<code>INPUT_FORMAT, OUTPUT_FORMAT, LOCATION, IS_COMPRESSED, NUM_BUCKETS</code><br>
+<code>SD_PARAMS</code> 是存储的附加信息表, 比如在建表时指定了 <code>STORED BY storage.handler.class.name WITH  SERDEPROPERTIES ...</code>  就会产生对应的记录.</p>
+<p>在SDS中表外键 <code>SERDE_ID</code>  关联 SERDES表 ---- 存储序列化使用的类信息, 比如常用的:<br>
+org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe  这个类</p>
+<p><code>SERDE_PARAM</code>  存储列分隔符,列分隔符, 如 field.delim</p>
+<h3 id="funcs-函数表">FUNCS 函数表</h3>
+<p>执行show functions</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

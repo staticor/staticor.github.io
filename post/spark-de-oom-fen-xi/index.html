@@ -1,0 +1,234 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spark的OOM分析 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Spark的OOM分析
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-31 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>若作业提交时以yarn-client模式提交，Driver运行时的JVM参数是spark在spark-env.sh 配置文件中读取，因此在spark-env.sh中加入配置：SPARK_DRIVER_MEMORY=2G</p>
+<p>作业在每个worker上运行时报错：Exception in thread &quot;main&quot; java.lang.OutOfMemoryError: Java heap space</p>
+<p>此时需要配置每个worker运行的MEMORY参数，在spark-env.sh中配置：</p>
+<p>export SPARK_WORKER_MEMORY=4g</p>
+<p>export SPARK_WORKER_CORES=4</p>
+<pre><code class="language-scala">scala&gt; val ds1 = spark.range(1, 100000)
+ds1: org.apache.spark.sql.Dataset[Long] = [id: bigint]
+
+scala&gt; val ds2 = spark.range(1, 100000, 2)
+ds2: org.apache.spark.sql.Dataset[Long] = [id: bigint]
+
+scala&gt; val ds3 = ds1.repartition(7) 
+ds3: org.apache.spark.sql.Dataset[Long] = [id: bigint]
+
+scala&gt; val ds4 = ds2.repartition(12)
+ds4: org.apache.spark.sql.Dataset[Long] = [id: bigint]
+
+scala&gt; val ds5 = ds3.selectExpr(&quot; id * 5 as id&quot;) 
+ds5: org.apache.spark.sql.DataFrame = [id: bigint]
+
+scala&gt; val joined =  ds5.join(ds4, &quot;id&quot;) 
+joined: org.apache.spark.sql.DataFrame = [id: bigint]
+
+scala&gt; val sum = joined.selectExpr(&quot; sum(id)  as result&quot;)
+sum: org.apache.spark.sql.DataFrame = [result: bigint]
+
+scala&gt; sum.show()
++---------+
+|   result|
++---------+
+|500000000|
+
+</code></pre>
+<p>如果放大上面的数据,就会产生OOM.</p>
+<pre><code class="language-scala">
+
+scala&gt; val ds1 = spark.range(1, 10000000)
+ds1: org.apache.spark.sql.Dataset[Long] = [id: bigint]
+
+scala&gt; val ds2 = spark.range(1, 10000000, 2)
+ds2: org.apache.spark.sql.Dataset[Long] = [id: bigint]
+
+scala&gt; val ds3 = ds1.repartition(7) 
+ds3: org.apache.spark.sql.Dataset[Long] = [id: bigint]
+
+scala&gt; val ds4 = ds2.repartition(12)
+ds4: org.apache.spark.sql.Dataset[Long] = [id: bigint]
+
+scala&gt; val ds5 = ds3.selectExpr(&quot; id * 5 as id&quot;) 
+ds5: org.apache.spark.sql.DataFrame = [id: bigint]
+
+scala&gt; val joined =  ds5.join(ds4, &quot;id&quot;) 
+joined: org.apache.spark.sql.DataFrame = [id: bigint]
+
+scala&gt; val sum = joined.selectExpr(&quot; sum(id)  as result&quot;)
+sum: org.apache.spark.sql.DataFrame = [result: bigint]
+
+scala&gt; sum.show() ; 
+
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/paper-the-google-file-system-gfs/" class="post-title gt-a-link">
+                    [Paper]  GFS， BigTable
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

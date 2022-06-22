@@ -1,0 +1,292 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spark   Tuning | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Spark   Tuning
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-05-05 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/mA96HGnuT/" class="post-tags">
+                            # jvm
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>文章主题， Spark调优。</p>
+<p>Spark 任务要避免成为集群的运转负担，包括不合理的占用CPU、带宽和内存资源。</p>
+<h1 id="官方的tuning文档">官方的Tuning文档</h1>
+<p><a href="https://spark.apache.org/docs/latest/tuning.html#memory-management-overview">Tuning Spark</a> 文档介绍了调优的三个思路：</p>
+<ul>
+<li>Data Serialization  数据序列化</li>
+<li>Memory Tuning 内存调优</li>
+<li>其它考量</li>
+</ul>
+<h2 id="数据序列化">数据序列化</h2>
+<p>分布计算中数据的序列化非常重要.</p>
+<ul>
+<li>Java Serialzation, 自定义类需要继承 <code>java.io.Serializable</code> 要有public的构造方法, 所有属性是public, POJO 类.</li>
+<li>Kryo Serialization, 支持的范围比 Java Serialization 少, 但能支持的场景性能要高.</li>
+</ul>
+<p>设置时机是在SparkConf环节： <code>conf.set(&quot;spark.serializer&quot;,&quot;org.apache.spark.serializer.KryoSerializer&quot;)</code></p>
+<p>在Spark2.0.0 之后， 使用Kryo对简单数据类型进行序列化。</p>
+<h2 id="内存优化">内存优化</h2>
+<p>一直以为，笔者是很少关注内存的优化细节，一般用的都是别人提供的参考参数列表，对一半以上参数的调参方式也不太了解。  当出现调优的工作需求时，往往就要被动学习了。</p>
+<p>内存使用的优化要考虑哪些问题?</p>
+<pre><code>你的对象占用多大的内存空间, 能否将dataset全部加载到内存中? 
+
+访问这些对象的开销是什么
+
+GC(垃圾回收)的消耗
+</code></pre>
+<p>Java对象的特点,  每个Java对象都拥有自己专属的`对象头信息 , 大约16个byte, 包括 mark world (锁, hashcode), klass pointer 指向自己的类指针, 对于特别小的object, 这个对象头可能比Instance data的尺寸还大.</p>
+<p>Java String有额外的40bytes大小,要存储 String作为一个char数组的额外信息(长度,编码等). 例子,一个10个character的字符串,实际占用的空间可能至少要60bytes.</p>
+<p>一般集合对象(Hashmap, LinkedList等),会对存储元素进行装饰(比如 Map.Entry), 每个对象除了对象头信息,还有指向下一个对象的指针.</p>
+<p>存储原子类型的集合,会存储它们的装箱类(int - &gt; java.lang.Integer)</p>
+<h3 id="spark内存管理">Spark内存管理</h3>
+<p>Spark将内存划分为两类, <code>execution执行区</code>  和 <code>storage存储区</code>, 执行区内存用来Shuffle, Join, Sort和Aggregation, 存储区用于缓存\ 集群间的对象传递.<br>
+在Spark1.6之后使用统一内存管理模型，废弃了老版的静态内存管理机制, 使用统一内存管理, 即 执行+存储共用一片区域, 称为 &quot;M&quot;  <a href="https://spark.apache.org/docs/latest/tuning.html#memory-management-overview">Spark官方文档-Tuning Spark</a></p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654158480463.png" alt="" loading="lazy"></figure>
+<p>保留内存占用300MB， 余下的空间 ：</p>
+<ul>
+<li>Execution Memory + StorageMory 是干活和存储内存， 共占用空间是  <code>spark.memory.fraction</code>    默认值0.6。
+<ul>
+<li>Storage  的占比由 另一个参数  <code>spark.memory.storageFraction</code>控制  默认值0.5</li>
+</ul>
+</li>
+<li>User Memory ,    占用空间是 【1 -  spark.memory.fraction】</li>
+</ul>
+<p>所谓的内存管理主要是关注的上面的 Execution内存和Storage内存。</p>
+<p>Execution内存正是用于处理shuffle，join，sorts和aggregation过程。<br>
+Storage内存是用于数据缓存。</p>
+<p>二者是能互相占用的，这也是统一内存管理的统一（Unified）所指：</p>
+<ul>
+<li>M： execution  + storage 的region， 即上面的 0.6 控制的空间。</li>
+<li>R：  execution 当storage memo 不够时会匀一部分给到Storage， 这个阈值由上面的storageFraction 控制。  即R表示 Storage最少占用的比例。</li>
+</ul>
+<p>设置建议， <code>spark.memory.fraction </code>应与JVM堆空间的老年代保持一致。</p>
+<h2 id="内存优化的思路">内存优化的思路</h2>
+<ol>
+<li>
+<p>data structures</p>
+<ol>
+<li>Design阶段，避免 嵌套型数据结构， 尽可能使用 numeric IDs 替换字符串key</li>
+<li>JVM参数， -XX:+UseCompressedOops</li>
+</ol>
+</li>
+<li>
+<p>Serialized RDD存储   RDD StorageLevel</p>
+</li>
+<li>
+<p>GC调优</p>
+<ol>
+<li>-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps to the Java options.</li>
+<li>HeapSize调整</li>
+<li>GC collector设置， 如
+<ol>
+<li>G1，  -XX:+UseG1GC,    -XX:G1HeapRegionSize</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>The Young generation is further divided into three regions [Eden, Survivor1, Survivor2].</p>
+<pre><code>YARN的参数优化
+</code></pre>
+<p>YARN控制集群整体的计算资源，对于Spark任务来说，它对集群的资源依赖就是«核数， 内存»。 有下面3对6个参数：</p>
+<pre><code>yarn.nodemanager.resource.memory-mb  为每个node分配的容器内存，上限是该节点的总内存
+yarn.scheduler.maximum-allocation-mb   不同scheduer处理时动态处理后的最小最大要求
+yarn.scheduler.minimum-allocation-mb
+
+yarn.nodemanager.resource.cpu-vcores     单个节点获得的核数
+yarn.scheduler.maximum-allocation-vcores
+yarn.scheduler.minimum-allocation-vcores
+</code></pre>
+<h2 id="其它优化思路">其它优化思路</h2>
+<pre><code>任务的并行化
+</code></pre>
+<p>关注参数， <code>spark.default.parallelism</code></p>
+<p>官方推荐， 每个CPU core 执行并行执行2-3个任务。</p>
+<blockquote>
+<p><a href="https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html">spark.PairRDDFunction</a></p>
+</blockquote>
+<pre><code>Reduce过程的内存使用
+</code></pre>
+<p>多数情况下，我们遇到的OOM都是发生在Reduce阶段。<br>
+典型例子， 在使用 <code>groupByKey</code> 时，有大批量的数据在Shuffle阶段， 需要为每个task准备一个大的HashTable， 以执行数据的分组装配，通常这个HashTable会占用较多的空间，OOM也多发现在与这个大数据结构中。</p>
+<pre><code>大空间的广播变量 与 数据本地化
+
+
+
+
+
+Spark  SQL  Tuning 
+</code></pre>
+<p>https://spark.apache.org/docs/latest/sql-performance-tuning.html</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/data-modeling/" class="post-title gt-a-link">
+                    0521-Data Modeling (一）数据建模的三个阶段
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

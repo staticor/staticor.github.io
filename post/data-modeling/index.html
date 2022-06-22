@@ -1,0 +1,212 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>0521-Data Modeling (一）数据建模的三个阶段 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    0521-Data Modeling (一）数据建模的三个阶段
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-05-04 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/_DeA0FdqU/" class="post-tags">
+                            # modeling
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/6ykOqkgld/" class="post-tags">
+                            # 数据仓库
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>文章主题， Data Modeling</p>
+<p>Data Modeling (数据建模）的阶段</p>
+<ul>
+<li>概念模型</li>
+<li>逻辑模型</li>
+<li>物理模型</li>
+</ul>
+<p>这三个阶段与Hive/Spark 对于SQL语句的Explain过程如出一辙。</p>
+<h1 id="概念模型-conceptual-data-model">概念模型 ( Conceptual data model)</h1>
+<p>这个过程也可以被称作是领域数据模型，通过收集初步的项目需求，明确要覆盖的实体范围（entity class space)</p>
+<p>笔者认为，这个过程中“实体边界” (the border of entities)是一个非常非常重要的标志。</p>
+<figure data-type="image" tabindex="1"><img src="https://1.cms.s81c.com/sites/default/files/2021-01-06/ICLH_Diagram_Batch_01_07-ConceptualDataModel-WHITEBG.png" alt="" loading="lazy"></figure>
+<p>典型的实体：</p>
+<ul>
+<li>user</li>
+<li>product</li>
+<li>shop(store)</li>
+</ul>
+<p>以画素描为例， 这是一个sketch阶段 - 数据框架必须要这个阶段中定义清晰。</p>
+<h1 id="逻辑模型-logical-data-model">逻辑模型 ( Logical data model)</h1>
+<p>较概念模型来说， 逻辑模型将下探到字段 field级别。</p>
+<p>在这一过程中，不会讲究具体要用哪种技术来实现，而要在意实体关系用什么方式过滤、连接，以得到最终的结果。</p>
+<figure data-type="image" tabindex="2"><img src="https://1.cms.s81c.com/sites/default/files/2021-01-06/ICLH_Diagram_Batch_01_08-LogicalDataModel-WHITEBG.png" alt="" loading="lazy"></figure>
+<p>核心区别， 字段级别的连接。 而在概念模型中，最多是体现表与表的关系。</p>
+<p>这个过程应该要输出若干个业务指标，构建出一个简版的metrics roadmap.</p>
+<h1 id="物理模型-physical-data-model">物理模型 ( Physical data model)</h1>
+<p>最终物理模型基本到了数据仓库地图的蓝图状态了，往往是数据仓库名，字段名，字段类型的ER表现。</p>
+<figure data-type="image" tabindex="3"><img src="https://1.cms.s81c.com/sites/default/files/2021-01-06/ICLH_Diagram_Batch_01_06-PhysicalDataModel-WHITEBG.png" alt="" loading="lazy"></figure>
+<h1 id="参考文章">参考文章</h1>
+<p><a href="https://www.ibm.com/cloud/learn/data-modeling">ibm-learning-data-modeling</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/MySQL-stuff/" class="post-title gt-a-link">
+                    MySQL要知道的知识
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

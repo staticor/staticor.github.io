@@ -1,0 +1,265 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spark SQL Catalyst | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Spark SQL Catalyst
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-27 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>A Deep Dive into Spark SQL Catalyst Optimizer</p>
+<p>Spark的应用层, ML, GraphFrames 和StructuredStreaming对外的高级应用, 较RDD来说Spark SQL提供了一系列高级API: sql语法和DSL.<br>
+Spark SQL:  SQL layer, DataFrame/Dataset, 由Catalyst 支撑, 并串联Spark Core(RDD)编程模型</p>
+<p>所以SparkSQL中 Catalyst具有非常重要的地位.</p>
+<pre><code class="language-scala">val df = data.groupBy(&quot;dept&quot;).avg(&quot;ag&quot;)
+
+spark.sql( &quot;select dept, avg(age) from data group by 1 &quot;)
+
+</code></pre>
+<blockquote>
+<p>DSL 与Pandas的语法非常像.</p>
+</blockquote>
+<p>SQL/DSL  称为 Structure API.  特点是开发容易,学习门槛低,而且关键是性能比RDD快75% .<br>
+局限性,有一定的表达范式, 但大多数计算场景,都是可以满足和覆盖的.</p>
+<pre><code>为什么 Spark SQL优化过后比RDD还快? 
+</code></pre>
+<p>解密Catalyst, Spark SQL的优化器</p>
+<figure data-type="image" tabindex="1"><img src="img/catalyst-do.png" alt="" loading="lazy"></figure>
+<p>工作流程:</p>
+<ul>
+<li>
+<p>Parser, 使用ANTLR 4 将 SQL字符串解析为抽象语法树AST, 最终输出 unresolved logical plan (ULP)</p>
+</li>
+<li>
+<p>Analyzer, 借助catalog将ULP进一步解析为Logical Plan (LP)</p>
+</li>
+<li>
+<p>Optimizer 根据一些优化策略(RBO, CBO)得到 optimized logical plan (OLP), 主要是针对LP进行剪枝,合并,进而删除一些无用计算,或合并一些计算.</p>
+</li>
+<li>
+<p>SparkPlanner, 生成物理计划及执行  (OLP仍是逻辑的, 要将OLP转变为Physical Plan)</p>
+</li>
+<li>
+<p>Code generation, 形成最终的字节码, RDD的执行DAG.</p>
+</li>
+</ul>
+<p>(TODO: 怎么的优化, 怎么的剪枝和合并, 需要细探入 CBO)</p>
+<h1 id="trees-用户程序的抽象表达">Trees,  用户程序的抽象表达</h1>
+<p>比如用户提交了一个sql,<br>
+<img src="img/sql-ex-1.png" alt="" loading="lazy"></p>
+<p>这个sql当中存在5个表达式 :<br>
+<img src="img/sql-ex-2.png" alt="" loading="lazy"></p>
+<p>词法层面,</p>
+<ul>
+<li>Expressions:  每个表达式表示一个新值,基于输入数据计算而来</li>
+<li>Attributes: 每个dataset中的field 或者 as别名产生的新属性</li>
+</ul>
+<p>语法层面,对于数据的操作算子,则可以抽象出一棵这样的树: 每个node表示一种数据算子</p>
+<figure data-type="image" tabindex="2"><img src="img/catalyst-step-1.png" alt="" loading="lazy"></figure>
+<p>这个层面是逻辑计划(Logical Plan), 不会涉及到如何完成计算的实现.</p>
+<p>Logical Plan的output是若干个 attribute组成的列表, 比如某个节点输出 <code>[id, v]</code></p>
+<p>Unresolved LogicalPlan 基本上涵盖了SQL要做的骨干动作.</p>
+<p>Physical Plan 也是一棵树, 描述了数据集上要执行哪些计算., Physical是可执行的, 和具体的类是对应的.</p>
+<figure data-type="image" tabindex="3"><img src="img/logicalplan-1.png" alt="" loading="lazy"></figure>
+<h1 id="transformations">Transformations</h1>
+<p>Transform  是一种定义在dataset上的偏函数, 即只会作用dataset的一部分数据(subset),而非全局使用.</p>
+<pre><code class="language-scala">
+val expression: Expression = ...
+
+expression.transform {
+   case Add(Literal(x, IntegerType), Literal(y, IntegerType)) =&gt;
+           Literal(x + y)
+}
+</code></pre>
+<p>Catalyst 对树的变换操作分为两个类, 第一类变换是不改变树的类型, 原来是什么,变换之后还是什么;</p>
+<ul>
+<li>Expression =&gt; Expression</li>
+<li>Logical Plan =&gt; Plogical Plan</li>
+<li>Physical Plan =&gt; Physical Plan</li>
+</ul>
+<p>第二类是改变类型的, 例如将一棵LogicalPlan树转变为Physical Plan</p>
+<p>如 <code>object BasicOperators extends Strategy </code></p>
+<p>sparkSQL将字符串切分成一个一个token,根据语义规则解析为一个抽象语法树.  和Hive,Presto一样,Spark SQL也采用 ANTLR 完成解析.<br>
+比如 <code> 1 + 2 + score.math_score</code> 这个表达式我们是怎么分析的.</p>
+<h1 id="analyzer">Analyzer</h1>
+<p>Analyzer 会再次遍历整个AST,对树上的每个节点进行<code>数据类型绑定</code>和<code>函数绑定</code></p>
+<p>从catalog中获取元数据信息,表信息\字段. ULP 基础 + 元数据  = LP<br>
+<img src="img/parser3.png" alt="" loading="lazy"></p>
+<p>Catalog, dataset column schema ...<br>
+这一步使用 Rule Executor 完成 ULP到LP的变换.</p>
+<h1 id="optimizer">Optimizer</h1>
+<h2 id="优化场景举例">优化场景举例</h2>
+<p>常数折叠<br>
+<img src="img/constant-folding.png" alt="" loading="lazy"></p>
+<p>谓词下推<br>
+<img src="img/pushdown-1.png" alt="" loading="lazy"></p>
+<p>列剪裁, 减少不必要的数据扫描,减少IO cost</p>
+<figure data-type="image" tabindex="4"><img src="img/Column-pruning-1.png" alt="" loading="lazy"></figure>
+<h1 id="源码">源码</h1>
+<p>LogicalPlan 继承自QueryPlan,包含了两个成员变量+17个方法. 两个成员变量,<br>
+resolved,标记该LogicalPlan是否经过解析(布尔值)</p>
+<figure data-type="image" tabindex="5"><img src="img/resolved-attribute-of-LP.png" alt="" loading="lazy"></figure>
+<h2 id="leafnode">LeafNode</h2>
+<p>LogicalPlan 是抽象类</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

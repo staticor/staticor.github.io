@@ -1,0 +1,288 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spark源码学习（四）-内存管理 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Spark源码学习（四）-内存管理
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-06-02 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/gpFCBLzVp/" class="post-tags">
+                            # sourcecode
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>查看源码的入口类， Spark的 SparkEnv：</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654157084366.png" alt="" loading="lazy"></figure>
+<pre><code>val memoryManager: MemoryManager = UnifiedMemoryManager(conf, numUsableCores)
+</code></pre>
+<p>声明语句中val memoryManager: MemoryManager       <code>MemoryManager</code>是抽象类， 在Spark2.x（还是3.0？） 之后，只保留了唯一的实现继承类 - <code>UnifiedMemoryManager（统一内存管理者）</code>， 去除了之前的静态内存管理者。</p>
+<p>源码中对 MemoryManager类的注释：</p>
+<pre><code>MemoryManager 是控制execution内存和storage内存的边界，以及借用内存的机制。 
+
+Execution与Storage共享的区域是通过 spark.memory.fraction 这个参数（默认为0.6）控制的，
+
+它是总堆空间 与300MB之差的一部分组成。  
+
+此空间的边界位置（软边界）由spark.memory.storageFraction进一步确定，默认是0.5。 
+
+这意味着storage区域的大小默认大小是0.6＊0.5 = 0.3.  
+
+存储storage区域可以借用尽可能多的执行内存，直到执行区有需求时再讨要回来。 
+
+（发生时机，缓存的block将从内存中被淘汰，直到释放出足够内存供执行区满足需求） 。
+
+相应地，执行区内存也能借用尽可能多的存储区，以完成任务。但是，执行区内存＊永远＊   不会被存储区淘汰。
+</code></pre>
+<p>好处是存储内存和执行内存可以互相占用。</p>
+<h1 id="unifiedmemorymanager">UnifiedMemoryManager</h1>
+<pre><code class="language-scala">
+abstract class MemoryManager(
+    conf: SparkConf,
+    numCores: Int,
+    onHeapStorageMemory: Long,
+    onHeapExecutionMemory: Long) 
+
+
+private[spark] class UnifiedMemoryManager(
+    conf: SparkConf,
+    val maxHeapMemory: Long,
+    onHeapStorageRegionSize: Long,
+    numCores: Int)
+
+</code></pre>
+<p>MemoryManager构造参数， 核数量， 存储区内存大小， 执行区内存大小。<br>
+UnifiedMemoryManagerr 主要构造参数： 占用的核数量， 执行最大内存，堆内存储区大小。</p>
+<p>主要方法</p>
+<ul>
+<li>getMaxMemory， 获得执行内存+存储内存， 返回数字表示多少个bytes 并指定了 minSystemMemory， 要求 <strong>Exeucotr分配内存的最小值必须要大于 保留300MB的1.5倍</strong>.</li>
+</ul>
+<p>memoryFraction 可用内存的比例，默认大小是0.6 （即 存储+执行内存的比例）</p>
+<ul>
+<li>apply方法   将获取的0.6比例 再分配执行区和存储区， 默认比例0.5， 即存储和执行区各占0.3</li>
+</ul>
+<pre><code class="language-scala">
+  def apply(conf: SparkConf, numCores: Int): UnifiedMemoryManager = {
+    val maxMemory = getMaxMemory(conf)
+    new UnifiedMemoryManager(
+      conf,
+      maxHeapMemory = maxMemory,
+      onHeapStorageRegionSize =
+        (maxMemory * conf.get(config.MEMORY_STORAGE_FRACTION)).toLong,
+      numCores = numCores)
+  }
+</code></pre>
+<h1 id="四三三分配">四三三分配</h1>
+<p>默认1GB的Executor内存，先指派给Reserved 300MB，然后余下的724MB<br>
+40%分配给User 区域 289.6MB<br>
+60%分配 给执行+存储区 即为434.4MB， 存储和执行分别初始分配217 MB</p>
+<h2 id="onheap-offheap">onHeap， offHeap</h2>
+<p>JVM管理的是堆内内存（onHeap-memory）， 堆内内存在java中使用GC只能通知释放，并不能真正控制。</p>
+<p>使用offHeap 堆外内存，能实现灵活的内存控制（相对来说不安全，有操作风险）。</p>
+<pre><code class="language-scala">public enum MemoryMode {
+  ON_HEAP,
+  OFF_HEAP
+}
+
+</code></pre>
+<p>第一次看到的Spark中的枚举类。</p>
+<h1 id="动态占用机制">动态占用机制</h1>
+<ol>
+<li>如果存储和执行区内存都满了，那么就得执行spill-to-disk。</li>
+<li>如果Storage不足，而Execution有空余，Storage可以占用部分Execution；</li>
+<li>如果Execution不足，而Storage有空余，Execution可以占用部分Storage；</li>
+</ol>
+<p>2和3的区别是—— Execution借了的内存涌被evict（淘汰），  Storage借了的内存可以被evict（淘汰）</p>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654157107292.png" alt="" loading="lazy"></figure>
+<p>内存对象是否要执行Evict也取决于对象的存储级别（StorageLevel）</p>
+<figure data-type="image" tabindex="3"><img src="https://staticor.github.io/post-images/1654157119325.png" alt="" loading="lazy"></figure>
+<h2 id="为什么execution借的内存可以不还">为什么Execution借的内存可以不还</h2>
+<p>存储内存如果不够了，再从硬盘读，只影响性能，不影响任务的运转。</p>
+<p>执行内存如果不够了，数据就没了。</p>
+<hr>
+<h1 id="相关参数设置">相关参数设置</h1>
+<ul>
+<li>
+<p>TEST_MEMORY(spark.testing.memory)</p>
+<ul>
+<li>.createWithDefault(Runtime.getRuntime.maxMemory)</li>
+</ul>
+</li>
+<li>
+<p>TEST_RESERVED_MEMORY （spark.testing.reservedMemory）</p>
+</li>
+<li>
+<p>RESERVED_SYSTEM_MEMORY_BYTES  保留区内存大小， 默认300MB， 用于非存储、非执行使用</p>
+</li>
+<li>
+<p>EXECUTOR_MEMORY（spark.executor.memory） 默认1个G， Executor进程占用的内存总大小</p>
+</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/data-marketplace/" class="post-title gt-a-link">
+                    Data Marketplace
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

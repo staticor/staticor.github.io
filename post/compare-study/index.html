@@ -1,0 +1,258 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>对比学习--Big Data（一） | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    对比学习--Big Data（一）
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-02-01 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/0gdiih3gE/" class="post-tags">
+                            # Knowledge
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/m5G8CnLvG/" class="post-tags">
+                            # 大数据
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>💚</p>
+<h1 id="数据仓库-vs-关系型数据库">数据仓库 vs （关系型）数据库</h1>
+<figure data-type="image" tabindex="1"><img src="https://pediaa.com/wp-content/uploads/2018/06/Difference-Between-Database-and-Data-Warehouse-Comparison-Summary.jpg" alt="" loading="lazy"></figure>
+<h2 id="关系型数据库-面向事务-oltp">关系型数据库, 面向事务 OLTP</h2>
+<p>数据库， 信息的持久化，提供了库表字段设计的规范和约束，同时有索引机制，大大加速了查询的性能。<br>
+解决的是事务操作，当业务发生时，需要把这一业务事件永久的记录下来，以便后续调用查验信息。</p>
+<p>（数据库前身， 本地结构化文件）</p>
+<ul>
+<li>定位：数据库聚焦存储本业务关心的数据</li>
+<li>建设：业务过程中产生的实体表，动作表</li>
+<li>数据范围: 面向Application 或Service</li>
+<li>数据类型： 主要是明细数据</li>
+<li>设计： 尊重数据库设计的范式规范，  表和表的关系使用外键连接。</li>
+<li>计算场景：复杂查询较少。  通常是判断一条数据是否存在， 更新或插入一条数据的值</li>
+</ul>
+<p>从关系型数据到数据仓库演变 MPP？     Greenplum(基于PostgreSQL)</p>
+<p>传统数仓之外的补充，纯为OLAP解决。</p>
+<h2 id="数据仓库面向分析-olap">数据仓库，面向分析  OLAP</h2>
+<ul>
+<li>定位： 满足公司级全面分析和数据计算的需求</li>
+<li>建设: 面向主题subject的。</li>
+<li>放什么范围的数据： 业务分析需要， 会集成所有数据库的数据； 同时包括关系数据库之外的信息， 日志采集系统，爬虫系统，离线上传数据, etc</li>
+<li>放什么类型的数据： 既包括明细数据，也包括汇总型数据，</li>
+<li>设计：用空间换时间的思想。  反范式</li>
+<li>计算场景：查询复杂，多表关联是必要过程， 借助大数据</li>
+<li>存储： 使用Hadoop分布式</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://static001.geekbang.org/infoq/26/26f7b92aabc4e77782fc59b50fc1825e.png" alt="" loading="lazy"></figure>
+<h1 id="hadoop-vs-spark">Hadoop  vs. Spark</h1>
+<p>关键点：</p>
+<ol>
+<li>Hadoop的Shuffle必须要写到磁盘， vs Spark 的Shuffle（不一定落盘，cache到内存）；</li>
+<li>编程API，MapReduce提供的是Low API， Spark拥有RDD和DataFrame的灵活算子。</li>
+<li>JVM优化， Hadoop MR   启动一个Task就会启动一次JVM，基于进程的操作。   Spark每次MR操作是基于线程，启动Executor时启动一次JVM</li>
+</ol>
+<figure data-type="image" tabindex="3"><img src="https://cdn.educba.com/academy/wp-content/uploads/2018/08/Hadoop-vs-Spark-1.jpg.webp" alt="" loading="lazy"></figure>
+<p><code>定位</code><br>
+Hadoop 由 HDFS， Common，YARN和MapReduce 几个模块组成， 开源的大数据处理和分析框架。<br>
+HDFS负责存储， YARN是资源管理和调度，MapReduce负责具体的计算和数据处理。</p>
+<p>Spark是计算引擎，无存储。 由Spark Core， Spark SQL， Spark Streaming， Spark MLib， Spark Graphx组成。</p>
+<p>Hadoop解决的是批计算任务，适合于一定延迟但数据量巨大的任务；<br>
+Spark则是批处理，相对来说数据任务的Dataset要少一些。<br>
+同时Spark Streaming能处理微批计算，能解决伪实时的分析需求。</p>
+<p><code>性能差异</code> MapReduce执行过程中会有频繁的磁盘传输，Sprak把中间结果存储在内存中，减少磁盘IO，所以性能上要比MR提升明显。</p>
+<p><code>编程模型</code>  MR任务经历了几个阶段的开发模型。<br>
+传统MR任务是使用Java开发Mapper， Reducer任务。<br>
+后来用Hadoop  Streaming，可以用Shell Python 等脚本实现MR， 之后Hive 引入了SQL，可以让用户用SQL的方式完成MR任务。 大大降低了MR任务的开发门槛。</p>
+<p>Spark 提供了RDD和DataFrame，内嵌了丰富的算子。</p>
+<p><code>语言支持</code>   Hadoop Java， Spark是Scala， 但也支持Java。 Spark提供了Python R的扩展。</p>
+<p>解释RDD的弹性：<br>
+存储弹性，内存和磁盘的切换； （RDD封装的是计算逻辑， 并不保存数据）<br>
+容错： 数据丢失可自动恢复； 分片弹性，可根据需要重新分片； 计算弹性：计算出错的重试机制。</p>
+<h1 id="kafka-vs-flume">Kafka vs. Flume</h1>
+<p>Kafka为什么快？</p>
+<pre><code>DMAC + Zero Copy
+</code></pre>
+<p>常规的实现，读磁盘中的文件，将之加到内存，再通过Socket把它发到网络中。</p>
+<pre><code>File.read(fileDesc, buf, len);
+Socket.send(socket, buf, len);
+</code></pre>
+<p><img src="https://static001.geekbang.org/resource/image/e0/d5/e0e85505e793e804e3b396fc50871cd5.jpg" alt="" loading="lazy"><br>
+四次传输：</p>
+<ul>
+<li>DMA实现： 从硬盘，把文件读到内核缓冲区；</li>
+<li>CPU搬运：从内核缓冲区，复制到分配的内存；</li>
+<li>CPU搬运：从内存，写到Socket缓冲区；</li>
+<li>DMA搬运：从Socket缓冲区，写到网卡缓冲区。</li>
+</ul>
+<p>Kafka 干得就是数据搬运的工作，自然要在这个流水线下了大力气优化。 优化后的成果，是将上面的四次搬运缩减为两次 —— 只有首尾的第一次和第四次，跳过了CPU工序。 因为跳过了中间的复制数据环节，所以这个过程也称为 “零拷贝”（Zero copy）</p>
+<pre><code>// 调用 Java NIO 的 transferTo 方法
+@Override
+public long transferFrom(FileChannel fileChannel, long position, long count) throws IOException {
+    return fileChannel.transferTo(position, count, socketChannel);
+}
+</code></pre>
+<p>Kafka： broker 组成的Kafka集群作为服务者，处理生产者（Producer）和消费者组（Consumer Group)的发送消息和消费消息</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/hive-de-zhi-xing-ji-hua/" class="post-title gt-a-link">
+                    Hive的执行计划
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

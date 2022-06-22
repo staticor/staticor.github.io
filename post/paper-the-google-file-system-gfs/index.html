@@ -1,0 +1,473 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>[Paper]  GFS， BigTable | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    [Paper]  GFS， BigTable
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-28 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/uPPtz-6Ny/" class="post-tags">
+                            # 分布式系统
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/BJ_Iwwr-R/" class="post-tags">
+                            # paper
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>知名的文件管理系统： GFS，HDFS，Facebook Haystack，FastDFS ... ...</p>
+<p>GFS是最著名的分布式文件系统，模仿者众多。</p>
+<p>文件系统标准接口： （所有文件系统都必须提供）</p>
+<ul>
+<li>创建，</li>
+<li>删除，</li>
+<li>打开，</li>
+<li>关闭，</li>
+<li>读取，</li>
+<li>写入</li>
+</ul>
+<p>拓展接口：（不是所有文件系统都提供）</p>
+<ul>
+<li>生成快照，便于数据多版本控制管理</li>
+<li>修改，节省修改操作效率 （GFS不支持随机修改）</li>
+<li>追加，修改的特殊场景，Append修改效率更高；</li>
+</ul>
+<h1 id="gfs">GFS</h1>
+<p>GFS,  大规模的分布式文件系统,用来处理分布型数据密集型的应用.</p>
+<p>它提供了容错性,可以在廉价的硬件上运行,性能还不错. 与先前的共享文件系统相比, 设计考量。FS满足了当前公司的需要,广泛应用在Google的平台.</p>
+<p>GFS也是为MapReduce，BigTable提供存储基础，是分布式框架的最底层依赖。</p>
+<p>关键字: Design, reliability, performance, measurement</p>
+<h2 id="introduction">Introduction</h2>
+<p>数据增长, 处理需求的增长,</p>
+<p>遇到了一些问题:</p>
+<ul>
+<li>组件故障(component failures)</li>
+<li>单个文件的尺寸越来越大, 超过GB级的文件成为常态.</li>
+<li>多数文件的修改是以追加方式的,像整个覆盖的场景相对少.</li>
+</ul>
+<h2 id="设计的overview">设计的Overview</h2>
+<p>文件系统需要有监测能力和自探能力,容错,可恢复<br>
+会存储大文件块, 平均大小估算是100MB或更大.  小文件也会支持, 不重点讨论.</p>
+<p>能支持多个客户端并发在对同一文件进行追加写入,高带宽低延迟</p>
+<p>单机文件系统过滤到分布式文件系统，再升级为GFS的过程，要解决的问题：</p>
+<ol>
+<li>
+<p>文件怎样分散在多台服务器上， 怎样实现多台机器间的负载均衡，自动扩容和缩容？</p>
+</li>
+<li>
+<p>怎样知道一个文件在哪台节点机器上？</p>
+</li>
+<li>
+<p>怎样保证服务器在故障时文件系统的可用性可选性？（CAP）</p>
+</li>
+<li>
+<p>如果使用多个副本，怎样保证一致性？  （CAP）</p>
+</li>
+<li>
+<p>性能要求，怎么支持大型文件（单个文件过GB）的存储</p>
+</li>
+<li>
+<p>机器集群规模庞大时，怎样实现监控、容错与恢复。</p>
+</li>
+<li>
+<p>怎样实现快速的顺序读和追加写？</p>
+<p>接口</p>
+</li>
+</ol>
+<p>基本操作是必要的, 如前面所述的六个标准接口：<br>
+create, delete     |     open   close  |  read   write</p>
+<p>GFS 又提供了两个拓展接口： snapshot 和 append</p>
+<pre><code>架构
+</code></pre>
+<h3 id="master-设计">Master 设计</h3>
+<p>怎样知道一个文件存储在哪台机器上？ 文件位置即为文件的元数据之一，想象有一台NameNode是专门用来管理文件元空间的。<br>
+那么设计GFS集群是使用单Master还是多节点？</p>
+<p>单中心节点的优点是实现成本低，一致性容易保证，缺点也极明显，单点容易导致单点故障，性能也极容易造成瓶颈。 优化策略是元数据的数据设计，减少单Master的压力。</p>
+<p>多中心节点（分布式中心节点）<br>
+实现成本高，一致性难保证，系统可靠性难验证；<br>
+优点是解决了单点性能瓶颈问题，扩展性极强。</p>
+<p><code>GFS选择的是单中心节点。 </code></p>
+<p>Files 被划分为 固定尺寸的 chunks ,每个chunk是全局唯一的(分配一个64bit编号).</p>
+<pre><code>Metadata存什么?  
+</code></pre>
+<ul>
+<li>file 和 chunk 的 namesapces  （持久化）</li>
+<li>file到chunks的映射 （持久化）</li>
+<li>chunk副本和节点Node的映射， 不持久化</li>
+</ul>
+<p>所以可推断出GFS读一个文件的过程要有：<br>
+客户端提供文件名 -&gt; 根据文件名获得chunk列表 -&gt; 获取所有chunk的node location list -&gt; 设计策略建立起到这些node lsit 的通信pipeline。</p>
+<p>Chunkserver  就是记录这些chunk地址， 由chunkserver 向MetaServer通信，所以Meta不用持久化Chunk地址。</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654180841122.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654336194501.png" alt="" loading="lazy"></figure>
+<p>Chunk size, 主要的设计参数, 64MB.   它的元数据是小于64bit的， 假设一个文件有三个副本。<br>
+1TB的元数据有多大？<br>
+3TB副本总大小  除以 64MB   * 64B   即只有3MB；<br>
+如果1PB数据，只有3GB元数据，  完全可以用内存管理。</p>
+<p>太大,或者太小会怎样?<br>
+可见如果chunk太小，那么chunk数量将会增大， 对master内存会是不小的影响。<br>
+如果chunk太大，又会牺牲读取和写入数据的性能。</p>
+<pre><code>In-Memory 数据结构
+</code></pre>
+<p>metadata存储在内存中,便于master周期性的扫描全体chunk的状态.<br>
+扫描过程中,要实现chunk的垃圾回收, 副本拷贝, chunk平衡</p>
+<pre><code>Chunk 位置 
+</code></pre>
+<p>Master对一份chunk,不会一直保存它的信息.<br>
+它只是在启动时向chunk server轮询, 此后master让自己保持最新状态,通过HeartBeat message机制.<br>
+GFS的所有数据流不经过master，而是直接由client和chunkserver交互。</p>
+<pre><code>Operation Log
+</code></pre>
+<p>操作日志存什么, 元数据变动的记录.   Op Log非常重要,不能直接交给Client访问.<br>
+除了访问控制,还要对其进行多副本,</p>
+<p>Master恢复文件状态,要借助于Op Log的replay.<br>
+为了缩短重启的时间,要尽量保持op log的尺寸不要太大.</p>
+<p>所以这里还另设计了checkpoint, 当op log过大, 先从硬盘上的checkpoint 读取最新的一个快照, 并且重放日志也只重放这个cehckpoint之后的操作.</p>
+<p>checkpoint 是以一种B树形式,建立一个cp会花一点时间,master希望是在不延迟的前提下完成创建.<br>
+master 切换到一个新日志文件,并在一个单独线程创建新cp,  恢复只需要最新的完整的cp和后续日志文件.</p>
+<pre><code>一致性模型 Consistency Model 
+</code></pre>
+<p>GFS 的保证</p>
+<p>File Namespace变动(创建文件,删除)是原子的, 由master排它性操作. (有锁)<br>
+master的Op Log定义了这些操作的全局有序性.</p>
+<p>尽量避免master内存成为系统瓶颈，GFS采用一系列手段节省master内存，包括增大chunk大小，节省chunk数量，对元数据进行定制化压缩。</p>
+<h1 id="bigtable">BigTable</h1>
+<blockquote>
+<p>A Distributed Storage System for Structured Data</p>
+</blockquote>
+<pre><code>Bigtable 是分布式存储系统，管理超大规模的数据 —— PB级+上千个节点。 在Google有诸多项目使用到了BigTable， 网页索引，Google Earth， Google Fiance。 对于BigTable不同应用服务有各自的需求，覆盖不同量级的数据尺度，既有延迟查询也有实时服务。 在这篇文章中，将会介绍Bigtable的数据模型，满足不同客户的动态控制数据格式和Schema。
+</code></pre>
+<h2 id="introduction-2">Introduction</h2>
+<ol>
+<li>BigTable历经2.5年的光阴，设计果成。</li>
+<li>用于结构化数据， 格式后面说。</li>
+<li>达成目的，应用范围广泛，扩展能力强，高性能，高可用</li>
+<li>成果， BigTable在Google内部已经在几十个项目应用了，如摘要所述。<br>
+4.2. 支撑离线任务 上千个</li>
+<li>实现上，Bigtable类似一个数据库，又与常规的分布数据库和内存数据库不同<br>
+5.2Bigtable 不支持全面的关系数据模型<br>
+5.3 数据索引非常灵活</li>
+</ol>
+<ul>
+<li>Section2: 介绍Data Model</li>
+<li>Section3: 客户端的API</li>
+<li>Section4: 对Google infrastructure的依赖</li>
+<li>Section5: Bigtable实现的基础</li>
+<li>Section6: 提升Bigtable性能的设计</li>
+<li>Section7: 性能衡量</li>
+<li>Section8: Google的应用案例</li>
+<li>Section9: 踩过的坑</li>
+<li>Section10: 相关工作</li>
+<li>Section11:总结</li>
+</ul>
+<h2 id="data-model">Data Model</h2>
+<p>数据模型上， Bigtable是一个稀疏的、分布式的、持久化的多维度有序map。</p>
+<p>map的索引： row key, column key + 时间戳；  value，未被翻译的 bytes array</p>
+<pre><code>(row: string, column: string, time: int64) --&gt; string 
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://staticor.github.io/post-images/1654183770028.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>row key, 表中的row key 可以是任意字符串， 上限为64KB，一般来说约10-100个byte；</p>
+</li>
+<li>
+<p>sorted， 基于row key的字典序</p>
+</li>
+<li>
+<p>partition, row range 动态分区</p>
+</li>
+<li>
+<p>tablet, 每段row range 称为 tablet, BigTable的分布单元，读小段的row ranges只需要和几台节点通信，效率很高。</p>
+</li>
+<li>
+<p>URL的组织技巧，类似于Java中的 package 包名， maps.google.com/index.html 会转为 com.google.maps/htmls, 存储更有效率</p>
+</li>
+<li>
+<p>Column Families， column keys被分组，编成<strong>column families</strong>，提供了最基础的访问控制。</p>
+</li>
+<li>
+<p>同一Column Families存储的列是相同数据类型（便于压缩）</p>
+</li>
+<li>
+<p>CF的创建时机，要在数据存入之前创建</p>
+</li>
+<li>
+<p>设计意图： 一个表中的CF应控制在几百之内</p>
+</li>
+<li>
+<p>CF中的列key命名规则，  family:qualifier</p>
+</li>
+<li>
+<p>访问控制，在硬盘和内存级别，按CF进行控制：添加新数据、读取数据、创建衍生的CF.</p>
+</li>
+</ul>
+<p><code>Timestamps</code></p>
+<p>在BigTable中每个Cell都有版本的概念，BigTable用Timestamps -- 用Int64来存储，在现实世界中精度可达毫秒级时间<code>(Sample format 2002-11-15 14:10:13.123456) </code></p>
+<h2 id="api">API</h2>
+<p>BigTable 提供了一系列的操作表和CF的API，以及修改和更新集群的操作。举例：</p>
+<p><code>RowMutation</code> 是指行级的更新操作。</p>
+<pre><code class="language-c">Table *T = OpenOrDie(&quot;/bigtable/web/webtable&quot;);
+RowMutation r1(T, &quot;com.cnn.www&quot;);
+r1.Set(&quot;anchor:www.c-span.org&quot;, &quot;CNN&quot;)
+r1.Delete(&quot;anchor:www.abc.com&quot;);
+Operation op;
+Apply(&amp;op, &amp;r1);
+</code></pre>
+<p>Bigtable也能执行MapReduce的应用。<br>
+我们已经实现了一系列的基于Bigtable输入或输出的MR Job。</p>
+<h2 id="building-blocks">Building Blocks</h2>
+<p>Bigtable 用到了Google的GFS来存储日志和数据文件。<br>
+Bigtable需要 集群管理系统，能满足任务调度，资源管理及机器状态监控的需要。</p>
+<p><em>Google SSTable</em>是用来存储Bigtable数据文件的文件格式， SSTable是持久化的，有序的不可变map（key和value 均不可变）。  SSTable是由 block sequence 组成， 每个block是64KB（可配置），并且另外设置了Index 文件，用来定位和寻址block。当SSTable被打开时，内存将会加载到内存。</p>
+<p>内存遍历会使用对block索引的二分查找，然后将block从磁盘进行读取。<br>
+可选地，SSTable也能被完全的加载到内存，可以在不经磁盘的情况下进行查询。</p>
+<p>Bigtable用的高可用的分布式服务称为Chubby， Chubby的一篇paper为 <strong>The Chubby lock service for loosely-coupled distributed systems</strong> . 我会在未来适当的时机再去拜读。</p>
+<p>Chubby服务由五个活跃的副本组成：一个用来选举成为master，提供需求承接。 整体服务只要有半数活着即为可用。  Chubby使用了共识性算法Paxos，以保证一致性。</p>
+<p>每个目录或者每个文件，都可视作是一个锁，对文件的读和写都得是原子操作。</p>
+<p>Chubby可视作是zookeeper的前身。</p>
+<p>Bigtable用Chubby完成一系列任务：</p>
+<ul>
+<li>确保任何时刻只有一个活跃的master；</li>
+<li>存储Bigtable bootstrap的位置</li>
+<li>存储Bigtable schema信息（每个表的CF）</li>
+<li>存储访问控制列表</li>
+</ul>
+<p>如果Chubby不可用，Bigtable也将不可用。</p>
+<h2 id="implementation">Implementation</h2>
+<p>Bigtable由这三个部分组成：</p>
+<ul>
+<li>client library，与外部的client连接，缓存一些表的位置</li>
+<li>master server，负责将表分配到tablet server,监控tablet server数据的新增、过期废弃，tablet-server的平衡，GFS文件的GC。 除此之外，还负责处理table和CF的元数据变更。</li>
+<li>若干tablet servers， 支持动态扩展。 每台tablet server管理一系列的表，处理客户端对table的读和写请求，当table增长得过大时，也负责拆表，每个表控制在100-200MB。</li>
+</ul>
+<p>Bigtable的客户端不直接和master做数据层面的通信交换，而是和tablet server进行数据的读和写。</p>
+<h3 id="tablet-location">Tablet Location</h3>
+<p>🤓<br>
+<img src="https://staticor.github.io/post-images/1654307005421.png" alt="" loading="lazy"></p>
+<p>Tablet的存储第一级是在Chubby， 包含root tablet(根表)位置；<br>
+第二级 根表 包含所有tablets, 用一张特殊的表来存储，即 <strong>METADATA</strong> table; 每个元数据表存储 user table 分表的所在位置。  METADATA 表 永远不会被拆分（以保证中间层不会裂变）。<br>
+第三级 用户表 即用户取用的表。</p>
+<p>当client library 查询时发现缓存中没目标表，或者发现缓存位置失效，将会递归向上移动这个表的location。cache空或者信息过期了，有对应的刷新策略。</p>
+<h3 id="tablet-assignment">Tablet Assignment</h3>
+<p>每个Tablet在同一时间只会分配给一个tablet server.<br>
+Master会时刻跟踪tablet server的状态，当前tablets的分配情况、未分配状态。<br>
+如果一个tablet未被分配，某个tablet server拥有充足的空间，master 会将这个tablet分配给它。</p>
+<p>Bigtable用Chubby来跟踪tablet节点， 当一台tablet启动，会获得一个排它性的锁。</p>
+<p>这个分布式锁即为tablet Chubby目录下的一个全局唯一的目录。</p>
+<p>Master通过监控这个目录来洞察tablet server。<br>
+如果tablet server 失去了锁，也就停止对表的服务。<br>
+（Chubby提供了能够快速查验当前节点是否还持有这个锁的机制）</p>
+<p>Tablet节点如果发现自己手上还有锁文件，也会进行重试请求。<br>
+当tablet server终止服务，也会放弃锁。</p>
+<p>如果Master发现这台Tablet server不能再为某表提供服务，会执行reassign (重分配)。</p>
+<p>Master会周期性的底部和绐Tablet节点的锁状态。</p>
+<p>当集群系统启动Master，它需要发现当前tablet分配，以便更新它们。<br>
+Master会在启动时执行以下步骤：</p>
+<ul>
+<li>master 在Chubby 获得一个唯一的 master lock , 防止并发的master实例化</li>
+<li>master 扫描Chubby中servers目录，以找到正在活跃的server</li>
+<li>master与每台活跃的server通信，以发现哪些tablet已经被分配了</li>
+<li>master扫描METADATA表，来掌握table集合</li>
+</ul>
+<p>每当遇到尚未分配的tablet时，master就会将tablet添加到未分配的tablet。</p>
+<p>只有在创建或删除一个表时，现有tablet集合才会发生变化，两个现有的tablet合并成为一个大表，或者一个大表拆分成两个小表。</p>
+<h3 id="table-serving">Table Serving</h3>
+<p>tablet的状态持久化使用GFS， 更新的操作写到提交日志（redo records), 近期修改使用内存表memtable， 老的操作则使用 SSTables。</p>
+<p>当还原一个Tablet时，tablet server从METADATA表读取这个表的元数据，元数据中包含一系列SSTable，将SSTable内存读到内存，从redo 点位进行重建memtable.</p>
+<p>当Tablet server收到写操作时，server先检查格式的有效性。<br>
+有效的写操作会被提到的commit log，将很多小型的操作commit编组能提升性能。</p>
+<p>当Tablet server收到读操作，会进行类似的格式检查。<br>
+对操作作用于 SSTable和memtable的合并视图（mergedview ）。  因为SSTable和memtable是按字典序排序的，所以mergeview是很容易形成。</p>
+<h3 id="compactions-规整">Compactions  规整</h3>
+<pre><code>minor compaction 
+</code></pre>
+<p>因为写操作会造成memtable的增长，当这个内存表达到阈值，需要进行先frozen 冻结， 创建一个新memtable， Frozen memtable再被写到磁盘（GFS的SSTable）。<br>
+这样做有两个目的，减少tablet server中内存消耗； 当server挂的时候降低还原的成本。</p>
+<p>每个这样的minor compaction 都会创建一个新的SSTable。 如果这种操作不进行限制，读操作可能需要合并来自任意数量的SSTable。 因此我们限制了此类文件的数量 —— 通过执行 <strong>merging compaction</strong>。<br>
+合并的compaction 会对所有SSTable写到一个SSTable， 这个过程称为**major compaction **。<br>
+(这个过程很像 MapReduce Mapoutput 的过程)<br>
+Non-major压缩产生的SSTable可能产生特定的文件，这些文件包含了被删除的条目信息。 而Major-压缩不会包含这些删除信息。  Bigtable会循环遍历所有tablet，并定期对它们使用major-压缩。 这些major-压缩允许Bigtable回收被删除数据使用的资源，也允许它确保被删除的数据及时从系统中消失，这对于存储敏感数据的服务非常重要。</p>
+<h2 id="refinements">Refinements</h2>
+<p>为了提供高性能的服务，需要进行一些特殊设计。</p>
+<pre><code>Locality groups 
+</code></pre>
+<p>Client侧对CF成组，称为locality group.</p>
+<pre><code>Compression
+</code></pre>
+<p>Client可以控制 对于locality group 的对应SSTable是否要压缩。</p>
+<pre><code>Caching for read performance
+</code></pre>
+<p>提升读的性能。 引入二级缓存机制。</p>
+<p>Scan缓存： 高级别缓存，提供Key-value的键值对，返回SSTable接口。</p>
+<p>Block缓存：低级别缓存，保存SSTable block的读信息。</p>
+<pre><code>Bloom filters 
+</code></pre>
+<p>使用Bloom过滤器，用于判定SStable是否包含特定数据。</p>
+<pre><code>Commit-log implementation 
+</code></pre>
+<h2 id="performance-evaluation">Performance Evaluation</h2>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/spark-shu-ju-lei-xing-xi-tong/" class="post-title gt-a-link">
+                    Spark数据类型系统
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

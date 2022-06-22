@@ -1,0 +1,291 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>「数据仓库技能树」--Hive  Tuning | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    「数据仓库技能树」--Hive  Tuning
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-05-05 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/MTigWmiSP/" class="post-tags">
+                            # hive
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/6ykOqkgld/" class="post-tags">
+                            # 数据仓库
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="what-and-why">what and why</h1>
+<p>Tuning: 逻辑正确,但实现消耗的资源超出预期。</p>
+<p>资源： 任务运行时间， 占用集群的计算资源（Memory&amp;Cores）</p>
+<p>解决问题，促使Tuning的契机 ——<br>
+对现行任务，虽然能顺利执行成功，但对效果希望进行改善。<br>
+当和内行人交流Hive Tuning（也是很多大数据-数据仓库岗位时会聊的一个话题），至少胸中要懂的一些场景和策略，不要眉毛胡子一把说，没有章法。</p>
+<p>业务逻辑，如果这个任务不是自己是第一手的开发者，那么半路介入，需要先了解业务背景。<br>
+SQL语句的框架，细节有无优化空间。</p>
+<p>输入信息： 任务执行日志，查询计划详情<br>
+嗅探点：<br>
+源数据（source） 表的格式， 比如orc 是有提升的<br>
+加载数据规模；<br>
+扫描分区个数；<br>
+元数据MySQL 负载状况(HiveServer2 Performance)<br>
+执行任务个数，单个任务消耗时间<br>
+使用的权限&amp;锁，引起的问题</p>
+<pre><code>内存管理， Java堆内存
+</code></pre>
+<p>当多人操作同一数据时，可能会看到A在注入（修改）数据，B在写入数据。<br>
+概率较低， 看日志根据关键字定位。</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654158519398.webp" alt="" loading="lazy"></figure>
+<h1 id="语句分析">语句分析</h1>
+<p>减少和业务需求无关的不必要操作， 例如没必要的全局排序：<br>
+<code>order by </code>  vs. <code>sort by</code></p>
+<p>避免使用order By,  Order By 会使用一个全局Reducer进行整体排序 —— cause a performance bottleneck, setting the number of reducers to one, making it very inefficient for large datasets.</p>
+<p>人工列剪裁</p>
+<p><code>减少不必要的列扫描， 即不要使用 select * </code></p>
+<p>人工谓词下推<br>
+<code>先filter 再join</code></p>
+<p>开启Map端聚合参数<br>
+<code>Group By</code></p>
+<h1 id="分析执行计划">分析执行计划</h1>
+<ul>
+<li>
+<p>cost-based-optimizer (CBO)</p>
+<p>CBO可以给出 joins的执行顺序、并行度，量化执行任务的开销。<br>
+设置参数：  <code>set hive.cbo.enable=true;</code></p>
+</li>
+<li>
+<p>query vectorization</p>
+</li>
+</ul>
+<p>参数： <code>hive.vectorized.execution.enabled</code>   设置为true</p>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654158606199.png" alt="" loading="lazy"></figure>
+<p>https://docs.cloudera.com/documentation/enterprise/6/6.3/topics/hive_query_vectorization.html#enabling_hive_query_vectorization</p>
+<h2 id="内存与reducer个数优化">内存与Reducer个数优化</h2>
+<pre><code>set hive.exec.reducers.max=8;
+set mapred.reduce.tasks=8;
+
+</code></pre>
+<h2 id="join细节">Join细节</h2>
+<pre><code>大表与大表的join 之 空Key
+</code></pre>
+<p>如果某个join条件中引入了 这个空Key</p>
+<p>处理方式， 分析业务是否能过滤掉空值，如果不能过滤，将Null 修饰为一个有效值， 或者随机值。<br>
+**要特别注意的是， 这个随机值不能与第二个表发生真实join， 否则产生错误结果。 **</p>
+<pre><code class="language-sql">-- 原sql
+select count(a.uid) from  A    left join B on A.uid = B.uid2 
+
+-- 过滤空值
+select count(a.uid) from  （ select  uid  from A  where uid is not null ) A    
+left join B on A.uid = B.uid2 
+
+
+-- 随机join
+select count(a.uid) from  A    
+left join B on  nvl(A.uid, rand()) = B.uid2 
+
+
+</code></pre>
+<pre><code>join 时的倾斜问题  + groupby 倾斜
+</code></pre>
+<p>SET hive.optimize.skewjoin=true; --If there is data skew in join, set it to true.  Default is false.</p>
+<blockquote>
+<p>SET hive.skewjoin.key=100000;   --This is the default value. If the number of key is bigger than this, the new keys will send to the other unused reducers.</p>
+</blockquote>
+<p>groupby 时的倾斜<br>
+set hive.groupby.skewindata= false;   (默认 false) 开启 true 将会实现负载均衡, 多开启 map 任务.</p>
+<pre><code>大表的 distinct 操作
+</code></pre>
+<p>count(distinct xx) 使用一个 reducer 计算l 等效的操作是         group by xx  再 count      但对 reducer 要求来说是不同的.</p>
+<p>强制指定 reducer 数量  : set reducer.num</p>
+<pre><code>大表与小表的join 之 mapjoin 
+</code></pre>
+<h3 id="map-join">map join</h3>
+<p>自动开启  <code>hive.auto.convert.join</code>     默认是true</p>
+<p>看执行计划， 如果设置了该参数， 在计划中会出现一个 “Map Local Tables”  —— 将小表作为本地缓存。 如果不设置， 小表是正常的MapReduce Stage。</p>
+<p>大表小表的顺序是没有关系的。</p>
+<p>对于大表与小表的Join能否使用 mapjoin, Hive默认大小25MB修改。</p>
+<pre><code>0: jdbc:hive2://localhost:10000/&gt; set  hive.mapjoin.smalltable.filesize; 
+set
+hive.mapjoin.smalltable.filesize=25000000
+
+</code></pre>
+<p>这里 join是默认的inner join， 如果是left join 则要注意了。</p>
+<p>left join ， map join不会生效。</p>
+<h2 id="stage整体">Stage整体</h2>
+<ul>
+<li>提升并行度</li>
+</ul>
+<pre><code class="language-hive">set hive.vectorized.execution.enabled=true; 
+set hive.exec.parallel=true;
+set hive.exec.parallel.thread.number=8;
+
+</code></pre>
+<p>如果查询无依赖的，可以转为并行运行。</p>
+<p>如果集群当前的利用率已经很高，开这个参数提效果不明显。</p>
+<p>参考资料：</p>
+<p><a href="https://docs.cloudera.com/documentation/enterprise/6/6.3/topics/admin_hive_tuning.html#id_umf_bmk_nw">CDH - Tuning Apache  Hive  in CDH </a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/sparktuning/" class="post-title gt-a-link">
+                    Spark   Tuning
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Onedata-2 数据出错了 | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Onedata-2 数据出错了
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-06-08 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/onedata/" class="post-tags">
+                            # onedata
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/Wc3ajsb70/" class="post-tags">
+                            # 数据中台
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="突然发现仪表盘中的数据为0">突然发现仪表盘中的数据为0 ... ... ?</h1>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654699871864.png" alt="" loading="lazy"></figure>
+<p>图片来自（极客时间-数据中台实战课）</p>
+<p>由结果表顺着向上游排查，查了30分钟之后发现是某个dwd表的解析出了问题，部分脏数据影响了下游，导致没报错，但其实数据写入失败。</p>
+<p>一套盘查下来用了半天，业务方也对数据部门感到呵呵。</p>
+<p>这是个经典问题，暴露了数据质量不完善：</p>
+<ul>
+<li>业务方发现时间早于数据部门，客户满意度直线下降；</li>
+<li>出现问题后，数据部门无法快速定位，排查时间过长；</li>
+<li>故障没有对应的报警；</li>
+</ul>
+<p>常见问题根源：</p>
+<ul>
+<li>业务源系统变更</li>
+<li>数据开发BUG （大多数）</li>
+<li>物理资源不足，任务失败</li>
+<li>运维故障，基础设施
+<ul>
+<li>Hadoop Bug</li>
+</ul>
+</li>
+</ul>
+<h1 id="提升质量的方法提前发现问题">提升质量的方法：提前发现问题</h1>
+<ul>
+<li>稽核校验任务
+<ul>
+<li>根据出表结果，按业务规则，设计校验逻辑，确保数据完整性、一致性和准确性；
+<ul>
+<li>规则： 数据有无， 数据值落在合理区间；</li>
+<li>规则未通过，承接报警策略</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="规则设计">规则设计</h2>
+<h3 id="规则的分类">规则的分类</h3>
+<p>完整性， 有无数据</p>
+<p>一致性， 两个表当中 A表的a1 a2指标 可计算出B表的b1 b2   即跨表间存在的公式， 一致性依赖。</p>
+<p>准确性，数据记录的正确性，如商品类目的格式，IP格式</p>
+<p>唯一性，不应产生重复数据的表，出现了重复行。</p>
+<p>及时性，数据生产的最晚接受时间 DDL。</p>
+<h3 id="规则分级">规则分级</h3>
+<p>强规则，弱规则取决于业务上对该表出问题的容忍度。</p>
+<p>比如和公司金钱有关的、核心指标有关的，都得设置为强规则（电话+短信+IM+ 邮件，能提醒的都用上）<br>
+反之采用弱规则。</p>
+<h1 id="如何衡量数据质量">如何衡量数据质量</h1>
+<p>凡事都得量化，才能做到优化。</p>
+<p>怎样衡量数据仓库的数据质量，可以采用</p>
+<p>🟥 6点30分钟核心报表生产率  （这里6点30分钟是一个虚时间，也可以定为5点30分，取决于业务）</p>
+<p>🟦 稽核规则命中率， 不同规则对应的表负责人处理的报警次数，反向指标。</p>
+<p>🟩 数据产品SLA， 反向指标。 如果指标超过9点还没产出，示为不可用。  每天之中将可用数据的占比计算出来，取补即为当天可用指标， 如99.9%</p>
+<p><code>数据质量中心（Data Quality Center）</code></p>
+<p>即为这样的定义稽核规则、控制报警、执行任务明细、指标打分和评级</p>
+<p>DQC首页是质量大屏，展示当前任务的核心质量指标。 （上面的🟥🟦🟩 三级指标）</p>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654704627126.webp" alt="" loading="lazy"></figure>
+<h1 id="一些典型的数据故障">一些典型的数据故障</h1>
+<ul>
+<li>协作事故
+<ul>
+<li>跨部门， 服务端修改了上游数据（换库改表）</li>
+<li>同部门，集群内调整了运行参数</li>
+</ul>
+</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/booknote-da-shu-ju-zhi-lu-alibaba-onedata-part2/" class="post-title gt-a-link">
+                    BookNote-大数据之路(Alibaba-OneData) Part2
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

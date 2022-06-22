@@ -1,0 +1,443 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spark源码学习(三)-Shuffle | staticor in data</title>
+
+<link rel="shortcut icon" href="https://staticor.github.io/favicon.ico?v=1655881153291">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://staticor.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script> 
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            staticor in data
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1655881153291"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Spark源码学习(三)-Shuffle
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-05-31 ·
+                    </time>
+                    
+                        <a href="https://staticor.github.io/tag/gpFCBLzVp/" class="post-tags">
+                            # sourcecode
+                        </a>
+                    
+                        <a href="https://staticor.github.io/tag/nj3HlfkXw/" class="post-tags">
+                            # spark
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>Shuffle分成两个阶段来看待, Shuffle Write和Shuffle Read.<br>
+前者由Map端处理, 写到磁盘(数据文件+索引文件).<br>
+后者由Reduce端处理, 调用ShuffleRDD的compute方法完成read.</p>
+<figure data-type="image" tabindex="1"><img src="https://staticor.github.io/post-images/1654162661859.png" alt="" loading="lazy"></figure>
+<h1 id="shufflemaptask">ShuffleMapTask</h1>
+<p>将RDD中的数据划分成若干个buckets (基于ShuffleDependency中的分区器)</p>
+<pre><code class="language-scala">private[spark] class ShuffleMapTask(
+    stageId: Int,
+    stageAttemptId: Int,
+    taskBinary: Broadcast[Array[Byte]],
+    partition: Partition,
+    @transient private var locs: Seq[TaskLocation],
+    localProperties: Properties,
+    serializedTaskMetrics: Array[Byte],
+    jobId: Option[Int] = None,
+    appId: Option[String] = None,
+    appAttemptId: Option[String] = None,
+    isBarrier: Boolean = false)
+  extends Task[MapStatus](stageId, stageAttemptId, partition.index, localProperties,
+    serializedTaskMetrics, jobId, appId, appAttemptId, isBarrier)
+</code></pre>
+<h2 id="runtask-方法">runTask 方法</h2>
+<pre><code class="language-scala">
+
+  override def runTask(context: TaskContext): MapStatus = {
+    // Deserialize the RDD using the broadcast variable.
+    val threadMXBean = ManagementFactory.getThreadMXBean
+    val deserializeStartTimeNs = System.nanoTime()
+    val deserializeStartCpuTime = if (threadMXBean.isCurrentThreadCpuTimeSupported) {
+      threadMXBean.getCurrentThreadCpuTime
+    } else 0L
+    val ser = SparkEnv.get.closureSerializer.newInstance()
+    val rddAndDep = ser.deserialize[(RDD[_], ShuffleDependency[_, _, _])](
+      ByteBuffer.wrap(taskBinary.value), Thread.currentThread.getContextClassLoader)
+    _executorDeserializeTimeNs = System.nanoTime() - deserializeStartTimeNs
+    _executorDeserializeCpuTime = if (threadMXBean.isCurrentThreadCpuTimeSupported) {
+      threadMXBean.getCurrentThreadCpuTime - deserializeStartCpuTime
+    } else 0L
+
+    val rdd = rddAndDep._1
+    val dep = rddAndDep._2
+    // While we use the old shuffle fetch protocol, we use partitionId as mapId in the
+    // ShuffleBlockId construction.
+    val mapId = if (SparkEnv.get.conf.get(config.SHUFFLE_USE_OLD_FETCH_PROTOCOL)) {
+      partitionId
+    } else context.taskAttemptId()
+    dep.shuffleWriterProcessor.write(rdd, dep, mapId, context, partition)
+  }
+
+
+</code></pre>
+<p>核心语句是这里的  <code>dep.shuffleWriterProcessor.write(rdd, dep, mapId, context, partition)</code></p>
+<h2 id="shufflewriteprocessor">ShuffleWriteProcessor</h2>
+<p>这是Shuffle写阶段的处理类, 核心方法是write,  创建了 ShuffleWriter 对象 (通过shuffleManager的getWriter 方法) 完成写操作,  try 语句中的内容如下</p>
+<pre><code class="language-scala">
+ val manager = SparkEnv.get.shuffleManager
+      writer = manager.getWriter[Any, Any](
+        dep.shuffleHandle,
+        mapId,
+        context,
+        createMetricsReporter(context))
+      writer.write(
+        rdd.iterator(partition, context).asInstanceOf[Iterator[_ &lt;: Product2[Any, Any]]])
+      val mapStatus = writer.stop(success = true)
+      if (mapStatus.isDefined) {
+        // Initiate shuffle push process if push based shuffle is enabled
+        // The map task only takes care of converting the shuffle data file into multiple
+        // block push requests. It delegates pushing the blocks to a different thread-pool -
+        // ShuffleBlockPusher.BLOCK_PUSHER_POOL.
+        if (dep.shuffleMergeEnabled &amp;&amp; dep.getMergerLocs.nonEmpty &amp;&amp; !dep.shuffleMergeFinalized) {
+          manager.shuffleBlockResolver match {
+            case resolver: IndexShuffleBlockResolver =&gt;
+              val dataFile = resolver.getDataFile(dep.shuffleId, mapId)
+              new ShuffleBlockPusher(SparkEnv.get.conf)
+                .initiateBlockPush(dataFile, writer.getPartitionLengths(), dep, partition.index)
+            case _ =&gt;
+          }
+        }
+      }
+      mapStatus.get
+
+
+</code></pre>
+<p>ShuffleManager 早期还有一个HashShuffleManager的实现,目前新版本中只有一个SortShuffleManager.<br>
+该类中的getWriter 通过匹配handle的类型,创建不同的ShuffleterWriter:</p>
+<p>unsafeShuffleHandle -&gt; UnsafeShuffleWriter;<br>
+bypassMergeSortHandle -&gt; BypassMergeSortShuffleWriter<br>
+BaseShuffleHandle -&gt; SortShuffleWriter</p>
+<p>这三种handle是通过SortShuffleManager.registerShuffle 注册时创建的:</p>
+<pre><code class="language-scala">override def registerShuffle[K, V, C](
+      shuffleId: Int,
+      dependency: ShuffleDependency[K, V, C]): ShuffleHandle = {
+    if (SortShuffleWriter.shouldBypassMergeSort(conf, dependency)) {
+      new BypassMergeSortShuffleHandle[K, V](
+        shuffleId, dependency.asInstanceOf[ShuffleDependency[K, V, V]])
+    } else if (SortShuffleManager.canUseSerializedShuffle(dependency)) {
+      // Otherwise, try to buffer map outputs in a serialized form, since this is more efficient:
+      new SerializedShuffleHandle[K, V](
+        shuffleId, dependency.asInstanceOf[ShuffleDependency[K, V, V]])
+    } else {
+      // Otherwise, buffer map outputs in a deserialized form:
+      new BaseShuffleHandle(shuffleId, dependency)
+    }
+</code></pre>
+<p>注释:  先判断能不能忽略归并排序, 代码注释给出了两个条件.</p>
+<pre><code>如果分区数量小于 spark.shuffle.sort.bypassMergeThreshold partitions  并且不需要进行 map-side 聚合, 直接写 ** numPartitions ** 个文件, 然后最终将它们连接起来, 这样避免两次序列化和反序列化. 这样人帮的缺点时会同一时间一次性打开多个文件,造成更多的内存缓冲区的使用. 
+</code></pre>
+<p>如果满足这些条件, 就返回一个 Bypass的Handle.</p>
+<p>第二层判断, 判断是否使用序列化Shuffle (SerializedShuffle), 通过 canUseSerializedShuffle 方法判断.       要求:</p>
+<ul>
+<li>序列化框架要能支持重定位(RelocationOfSerializedObject)</li>
+<li>不能使用mapSideCombine</li>
+<li>分区数量不能大于 MAX_SHUFFLE_OUTPUT_PARTITIONS_FOR_SERIALIZED_MODE 即 16777216</li>
+</ul>
+<p>最后,使用默认的BaseShuffleHandle  (没有限制条件)</p>
+<h2 id="shufflewriter">ShuffleWriter</h2>
+<p>ShuffleWriter  是抽象类, 有三个继承实现</p>
+<ul>
+<li>SortShuffleWriter</li>
+<li>BypassMergeSortShuffleWriter</li>
+<li>UnsafeSHuffleWriter</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://staticor.github.io/post-images/1654162688912.png" alt="" loading="lazy"></figure>
+<p>三个写对象有什么区别呢?</p>
+<h3 id="sortshufflewriter">SortShuffleWriter</h3>
+<pre><code class="language-scala">// write 方法
+
+  /** Write a bunch of records to this task's output */
+  override def write(records: Iterator[Product2[K, V]]): Unit = {
+    sorter = if (dep.mapSideCombine) {
+      new ExternalSorter[K, V, C](
+        context, dep.aggregator, Some(dep.partitioner), dep.keyOrdering, dep.serializer)
+    } else {
+      // In this case we pass neither an aggregator nor an ordering to the sorter, because we don't
+      // care whether the keys get sorted in each partition; that will be done on the reduce side
+      // if the operation being run is sortByKey.
+      new ExternalSorter[K, V, V](
+        context, aggregator = None, Some(dep.partitioner), ordering = None, dep.serializer)
+    }
+    sorter.insertAll(records)
+
+ 
+    val mapOutputWriter = shuffleExecutorComponents.createMapOutputWriter(
+      dep.shuffleId, mapId, dep.partitioner.numPartitions)
+    sorter.writePartitionedMapOutput(dep.shuffleId, mapId, mapOutputWriter)
+    partitionLengths = mapOutputWriter.commitAllPartitions(sorter.getChecksums).getPartitionLengths
+    mapStatus = MapStatus(blockManager.shuffleServerId, partitionLengths, mapId)
+  }
+
+</code></pre>
+<p>先创建一个排序器 sorter    (sorter是 ExternalSorter 对象) , 使用sorter.insertAll (records) 排序.<br>
+核心语句是 sorter的writePartitionedMapOutput, 执行写操作.</p>
+<figure data-type="image" tabindex="3"><img src="https://staticor.github.io/post-images/1654162708015.png" alt="" loading="lazy"></figure>
+<p>补充, 构建sorter时也要判断是否用到了map-side 聚合</p>
+<ul>
+<li>
+<p>ExternalSorter.writerPartitionedMapOutput</p>
+</li>
+<li>
+<p>LocalDiskShuffleMapOutputWriter.commitAllPartitions</p>
+</li>
+<li>
+<p>IndexShuffleBlockResolver.writeMetadataFileAndCommit</p>
+</li>
+</ul>
+<p>在本地写磁盘时,要写的metadata包括两种信息, 索引文件和checksum文件, 其中checumSum 是可省略的.</p>
+<h4 id="sorterinsertall">sorter.insertAll</h4>
+<p>map是PartitionedAppendOnlyMap 一个映射表, 如果开启了预聚合,用map来更新对应的key-value信息. 溢写操作 <code>maybeSpillCollection(usingMap = true)   </code> 参数为true.<br>
+buffer 是 PartitionedPairBuffer  是个纯数组结构, 只做纯append, 溢写操作参数是false.</p>
+<pre><code class="language-scala">...
+    if (shouldCombine) {
+      // Combine values in-memory first using our AppendOnlyMap
+      val mergeValue = aggregator.get.mergeValue
+      val createCombiner = aggregator.get.createCombiner
+      var kv: Product2[K, V] = null
+      val update = (hadValue: Boolean, oldValue: C) =&gt; {
+        if (hadValue) mergeValue(oldValue, kv._2) else createCombiner(kv._2)
+      }
+      while (records.hasNext) {
+        addElementsRead()
+        kv = records.next()
+        map.changeValue((getPartition(kv._1), kv._1), update)
+        maybeSpillCollection(usingMap = true)
+      }
+    }
+
+</code></pre>
+<p>如果没有支持预聚合操作,</p>
+<pre><code class="language-scala">....
+ else {
+      // Stick values into our buffer
+      while (records.hasNext) {
+        addElementsRead()
+        val kv = records.next()
+        buffer.insert(getPartition(kv._1), kv._1, kv._2.asInstanceOf[C])
+        maybeSpillCollection(usingMap = false)
+      }
+    }
+</code></pre>
+<h4 id="sortermaybespillcollectionusingmap-boolean">sorter.maybeSpillCollection(usingMap: Boolean)</h4>
+<p>内存缓冲区溢写到磁盘的操作.<br>
+true表示map,</p>
+<pre><code class="language-scala">  estimatedSize = map.estimateSize()
+      if (maybeSpill(map, estimatedSize)) {
+        map = new PartitionedAppendOnlyMap[K, C]
+</code></pre>
+<p>false表示是buffer数组.</p>
+<h4 id="sortermaybespillcollection-c-currentmemory-long">sorter.maybeSpill(collection C, currentMemory: Long)</h4>
+<p>判断是否应该要溢写?<br>
+元素数量是32的倍数 并且 当前内存大于指定阈值  (SHUFFLE_SPILL_INITIAL_MEM_THRESHOLD 默认取自于配置文件   key为 <strong>spark.shuffle.spill.initialMemoryThreshold</strong>)   5MB</p>
+<p>尝试申请新内存(amountToRequest,  acquireMemory)<br>
+如果申请资源不足以满足, 开始强制溢写.</p>
+<p>另外一种开启溢写的机制是判断读取元素数量太多, 大于<br>
+numElementsForceSpillThreshold (SHUFFLE_SPILL_NUM_ELEMENTS_FORCE_SPILL_THRESHOLD) 即整数的最大值, 会强制溢写</p>
+<pre><code class="language-scala">protected def maybeSpill(collection: C, currentMemory: Long): Boolean = {
+    var shouldSpill = false
+    if (elementsRead % 32 == 0 &amp;&amp; currentMemory &gt;= myMemoryThreshold) {
+      
+      val amountToRequest = 2 * currentMemory - myMemoryThreshold
+      val granted = acquireMemory(amountToRequest)
+      myMemoryThreshold += granted
+      // If we were granted too little memory to grow further (either tryToAcquire returned 0,
+      // or we already had more memory than myMemoryThreshold), spill the current collection
+      shouldSpill = currentMemory &gt;= myMemoryThreshold
+    }
+    shouldSpill = shouldSpill || _elementsRead &gt; numElementsForceSpillThreshold
+    // Actually spill
+    if (shouldSpill) {
+      _spillCount += 1
+      logSpillage(currentMemory)
+      spill(collection)
+      _elementsRead = 0
+      _memoryBytesSpilled += currentMemory
+      releaseMemory()
+    }
+    shouldSpill
+  }
+</code></pre>
+<p><code>logSpillage(currentMemory)</code>   <code>spill(collection)</code> 执行真正的溢写操作<br>
+溢写过后, 调用relaseMemory () 释放内存.</p>
+<h4 id="spillcollection-spillmemoryiteratortodiskinmemoryiterator">spill(collection) -&gt; spillMemoryIteratorToDisk(inMemoryIterator)</h4>
+<p>在ExternalSortger中, spill 方法真正调用的是 spillMemoryIteratorToDisk</p>
+<p>方法注释, 将内存中的一部分迭代对象,写到磁盘中的一个临时文件.<br>
+Spill contents of in-memory iterator to a temporary file on disk.</p>
+<p>临时文件创建:<br>
+<code>diskBlockManager.createTempShuffleBlock()</code></p>
+<p>溢写的写对象, writer:<br>
+<code>    val writer: DiskBlockObjectWriter =       blockManager.getDiskWriter(blockId, file, serInstance, fileBufferSize, spillMetrics)</code></p>
+<p>fileBufferSize 大小是 SHUFFLE_FILE_BUFFER_SIZE  32K<br>
+(spark.shuffle.file.buffer)</p>
+<h4 id="sorterpartitionediterator">sorter.partitionedIterator</h4>
+<p>最后返回所有的数据,既包括磁盘的溢写临时文件,也包括内存缓冲区中的文件</p>
+<figure data-type="image" tabindex="4"><img src="https://staticor.github.io/post-images/1654162731316.png" alt="" loading="lazy"></figure>
+<h3 id="bypassmergesortshufflewriter">BypassMergeSortShuffleWriter</h3>
+<h1 id="shuffleread阶段">ShuffleRead阶段</h1>
+<p>想象Reduce是一个结果Stage, 那么通过ResultStage就应该可以找到读数据的逻辑 , ResultTask.runTask中有这么一段:<br>
+<code>  func(context, rdd.iterator(partition, context))</code><br>
+调用RDD的iterator 方法, 继而调用 <code>RDD.getOrCompute --  computeOrReadCheckpoint  -- compute 方法</code></p>
+<p>因为要看的是Shuffle过程, 所以去查看ShuffleRDD的compute方法.<br>
+<img src="https://staticor.github.io/post-images/1654162744850.png" alt="" loading="lazy"></p>
+<p>可以看到, <code>SparkEnv.get.shuffleManager.getReader</code> 这一行生成了Reader,并执行read方法.</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://staticor.github.io/post/spark-de-oom-fen-xi/" class="post-title gt-a-link">
+                    Spark的OOM分析
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">To Think   You Have to Write</div>
+    <div class="social-container">
+        
+            
+                <a href="github.com/staticor" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/staticor" target="_blank">staticor @ github </a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://staticor.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
